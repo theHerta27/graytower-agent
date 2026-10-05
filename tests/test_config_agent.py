@@ -213,6 +213,41 @@ class ModelGatewayTests(unittest.TestCase):
             self.gateway(max_calls=1).complete([{"role": "user", "content": "fixture"}], GatewayAnswer)
         self.assertEqual(self.requests, [])
 
+    def test_remaining_calls_reads_persistent_reservations_without_writing(self):
+        gateway = self.gateway(max_calls=3)
+        self.assertTrue(callable(getattr(gateway, 'remaining_calls', None)), 'gateway must expose its durable remaining budget')
+        self.assertEqual(gateway.remaining_calls(), 3)
+        self.assertEqual(list(Path(self.temp.name).iterdir()), [], 'a budget read must not create ledger or lock files')
+        gateway.complete([{'role': 'user', 'content': 'offline fixture'}], GatewayAnswer)
+        with self.audit_path.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps({'call_id': 'unknown-after-exit', 'status': 'reserved'}) + '\n')
+        original = self.audit_path.read_bytes()
+        self.assertEqual(self.gateway(max_calls=3).remaining_calls(), 1)
+        self.assertEqual(self.gateway(max_calls=2).remaining_calls(), 0)
+        self.assertEqual(self.audit_path.read_bytes(), original)
+        self.assertEqual(len(self.requests), 1, 'budget reads must not contact the provider')
+
+    def test_invalid_ledger_cannot_authorize_a_new_call(self):
+        invalid = [
+            '{broken json\n',
+            json.dumps({'call_id': 'bad', 'status': 'unknown'}) + '\n',
+            json.dumps({'call_id': 'orphan', 'status': 'completed'}) + '\n',
+            json.dumps({'status': 'reserved'}) + '\n',
+            json.dumps({'call_id': '', 'status': 'reserved'}) + '\n',
+            json.dumps({'call_id': 'duplicate', 'status': 'reserved'}) + '\n'
+            + json.dumps({'call_id': 'duplicate', 'status': 'reserved'}) + '\n',
+        ]
+        for raw in invalid:
+            with self.subTest(raw=raw):
+                self.audit_path.write_text(raw, encoding='utf-8')
+                gateway = self.gateway(max_calls=8)
+                with self.assertRaisesRegex(RuntimeError, 'ledger'):
+                    gateway.remaining_calls()
+                with self.assertRaisesRegex(RuntimeError, 'ledger'):
+                    gateway.complete([{'role': 'user', 'content': 'offline fixture'}], GatewayAnswer)
+                self.assertEqual(self.audit_path.read_text(encoding='utf-8'), raw)
+        self.assertEqual(self.requests, [])
+
     def test_invalid_structured_response_keeps_usage_and_redacts_raw_secret(self):
         def malformed(request):
             self.requests.append(request)

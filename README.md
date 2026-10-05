@@ -6,6 +6,8 @@
 
 ## 首个本地业务入口
 
+最新续验：Config首轮6个开发需求通过5个，修复后同题回归6/6；新候选已交独立QA跑4场，但首次非法策略和Trace过度解释仍计失败。预算/状态/报告/证据摘录已据此修复，后两项QA模型效果仍待独立确认，M3未关闭。详见[真实续验、费用与限制](research/evidence/v1-followup-20261005.md)。
+
 使用当前项目 `.venv`；可用 [锁文件](requirements-v1.lock.txt) 重建。游戏仍固定使用可信的 `D:/Desktop/combat-foundation` 和它的解释器，新工作台不会改写游戏基线。真实模型通过环境变量 `DEEPSEEK_API_KEY` 提供凭据，禁止写入前端、候选或证据。每个 data 目录的演示调用账本最多 8 次；重启不重置。
 
 ```powershell

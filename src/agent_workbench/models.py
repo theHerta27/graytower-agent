@@ -170,6 +170,38 @@ class ModelGateway:
             return value
         return type(value).__name__
 
+    def remaining_calls(self) -> int:
+        """Read a budget snapshot without creating files or reserving a call.
+
+        Unknown/failed calls remain charged. complete() checks this same ledger
+        again under its local lock before adding a reservation.
+        """
+        if self.audit_path is None:
+            raise RuntimeError("persistent audit_path is required for model budget")
+        try:
+            raw = self.audit_path.read_text(encoding="utf-8")
+        except FileNotFoundError:
+            return self.max_calls
+        except (OSError, UnicodeError) as exc:
+            raise RuntimeError("model audit ledger unreadable; refusing a new call") from exc
+        states = {}
+        try:
+            for line in raw.splitlines():
+                if not line.strip():
+                    continue
+                item = json.loads(line)
+                if (not isinstance(item, dict) or not isinstance(item.get("call_id"), str)
+                        or not item["call_id"].strip() or item.get("status") not in {"reserved", "completed", "failed"}):
+                    raise ValueError("invalid model audit record")
+                call_id, status = item["call_id"], item["status"]
+                if ((status == "reserved" and call_id in states)
+                        or (status != "reserved" and states.get(call_id) != "reserved")):
+                    raise ValueError("invalid model audit lifecycle")
+                states[call_id] = status
+        except (ValueError, TypeError) as exc:
+            raise RuntimeError("model audit ledger invalid; refusing a new call") from exc
+        return max(0, self.max_calls - len(states))
+
     def complete(self, messages: list[dict], schema: type[BaseModel]) -> dict:
         preview = self.preview(messages, schema)
         key = self._api_key or os.environ.get("DEEPSEEK_API_KEY")
@@ -182,14 +214,7 @@ class ModelGateway:
                   "preview": self._safe(preview, key), "status": "reserved",
                   "usage": None, "elapsed_seconds": None, "error": None, "raw": None}
         with self._audit_lock():
-            existing = []
-            if self.audit_path.exists():
-                try:
-                    existing = [json.loads(line) for line in self.audit_path.read_text(encoding="utf-8").splitlines() if line.strip()]
-                except (ValueError, OSError) as exc:
-                    raise RuntimeError("model audit ledger unreadable; refusing a new call") from exc
-            reservations = {item["call_id"] for item in existing if item.get("status") == "reserved"}
-            if len(reservations) >= self.max_calls:
+            if self.remaining_calls() == 0:
                 raise RuntimeError("persistent model call limit exhausted")
             self._append(deepcopy(record))
         started = time.monotonic()

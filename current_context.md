@@ -2,7 +2,18 @@
 
 更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，已初始化Git（基线321ae64）。用户已批准进入实施，V1限定单机、本地服务、SQLite。旧游戏、旧Coding、Codex参考树、旧verification源码及封存实验保持原样。新产品CLI切片已实现并实际演示；四能力完整产品仍未完成。
 
-## 最新实施结果与继续入口
+## 2026-10-05 续验：当前继续入口
+
+- 本轮报告/预算/失败边界已修：中文显示胜→负/超时和无收据；已准入检查不可用交付INC；QA每次读取最新战斗/模型余量，额度耗尽正常停止；未知模型预留仍占额度。策略Schema明确枚举balanced/survival/basic_only，非法种子/策略/预算与无效模型输出分别诊断。
+- 旧授权8次已用尽：从原6次精确字节账本续用2次，新QA实际4场，模拟成功后模型提出额外8场被拒，随后触顶；原报告错误不改。累计8完成/0未知，估USD0.004608756。不是干净验收。
+- 用户另授权6个新Config开发需求＋固定dev-c01 QA，16次/USD0.50/最多4场。首轮Config6次，独立复核5/6；冲突值需求文案追问正确但status为rejected，按冻结needs_input标准失败。QA4次/4场：首次误将版本baseline/candidate当策略，被拒后改正；预算提示生效，读Trace后结束。模型只读candidate片段却声称确认倍率路径，解释仍计失败。总体INC/结构PASS，重复A2A委托0新调用/0新战斗。
+- 修改Config通用状态定义后，用同批剩余6次对完整6题做一轮已知开发回归，每题一次、无新增战斗；独立助手复核6/6，不当独立确认，不覆盖首轮。新批累计16完成/0未知，66377输入（10112缓存）＋2356输出，峰价估USD0.019767372。两批调用额度都已用尽，不能再以本批授权追加模型。
+- 首轮26源码/输入精确快照在local-data/config-development-v1/round1-source；上次b45c925的38源码快照在research/evidence/v1-implementation-source-20261005。旧91文件seal逐一核验未变；新代码/报告另封存，不改旧证据。
+- 23题窄profile包已冻结：6+12 Config、2+3合成解释；当前只运行6 Config开发题，确认集和合成解释未收费运行。状态/关键词不自动给语义分，独立助手复核绑定原文/hash/理由并注明非真人。详见research/evals/config-qa-v1/README.md。
+- 最终117 tests（115 pass＋2 opt-in skip），旧跳过项上轮已单独执行。Trace只读压缩真实974事件为19个/5978字符，保留hash/单版本部分视图限制；新模型效果未复测。原文件和新代码封存见research/evidence/v1-followup-20261005.json。
+- 本轮结果和下一步见research/evidence/v1-followup-20261005.md。M3尚未完成：下一步用新的独立任务验证修复后的QA工具选择与证据解释，再把React页面接现有领域服务。Coding稳定Runtime、Unity真实测试/玩家输入与NPC世界链仍未交付；不扩生产级部署。
+
+## 首次实施结果（历史，费用以顶部累计为准）
 
 - 新Config为真实LangGraph＋LangChain DeepSeek结构化输出，确定性领域层负责Schema/范围/引用校验和冻结；支持击破手战技倍率1.4–1.7。Verifier独立LangGraph决策，经标准A2A接任务、MCP查候选/模拟/读Trace，候选只读。
 - SQLite确认/不可变请求/Job receipt；同请求或同作业重放不重复执行。图checkpoint与完成receipt间硬退出跨进程恢复成功；running无receipt保留未知，禁止换参数绕重跑。未做多实例/OAuth/生产级outbox，也未实现跨revision自动优化总grant。

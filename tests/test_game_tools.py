@@ -124,5 +124,140 @@ class GameToolTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(game.store.get('strict-seed')['charged_battles'], 0)
 
 
+class TraceExcerptTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.game = GameTools(self.root)
+
+    def save_trace(self, oversized_final_action=False):
+        """Real content-addressed storage/receipt; only battle data is synthetic."""
+        snapshot = {'units': {'fixture_unit': {'history': 'large-snapshot-' * 800}}}
+        events = []
+
+        def event(kind, action=None, actor=None, payload=None, cause=None):
+            event_id = 'event_' + str(len(events) + 1).zfill(6)
+            events.append({'event_id': event_id, 'kind': kind, 'actor_id': actor,
+                'target_id': 'boss_fixture' if kind == 'direct_damage' else None,
+                'action_id': action, 'cause_event_id': cause, 'turn_id': len(events),
+                'av': str(len(events) * 10), 'payload': payload or {}, 'state_after': snapshot})
+            return event_id
+
+        event('battle_started')
+        for number in range(1, 36):
+            action = f'action_{number:06d}'
+            reason = 'large-reason-' * 1000 if oversized_final_action and number == 35 else 'sp_available'
+            decision_id = event('decision', action, 'breaker_fixture',
+                {'skill_id': 'breaker_skill', 'reason_code': reason, 'target_ids': ['boss_fixture']})
+            event('direct_damage', action, 'breaker_fixture',
+                {'skill_id': 'breaker_skill', 'amount': 210, 'hp_loss': 210, 'absorbed': 0,
+                 'overkill': 0, 'critical': False, 'damage_type': 'lightning',
+                 'debug_state': snapshot}, decision_id)
+            event('action_finished', action, 'breaker_fixture', {'skill_id': 'breaker_skill'}, decision_id)
+        event('battle_finished', 'action_000035', payload={'outcome': 'win', 'reason': 'boss_dead'})
+        trace = {'trace_version': '2.0', 'seed': 47, 'policy_id': 'balanced',
+                 'events': events, 'initial_state': snapshot,
+                 'result': {'outcome': 'win', 'reason': 'boss_dead', 'final_state': snapshot}}
+        ref = self.game.repo.artifacts.put(trace, 'combat-trace-v2')
+        ref.update(seed=47, policy='balanced', variant='candidate')
+        self.game.store.confirm('a' * 64)
+        self.game.store.admit('trace-view', 'a' * 64, 'read saved fixture only', 2)
+        self.game.store.run('trace-view', {'seeds': [47], 'policies': ['balanced']}, 2,
+                            lambda: {'trace_refs': [ref]})
+        return trace, ref
+
+    def test_large_snapshots_do_not_hide_actual_decision_damage_and_finish(self):
+        trace, ref = self.save_trace()
+        output = self.game.read_trace('trace-view', ref['sha256'])
+        self.assertNotIn('state_after', output['excerpt'])
+        self.assertNotIn('large-snapshot', output['excerpt'])
+        excerpt = json.loads(output['excerpt'])
+        selected = {event['event_id']: event for event in excerpt['events']}
+        self.assertIn('event_000002', selected, 'the first real decision must survive snapshot compaction')
+        self.assertIn('event_000003', selected, 'the damage belonging to that action must survive')
+        self.assertIn('event_000107', selected, 'the closing event must not be lost to prefix sampling')
+        damage = selected['event_000003']
+        self.assertEqual(damage['actor_id'], 'breaker_fixture')
+        self.assertEqual(damage['skill_id'], 'breaker_skill')
+        self.assertEqual(damage['av'], '20')
+        self.assertEqual(damage['action_id'], 'action_000001')
+        self.assertEqual(damage['cause_event_id'], 'event_000002')
+        self.assertEqual(damage['payload']['amount'], 210)
+        self.assertNotIn('debug_state', damage['payload'])
+        self.assertEqual(selected['event_000107']['payload']['outcome'], 'win')
+        self.assertEqual((excerpt['seed'], excerpt['policy'], excerpt['variant']), (47, 'balanced', 'candidate'))
+
+    def test_selection_is_bounded_complete_json_with_action_groups_and_explicit_limits(self):
+        trace, ref = self.save_trace()
+        before = self.game.repo.artifacts.path(ref['sha256']).read_bytes()
+        output = self.game.read_trace('trace-view', ref['sha256'])
+        self.assertIsInstance(output.get('selection'), dict, 'partial trace coverage must be explicit')
+        selected = json.loads(output['excerpt'])['events']
+        self.assertLessEqual(len(output['excerpt']), 6000)
+        self.assertEqual(output['selection']['total_events'], 107)
+        self.assertEqual(output['selection']['selected_events'], len(selected))
+        self.assertEqual(output['selection']['omitted_events'], 107 - len(selected))
+        self.assertTrue(output['selection']['single_variant'])
+        self.assertFalse(output['selection']['causal_comparison'])
+        self.assertTrue(output['selection']['partial_trace'])
+        self.assertTrue(output['truncated'])
+        by_action = {}
+        for event in selected:
+            if event['kind'] in ('decision', 'direct_damage'):
+                by_action.setdefault(event['action_id'], set()).add(event['kind'])
+        self.assertTrue(by_action)
+        self.assertTrue(all(kinds == {'decision', 'direct_damage'} for kinds in by_action.values()))
+        self.assertEqual(output['reference'], ref)
+        self.assertEqual(output['artifact_hash'], ref['sha256'])
+        self.assertEqual(self.game.read_trace('trace-view', ref['sha256']), output)
+        self.assertEqual(self.game.repo.artifacts.path(ref['sha256']).read_bytes(), before)
+        self.assertEqual(self.game.store.get('trace-view')['charged_battles'], 2)
+
+    def test_compaction_does_not_allow_a_trace_outside_the_request(self):
+        trace, ref = self.save_trace()
+        foreign = self.game.repo.artifacts.put({**trace, 'seed': 99}, 'combat-trace-v2')
+        with self.assertRaisesRegex(ValueError, 'outside this request'):
+            self.game.read_trace('trace-view', foreign['sha256'])
+
+    def test_oversized_final_action_does_not_remove_the_battle_outcome(self):
+        trace, ref = self.save_trace(oversized_final_action=True)
+        output = self.game.read_trace('trace-view', ref['sha256'])
+        selected = {event['event_id'] for event in json.loads(output['excerpt'])['events']}
+        self.assertIn('event_000107', selected)
+        self.assertIn('event_000002', selected)
+        self.assertNotIn('event_000104', selected)
+        self.assertNotIn('event_000105', selected)
+        self.assertLessEqual(len(output['excerpt']), 6000)
+
+    @unittest.skipUnless((DEMO_ROOT.parent / 'config-development-v1/dev-c01/jobs.sqlite').is_file(),
+                         'requires saved development evidence; never starts battles')
+    async def test_saved_development_trace_compacts_over_mcp_without_mutating_evidence(self):
+        source_root = DEMO_ROOT.parent / 'config-development-v1/dev-c01'
+        shutil.copytree(source_root / 'artifacts', self.root / 'artifacts', dirs_exist_ok=True)
+        with closing(sqlite3.connect((source_root / 'jobs.sqlite').as_uri() + '?mode=ro', uri=True)) as source:
+            with closing(sqlite3.connect(self.root / 'jobs.sqlite')) as target:
+                source.backup(target)
+        original = self.game.store.receipts('dev-c01-qa')
+        ref = next(ref for job in original for ref in job['result']['trace_refs']
+                   if ref['seed'] == 7 and ref['variant'] == 'candidate')
+        before = self.game.repo.artifacts.path(ref['sha256']).read_bytes()
+        charged = self.game.store.get('dev-c01-qa')['charged_battles']
+        async with connect_tools(self.root) as client:
+            output = await client.call('read_trace', {'request_id': 'dev-c01-qa', 'artifact_hash': ref['sha256']})
+        self.assertNotIn('state_after', output['excerpt'])
+        excerpt = json.loads(output['excerpt'])
+        selected = {event['event_id']: event for event in excerpt['events']}
+        self.assertEqual(selected['event_000003']['payload']['skill_id'], 'breaker_skill')
+        self.assertEqual(selected['event_000006']['payload']['amount'], 210)
+        self.assertEqual(selected['event_000974']['payload']['outcome'], 'win')
+        self.assertEqual(output['selection']['total_events'], 974)
+        self.assertEqual(excerpt['variant'], 'candidate')
+        self.assertLessEqual(len(output['excerpt']), 6000)
+        self.assertEqual(self.game.repo.artifacts.path(ref['sha256']).read_bytes(), before)
+        self.assertEqual(self.game.store.receipts('dev-c01-qa'), original)
+        self.assertEqual(self.game.store.get('dev-c01-qa')['charged_battles'], charged)
+
+
 if __name__ == '__main__':
     unittest.main()

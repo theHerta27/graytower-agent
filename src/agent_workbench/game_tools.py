@@ -58,6 +58,63 @@ def validate_game_result(result, manifest_hash, seeds, policies):
         seen.add(key)
 
 
+def _trace_excerpt(trace, reference):
+    """Project observed events, never infer effectiveness or a cross-version cause."""
+    events = trace['events']
+    event_fields = ('event_id', 'kind', 'actor_id', 'target_id', 'av', 'turn_id', 'action_id', 'cause_event_id')
+    payload_fields = {'skill_id', 'target_ids', 'reason_code', 'amount', 'hp_loss', 'absorbed',
+                      'overkill', 'critical', 'damage_type', 'outcome', 'reason', 'before', 'after',
+                      'from_phase', 'to_phase', 'entered', 'weaknesses', 'buff_id'}
+
+    def scalar(value):
+        return value is None or type(value) in (str, int, float, bool)
+
+    projected, actions, finishes, landmarks = [], {}, [], []
+    for index, event in enumerate(events):
+        payload = {key: value for key, value in event['payload'].items() if key in payload_fields
+                   and (scalar(value) or isinstance(value, list) and all(scalar(item) for item in value))}
+        projected.append({**{key: event.get(key) for key in event_fields},
+                          'skill_id': payload.get('skill_id'), 'payload': payload})
+        kind, action = event['kind'], event.get('action_id')
+        if kind in ('decision', 'direct_damage', 'break_damage', 'dot_damage'):
+            if action is not None:
+                actions.setdefault(action, []).append(index)
+            else:
+                landmarks.append(index)
+        elif kind == 'battle_finished':
+            finishes.append(index)
+        elif kind in ('phase_changed', 'unit_died', 'break_triggered'):
+            landmarks.append(index)
+
+    # Reserve the ending and its action context before taking earlier action
+    # groups. A group is never byte-sliced into incomplete JSON or half an action.
+    groups = []
+    if finishes:
+        last = finishes[-1]
+        groups.append([last])
+        groups.append(actions.get(events[last].get('action_id'), []))
+    groups.extend(actions.values())
+    groups.extend([index] for index in landmarks)
+    identity = {key: reference[key] for key in ('seed', 'policy', 'variant')}
+    selected = set()
+    excerpt = canonical({**identity, 'events': []})
+    if len(excerpt) > 6000:
+        raise ValueError('trace identity exceeds excerpt limit')
+    for group in groups:
+        proposed = selected.union(group)
+        bounded = canonical({**identity, 'events': [projected[index] for index in sorted(proposed)]})
+        if len(bounded) <= 6000:
+            selected, excerpt = proposed, bounded
+    return excerpt, {
+        'view': 'combat-trace-excerpt-v1', 'total_events': len(events), 'selected_events': len(selected),
+        'omitted_events': len(events) - len(selected), 'excerpt_characters': len(excerpt),
+        'partial_trace': True, 'single_variant': True, 'causal_comparison': False,
+        'rule': '先保留最后battle_finished，再尝试其action的决策/伤害组；随后按原始顺序选各action的决策/伤害组；余量选阶段、死亡、击破与无action伤害事件。每组整体纳入，超过6000字符则跳过，最后按原始事件顺序显示。',
+        'projection': '仅保留事件身份、行动关联及白名单payload标量/标量数组；省略状态快照、其他payload字段和未选事件。',
+        'limit': '这是单个版本的部分事件摘录，不是完整Trace或版本对照；不能据此确认倍率已生效、总体效果或因果关系。',
+    }
+
+
 class GameTools:
     def __init__(self, root):
         self.root = Path(root)
@@ -90,11 +147,12 @@ class GameTools:
         if artifact_hash not in {r['sha256'] for r in refs}:
             raise ValueError('trace is outside this request evidence')
         trace = self.repo.read_artifact(artifact_hash)
-        # Original complete trace remains content addressed; bounded view avoids log flooding.
-        raw = canonical(trace)
-        return {'artifact_hash': artifact_hash, 'characters': len(raw),
-                'excerpt': raw[:6000], 'truncated': len(raw) > 6000,
-                'reference': next(r for r in refs if r['sha256'] == artifact_hash)}
+        # Preserve the hash-checked full trace. The tool returns a separate,
+        # explicitly partial event projection instead of slicing giant snapshots.
+        reference = next(r for r in refs if r['sha256'] == artifact_hash)
+        excerpt, selection = _trace_excerpt(trace, reference)
+        return {'artifact_hash': artifact_hash, 'characters': len(canonical(trace)),
+                'excerpt': excerpt, 'truncated': True, 'selection': selection, 'reference': reference}
 
 
 def serve(root):
@@ -120,7 +178,7 @@ def serve(root):
 
     @server.tool(structured_output=True)
     def read_trace(request_id: str, artifact_hash: str) -> dict[str, Any]:
-        """Return a bounded, hash-checked trace excerpt belonging to this request."""
+        """Read bounded decision/damage/end events from ONE variant; not causal proof."""
         return logged('read_trace', {'request_id': request_id, 'artifact_hash': artifact_hash},
                       game.read_trace(request_id, artifact_hash))
 

@@ -37,9 +37,20 @@ def render_report(report):
     label = '尚不足以判断总体效果' if facts['verdict'] == 'INCONCLUSIVE' else '发现失败证据'
     lines = [f'验证结果：{label}（{facts["verdict"]}）',
              f'本批共 {facts["distinct_pairs"]} 对固定样本。', facts['meaning']]
+    if report.get('stop_reason') == 'model_budget_exhausted':
+        lines.append('模型调用额度已用尽，已停止继续调查并保留已有证据。')
+    outcomes = {'win': '胜利', 'loss': '失败', 'timeout': '超时'}
+    for transition, count in sorted(facts['transitions'].items()):
+        policy, change = transition.split(':', 1)
+        before, after = change.split('->', 1)
+        lines.append(f'{policy} / {outcomes.get(before, before)} → {outcomes.get(after, after)}：{count} 对。')
+    if not facts['comparisons']:
+        lines.append('本批没有双方都获胜的配对，无法比较共同胜利样本的行动值。')
     for pair in facts['comparisons']:
         lines.append(f'样本 {pair["seed"]} / {pair["policy"]}：两个版本都获胜；基线 AV {pair["baseline_av"]}，候选 AV {pair["candidate_av"]}，{pair["direction"]}（差值 {pair["delta_av"]}）。')
     if facts['original_error_count']:
-        lines.append(f'原运行记录了 {facts["original_error_count"]} 次工具错误；此处展示已保存的作业收据，不抹去错误。')
+        lines.append(f'原运行记录了 {facts["original_error_count"]} 次运行错误；错误详情保留在原始报告中。')
+    if not report.get('jobs'):
+        lines.append('没有已完成的战斗收据。')
     lines.extend([facts['limit'], '候选尚未应用到游戏基线。'])
     return '\n'.join(lines)

@@ -1,0 +1,25 @@
+{
+  "schema_version": "config-qa-casepack-freeze-v1",
+  "created": "2026-10-05",
+  "author_source": "development_assistant",
+  "status": "frozen_before_casepack_live_calls",
+  "live_model_calls_for_this_package": 0,
+  "new_battles_for_this_subtask": 0,
+  "files": {
+    "research/evals/config-qa-v1/cases.json": "2060e0ca59e5c4d127e7199821e424315f9590f88845c35afefa68f988199741",
+    "research/evals/config-qa-v1/README.md": "565d3c54890616ddcfce3f30e755c11a61c32db8400a5a29ce380b1abe28e0fc",
+    "research/evals/config-qa-v1/evaluate.py": "5ebf01837844038469d7dd4a9f45e7cf8ce5f4f50b1cf49baf5a636e1abffab8",
+    "tests/test_business_acceptance.py": "0cf61ba6a7e1a007ff46c28f8599d1a536fc69ef24d8ee335ea3d0d74d453876"
+  },
+  "counts": {
+    "development": 8,
+    "confirmation": 15
+  },
+  "independence_limit": "Source-visible, not double-blind. No confirmation model output was used for tuning.",
+  "revision": 2,
+  "revision_note": "Documentation-only synchronization before paid execution; case content, scorer and tests unchanged. New six-Config plus fixed dev-c01 QA batch remains pending authorization.",
+  "supersedes": {
+    "freeze_sha256": "dd6204dd110aac55c27796d36b1bef270aacb5fa4ea6b3ee5eff7fe57f6d29cf",
+    "readme_sha256": "f203e282afeb896d2b6268372aac778914669084a712b813dafffc5534bb68ad"
+  }
+}
