@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群总体技术方案
 
+**2026-10-05 Coding 实施增量：** 正式 SDK/默认 Runtime 已固定0.160.0，single/auto、原生只读MCP＋主thread动态文件编辑、原生Review、完整文件候选及同A2A准入已实现并通过离线链路。DeepSeek仅做namespace窄映射与统一费用入口，无SDK fork/无自建Agent主循环。当前只接numeric_config；真实模型验收待新scope授权，不能据fixture宣布G0-C或协作收益完成。详见[Coding接入证据](research/evidence/coding-runtime-integration-20261005.md)。
+
 更新：2026-10-05。以本轮四能力产品边界为当前基线，替代旧三产品、Verification自行调候选和固定Coding协作profile的默认设计。本文是推荐架构；当前实现、研究探针和待验能力分别标明，整套产品尚未交付。
 
 ## 1. 推荐方案与业务价值

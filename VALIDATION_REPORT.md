@@ -1,5 +1,7 @@
 # 材料调研与必要技术验证报告
 
+> **Coding最新离线增量（2026-10-05）：** 正式SDK/CLI0.160.0原生生命周期/权限probe3/3，产品single/auto文件→MCP检查→原生Review→冻结候选分别5/10次本地脚本响应成功。189 tests（187通过、2既有opt-in跳过），0外部模型/0战斗；不等于DeepSeek质量或Coding→QA真实模型验收。新scope待授权。详见[Coding接入与限制](research/evidence/coding-runtime-integration-20261005.md)。
+
 > **最新实施记录（2026-10-05）：** 已开始本机 V1，新增 Config/独立 QA/A2A/MCP/SQLite CLI。真实6次 DeepSeek、4场 live；首跑日志返回故障已修但记录保留，模型解释方向误读仍计质量失败，程序生成中文数值事实。84项最终测试（82通过＋2 opt-in已分别实际执行），硬退出后收据恢复0新增战斗。详见 [V1 业务演示、费用与限制](research/evidence/v1-implementation-20261005.md)及 [封存记录](research/evidence/v1-implementation-20261005.json)。本切片不是完整 M3 或 Unity 产品验收；以下旧阶段证据按原日期保留。
 
 > **续验更新（同日）：** 原批累计8次已用尽；新授权16次/4场已完成。Config首轮5/6、同题开发回归6/6；QA非法策略与Trace过度解释如实保留，完成报告不算全部业务验收通过。最新实现、精确费用、测试和后续限制见 [V1续验记录](research/evidence/v1-followup-20261005.md)；上段84项为首次实施历史。

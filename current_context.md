@@ -1,5 +1,14 @@
 # 当前上下文
 
+## 2026-10-05 Coding 正式 Runtime：最新继续入口
+
+- 已固定官方发布 openai-codex==0.160.0＋默认 CLI==0.160.0，独立 research/.venv-coding；主循环/原生子调度/Review 均复用，不改SDK。新增 single/auto 文件业务入口，原生只读MCP共享给子，主thread独占动态edit_text。namespace仅在DeepSeek边界无损映射，shared SQLite按全部父子/Review调用计额。
+- CodingWorkspace导入完整实际文件与目录，绑定精确bytes/hash/diff、来源artifact和Review最终树；author=coding、kind=numeric_config，同A2A QA已扩准入；仍拒code/build。旧manifest环境drift保留，旧报告收据可读，不重封或放宽旧hash。
+- 正式SDK probe最终3/3、本地脚本化产品single/auto分别5/10请求全链通过；actual auto创建1原生子，不能当真实DeepSeek或协作质量成绩。189 tests=187 pass+2既有opt-in skip；0新增模型/战斗。硬退出临时文件、Review/候选绑定、授权前领域漂移等审查问题已修；早期失败原样保存。见research/evidence/coding-runtime-integration-20261005.md/json。
+- 新真实批次已准备、正在等待本轮授权：local-data/coding-runtime-demo-v1/outbound-scope.json，sha bd9ff50285c0757d777932617f3e1ce9d01648e1d90b08d82fcac598d70e1c48。single→auto，同需求功能验收后固定auto候选同QA；DeepSeek官方responses最多24次＋chat最多4次、4场、总USD0.85，保守USD0.743616。此前额度均关闭，不能沿用；未读key、无execution-started。
+- 授权后命令：PYTHONPATH=src;tests;scripts、PYTHONUTF8=1；.venv/Scripts/python.exe scripts/run_coding_demo.py --data local-data/coding-runtime-demo-v1 --authorization-sha256 bd9ff50285c0757d777932617f3e1ce9d01648e1d90b08d82fcac598d70e1c48。运行前验证scope/source/SDK/领域/prepared；单次执行不自动重跑。所有实际失败/未知占额，完成即关闭未用额度。
+- G0-C/M2尚未关闭，必须以真实模型业务演示结束。Coding页面、任意代码build worker、完整取消/Runtime跨进程恢复、Unity/NPC仍未完成。新的同任务双模式只是功能验收，不是效果对照；公平质量对照仍按原路线另用独立任务。
+
 更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，已初始化Git（基线321ae64）。用户已批准进入实施，V1限定单机、本地服务、SQLite。旧游戏、旧Coding、Codex参考树、旧verification源码及封存实验保持原样。新产品CLI切片已实现并实际演示；四能力完整产品仍未完成。
 
 ## 2026-10-05 JSON 决定与 Config 首次确认：最新继续入口

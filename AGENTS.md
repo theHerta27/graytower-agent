@@ -26,3 +26,5 @@
 - 2026-10-05工作台续轮：React/Starlette本机入口已接现有图/A2A/MCP，默认模型关闭；已准入QA显式恢复可零推理续checkpoint，但未知Job仍拒绝。新两题32k/USD0.40授权实际7/8调用、8场、0未知，费用估USD0.00663312；题目完成后剩余1次关闭。两次响应各双Decision旧解析仅取首，原9条reason保留，不声称无故障通过；新exact-one guard仅离线通过，不能把新代码倒算到原质量成绩。详见workbench-qa-20261005证据。
 
 - 2026-10-05 JSON/Config续轮：JSON mode默认，公开LangChain generate保留全部choice，严格原文校验；4次旧异常上下文协议回归通过，12题Config首次确认独立助手复核12/12（24标准）通过，非盲非真人/非QA全链。新授权28次/USD1.10实际16次/0战斗/估USD0.018343908，剩余12次关闭；json-config-acceptance-v2为master scope，两个子账本均封存，不能续用。旧v1准备无调用。原词句/原评分保留，不以同集结果调参后再称独立确认。
+
+- 2026-10-05 Coding续轮：正式SDK/默认CLI固定0.160.0；新coding文件能力支持single/auto原生子Agent，仅primary动态写，MCP只读。最终fixture及189项测试通过，尚非真实模型里程碑；新scope bd9ff50285c0757d777932617f3e1ce9d01648e1d90b08d82fcac598d70e1c48（coding-runtime-demo-v1）待用户授权，最多24 Responses＋4 Chat、4场、USD0.85。旧授权均关闭。授权后run_coding_demo单次执行，先查源码/SDK/冻结环境与Review树绑定，不自动重跑或应用。

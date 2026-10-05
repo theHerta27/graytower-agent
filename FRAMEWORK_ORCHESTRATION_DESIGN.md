@@ -1,5 +1,7 @@
 # 四能力编排、A2A边界与恢复协议
 
+**2026-10-05 Coding实现边界：** 发布SDK/CLI0.160.0独占Agent主循环和子调度。父子共享原生只读MCP；仅主thread有宿主动态编辑能力，fork继承声明也按真实threadId拒写。副作用用SQLite输入/hash/receipt恢复；临时文件在同卷控制目录，候选树不含控制文件。Review公开查询持久结果，最终全树与文件hash绑定后才冻结来源artifact；同A2A仍只接numeric_config，code/build不冒充配置。实际DeepSeek闭环待授权，见[本轮证据](research/evidence/coding-runtime-integration-20261005.md)。
+
 日期：2026-10-05。当前设计按Coding/Config/Verification/NPC划分；本文件替代旧Verifier生成候选/自行优化的图。与[总体方案](TECHNICAL_PROPOSAL.md)、[实施路线](IMPLEMENTATION_ROADMAP.md)共同构成实现基线。第7、8节明确保留历史已实现子集；目标图、协议与生产保障不因写入本文件而算已交付。
 
 ## 1. 选型、Agent与普通程序的分工

@@ -1,10 +1,12 @@
 # 米哈游 Agent 项目群
 
+最新 Coding 增量：正式 SDK/CLI 0.160.0 的 single/auto 文件编辑、原生 Review、只读 MCP 与同 A2A 候选准入已通过本地脚本化验证；新的真实 DeepSeek 验收范围已备，尚待授权。可运行 `scripts/check_coding_slice.py --out <新目录> --mode auto --relay` 验证离线链路，或 `scripts/run_coding_demo.py --data <新目录> --mode both` 准备外发预览；两者默认均不收费。详见[Coding 接入与证据](research/evidence/coding-runtime-integration-20261005.md)。
+
 “可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已有 CLI，React 浏览器工作台接入同一业务服务；四能力全产品、Electron 和可玩 Unity 尚未交付。
 
 先读[总体方案](TECHNICAL_PROPOSAL.md)，再看[实施路线](IMPLEMENTATION_ROADMAP.md)、[验证报告](VALIDATION_REPORT.md)和[当前上下文](current_context.md)。图状态、领域事实、外部Job与NPC丢响应恢复详见[框架设计](FRAMEWORK_ORCHESTRATION_DESIGN.md)。
 
-最新结果：默认JSON严格单决定适配已完成4次真实已知上下文回归；12题Config首次确认均首答完成，独立助手24项标准复核12/12通过。16调用峰价估USD0.018343908、0新战斗，未用额度关闭。可在[本轮候选演示](http://127.0.0.1:8766/)读取1.4→1.48的真实候选（模型关闭、待确认），完整结果与限制见[确认报告](research/evidence/json-decisions-config-confirmation-20261005.md)。
+此前 Config 结果：默认JSON严格单决定适配已完成4次真实已知上下文回归；12题Config首次确认均首答完成，独立助手24项标准复核12/12通过。16调用峰价估USD0.018343908、0新战斗，未用额度关闭。此前[候选演示](http://127.0.0.1:8766/)保留1.4→1.48的真实记录；本轮领域适配升级后，旧冻结候选新检查会提示环境漂移，旧报告/收据仍保留，完整结果与限制见[确认报告](research/evidence/json-decisions-config-confirmation-20261005.md)。
 
 ## 浏览器工作台
 

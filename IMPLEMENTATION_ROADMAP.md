@@ -1,5 +1,7 @@
 # 分阶段实施、验证与交付路线
 
+**2026-10-05 G0-C进行中：** 官方SDK/默认CLI0.160.0已锁，原生single/auto＋MCP权限＋文件编辑/Review＋Coding候选同A2A通过本地fixture。下一退出步骤是已封存的真实single/auto→固定auto候选QA批次（待新授权，28调用/4场/USD0.85）；未经真实业务演示不关闭里程碑。此后才扩代码/build受限执行、Coding页面和新的独立协作质量对照，Unity/NPC交付门槛不变。[记录](research/evidence/coding-runtime-integration-20261005.md)。
+
 更新：2026-10-05。执行[总体方案](TECHNICAL_PROPOSAL.md)的四能力边界及D01—D12。Coding动态原生子Agent保留；Config生成候选；Verification经同一标准A2A服务独立验证冻结候选；NPC独立。旧阶段编号沿用便于关联证据，不代表必须按数字顺序串行。研究探针与产品阶段分开验收。
 
 ## 1. 推荐推进顺序与当前交付范围

@@ -80,8 +80,14 @@ class _AdmissionContext(SimpleRequestContextBuilder):
             manifest = self.artifacts.read(valid_hash(value['manifest_hash']))
             if (manifest.get('schema_version') != 'candidate-manifest-v1'
                     or manifest.get('kind') != 'numeric_config' or manifest.get('profile') != PROFILE
-                    or manifest.get('author') != 'config'):
+                    or manifest.get('author') not in ('config', 'coding')):
                 raise UnsupportedOperationError('Unsupported candidate manifest kind/profile/author')
+            if manifest['author'] == 'coding':
+                source = self.artifacts.read_ref(manifest.get('coding_source'), 'coding-source-v1')
+                if source.get('schema_version') != 'coding-source-v1':
+                    raise ValueError('Malformed coding source artifact')
+                # Full source/bytes/scope checks belong to the same independent
+                # worker inspection used by QA. Admission never runs a build.
             self.store.admit(value['request_id'], value['manifest_hash'], value['goal'], value['max_battles'])
         except (ValueError, TypeError) as exc:
             raise InvalidParamsError(str(exc)) from exc
@@ -154,7 +160,7 @@ async def local_verifier(root: Path, verify_callback: Callable[[str], Awaitable[
         base = f'http://127.0.0.1:{sock.getsockname()[1]}'
         card = AgentCard(
             name='Local Verification', version='local-v1',
-            description='Trusted localhost operator only; numeric Config candidates; no OAuth or tenant isolation.',
+            description='Trusted localhost operator only; Config/Coding numeric candidates; no OAuth or tenant isolation.',
             capabilities=AgentCapabilities(streaming=False, push_notifications=False),
             default_input_modes=['application/json'], default_output_modes=['application/json'],
             skills=[AgentSkill(id='verify_candidate', name='Verify candidate',

@@ -41,12 +41,19 @@ class CandidateRepository:
     def describe(self) -> dict:
         return self._call("describe", {})
 
-    def create(self, request: str, changes: list[dict], author="config", parent_manifest: str | None = None) -> dict:
+    def create(self, request: str, changes: list[dict], author="config", parent_manifest: str | None = None,
+               *, coding_source: dict | None = None) -> dict:
         check_changes(request, changes, author)
+        if author == "coding" and coding_source is None:
+            raise ValueError("coding Author requires a frozen coding source artifact")
+        if author == "config" and coding_source is not None:
+            raise ValueError("config Author cannot claim coding source provenance")
         if parent_manifest is not None:
             self.get(valid_hash(parent_manifest))
-        return self._call("author", {"request": request, "changes": changes, "author": author,
-                                     "parent_manifest": parent_manifest})
+        payload = {"request": request, "changes": changes, "author": author, "parent_manifest": parent_manifest}
+        if author == "coding":
+            payload["coding_source"] = coding_source
+        return self._call("author", payload)
 
     def get(self, manifest_hash: str) -> dict:
         return self._call("inspect", {"manifest_hash": valid_hash(manifest_hash)})

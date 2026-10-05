@@ -13,8 +13,8 @@ import time
 # -I suppresses arbitrary caller/import paths. Only this fixed adapter and the
 # explicitly trusted, fingerprinted game checkout are added below.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _shared import (Artifacts, FIELD, POLICIES, PROFILE, SCOPE, check_changes,
-                     check_plan, digest, encoded, source_snapshot, trusted_root, valid_hash)
+from _shared import (Artifacts, CODING_TARGET, FIELD, POLICIES, PROFILE, SCOPE, check_changes,
+                     check_plan, digest, encoded, source_snapshot, trusted_root, valid_hash, validate_coding_source)
 
 MANIFEST_FIELDS = {"schema_version", "kind", "profile", "author", "request", "parent_manifest", "baseline",
                    "candidate", "scenario", "sources", "schema", "rules", "environment", "diff", "validation"}
@@ -85,7 +85,10 @@ def describe(game):
 
 
 def author(game, artifacts, payload):
-    if set(payload) != {"request", "changes", "author", "parent_manifest"}:
+    fields = {"request", "changes", "author", "parent_manifest"}
+    if payload.get("author") == "coding":
+        fields.add("coding_source")
+    if set(payload) != fields:
         raise ValueError("unexpected author input")
     check_changes(payload["request"], payload["changes"], payload["author"])
     if payload["parent_manifest"] is not None:
@@ -94,6 +97,8 @@ def author(game, artifacts, payload):
     auth, spec = policy_context(payload["request"])
     candidate, diff = apply_changes(game["base"], payload["changes"], auth, spec)
     validation = validate(game, candidate, payload["request"])
+    if payload["author"] == "coding":
+        validate_coding_source(artifacts, payload["coding_source"], game["snapshot"]["files"][CODING_TARGET], diff)
     unchanged(game)
     manifest = {"schema_version": "candidate-manifest-v1", "kind": "numeric_config", "profile": PROFILE,
                 "author": payload["author"], "request": payload["request"], "parent_manifest": payload["parent_manifest"],
@@ -105,14 +110,17 @@ def author(game, artifacts, payload):
                 "rules": artifacts.put(game["rules"], "game-rules-v1"),
                 "environment": artifacts.put(game["environment"], "worker-environment-v1"),
                 "diff": diff, "validation": validation}
+    if payload["author"] == "coding":
+        manifest["coding_source"] = payload["coding_source"]
     ref = artifacts.put(manifest, "candidate-manifest-v1")
     return {"manifest_hash": ref["sha256"], "manifest": manifest, "diff": diff, "validation": validation}
 
 
 def inspect(game, artifacts, manifest_hash):
     manifest = artifacts.read(manifest_hash)
-    if (set(manifest) != MANIFEST_FIELDS or manifest["schema_version"] != "candidate-manifest-v1"
-            or manifest["kind"] != "numeric_config" or manifest["profile"] != PROFILE or manifest["author"] != "config"):
+    fields = MANIFEST_FIELDS | ({"coding_source"} if manifest.get("author") == "coding" else set())
+    if (set(manifest) != fields or manifest["schema_version"] != "candidate-manifest-v1"
+            or manifest["kind"] != "numeric_config" or manifest["profile"] != PROFILE or manifest["author"] not in ("config", "coding")):
         raise ValueError("unsupported or malformed candidate manifest")
     if manifest["parent_manifest"] is not None:
         parent = artifacts.read(valid_hash(manifest["parent_manifest"]))
@@ -128,6 +136,8 @@ def inspect(game, artifacts, manifest_hash):
     validation = validate(game, candidate, manifest["request"])
     if encoded(validation) != encoded(manifest["validation"]) or encoded(validation["diff"]) != encoded(manifest["diff"]):
         raise ValueError("manifest diff/validation does not match independent inspection")
+    if manifest["author"] == "coding":
+        validate_coding_source(artifacts, manifest["coding_source"], game["snapshot"]["files"][CODING_TARGET], validation["diff"])
     unchanged(game)
     return {"manifest_hash": manifest_hash, "manifest": manifest, "diff": validation["diff"], "validation": validation}
 
