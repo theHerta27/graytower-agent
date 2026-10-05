@@ -1,5 +1,7 @@
 # 分阶段实施、验证与交付路线
 
+**M1 当前执行点（2026-10-05）：** `graytower-game` 的同源 BattleSession 与本机 SQLite Host 已提交，Unity 产品通过 EditMode 2/2、PlayMode 1/1、UTF Player 1/1 和 Windows 构建；85 命令 HTTP 完整战斗、服务重启及从初始输入重放已有证据。下一步核对真实玩家选择→响应丢失→原命令重试→组件/账本一致，再验 Player 关闭/重启和本机启动器回收。自动窗口采集目前超时，用户现场操作只能记作真人验证，不能替代最终自动 OS 输入门槛。M1 不因引擎测试、接口或文档已齐而退出。此后接 M4 NPC 世界支援，再完成代码/build Worker 与四能力联合交付；中文使用手册随完整交付提供。
+
 **2026-10-05 最新进度：** G0-C已完成正式SDK/CLI0.160.0真实single/auto文件修改→原生Review→固定auto候选同QA（20调用/4场，批次关闭），Coding页面已接两条真实运行与原报告；自主spawn0，Review子线程2，效果仍不能外推。下步从新D:/Desktop/graytower-game副本推进M1 BattleSession与Game Host，同时验实际Unity许可/UTF。M2代码/build、动态协作质量、取消/恢复和完整Unity/NPC尚未退出。[记录](research/evidence/coding-live-workbench-20261005.md)。
 
 更新：2026-10-05。执行[总体方案](TECHNICAL_PROPOSAL.md)的四能力边界及D01—D12。Coding动态原生子Agent保留；Config生成候选；Verification经同一标准A2A服务独立验证冻结候选；NPC独立。旧阶段编号沿用便于关联证据，不代表必须按数字顺序串行。研究探针与产品阶段分开验收。

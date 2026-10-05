@@ -6,6 +6,7 @@
 完整阅读 JD、任务书与两项目四份入口文档；核对实现、研究本地 Codex 源码，进行必要的小规模技术验证；交付总体方案、明确技术取舍、分阶段路线与首个交付阶段。历史阶段7已交付独立Verification实验切片；当前阶段10按最新附件完成四能力审计/必要验证/方案与路线，产品迁移在后续明确阶段执行。
 
 ## 阶段
+17. [in_progress] 2026-10-05：M1 同源 BattleSession/SQLite Host 已提交至新游戏仓库；真实 HTTP 一局 85 命令、服务重启与完整重放已有证据。Unity 产品 EditMode 2/2、PlayMode 1/1、UTF Player 1/1、Windows 构建通过。真实 OS 按钮、丢响应重试、Player 重启及启动器首次运行仍待验，窗口采集超时单列阻断，不用 fixture 或文档替代。
 16. [in_progress] 2026-10-05：Coding真实20调用/4场及工作台切片已完成（199 Python/8前端tests），保留QA语义瑕疵；未用8调用关闭。继续M1新graytower-game的BattleSession/Host与G0-U实际引擎检查，不把切片当全产品完成。最终手册使用中文。
 15. [in_progress] 2026-10-05：Coding官方SDK/默认Runtime0.160.0、single/auto原生协作、主线程文件编辑与只读MCP、原生Review及完整来源候选同A2A已实现；189 tests（187 pass+2 opt-in skip），最终单/协作fixture分别5/10请求通过，0模型0战斗。新真实scope bd9ff502…e1c48 待授权，28调用/4场/USD0.85。以真实业务演示为退出门槛，不因离线实现或文档结束G0-C/M2。
 

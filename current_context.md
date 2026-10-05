@@ -1,5 +1,14 @@
 # 当前上下文
 
+## 2026-10-05 M1 游戏与 Unity：最新继续入口
+
+- 新仓库 `D:/Desktop/graytower-game`，分支 `m1-playable-session`，核心提交 `ddd81a3`，Unity 客户端与修复后执行器提交 `18b2d00`。Bot 与真人共用 BattleSession，6 份改前黄金 Trace 一致；真实 Host HTTP 一局 85 命令获胜，第 5 命令后重启同 ID 收据一致。从冻结初始输入重算完整重放，不改变原库。旧游戏只读。
+- Unity 产品已实现真实 uGUI 合法动作选择、请求先落盘、同 ID 重试、收据后读最新状态、组件状态导出。EditMode 2/2、PlayMode 1/1、UTF Player 1/1、Windows Mono 构建通过；早期编译命名空间错误、Null 图形设备失败均保留。UTF Player 改用 D3D11，未放宽 Shader 检查。31 项辅助脚本 fixture 测试通过。
+- 当前现场 `local-data/unity-live-business-v1`：Host 8781、一次丢响应代理 8780、Player PID 41724（17:33:30，窗口 111284962）。只有这一个 Graytower 进程；旧存档锁冲突属于已退出历史实例。自动窗口采集经恢复/重选仍超时；用户已恢复窗口，另请用户完成新战斗→选行动→执行→重试。17:56 已收到真实 Unity 新战斗与状态读取，session `play_7805592e7fc84f98bf055afc8a9bea7f`，revision 0，尚未行动/故障重试。不要把这一步写成整体通过，也不要在用户操作时关闭服务或抢占端口。
+- `scripts/check_live_business.py` 只读核对完整状态/组件、丢失及重复收据、唯一账本记录；它本身不证明 OS 输入或 Player 跨进程恢复。后者需原 pending journal、退出/启动身份和重启后请求链另证。`开始试玩.cmd` 调本机启动器，启动器已有 fixture，当前端口占用期间未实际启动。关闭后的正式 launcher 演示仍待做。
+- 本轮无新增模型调用。所有既有 DeepSeek 批次已关闭，不能换目录复用额度。完整中文使用手册待 NPC/代码 Worker/桌面集成和四能力实际交付后写；当前 README 只描述已实现阶段。
+- 收尾发现旧进程先Popen再入Job会漏提前spawn的子，已隔离复现并以挂起→入Job→恢复修复；默认Player核验完整236文件而非仅相同Unity loader。父辅助suite v2 62项通过（v1日志编码采集失败、结果不可用，保留）；新helper真实Unity EditMode attempt03 2/2、9.297秒、源码未变，14个已记录owned PID均消失。18:02实际初始组件14全局字段/4单位与SQLite匹配，仍不能替代待完成的行动重试与OS验收。
+
 ## 2026-10-05 Coding真实验收与M1实施：最新继续入口
 
 - 用户明确授权scope bd9ff502...e1c48后，真实单次批次成功交付：single/auto均只改1.4→1.58并原生Review；固定auto候选同A2A QA实际4场、两对均两版胜，AV分别减少100/7与600/7；结构PASS、总体INC。自主spawn0；另有2个原生Review子线程。不是多Agent质量或速度比较。

@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群
 
+M1 游戏实施已进入真实 Unity Player 验收。新独立仓库为 [graytower-game](../graytower-game/README.md)：Bot 与玩家共用 BattleSession，本机 SQLite Host 已完成一局 85 条命令及重启/重放验证；产品 EditMode 2/2、PlayMode 1/1、UTF Player 1/1 和 Windows 构建通过。真实按钮、丢响应重试与 Player 重启的现场证据仍待补齐，不能据此关闭 M1。自动窗口采集持续超时，现场操作与自动 OS 验收分开记录。最终全流程使用手册将使用中文。
+
 最新 Coding 增量：真实 DeepSeek 单任务及 auto 文件编辑→原生 Review→冻结候选→同 A2A 独立 QA 已执行，20次请求、4场、峰价估USD0.021308352；未用8次关闭。auto自主委派0，原生Review子线程2，不据此声称多Agent质量提升；首次编辑失败及QA弱机制关联保留。新增文件工作台可浏览两条真实记录和原报告，见[真实验收](research/evidence/coding-live-workbench-20261005.md)。
 
 “可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已有 CLI，React 浏览器工作台接入同一业务服务；四能力全产品、Electron 和可玩 Unity 尚未交付。

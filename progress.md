@@ -1,5 +1,13 @@
 # 工作进度
 
+## 2026-10-05 M1 同源会话与真实引擎
+
+新游戏核心提交 `ddd81a3`：Python BattleSession 是 Bot/玩家唯一规则入口，SQLite Host 将快照和收据同事务保存。真实 HTTP 一局 85 命令、同 ID 服务重启恢复及从冻结输入的完整重放通过；旧项目保持只读。
+
+Unity 产品已完成合法动作 uGUI、请求先落盘、精确重试和组件状态导出。真实 EditMode 2/2、PlayMode 1/1、UTF Player 1/1、Windows 构建通过；编译错误和 Null 图形设备首败保留。辅助脚本 31 项 fixture 通过，不冒充 OS 操作。窗口采集反复 FrameArrived timed out，当前真实按钮/丢响应/Player 重启对账仍待现场输入；只读独立检查时数据库尚无会话。M1、G0-U 均不关闭。
+
+中文 `开始试玩.cmd`、PS1 和 CLI 启动入口已实现，README 说明本地存档与退出；实际启动器演示待现场服务腾出端口后进行。完整中文全流程使用手册仍随完整产品交付，不提前宣称 NPC/代码 Worker/联合产品已可用。本轮无模型调用。
+
 ## 2026-10-05 React 工作台与两题真实 QA
 
 - 同源React/Starlette工作台复用现有Config/A2A/MCP/领域；浏览器实际候选确认、真实QA委托、运行中刷新、报告/Trace、关闭模型后重放已演示。

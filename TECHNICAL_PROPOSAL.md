@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群总体技术方案
 
+**2026-10-05 M1 实施增量：** 新游戏仓库 `D:/Desktop/graytower-game` 已将 Bot 与玩家入口统一到 BattleSession；规则、RNG、阶段和事件只在 Python 结算，Host 的 SQLite 事务一起保存状态与命令收据。Unity 负责合法动作选择、提交、状态表现；请求先落盘，丢响应后按原 ID/原内容重试，收到旧收据仍重新读取最新状态。真实 HTTP 一局 85 命令及服务重启/全局重放通过；产品 EditMode、PlayMode、UTF Player 与构建已通过。Player 真实按钮、故障重试和跨进程恢复仍须独立现场证据，自动窗口采集超时不算游戏业务通过。详见[当前游戏入口](../graytower-game/README.md)。
+
 **2026-10-05 Coding 实施增量：** 正式SDK/CLI0.160.0＋官方MCP＋DeepSeek namespace窄映射已完成真实文件业务：single/auto修改、原生Review、完整候选、同A2A独立QA。工作台接入持久运行/候选/报告，默认模型关闭；依然只支持numeric_config，M2代码/build及动态协作质量对照未完成。20次请求/4场；功能链完成但保留编辑重试及QA机制解释瑕疵，不宣称协作收益。[真实证据](research/evidence/coding-live-workbench-20261005.md)。
 
 更新：2026-10-05。以本轮四能力产品边界为当前基线，替代旧三产品、Verification自行调候选和固定Coding协作profile的默认设计。本文是推荐架构；当前实现、研究探针和待验能力分别标明，整套产品尚未交付。
