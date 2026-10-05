@@ -1,0 +1,10 @@
+{
+  "request_id": "breaker-exploration-001",
+  "request": "第二阶段有点拖。先看看提高击破角色战技倍率有没有帮助，也别只看赢的那几局。",
+  "changes": [{"path": "skills.breaker_skill.multiplier", "value": 1.7}],
+  "bounds": {"skills.breaker_skill.multiplier": {"minimum": 1.4, "maximum": 1.7}},
+  "seeds": [7, 11, 19],
+  "policies": ["balanced", "survival"],
+  "max_battles": 12,
+  "profile": "descriptive-v1"
+}

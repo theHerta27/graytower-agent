@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+research/.venv*/
+local-data/
+.env
+.env.*
+node_modules/
+dist/
+*.sqlite-wal
+*.sqlite-shm
