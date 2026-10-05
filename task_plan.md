@@ -6,7 +6,7 @@
 完整阅读 JD、任务书与两项目四份入口文档；核对实现、研究本地 Codex 源码，进行必要的小规模技术验证；交付总体方案、明确技术取舍、分阶段路线与首个交付阶段。历史阶段7已交付独立Verification实验切片；当前阶段10按最新附件完成四能力审计/必要验证/方案与路线，产品迁移在后续明确阶段执行。
 
 ## 阶段
-11. [in_progress] 2026-10-05 用户批准实施：V1 限单机、本地服务和 SQLite。首个里程碑为真实自然需求→Config 冻结候选/Diff→确认→标准 A2A 独立 Verification→真实游戏证据回 Author；交付可运行 CLI、Job receipt、重复请求与基本崩溃恢复。A2A 清理先官方最小复现/上游核对，不维护 SDK fork。多实例/HA/OAuth/公网 SSRF/分布式 lease-fencing/outbox 不在此阶段。收据和模型调用分别记录，实际模型调用另冻结材料范围与 cap。
+11. [complete] 2026-10-05：完成本机 V1 首个 CLI 实施切片与保留失败的真实业务/恢复演示。Config→A2A独立QA→MCP游戏→报告；6次DeepSeek、live4场，硬退出恢复另2场；最终84 tests（82 pass＋2 opt-in已单独执行）。MCP日志返回故障已修，模型方向误读保留、程序负责中文数值事实；不计为无故障首跑或完整M3质量验收。A2A官方最小复现/上游核对完成，无SDK fork。详见research/evidence/v1-implementation-20261005.md。后续先独立需求/干净任务与解释准确性验收，再接React工作台。生产级分布式能力不进入V1。
 1. [complete] 阅读任务材料，确认目标、目录、历史与现状边界。
 2. [complete] 并行核查游戏/验证、Coding Agent、Codex 源码及本机依赖，记录可定位证据。
 3. [complete] 完成影响架构的小规模实验，核对官方兼容性资料，比较方案。

@@ -4,6 +4,10 @@
 
 ## 1. 推荐方案与业务价值
 
+**2026-10-05 实施范围收敛（优先于后文生产目标）：** V1 只部署单机、本地服务、SQLite。现在实现候选身份、按完整 manifest 确认、请求幂等、Job receipt、图重入对账；未完成收据的作业明确保留未知，不静默重跑。多实例、HA、OAuth、公网 SSRF、多节点 lease/fencing 和生产级 outbox 只保留扩展边界。首个运行入口为 Config→A2A QA→MCP 游戏工具的 CLI 切片，React/Electron 在业务入口稳定后接入。每个阶段以完整可运行业务演示结束，接口、文档、测试数量不是里程碑替代品。
+
+A2A SDK 队列问题已用官方固定版本 Hello World 独立复现并核对上游，见[最小案例报告](research/evidence/a2a-official-minimal-20261005.md)。当前不维护 fork、不修改安装包；产品完整请求新建 Task、终态只读，按公开准入接口拒绝续输入，不宣称上游资源缺陷已修复。必要的未来补丁必须最小、隔离、可替换。
+
 建设一个可玩的“灰塔前哨”游戏和四个职责清楚的 Agent 能力：**Coding 实现变更，Config 生成策划配置，Verification 独立验证冻结候选，NPC 负责记忆与角色互动**。跨产品委托只有 Config→Verification、Coding→Verification，复用同一张 A2A Agent Card。Coding 内部保留 Codex 原生动态子 Agent，主 Agent 按任务判断是否委派、委派多少和做什么；不固定成 1＋3。
 
 | 能力／使用者 | 真实业务问题 | 推荐与理由 | 可展示成果 |

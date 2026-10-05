@@ -1,6 +1,16 @@
 # 当前上下文
 
-更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，尚不是Git仓库。旧游戏、旧Coding、Codex参考树及现src/封存实验保持原样。本轮是四能力架构审计、必要本地验证和方案交付，不是完整产品实施完成。
+更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，已初始化Git（基线321ae64）。用户已批准进入实施，V1限定单机、本地服务、SQLite。旧游戏、旧Coding、Codex参考树、旧verification源码及封存实验保持原样。新产品CLI切片已实现并实际演示；四能力完整产品仍未完成。
+
+## 最新实施结果与继续入口
+
+- 新Config为真实LangGraph＋LangChain DeepSeek结构化输出，确定性领域层负责Schema/范围/引用校验和冻结；支持击破手战技倍率1.4–1.7。Verifier独立LangGraph决策，经标准A2A接任务、MCP查候选/模拟/读Trace，候选只读。
+- SQLite确认/不可变请求/Job receipt；同请求或同作业重放不重复执行。图checkpoint与完成receipt间硬退出跨进程恢复成功；running无receipt保留未知，禁止换参数绕重跑。未做多实例/OAuth/生产级outbox，也未实现跨revision自动优化总grant。
+- 真实业务：Config生成1.4→1.7，确认后4场配对模拟，2个seed均两版本胜，AV均减少；总体INC。首跑MCP日志locals捕获闭包对象，receipt完成后返回失败；日志已修，真实MCP重放正常且0新battle，QA新增exact-operation receipt恢复。原4错误/报告不改。
+- DeepSeek6次已完成/0未知，11297输入（3840缓存）＋1168输出；按峰价估算USD0.00366174，小于新授权USD0.50/8次。第6次是只读解释附录，出现seed11负AV被说成更长的质量错误；保留输出，程序中文report负责数值事实，草稿不可信为裁决，不刷更多调用。没有修复后收费完整新任务重跑，不把恢复/工程成功算首跑无故障。
+- 父最终suite84项，82通过、2个真实战斗opt-in默认跳过；这2项已分别单独跑过4场领域、2场硬退出恢复。本轮已知实际battle共10（上述6＋live4），恢复重复0新增。新项目.venv依赖锁requirements-v1.lock.txt，pip check通过。
+- 官方Hello World复现A2A终态再发问题，最新发布1.2.1及核对main尚有同路径；未改SDK/无fork。产品公开准入限制新Task/终态Get，cancel不支持。完整本机V1失败/限制见research/evidence/v1-implementation-20261005.md和对应JSON seal。
+- 直接演示：`.venv/Scripts/python.exe -m agent_workbench.cli --data local-data/v1-demo report v1-live-demo`（需PYTHONPATH=src），无模型/战斗。下一步先扩展Config/QA独立需求评测与干净新任务端到端验收，再将React页面接相同CLI背后的服务；M3阶段尚未整体完成。之后Coding稳定Runtime及同QA接入、BattleSession/Unity、NPC按既定路线推进。
 
 ## 当前有效的产品边界
 
@@ -11,7 +21,7 @@
 
 只有Config→Verification、Coding→Verification两条跨产品边。一个标准A2A Card/verify_candidate能力，同一客户端schema；不造Config↔Coding。MCP是研发Agent→工具的复用边界，不把Verifier包装为verify_everything。内部程序节点可直调领域接口。成品LLM全部DeepSeek，包含Review/子任务/辅助；不要求当前开发助手更换模型。
 
-## 本轮完成与发现
+## 前次架构审计完成与发现（历史记录）
 
 主文档已更新：TECHNICAL_PROPOSAL.md、FRAMEWORK_ORCHESTRATION_DESIGN.md、IMPLEMENTATION_ROADMAP.md；README/AGENTS/原任务书优先说明/VALIDATION_REPORT第11节同步。三个源码/官方版本审计在research/evidence/*-audit-20261005.md。旧计划作为历史，不再驱动默认架构。
 
@@ -25,7 +35,7 @@
 - 两份独立架构评审共5项实质问题已修并复核，记录architecture-review-domain/runtime-20261005.md。清理缺口仍明确待修，不用文档一致代替产品实现。
 - 父任务6＋4项新测试独立重跑与来源hash核验记录research/evidence/architecture-validation-20261005.json；旧证据持续由check_documents.py核验。全部新增模型调用0，真实战斗仅4场，无新增DeepSeek费用。
 
-## 下一步执行入口
+## 架构审计时的下一步（已开始；以顶部最新结果为准）
 
 按路线M3-A/B先交付Config生成/预检/确认→A2A独立Verification计划/调查→证据报告回Author。先trusted config，独立QA入口可选现有候选，不等待完整Unity；把协议/领域两条probe接成真实模型链还未做。产品实现前建Git、锁版本和输入/报告schema，接跨revision总grant、真正身份、持久Job与失败证据、工作台页面。
 

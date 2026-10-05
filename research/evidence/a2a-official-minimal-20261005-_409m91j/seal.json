@@ -1,0 +1,21 @@
+{
+  "sealed_utc": "2026-10-05T02:00:06.752585+00:00",
+  "sha256": {
+    "research/probes/a2a_official_minimal_repro.py": "058c37187bc54325b452cb2324b197e8a19b7891cce537d755d4d2457b11071c",
+    "research/evidence/a2a-official-minimal-20261005.md": "3d7153aa1e0c60e881d37d9056c0202112d90dcee3cafc55eaead5c178e3a57a",
+    "research/evidence/a2a-official-minimal-source-v1.2.1.py": "5bd6b9a773724c8eb724ab28d7ba484b90fed0d8fbd301efaf6ffd46af77d1bd",
+    "research/evidence/a2a-official-minimal-upstream-20261005.json": "2e9f99345837993593598d6aaf5a07f1b323dda282b9b8428ac1ab233506067e",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/normal-send/result.json": "1c64bffba4662fea4a8f0f0a5889904154b10e54a149ddbf41408e4427b99037",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/normal-stream/result.json": "7b6765eae8e7df8cd57d298c7a40c62fa4e7f240be91538dc6b4679d3533e30e",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-send/result.json": "27daf431b67cc98e2cd86efc6f39d8f865596df8a5af7e83cddd0de2c70e239a",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-stream/result.json": "e67abae6dde9e90f70525962eee1a871cb6c84c716205a75e252a70c8c5b0239",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-stream-repeated/result.json": "aba1d81153c339e9a348a99c756ea1c793d85a49d798d636e71cadfbca2b240a",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/normal-send/console.log": "9bd143ff02cbb89b90f7cfd8266e3aad9ef9be3593e9a8d47bb09cf80a1cf602",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/normal-stream/console.log": "3cf38fba2afb25ad5683782c85beb92a193ed16ecc6b9a44564f58a93e6aa4dc",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-send/console.log": "ccbfd739351d383c3adc7bd2c79f165b2bf706e4136496c76b60370f63f85df8",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-stream/console.log": "f9070c5449c6ad6c9636b43b560d278ef4525d274699f6cb2e4c2ad848afed97",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/terminal-stream-repeated/console.log": "f987267b36fdae83a2ebc7942b28544285c33410af48c38809ff9ec6844eca11",
+    "research/evidence/a2a-official-minimal-20261005-_409m91j/summary.json": "8adfbb63c52242e1388dabe16aadebd9d10343a72281cc31041cfbd41ebe02a5"
+  },
+  "existing_boundary_probe_sha256": "1cbf90240cec8ee53c2c289f92b368e4a0260e547c689fb847a6562df0db90c0"
+}

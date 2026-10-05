@@ -1,0 +1,271 @@
+{
+  "case": "terminal",
+  "repeats": 1,
+  "streaming": false,
+  "started_utc": "2026-10-05T01:57:02.972811+00:00",
+  "python": "3.11.9",
+  "a2a_sdk": "1.2.1",
+  "source_url": "https://github.com/a2aproject/a2a-python/blob/v1.2.1/samples/hello_world_agent.py",
+  "source_git_blob": "bf38077ddc324f218f3333bd56116665f8eeb1e1",
+  "source_sha256_lf": "5bd6b9a773724c8eb724ab28d7ba484b90fed0d8fbd301efaf6ffd46af77d1bd",
+  "model_calls": 0,
+  "sdk_patched": false,
+  "snapshots": {
+    "before_messages": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x00000267C91E6440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-4",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x00000267C9226C00>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x00000267C90F6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_normal_completion": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x00000267C91E6440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x00000267C92F9B60>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x00000267C90F6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_iteration_1": {
+      "dispatcher_count": 2,
+      "all_other_pending_asyncio_count": 5,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x00000267C91E6440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-31",
+          "coroutine": "<coroutine object EventQueueSource._dispatch_loop at 0x00000267C93315D0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-32",
+          "coroutine": "<coroutine object EventQueueSource._dispatch_loop at 0x00000267C9331740>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x00000267C92F9B60>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x00000267C90F6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_http_client_close": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x00000267C91E6440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x00000267C92F9B60>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x00000267C90F6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_handler_aclose": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 0,
+      "pending_asyncio": [],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_diagnostic_gc": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 0,
+      "pending_asyncio": [],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    }
+  },
+  "rejections": [
+    {
+      "type": "UnsupportedOperationError",
+      "message": "Task 7f8e882d-e8c4-4e36-801f-335e764322db is in terminal state: 3"
+    }
+  ],
+  "cleanup_pass_scope": "EventQueueSource dispatchers and recorded loop errors only; other live tasks are separately enumerated",
+  "sdk_source_hashes": {
+    "a2a.server.agent_execution.active_task": "00206df64d77bcd26749abc20d86cb1ead30061c06fe5701ebff8e25e58f8e00",
+    "a2a.server.agent_execution.active_task_registry": "f7992a509253ae290fab902c152352213af70fc24ec1709ce46a367bf1fe82a9",
+    "a2a.server.events.event_queue_v2": "dd5960e6a71435539506877de6872c116551c500960814da3b7eb827a963aa9a",
+    "a2a.server.request_handlers.default_request_handler_v2": "eb019b851e4bfbe63850b067d752e13e5ececf7986208c13b64c75a36a6439f4"
+  },
+  "events": [
+    [
+      {
+        "task": {
+          "id": "7f8e882d-e8c4-4e36-801f-335e764322db",
+          "contextId": "602df13f-a043-43db-bb41-aff758414251",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:57:04.289663Z"
+          },
+          "artifacts": [
+            {
+              "artifactId": "d38fdcd7-c1b5-4cc3-87e7-cd474e391211",
+              "name": "response",
+              "parts": [
+                {
+                  "text": "Hello World! Nice to meet you!"
+                }
+              ]
+            }
+          ],
+          "history": [
+            {
+              "messageId": "0e0dd6da-55aa-4f15-9137-2d4adac7f151",
+              "contextId": "602df13f-a043-43db-bb41-aff758414251",
+              "taskId": "7f8e882d-e8c4-4e36-801f-335e764322db",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            },
+            {
+              "messageId": "38869ace-7b71-4221-8bdd-18b89c301eee",
+              "contextId": "602df13f-a043-43db-bb41-aff758414251",
+              "taskId": "7f8e882d-e8c4-4e36-801f-335e764322db",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ],
+  "loop_diagnostics": [
+    {
+      "message": "Task was destroyed but it is pending!",
+      "task": "<Task pending name='Task-31' coro=<EventQueueSource._dispatch_loop() done, defined at D:\\Desktop\\mihoyo-agent-project\\research\\.venv-protocols\\Lib\\site-packages\\a2a\\utils\\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>"
+    },
+    {
+      "message": "Task was destroyed but it is pending!",
+      "task": "<Task pending name='Task-32' coro=<EventQueueSource._dispatch_loop() done, defined at D:\\Desktop\\mihoyo-agent-project\\research\\.venv-protocols\\Lib\\site-packages\\a2a\\utils\\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>"
+    }
+  ],
+  "functional_checks": {
+    "first_completed": true,
+    "official_reply": true,
+    "terminal_task_unchanged": true,
+    "expected_rejections": true
+  },
+  "handler_aclose_called": true,
+  "diagnostic_gc_collected": 229,
+  "functional_passed": true,
+  "cleanup_passed": false,
+  "loaded_forbidden_modules": [],
+  "scope": "This child process/event loop only; no OS process-tree, external worker, long-service or total-system resource guarantee.",
+  "threads_after_asyncio_run": [
+    {
+      "name": "MainThread",
+      "daemon": false
+    }
+  ]
+}

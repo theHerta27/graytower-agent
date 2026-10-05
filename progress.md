@@ -1,5 +1,14 @@
 # 工作进度
 
+## 2026-10-05 本机 V1 首个实现切片
+
+- 用户批准实施并收窄为单机、本地服务、SQLite；已建Git基线，独立产品.venv/锁文件。新Config、领域冻结、QA图、A2A、MCP、收据与中文report CLI已实现；旧源码/实验不改。
+- 官方Hello World复现终态队列问题并核对上游；没有SDK fork。产品只新Task/终态Get，取消暂不支持。
+- 获单独数据与费用授权后实际6次DeepSeek、4场live。MCP日志返回错误已定位修复，原收据/报告/错误保留；原结果重放、服务重开、模型附录重复读取均0新战斗/调用。硬退出恢复另有2场实证。
+- 模型解释把seed11负AV差误读为更长；保留失败草稿，不刷调用。程序中文事实确定两对均更少AV，模型不掌握数值裁决。
+- 父最终84 tests（82 pass、2 opt-in已单独执行），pip check、35文档670链接及91项封存hash通过。新费用按峰价估USD0.00366174，未重置旧账本。
+- 交付入口README；完整记录research/evidence/v1-implementation-20261005.md/json。本切片不等于完整M3/无故障首跑/模型质量达标；下一步独立业务/清洁新任务验收，再接React工作台。
+
 ## 2026-10-05 四能力架构收敛（完成本轮审计/设计范围）
 
 - 完整读取用户粘贴附件：新增独立Config；Verification接收不可变候选并只验证，失败回Author；Coding保留Runtime动态原生子Agent，旧1+3只为实验；NPC保持独立；仅Config/Coding→Verification的一套标准A2A能力。

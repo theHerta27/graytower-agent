@@ -4,6 +4,10 @@
 
 ## 1. 选型、Agent与普通程序的分工
 
+**本机 V1 执行子集：** 一个本地 QA driver，SQLite 保存确认、请求和 Job receipt，独立 SQLite checkpoint 保存图位置；MCP 子进程调用固定可信游戏解释器。receipt 先提交，图恢复后按同 request/manifest/参数取回；只有 running 而无 receipt 时返回待处理，不推测成功也不自动重跑。A2A completed 只代表已交报告。首版小样本仅 FAIL/INCONCLUSIVE，结构检查 PASS 独立展示。用户确认候选不等于采纳到游戏基线。
+
+本轮不实现多节点 fence/lease、HA、OAuth、通用公网资源获取、生产级 outbox。下文涉及这些的内容是后续边界说明，不是 V1 阶段门槛。也不实现跨 revision 自动优化或共享 battle grant；每次显式批准的独立请求上限 2–12 场，图恢复不能重置它，模型演示共用持久总调用 cap。若后续新增自动修订链，再实现整条修订链的总 grant，不能把当前请求预算描述为已有跨 revision 总账。
+
 | 能力 | 推荐组合与Agent判断 | Workflow边界 | 确定性实现 |
 |---|---|---|---|
 | Config | LangGraph自定义图＋LangChain模型、工具、结构输出；理解需求、选取相关schema/规则、提出配置 | 澄清、预检反馈、候选确认、可选QA委托、返回作者修订 | 版本/类型/引用/范围校验、物化候选、diff、内容hash、权限 |

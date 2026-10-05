@@ -1,0 +1,371 @@
+{
+  "case": "normal",
+  "repeats": 2,
+  "streaming": false,
+  "started_utc": "2026-10-05T01:56:54.900573+00:00",
+  "python": "3.11.9",
+  "a2a_sdk": "1.2.1",
+  "source_url": "https://github.com/a2aproject/a2a-python/blob/v1.2.1/samples/hello_world_agent.py",
+  "source_git_blob": "bf38077ddc324f218f3333bd56116665f8eeb1e1",
+  "source_sha256_lf": "5bd6b9a773724c8eb724ab28d7ba484b90fed0d8fbd301efaf6ffd46af77d1bd",
+  "model_calls": 0,
+  "sdk_patched": false,
+  "snapshots": {
+    "before_messages": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x000001F8C7096440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-4",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x000001F8C70E6C00>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x000001F8C6FB6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_normal_completion": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x000001F8C7096440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x000001F8C72335A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x000001F8C6FB6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_iteration_1": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x000001F8C7096440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x000001F8C72335A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x000001F8C6FB6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_iteration_2": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x000001F8C7096440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x000001F8C72335A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x000001F8C6FB6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_http_client_close": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x000001F8C7096440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x000001F8C72335A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x000001F8C6FB6110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_handler_aclose": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 0,
+      "pending_asyncio": [],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_diagnostic_gc": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 0,
+      "pending_asyncio": [],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    }
+  },
+  "rejections": [],
+  "cleanup_pass_scope": "EventQueueSource dispatchers and recorded loop errors only; other live tasks are separately enumerated",
+  "sdk_source_hashes": {
+    "a2a.server.agent_execution.active_task": "00206df64d77bcd26749abc20d86cb1ead30061c06fe5701ebff8e25e58f8e00",
+    "a2a.server.agent_execution.active_task_registry": "f7992a509253ae290fab902c152352213af70fc24ec1709ce46a367bf1fe82a9",
+    "a2a.server.events.event_queue_v2": "dd5960e6a71435539506877de6872c116551c500960814da3b7eb827a963aa9a",
+    "a2a.server.request_handlers.default_request_handler_v2": "eb019b851e4bfbe63850b067d752e13e5ececf7986208c13b64c75a36a6439f4"
+  },
+  "events": [
+    [
+      {
+        "task": {
+          "id": "27197892-265d-411b-92b9-5a4ad5d85214",
+          "contextId": "168eca29-7a85-4c22-bb25-75c19d4b04aa",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:56.233416Z"
+          },
+          "artifacts": [
+            {
+              "artifactId": "c192ffda-8771-4e08-9490-c3a7af15fc66",
+              "name": "response",
+              "parts": [
+                {
+                  "text": "Hello World! Nice to meet you!"
+                }
+              ]
+            }
+          ],
+          "history": [
+            {
+              "messageId": "03b7e4b1-6575-47d9-bfba-b06c107999b5",
+              "contextId": "168eca29-7a85-4c22-bb25-75c19d4b04aa",
+              "taskId": "27197892-265d-411b-92b9-5a4ad5d85214",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            },
+            {
+              "messageId": "5e75082e-d02c-4cf5-b39d-b1a1d7d8f646",
+              "contextId": "168eca29-7a85-4c22-bb25-75c19d4b04aa",
+              "taskId": "27197892-265d-411b-92b9-5a4ad5d85214",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "task": {
+          "id": "c68bc9d9-94d6-4c2a-bb8b-1a0fe7b41ceb",
+          "contextId": "c9024be9-02cc-41d4-a944-ec6e3e5a5d82",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:57.306469Z"
+          },
+          "artifacts": [
+            {
+              "artifactId": "7b4c0e2b-6449-4534-943d-16d714a9302e",
+              "name": "response",
+              "parts": [
+                {
+                  "text": "Hello World! Nice to meet you!"
+                }
+              ]
+            }
+          ],
+          "history": [
+            {
+              "messageId": "b884c513-0ee0-495d-9211-cf3540f9b550",
+              "contextId": "c9024be9-02cc-41d4-a944-ec6e3e5a5d82",
+              "taskId": "c68bc9d9-94d6-4c2a-bb8b-1a0fe7b41ceb",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            },
+            {
+              "messageId": "187bd671-23ee-4290-8bbc-15e40c97ed8c",
+              "contextId": "c9024be9-02cc-41d4-a944-ec6e3e5a5d82",
+              "taskId": "c68bc9d9-94d6-4c2a-bb8b-1a0fe7b41ceb",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "task": {
+          "id": "bb0ad44d-a884-41a1-837c-078d280daaae",
+          "contextId": "fe9a04f5-6ca4-4b7c-bb7c-d863d681b101",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:58.393265Z"
+          },
+          "artifacts": [
+            {
+              "artifactId": "c0a10f9d-5150-4a7f-975c-1c91ab94a566",
+              "name": "response",
+              "parts": [
+                {
+                  "text": "Hello World! Nice to meet you!"
+                }
+              ]
+            }
+          ],
+          "history": [
+            {
+              "messageId": "ef6a713c-2657-453b-a544-19a87d5ed158",
+              "contextId": "fe9a04f5-6ca4-4b7c-bb7c-d863d681b101",
+              "taskId": "bb0ad44d-a884-41a1-837c-078d280daaae",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            },
+            {
+              "messageId": "7ce699ba-8d66-4478-8918-06384419f3fb",
+              "contextId": "fe9a04f5-6ca4-4b7c-bb7c-d863d681b101",
+              "taskId": "bb0ad44d-a884-41a1-837c-078d280daaae",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ],
+  "loop_diagnostics": [],
+  "functional_checks": {
+    "first_completed": true,
+    "official_reply": true,
+    "terminal_task_unchanged": true,
+    "expected_rejections": true
+  },
+  "handler_aclose_called": true,
+  "diagnostic_gc_collected": 665,
+  "functional_passed": true,
+  "cleanup_passed": true,
+  "loaded_forbidden_modules": [],
+  "scope": "This child process/event loop only; no OS process-tree, external worker, long-service or total-system resource guarantee.",
+  "threads_after_asyncio_run": [
+    {
+      "name": "MainThread",
+      "daemon": false
+    }
+  ]
+}

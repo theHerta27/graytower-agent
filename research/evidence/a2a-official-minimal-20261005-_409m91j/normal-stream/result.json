@@ -1,0 +1,481 @@
+{
+  "case": "normal",
+  "repeats": 2,
+  "streaming": true,
+  "started_utc": "2026-10-05T01:56:49.786403+00:00",
+  "python": "3.11.9",
+  "a2a_sdk": "1.2.1",
+  "source_url": "https://github.com/a2aproject/a2a-python/blob/v1.2.1/samples/hello_world_agent.py",
+  "source_git_blob": "bf38077ddc324f218f3333bd56116665f8eeb1e1",
+  "source_sha256_lf": "5bd6b9a773724c8eb724ab28d7ba484b90fed0d8fbd301efaf6ffd46af77d1bd",
+  "model_calls": 0,
+  "sdk_patched": false,
+  "snapshots": {
+    "before_messages": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 3,
+      "pending_asyncio": [
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x0000020C8F946440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-4",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x0000020C8F986C00>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x0000020C8F856110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_normal_completion": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 4,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x0000020C8F946440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x0000020C8FAD35A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x0000020C8F856110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_iteration_1": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 4,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x0000020C8F946440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x0000020C8FAD35A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x0000020C8F856110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_iteration_2": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 4,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x0000020C8F946440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x0000020C8FAD35A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x0000020C8F856110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_http_client_close": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 4,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-3",
+          "coroutine": "<coroutine object LifespanOn.main at 0x0000020C8F946440>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "Task-5",
+          "coroutine": "<coroutine object IocpProactor.accept.<locals>.accept_coro at 0x0000020C8FAD35A0>",
+          "done": false,
+          "cancelled": false
+        },
+        {
+          "name": "probe-uvicorn",
+          "coroutine": "<coroutine object Server.serve at 0x0000020C8F856110>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_handler_aclose": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 1,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    },
+    "after_diagnostic_gc": {
+      "dispatcher_count": 0,
+      "all_other_pending_asyncio_count": 1,
+      "pending_asyncio": [
+        {
+          "name": "Task-17",
+          "coroutine": "<coroutine object _shutdown_watcher at 0x0000020C8FB40BA0>",
+          "done": false,
+          "cancelled": false
+        }
+      ],
+      "live_threads": [
+        {
+          "name": "MainThread",
+          "daemon": false
+        }
+      ],
+      "registry_active_count": 0,
+      "registry_cleanup_count": 0
+    }
+  },
+  "rejections": [],
+  "cleanup_pass_scope": "EventQueueSource dispatchers and recorded loop errors only; other live tasks are separately enumerated",
+  "sdk_source_hashes": {
+    "a2a.server.agent_execution.active_task": "00206df64d77bcd26749abc20d86cb1ead30061c06fe5701ebff8e25e58f8e00",
+    "a2a.server.agent_execution.active_task_registry": "f7992a509253ae290fab902c152352213af70fc24ec1709ce46a367bf1fe82a9",
+    "a2a.server.events.event_queue_v2": "dd5960e6a71435539506877de6872c116551c500960814da3b7eb827a963aa9a",
+    "a2a.server.request_handlers.default_request_handler_v2": "eb019b851e4bfbe63850b067d752e13e5ececf7986208c13b64c75a36a6439f4"
+  },
+  "events": [
+    [
+      {
+        "task": {
+          "id": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+          "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+          "status": {
+            "state": "TASK_STATE_SUBMITTED"
+          },
+          "history": [
+            {
+              "messageId": "20b5b27c-939e-4991-bcbf-028fb3da95d3",
+              "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+              "taskId": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+          "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+          "status": {
+            "state": "TASK_STATE_WORKING",
+            "message": {
+              "messageId": "ae947673-4b53-41d1-86f4-dfc3ef699a83",
+              "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+              "taskId": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            },
+            "timestamp": "2026-10-05T01:56:50.135851Z"
+          }
+        }
+      },
+      {
+        "artifactUpdate": {
+          "taskId": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+          "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+          "artifact": {
+            "artifactId": "dc515345-ff19-447a-bfe0-ca587c2f5d49",
+            "name": "response",
+            "parts": [
+              {
+                "text": "Hello World! Nice to meet you!"
+              }
+            ]
+          },
+          "lastChunk": true
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "ef911ec4-ec7c-41ce-83a2-0cbace74905d",
+          "contextId": "6f1854f4-576f-441c-97cf-d83c2804c2ff",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:51.154531Z"
+          }
+        }
+      }
+    ],
+    [
+      {
+        "task": {
+          "id": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+          "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+          "status": {
+            "state": "TASK_STATE_SUBMITTED"
+          },
+          "history": [
+            {
+              "messageId": "35739378-ce23-417e-9224-685eca345e32",
+              "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+              "taskId": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+          "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+          "status": {
+            "state": "TASK_STATE_WORKING",
+            "message": {
+              "messageId": "635cd0e1-e7d8-4b49-9697-e93663d302f5",
+              "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+              "taskId": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            },
+            "timestamp": "2026-10-05T01:56:51.217295Z"
+          }
+        }
+      },
+      {
+        "artifactUpdate": {
+          "taskId": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+          "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+          "artifact": {
+            "artifactId": "f5d9f0cb-3af8-485c-bfbb-545aa6159948",
+            "name": "response",
+            "parts": [
+              {
+                "text": "Hello World! Nice to meet you!"
+              }
+            ]
+          },
+          "lastChunk": true
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "3593cfaf-7e47-4d1b-b1f2-be9d29b6aa43",
+          "contextId": "ee7e2440-da35-48af-8b64-b4d8206af8cc",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:52.224907Z"
+          }
+        }
+      }
+    ],
+    [
+      {
+        "task": {
+          "id": "2e28314e-daa0-4e18-9282-2adc57f08592",
+          "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+          "status": {
+            "state": "TASK_STATE_SUBMITTED"
+          },
+          "history": [
+            {
+              "messageId": "e8ea9240-9af3-47e8-bc4c-488a6dac52d2",
+              "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+              "taskId": "2e28314e-daa0-4e18-9282-2adc57f08592",
+              "role": "ROLE_USER",
+              "parts": [
+                {
+                  "text": "hello"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "2e28314e-daa0-4e18-9282-2adc57f08592",
+          "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+          "status": {
+            "state": "TASK_STATE_WORKING",
+            "message": {
+              "messageId": "0180531f-9347-44c2-aabe-c7a20e540266",
+              "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+              "taskId": "2e28314e-daa0-4e18-9282-2adc57f08592",
+              "role": "ROLE_AGENT",
+              "parts": [
+                {
+                  "text": "Processing your question..."
+                }
+              ]
+            },
+            "timestamp": "2026-10-05T01:56:52.289006Z"
+          }
+        }
+      },
+      {
+        "artifactUpdate": {
+          "taskId": "2e28314e-daa0-4e18-9282-2adc57f08592",
+          "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+          "artifact": {
+            "artifactId": "1b585d10-5946-491e-a258-23df5dcf5907",
+            "name": "response",
+            "parts": [
+              {
+                "text": "Hello World! Nice to meet you!"
+              }
+            ]
+          },
+          "lastChunk": true
+        }
+      },
+      {
+        "statusUpdate": {
+          "taskId": "2e28314e-daa0-4e18-9282-2adc57f08592",
+          "contextId": "bc271b12-46bb-416b-9b13-0e790b5a728f",
+          "status": {
+            "state": "TASK_STATE_COMPLETED",
+            "timestamp": "2026-10-05T01:56:53.303658Z"
+          }
+        }
+      }
+    ]
+  ],
+  "loop_diagnostics": [],
+  "functional_checks": {
+    "first_completed": true,
+    "official_reply": true,
+    "terminal_task_unchanged": true,
+    "expected_rejections": true
+  },
+  "handler_aclose_called": true,
+  "diagnostic_gc_collected": 722,
+  "functional_passed": true,
+  "cleanup_passed": true,
+  "loaded_forbidden_modules": [],
+  "scope": "This child process/event loop only; no OS process-tree, external worker, long-service or total-system resource guarantee.",
+  "threads_after_asyncio_run": [
+    {
+      "name": "MainThread",
+      "daemon": false
+    }
+  ]
+}

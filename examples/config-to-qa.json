@@ -1,0 +1,9 @@
+{
+  "request": "把击破手的战技倍率从1.4提高到1.7，其他规则不变。我想先看看这样能不能让战斗快一点。",
+  "goal": "比较修改前后的胜负和行动值，看看本批战斗有没有变快；出现退步时读取相关战斗记录，不把小样本当总体保证。",
+  "max_battles": 4,
+  "model": "deepseek-flash",
+  "max_model_calls": 8,
+  "max_input_chars": 25000,
+  "max_output_tokens": 2048
+}

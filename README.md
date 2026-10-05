@@ -1,10 +1,34 @@
 # 米哈游 Agent 项目群
 
-“可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05完成顶层边界收敛：两Author生成候选，复用同一A2A Verification能力；Coding保留Codex原生动态子Agent，NPC保持独立。当前只有历史numeric CLI和研究探针，四Agent产品、可玩游戏与工作台未交付。
+“可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config 候选生成、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已进入新 CLI；四能力全产品、React/Electron 工作台及可玩 Unity 尚未交付。
 
 先读[总体方案](TECHNICAL_PROPOSAL.md)，再看[实施路线](IMPLEMENTATION_ROADMAP.md)、[验证报告](VALIDATION_REPORT.md)和[当前上下文](current_context.md)。图状态、领域事实、外部Job与NPC丢响应恢复详见[框架设计](FRAMEWORK_ORCHESTRATION_DESIGN.md)。
 
-## 本轮审计与新的验证边界
+## 首个本地业务入口
+
+使用当前项目 `.venv`；可用 [锁文件](requirements-v1.lock.txt) 重建。游戏仍固定使用可信的 `D:/Desktop/combat-foundation` 和它的解释器，新工作台不会改写游戏基线。真实模型通过环境变量 `DEEPSEEK_API_KEY` 提供凭据，禁止写入前端、候选或证据。每个 data 目录的演示调用账本最多 8 次；重启不重置。
+
+```powershell
+Set-Location -LiteralPath 'D:\Desktop\mihoyo-agent-project'
+$env:PYTHONPATH = 'src'
+$env:PYTHONUTF8 = '1'
+$wbPython = '.\.venv\Scripts\python.exe'
+& $wbPython -m agent_workbench.cli --data local-data/workbench preview '把击破手战技倍率从1.4提高到1.7，其他规则不变'
+& $wbPython -m agent_workbench.cli --data local-data/workbench draft '把击破手战技倍率从1.4提高到1.7，其他规则不变'
+# 先阅读 draft 的 Diff，再把返回的完整 manifest_hash 填入下一条命令。
+& $wbPython -m agent_workbench.cli --data local-data/workbench confirm '<manifest_hash>'
+& $wbPython -m agent_workbench.cli --data local-data/workbench verify qa-001 '<manifest_hash>' '比较前后胜负和行动值，检查本批战斗是否变快' --max-battles 4
+& $wbPython -m agent_workbench.cli --data local-data/workbench show qa-001
+& $wbPython -m agent_workbench.cli --data local-data/workbench report qa-001
+```
+
+`preview` 不调用模型。`confirm` 绑定完整候选身份，也不自动模拟或修改基线。`verify` 使用官方 A2A client 调用本机服务，QA 通过 MCP 读候选、执行获批模拟、读证据；同请求重复执行复用报告。也可在一个终端运行 `serve --port 8771`，另一终端的 verify 增加 `--url http://127.0.0.1:8771`，服务端和客户端使用同一 data 目录。当前单用户本机信任范围，不声称多租户或公网服务。
+
+完整演示脚本 [demo_v1.py](scripts/demo_v1.py) 默认只准备外发预览；`--live` 才执行真实模型。首次演示的范围见 `local-data/v1-demo/outbound-scope.json`。小样本总体结论只能 FAIL/INCONCLUSIVE，结构检查 PASS 独立显示；没有统计总体保证或 Unity 测试完成声明。A2A 暂不支持续输入与取消；未知作业不会静默再执行。
+
+实测交付及已知失败见 [V1 实施记录](research/evidence/v1-implementation-20261005.md)。直接阅读已保存结果：`python -m agent_workbench.cli --data local-data/v1-demo report v1-live-demo`，不需要密钥、不调用模型、不跑战斗。`report` 由原始配对结果计算中文事实；`explain` 可另花最多一次调用生成未核验的模型解释草稿，不能覆盖程序事实或原判定。首次模型草稿曾误读负数方向，原输出保留，未用追加调用洗掉失败。
+
+## 审计与研究证据
 
 - [四能力总体方案](TECHNICAL_PROPOSAL.md)：业务流程、选型原因、候选与证据契约、产品页面与保留/迁移决定。
 - [框架与恢复设计](FRAMEWORK_ORCHESTRATION_DESIGN.md)：Config/Verifier分图、A2A任务与Job/图状态分工、丢响应/重复恢复/取消。
@@ -12,7 +36,7 @@
 - [冻结候选验证](research/evidence/frozen-candidate-probe-20261005-review.json)：6项边界测试、4场真实战斗、完整Trace，候选/旧源未变；结构PASS、总体INCONCLUSIVE，模型调用0。不证明OS沙箱或完整QA Agent。
 - 协议验证使用独立[锁版本环境](research/probes/protocol-requirements-20261005.lock.txt)，A2A SDK1.2.1/spec1.0、MCP2.3.0、LangGraph1.2.12；[37项协议功能实测](research/evidence/a2a-mcp-boundary-probe-20261005.md)及SDK队列清理缺口见[验证报告第11节](VALIDATION_REPORT.md)；生产生命周期门槛未通过。新MCP2证据不覆盖旧MCP1.26桥升级。
 
-下一步先交付Config生成/确认候选→A2A独立QA→证据回Author的真实链路，并行推进可玩BattleSession、稳定Runtime/动态子Agent和Unity执行门槛。Config默认不自动搜索最优数值，Verifier没有改候选的工具。
+当前先验收上述 Config→独立 QA 切片，再接工作台页面；并行后续推进可玩 BattleSession、稳定 Runtime/动态子 Agent 和 Unity 执行门槛。Config 默认不自动搜索最优数值，Verifier 没有改候选的工具。
 
 ## 当前可运行的历史切片
 

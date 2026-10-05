@@ -1,0 +1,248 @@
+INFO httpx HTTP Request: GET http://127.0.0.1:2801/.well-known/agent-card.json "HTTP/1.1 200 OK"
+INFO a2a.client.card_resolver Successfully fetched agent card data from http://127.0.0.1:2801/.well-known/agent-card.json: {'name': 'Sample Agent', 'description': 'Official Hello World minimal JSONRPC reproduction', 'supportedInterfaces': [{'url': 'http://127.0.0.1:2801/a2a/jsonrpc', 'protocolBinding': 'JSONRPC', 'protocolVersion': '1.0'}], 'version': '1.0.0', 'capabilities': {'streaming': True}, 'defaultInputModes': ['text'], 'defaultOutputModes': ['text', 'task-status'], 'skills': [{'id': 'sample_agent', 'name': 'Sample Agent', 'description': 'Say hi.', 'tags': ['sample']}]}
+INFO official.hello_world [SampleAgentExecutor] Processing message eeaf74ce-dfe5-4577-b524-19613b9dd88c for task 0d6357f9-4410-4d38-91ac-27782b64b9e5 (context: 9a903095-1aaa-42bf-8f56-405e399a6f19)
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO official.hello_world [SampleAgentExecutor] Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 finished with state: completed
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+WARNING a2a.server.routes.jsonrpc_dispatcher Request Error (ID: 059bc310-8b45-4537-b073-894ae6bfcdfa): Code=-32004, Message='Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 is in terminal state: 3', Data=[{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'UNSUPPORTED_OPERATION', 'domain': 'a2a-protocol.org', 'metadata': {}}]
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+WARNING a2a.server.routes.jsonrpc_dispatcher Request Error (ID: a7037bc6-b62e-42ef-bda7-e9144c29634a): Code=-32004, Message='Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 is in terminal state: 3', Data=[{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'UNSUPPORTED_OPERATION', 'domain': 'a2a-protocol.org', 'metadata': {}}]
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268BBCDC0> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-31' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268BBE380> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-32' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B99C40> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-36' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B9A000> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-37' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+WARNING a2a.server.routes.jsonrpc_dispatcher Request Error (ID: bcbc3108-451c-4845-9af9-22954bf0f2f5): Code=-32004, Message='Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 is in terminal state: 3', Data=[{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'UNSUPPORTED_OPERATION', 'domain': 'a2a-protocol.org', 'metadata': {}}]
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+WARNING a2a.server.routes.jsonrpc_dispatcher Request Error (ID: 1dec4beb-3b6e-462c-9e27-79da2351ec2b): Code=-32004, Message='Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 is in terminal state: 3', Data=[{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'UNSUPPORTED_OPERATION', 'domain': 'a2a-protocol.org', 'metadata': {}}]
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268BBCA40> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-41' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268BBDD80> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-42' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B98940> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-46' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B9A2C0> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-47' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+WARNING a2a.server.routes.jsonrpc_dispatcher Request Error (ID: 1dd4ae8e-168e-4ad8-b9dc-3b406297ee26): Code=-32004, Message='Task 0d6357f9-4410-4d38-91ac-27782b64b9e5 is in terminal state: 3', Data=[{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'UNSUPPORTED_OPERATION', 'domain': 'a2a-protocol.org', 'metadata': {}}]
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO httpx HTTP Request: POST http://127.0.0.1:2801/a2a/jsonrpc "HTTP/1.1 200 OK"
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B981C0> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-51' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+ERROR opentelemetry.context Failed to detach context
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 602, in use_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 504, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\trace\__init__.py", line 441, in start_as_current_span
+    yield span
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py", line 242, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\__init__.py", line 127, in detach
+    _RUNTIME_CONTEXT.detach(token)
+  File "D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\opentelemetry\context\contextvars_context.py", line 40, in detach
+    self._current_context.reset(token)
+ValueError: <Token var=<ContextVar name='current_context' default={} at 0x000001E266A20310> at 0x000001E268B98E40> was created in a different Context
+ERROR asyncio Task was destroyed but it is pending!
+task: <Task pending name='Task-52' coro=<EventQueueSource._dispatch_loop() done, defined at D:\Desktop\mihoyo-agent-project\research\.venv-protocols\Lib\site-packages\a2a\utils\telemetry.py:225> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+{"functional_passed": true, "cleanup_passed": false, "result": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\a2a-official-minimal-20261005-_409m91j\\terminal-stream-repeated\\result.json"}

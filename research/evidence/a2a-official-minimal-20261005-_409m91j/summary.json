@@ -1,0 +1,90 @@
+{
+  "output": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\a2a-official-minimal-20261005-_409m91j",
+  "cases": {
+    "normal-stream": {
+      "exit_code": 0,
+      "functional_passed": true,
+      "cleanup_passed": true,
+      "pending_destroyed_count": 0,
+      "telemetry_detach_error_count": 0,
+      "dispatchers": {
+        "before_messages": 0,
+        "after_normal_completion": 0,
+        "after_iteration_1": 0,
+        "after_iteration_2": 0,
+        "after_http_client_close": 0,
+        "after_handler_aclose": 0,
+        "after_diagnostic_gc": 0
+      }
+    },
+    "normal-send": {
+      "exit_code": 0,
+      "functional_passed": true,
+      "cleanup_passed": true,
+      "pending_destroyed_count": 0,
+      "telemetry_detach_error_count": 0,
+      "dispatchers": {
+        "before_messages": 0,
+        "after_normal_completion": 0,
+        "after_iteration_1": 0,
+        "after_iteration_2": 0,
+        "after_http_client_close": 0,
+        "after_handler_aclose": 0,
+        "after_diagnostic_gc": 0
+      }
+    },
+    "terminal-stream": {
+      "exit_code": 2,
+      "functional_passed": true,
+      "cleanup_passed": false,
+      "pending_destroyed_count": 2,
+      "telemetry_detach_error_count": 2,
+      "dispatchers": {
+        "before_messages": 0,
+        "after_normal_completion": 0,
+        "after_iteration_1": 2,
+        "after_http_client_close": 2,
+        "after_handler_aclose": 2,
+        "after_diagnostic_gc": 0
+      }
+    },
+    "terminal-send": {
+      "exit_code": 2,
+      "functional_passed": true,
+      "cleanup_passed": false,
+      "pending_destroyed_count": 2,
+      "telemetry_detach_error_count": 2,
+      "dispatchers": {
+        "before_messages": 0,
+        "after_normal_completion": 0,
+        "after_iteration_1": 2,
+        "after_http_client_close": 0,
+        "after_handler_aclose": 0,
+        "after_diagnostic_gc": 0
+      }
+    },
+    "terminal-stream-repeated": {
+      "exit_code": 2,
+      "functional_passed": true,
+      "cleanup_passed": false,
+      "pending_destroyed_count": 10,
+      "telemetry_detach_error_count": 10,
+      "dispatchers": {
+        "before_messages": 0,
+        "after_normal_completion": 0,
+        "after_iteration_1": 2,
+        "after_iteration_2": 0,
+        "after_iteration_3": 2,
+        "after_iteration_4": 4,
+        "after_iteration_5": 2,
+        "after_http_client_close": 2,
+        "after_handler_aclose": 2,
+        "after_diagnostic_gc": 0
+      }
+    }
+  },
+  "model_calls": 0,
+  "script_sha256": "058c37187bc54325b452cb2324b197e8a19b7891cce537d755d4d2457b11071c",
+  "cleanup_passed": false,
+  "functional_passed": true
+}

@@ -1,0 +1,16 @@
+INFO httpx HTTP Request: GET http://127.0.0.1:2645/.well-known/agent-card.json "HTTP/1.1 200 OK"
+INFO a2a.client.card_resolver Successfully fetched agent card data from http://127.0.0.1:2645/.well-known/agent-card.json: {'name': 'Sample Agent', 'description': 'Official Hello World minimal JSONRPC reproduction', 'supportedInterfaces': [{'url': 'http://127.0.0.1:2645/a2a/jsonrpc', 'protocolBinding': 'JSONRPC', 'protocolVersion': '1.0'}], 'version': '1.0.0', 'capabilities': {'streaming': True}, 'defaultInputModes': ['text'], 'defaultOutputModes': ['text', 'task-status'], 'skills': [{'id': 'sample_agent', 'name': 'Sample Agent', 'description': 'Say hi.', 'tags': ['sample']}]}
+INFO official.hello_world [SampleAgentExecutor] Processing message 03b7e4b1-6575-47d9-bfba-b06c107999b5 for task 27197892-265d-411b-92b9-5a4ad5d85214 (context: 168eca29-7a85-4c22-bb25-75c19d4b04aa)
+INFO official.hello_world [SampleAgentExecutor] Task 27197892-265d-411b-92b9-5a4ad5d85214 finished with state: completed
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO official.hello_world [SampleAgentExecutor] Processing message b884c513-0ee0-495d-9211-cf3540f9b550 for task c68bc9d9-94d6-4c2a-bb8b-1a0fe7b41ceb (context: c9024be9-02cc-41d4-a944-ec6e3e5a5d82)
+INFO official.hello_world [SampleAgentExecutor] Task c68bc9d9-94d6-4c2a-bb8b-1a0fe7b41ceb finished with state: completed
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO official.hello_world [SampleAgentExecutor] Processing message ef6a713c-2657-453b-a544-19a87d5ed158 for task bb0ad44d-a884-41a1-837c-078d280daaae (context: fe9a04f5-6ca4-4b7c-bb7c-d863d681b101)
+INFO official.hello_world [SampleAgentExecutor] Task bb0ad44d-a884-41a1-837c-078d280daaae finished with state: completed
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+INFO httpx HTTP Request: POST http://127.0.0.1:2645/a2a/jsonrpc "HTTP/1.1 200 OK"
+{"functional_passed": true, "cleanup_passed": true, "result": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\a2a-official-minimal-20261005-_409m91j\\normal-send\\result.json"}
