@@ -1,5 +1,14 @@
 # 工作进度
 
+## 2026-10-05 React 工作台与两题真实 QA
+
+- 同源React/Starlette工作台复用现有Config/A2A/MCP/领域；浏览器实际候选确认、真实QA委托、运行中刷新、报告/Trace、关闭模型后重放已演示。
+- 先离线发现18k装不下双Trace，运行前改32k/预算USD0.40并取得明确新授权。两题固定顺序，7次/8场，峰价估USD0.00663312；剩余1次关闭。
+- 独立助手复核9条原reason/29子句，语义目标均完成、无未支持主张；但两响应各双Decision，first_attempt_clean=false，不把零报告错误当无故障通过。全部原件保留。
+- 双Decision静默取首已补guard；零额度checkpoint收尾、UI丢失提交同ID重试、失败报告重读已先红后绿修复。新guard仅离线确认，未洗掉首次异常或补跑。
+- 最终132 Python tests（130pass/2既有opt-in skip）、前端5test/build、pip check通过；M3完整确认和Coding/Unity/NPC继续按原路线。详见research/evidence/workbench-qa-20261005.md/json。
+
+
 ## 2026-10-05 本机 V1 首个实现切片
 
 - 用户批准实施并收窄为单机、本地服务、SQLite；已建Git基线，独立产品.venv/锁文件。新Config、领域冻结、QA图、A2A、MCP、收据与中文report CLI已实现；旧源码/实验不改。

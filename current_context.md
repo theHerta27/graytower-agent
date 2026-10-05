@@ -2,7 +2,17 @@
 
 更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，已初始化Git（基线321ae64）。用户已批准进入实施，V1限定单机、本地服务、SQLite。旧游戏、旧Coding、Codex参考树、旧verification源码及封存实验保持原样。新产品CLI切片已实现并实际演示；四能力完整产品仍未完成。
 
-## 2026-10-05 续验：当前继续入口
+## 2026-10-05 React 工作台与新 QA 验收：当前继续入口
+
+- React/TypeScript 工作台和 Starlette 同源 API 已落地，复用现有 Config/候选/A2A/MCP/独立 QA；候选确认、验证目标/预算、持久操作、程序事实/原错误/Trace 都可浏览器操作。入口 `http://127.0.0.1:8765`，当前以 `local-data/workbench-v1` 启动且关闭模型；启动命令见 README。Electron、Coding Runtime、Unity/NPC 仍未完成。
+- 用户授权新两题到 DeepSeek 官方 chat/completions，仅 flash、8次/8场/USD0.40。初次离线容量测得双Trace超过18k，在任何调用前保留旧准备，改32k并重新授权；题目/评分不改。实际通过页面确认1.52、1.68候选并运行，共7次/8场，峰价估USD0.00663312、0未知。剩余1次已关闭，不补题或额外解释。
+- 新两题独立助手逐句复核9条原始reason/29子句，语义目标均完成、未发现无依据主张。1.52样本7 AV不变、样本11减少600/7；1.68两样本减少2300/11、600/7，均两版胜。第二题实际读取两版本部分Trace、准确引用伤害并指出因果缺口。总体仍INC/结构PASS；固定2种子不证明总体收益，也不证明多Agent相对性能。
+- 原wire两次违规给双Decision，LangChain当时仅取首个，故每题first_attempt_clean=false，不声称无故障通过。原账本/输出保留。新网关已先红后绿补恰好一条合法调用检查，保存raw/usage并拒绝多条；该修复尚未真实模型复测。原运行models/workbench分别保存在新批次live-models.py/live-workbench.py，另有live-source-hashes。
+- 页面POST丢失后的永久等待、报告读取失败后刷新不重读已修；同ID/原内容重试不会另建任务。已准入请求允许在模型额度0时从已存决定/checkpoint收尾，未知Job无receipt仍停止。2题服务重启关闭模型后重放均0新调用/战斗，原报告不变。
+- 最终132 Python tests（130 pass+2既有opt-in skip）、5前端tests、TypeScript/Vite build、pip check通过。独立代码审查发现的零额度恢复P2已复现修复。真实浏览器测试了窄屏/桌面、候选确认、报告/Trace、运行中刷新与已完成重读。
+- 完整记录见 research/evidence/workbench-qa-20261005.md/json；原始新批次在 local-data/qa-independent-v1-32k，独立语义复核为 independent-review.json。下一步先解决provider单决定输出兼容并独立确认，再完成Config确认集/M3退出；原G0-C、M1/Unity、NPC路线不变，不扩生产部署。
+
+## 2026-10-05 前次续验（历史记录）
 
 - 本轮报告/预算/失败边界已修：中文显示胜→负/超时和无收据；已准入检查不可用交付INC；QA每次读取最新战斗/模型余量，额度耗尽正常停止；未知模型预留仍占额度。策略Schema明确枚举balanced/survival/basic_only，非法种子/策略/预算与无效模型输出分别诊断。
 - 旧授权8次已用尽：从原6次精确字节账本续用2次，新QA实际4场，模拟成功后模型提出额外8场被拒，随后触顶；原报告错误不改。累计8完成/0未知，估USD0.004608756。不是干净验收。

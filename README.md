@@ -1,10 +1,30 @@
 # 米哈游 Agent 项目群
 
-“可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config 候选生成、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已进入新 CLI；四能力全产品、React/Electron 工作台及可玩 Unity 尚未交付。
+“可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已有 CLI，React 浏览器工作台接入同一业务服务；四能力全产品、Electron 和可玩 Unity 尚未交付。
 
 先读[总体方案](TECHNICAL_PROPOSAL.md)，再看[实施路线](IMPLEMENTATION_ROADMAP.md)、[验证报告](VALIDATION_REPORT.md)和[当前上下文](current_context.md)。图状态、领域事实、外部Job与NPC丢响应恢复详见[框架设计](FRAMEWORK_ORCHESTRATION_DESIGN.md)。
 
-## 首个本地业务入口
+## 浏览器工作台
+
+本机入口为 `http://127.0.0.1:8765`。策划从“配置提案”查看需求与前后差异，按完整候选身份确认；“独立验证”可选择现有候选、填写验证目标和战斗预算，再读取程序计算的事实、运行错误、战斗摘录和单列的模型意见。确认不会应用配置或启动战斗。
+
+```powershell
+Set-Location -LiteralPath 'D:\Desktop\mihoyo-agent-project\frontend'
+npm ci
+npm run build
+Set-Location -LiteralPath 'D:\Desktop\mihoyo-agent-project'
+$env:PYTHONPATH = 'src'
+$env:PYTHONUTF8 = '1'
+.\.venv\Scripts\python.exe -m agent_workbench.cli --data local-data/workbench-v1 web --port 8765
+```
+
+默认关闭模型，仍可查看、确认已有候选并阅读证据。本机 `workbench-v1` 的初始数据由 [prepare_workbench_demo.py](scripts/prepare_workbench_demo.py) 从真实历史结果只读复制，来源见目录内 `demo-provenance.json`；它是已有结果演示，不是新模型成绩。脚本拒绝覆盖已有目录。新机器无这些本地证据时使用空目录启动。
+
+模型能力只能在服务启动时以 `--call-cap N --audit-path <已授权共享账本>` 开启；`--qa-only` 仅开放独立验证。网页不能改调用上限、凭据或数据目录。旧两批 8/8、16/16 调用均已用尽，不能用换目录或新账本复用旧授权。新 [QA 两题](research/evals/qa-independent-v1/README.md) 已获单独授权执行：7次/8场，费用估USD0.00663312，剩余1次关闭；语义目标完成，但两次双Decision响应异常保留。详见[工作台与真实验收](research/evidence/workbench-qa-20261005.md)。
+
+页面刷新查询同一个持久操作；丢失提交可按原内容/同ID重试。服务重启把未完成操作标记为中断，QA 可显式恢复原请求；模型关闭时也可沿已有checkpoint和收据收尾，不新增推理。发现已启动但无收据的作业时停止并要求核对现场。这里没有多实例、高可用或运行中取消承诺。
+
+## CLI 业务入口
 
 最新续验：Config首轮6个开发需求通过5个，修复后同题回归6/6；新候选已交独立QA跑4场，但首次非法策略和Trace过度解释仍计失败。预算/状态/报告/证据摘录已据此修复，后两项QA模型效果仍待独立确认，M3未关闭。详见[真实续验、费用与限制](research/evidence/v1-followup-20261005.md)。
 
@@ -38,7 +58,7 @@ $wbPython = '.\.venv\Scripts\python.exe'
 - [冻结候选验证](research/evidence/frozen-candidate-probe-20261005-review.json)：6项边界测试、4场真实战斗、完整Trace，候选/旧源未变；结构PASS、总体INCONCLUSIVE，模型调用0。不证明OS沙箱或完整QA Agent。
 - 协议验证使用独立[锁版本环境](research/probes/protocol-requirements-20261005.lock.txt)，A2A SDK1.2.1/spec1.0、MCP2.3.0、LangGraph1.2.12；[37项协议功能实测](research/evidence/a2a-mcp-boundary-probe-20261005.md)及SDK队列清理缺口见[验证报告第11节](VALIDATION_REPORT.md)；生产生命周期门槛未通过。新MCP2证据不覆盖旧MCP1.26桥升级。
 
-当前先验收上述 Config→独立 QA 切片，再接工作台页面；并行后续推进可玩 BattleSession、稳定 Runtime/动态子 Agent 和 Unity 执行门槛。Config 默认不自动搜索最优数值，Verifier 没有改候选的工具。
+当前已有 Config/QA 工作台；下一步独立确认单决定响应规范与完整质量验收，并行后续推进可玩 BattleSession、稳定 Runtime/动态子 Agent 和 Unity 执行门槛。Config 默认不自动搜索最优数值，Verifier 没有改候选的工具。
 
 ## 当前可运行的历史切片
 

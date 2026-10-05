@@ -200,6 +200,28 @@ class ModelGatewayTests(unittest.TestCase):
         self.assertIsNone(gateway.calls[-1]["usage"])
         self.assertNotIn("sk-explicit", self.audit_path.read_text(encoding="utf-8"))
 
+    def test_multiple_structured_decisions_are_rejected_not_silently_first_selected(self):
+        def multiple(request):
+            self.requests.append(json.loads(request.content))
+            return httpx.Response(200, json={
+                "id": "offline-multiple", "model": "deepseek-flash", "object": "chat.completion",
+                "choices": [{"index": 0, "finish_reason": "tool_calls", "message": {
+                    "role": "assistant", "content": "", "tool_calls": [
+                        {"id": f"call-{i}", "type": "function", "function": {
+                            "name": "GatewayAnswer", "arguments": json.dumps({"message": text})}}
+                        for i, text in enumerate(("first decision", "another decision"))]}}],
+                "usage": {"prompt_tokens": 24, "completion_tokens": 16, "total_tokens": 40}})
+        from agent_workbench.models import ModelResponseError
+        gateway = self.gateway(handler=multiple, max_calls=1)
+        with self.assertRaises(ModelResponseError):
+            gateway.complete([{"role": "user", "content": "offline fixture"}], GatewayAnswer)
+        self.assertFalse(self.requests[0]['parallel_tool_calls'])
+        self.assertEqual(len(self.requests), 1)
+        self.assertEqual(gateway.calls[-1]['status'], 'failed')
+        self.assertEqual(len(gateway.calls[-1]['raw']['tool_calls']), 2)
+        self.assertEqual(gateway.calls[-1]['usage']['total_tokens'], 40)
+        self.assertEqual(gateway.remaining_calls(), 0)
+
     def test_total_input_limit_stops_before_reservation_or_network(self):
         gateway = self.gateway(max_input_chars=40)
         with self.assertRaisesRegex(ValueError, "input"):

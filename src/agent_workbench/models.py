@@ -231,6 +231,14 @@ class ModelGateway:
                     "invalid_tool_calls": raw.invalid_tool_calls,
                     "finish_reason": metadata.get("finish_reason"),
                     "reasoning_content": getattr(raw, "additional_kwargs", {}).get("reasoning_content")}, key)
+            # The structured parser may silently select the first tool call even
+            # when the provider ignores parallel_tool_calls=False. A graph step
+            # has exactly one decision; retain all raw calls but execute none if
+            # the response violates that contract.
+            expected_name = convert_to_openai_tool(schema)["function"]["name"]
+            if (raw is None or len(raw.tool_calls) != 1 or raw.invalid_tool_calls
+                    or raw.tool_calls[0].get("name") != expected_name):
+                raise ModelResponseError("expected exactly one structured decision")
             if response.get("parsing_error") is not None or response.get("parsed") is None:
                 raise ModelResponseError("provider response failed structured output validation")
             parsed = response["parsed"]

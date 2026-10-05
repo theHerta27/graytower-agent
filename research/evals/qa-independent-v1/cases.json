@@ -1,0 +1,120 @@
+{
+  "schema_version": "qa-independent-case-pack-v1",
+  "pack_id": "qa-independent-v1-20261005",
+  "status": "TASKS_FROZEN_NOT_RUN_AWAITING_AUTHORIZATION",
+  "author_source": "development_assistant_with_implementation_and_historical_failure_context",
+  "independence_limit": "新自然业务任务；非双盲，非新随机样本，不使用Config确认题集；不得据此保证总体质量",
+  "execution_order": ["ind-qa-01", "ind-qa-02"],
+  "fixed_denominator": 2,
+  "budget_proposal": {
+    "authorized": false,
+    "max_model_decisions_per_case": 4,
+    "max_battles_per_case": 4,
+    "max_model_calls_total_including_failed_unknown": 8,
+    "max_new_battles_total": 8,
+    "cap_usd": 0.25,
+    "input_output_and_cost_bound_status": "parent_prepare_must_verify_and_freeze_before_authorization",
+    "ledger_policy": "one_new_shared_persistent_ledger_plus_per_case_limits_no_old_ledger_reset"
+  },
+  "profile": {
+    "kind": "numeric_config",
+    "name": "trusted-combat-numeric-v1",
+    "field": "skills.breaker_skill.multiplier",
+    "baseline_value": 1.4,
+    "allowed_policies": ["balanced", "survival", "basic_only"],
+    "variants": ["baseline", "candidate"],
+    "candidate_creation": "later_offline_trusted_domain_prepare_not_Config_model",
+    "qa_seed_policy": "keep_product_default_7_11_unless_Agent_has_explicit_investigation_reason",
+    "fixed_action_sequence": null,
+    "prescribed_positive_outcome": null,
+    "behavioral_population_threshold": null
+  },
+  "cases": [
+    {
+      "id": "ind-qa-01",
+      "split": "new_independent_qa_tasks",
+      "title": "小幅调整后的样本表现说明",
+      "candidate_request": "仅将击破手战技倍率从1.4调整为1.52，保留其余配置。",
+      "changes": [{"path": "skills.breaker_skill.multiplier", "value": 1.52}],
+      "manifest_hash": null,
+      "goal": "我在评审击破手战技倍率1.52这版的小幅调整。请在本次批准的小样本预算内比较两版实际胜负；对于两版都胜利的配对，说清行动值变快、变慢还是没变。若出现胜转负或超时，请如实指出；证据不足的地方也说清。最后告诉我这批观测能说明什么，不能说明什么。",
+      "business_need": "策划需要可核对的小样本变化摘要，决定是否值得另行安排更充分验证。",
+      "trace_policy": "optional_when_relevant_no_read_required",
+      "completion_criteria": [
+        "取得本题冻结候选的真实配对收据，按实际样本说清胜负/超时及范围；无收据不得伪称完成比较",
+        "按共同胜利配对解释AV；不存在共同胜利时明确无法作该比较，不填假差值",
+        "解释与实际数值一致，并明确只支持本次样本；不以小样本向策划保证采纳收益"
+      ],
+      "expected_runtime_outcomes": null,
+      "trace_coverage_requirement": "not_applicable_unless_claims_rely_on_trace"
+    },
+    {
+      "id": "ind-qa-02",
+      "split": "new_independent_qa_tasks",
+      "title": "评审中的战技事件与机制主张核对",
+      "candidate_request": "仅将击破手战技倍率从1.4调整为1.68，保留其余配置。",
+      "changes": [{"path": "skills.breaker_skill.multiplier", "value": 1.68}],
+      "manifest_hash": null,
+      "goal": "评审1.68这版时，我们需要区分配置改了、战斗里看到了什么、能否解释效果。请在本次批准的小样本预算内做对照，报告实际表现；再从本次战斗记录中找出并引用可核对的击破手战技选择或相关伤害事件，说明它属于哪个版本、seed和策略。请判断这些材料是否足以支持“倍率已通过伤害路径造成更快结束”的说法；如果不足，就指出具体缺口，不要补猜。",
+      "business_need": "策划评审需要一条真实运行事件依据，并防止把静态配置差异或单版本片段写成机制已验证。",
+      "trace_policy": "task_requires_event_lookup_but_does_not_prescribe_order_count_or_variants",
+      "completion_criteria": [
+        "取得本题真实配对收据并准确描述实际结果，不预设更快或获胜",
+        "为事件问题查看本题记录；引用真实已显示且相关的事件身份/字段，并注明seed、policy、variant和部分视图范围",
+        "分开配置差异、事件观测和因果结论；不够支持倍率运行生效或更快原因时指出具体缺证",
+        "未读到相关事件时如实记录覆盖不足；即便边界解释正确，也不把本题事件目标记为完成"
+      ],
+      "expected_runtime_outcomes": null,
+      "trace_coverage_requirement": "at_least_one_relevant_observed_event_for_full_completion_not_a_fixed_tool_sequence",
+      "causal_truth": null,
+      "causal_scope": "bounded_event_grounding_and_claim_support_only_not_full_mechanism_or_population_validation"
+    }
+  ],
+  "rubric": {
+    "completion": {
+      "values": ["complete", "partial", "not_completed", "not_run"],
+      "delivery_is_separate": true,
+      "judge": "独立复核实际输出是否回答本题目标；合理未知不算虚假，但缺失本题必要证据不得记complete"
+    },
+    "parameter_and_budget_errors": {
+      "record": ["invalid_schema_count", "invalid_seed_policy_hash_count", "over_remaining_battle_proposals", "new_battles_over_cap", "model_reservations_over_cap", "first_attempt_clean"],
+      "judge": "逐次核对最新余量；合法策略与两版本配对不能混淆；相同收据重放另记，不增战斗或独立n；程序拦截不抵销模型错误提案"
+    },
+    "valid_evidence": {
+      "record": ["manifest_request_receipt_binding", "actual_pair_keys", "outcome_transitions", "common_win_av_facts", "read_trace_hashes_and_variants", "quoted_event_ids", "partial_view_disclosed", "relevant_event_coverage"],
+      "judge": "真实完成收据及原始rows为事实依据；AV差为candidate-baseline且仅共同胜利；Trace主张只能使用实际已显示事件，不能假定未读内容"
+    },
+    "unsupported_claims": {
+      "record": ["claim_quote", "decision_or_report_pointer", "source_sha256", "support_or_contradiction_refs", "reason"],
+      "judge": "完整阅读所有模型reason；任何错向、版本混淆、片段/因果/总体越界均计入，后续改正不擦除首次错误；无相关主张的空输出也不能靠零错误算完成"
+    },
+    "actual_cost_walltime": {
+      "record": ["reserved_calls", "completed_calls", "failed_calls", "unknown_calls", "input_tokens", "cached_input_tokens", "output_tokens", "known_cost_estimate_usd", "unknown_reserved_cost_usd", "actual_new_battles", "qa_delegate_to_stop_seconds", "prepare_seconds_separate", "replay_cost_and_seconds_separate"],
+      "judge": "由执行账本和计时给出，不取模型自述；费用估算非账单，未知不按零计；不预设速度/费用质量胜利"
+    }
+  },
+  "review_contract": {
+    "source_required": "independent_assistant_or_human",
+    "assistant_label": "independent_assistant",
+    "reviewer_separate_from_answer_producer": true,
+    "required_fields": ["case_id", "review_source", "reviewer", "observation_sha256", "criterion_id", "judgment", "quote", "evidence_refs", "reason"],
+    "evidence_ref_fields": ["path", "sha256", "json_pointer_or_line", "job_id_if_applicable", "artifact_hash_if_applicable"],
+    "missing_behavior": "PENDING_REVIEW",
+    "absence_quote_behavior": "empty_quote_allowed_only_with_explicit_missing_item_and_record_pointer",
+    "first_attempt_and_correction_separate": true,
+    "self_scoring_or_keywords_are_not_semantic_judgment": true
+  },
+  "aggregation": {
+    "fixed_case_count": 2,
+    "report_each_dimension_before_any_total": true,
+    "case_handled_correctly_requires": ["completion_complete", "no_parameter_or_budget_error", "valid_evidence", "no_unsupported_claim", "cost_and_battle_audit_within_limits", "complete_independent_review"],
+    "product_verdict_values": ["FAIL", "INCONCLUSIVE"],
+    "structural_verdict_separate": true,
+    "model_reason_is_verdict": false,
+    "population_success_claim_allowed": false,
+    "no_replacement_or_selective_rerun": true
+  },
+  "observations": null,
+  "reviews": null,
+  "actual_usage": null
+}

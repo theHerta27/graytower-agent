@@ -1,0 +1,37 @@
+{
+  "schema_version": "qa-independent-task-freeze-v1",
+  "pack_id": "qa-independent-v1-20261005",
+  "date": "2026-10-05",
+  "status": "TASKS_AND_RUBRIC_FROZEN_NOT_RUN",
+  "scope": "Freeze of this new task pack only; not a live execution or candidate manifest seal.",
+  "files": {
+    "README.md": "2bdc1fdaab9b63acd0ddf589b249d37376b411ed82527f265e50f1b4cf1ce727",
+    "cases.json": "ac5964fea822d8acd9bf5a11dae14317a207b03a91b9a456cf9a4cbba80148b4"
+  },
+  "writing_basis_sources": {
+    "AGENTS.md": "26b60ed1c0361191f032858d34210b2d4143b0a6a7973c965129ab8185d376e8",
+    "current_context.md": "a917a398063d976e2cbfff14685cf98f1828b38eaa590f8e66767afd33948ef0",
+    "PROJECT_BRIEF.md": "da4661f2e5920a27f698f30106981d8e0dc98a86816eed54ced88f4b761db534",
+    "research/evidence/v1-followup-20261005.md": "a367b63019c78162e638c3bf66c3a4510203010cc34fb98f3d4909918860b9eb",
+    "src/agent_workbench/qa.py": "5aa84705fff485ce055747c80878411a5d9d04053520dd3fbdbe688823471013",
+    "src/agent_workbench/game_tools.py": "8de2594177a2c8a53eaa4571194a887a0eb3f2ee6dfa807b9f2f3e672ef6387c",
+    "src/agent_workbench/domain/_shared.py": "000489698932103afdf9fb3c5583d0f1f5758d1f87d421fc7aeacf4a9bae699a",
+    "src/agent_workbench/domain/candidates.py": "1a901a505cd8e87ee725d6ecf37fcaced845828df64057f975c51c88a49e757c",
+    "src/agent_workbench/domain/worker.py": "40a6848df070f71582f4f672840c4fe2a91ef4e8e7a54c2e237619b424225aee"
+  },
+  "execution_freeze": null,
+  "candidate_manifests": null,
+  "authorization": null,
+  "actual_model_calls": 0,
+  "actual_battles": 0,
+  "actual_cost_usd": 0,
+  "actual_live_results": null,
+  "required_before_execution": [
+    "trusted_domain_candidate_prepare_and_manifest_hashes",
+    "actual_implementation_model_prompt_schema_tool_dependency_seal",
+    "exact_outbound_preview_and_input_output_bounds",
+    "conservative_cost_calculation_and_new_explicit_authorization",
+    "single_new_shared_persistent_ledger_and_per_case_caps"
+  ],
+  "immutability": "Do not overwrite this pack after observing real outputs. Keep both cases in the denominator; no replacement or selective rerun."
+}

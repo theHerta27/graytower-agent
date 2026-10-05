@@ -1,0 +1,173 @@
+{
+  "base_commit": "83038eb",
+  "scope": "V1 localhost React workbench + fixed two-task independent QA; no full M3/Unity/Coding/NPC completion",
+  "python_tests": {
+    "run": 132,
+    "passed": 130,
+    "skipped_opt_in": 2
+  },
+  "frontend_tests": {
+    "passed": 5
+  },
+  "frontend_build": "PASS",
+  "python_dependency_check": "PASS",
+  "browser": {
+    "tool": "Codex browser computer use",
+    "origin": "http://127.0.0.1:8765",
+    "initial_model_disabled": true,
+    "historical_confirmation": "bce64ed2eb3e15aea6a4de61933de228d81e8ce7cb6fd145302b7d440c91cf5d",
+    "new_cases_submitted_from_ui": [
+      "ind-qa-01",
+      "ind-qa-02"
+    ],
+    "refreshed_during_first_operation": true,
+    "report_candidate_identity_displayed": true,
+    "final_model_enabled": false,
+    "viewports": [
+      {
+        "width": 1280,
+        "document_scroll_width": 1265
+      },
+      {
+        "width": 390,
+        "document_scroll_width": 375
+      }
+    ],
+    "no_page_horizontal_overflow": true,
+    "viewport_reset_after_test": true
+  },
+  "old_evidence": {
+    "old_current_files": 174,
+    "old_versioned_sources": 3,
+    "old_source_commit": "83038eb",
+    "live_sources": 25,
+    "errors": []
+  },
+  "usage": {
+    "cases": [
+      {
+        "case_id": "ind-qa-01",
+        "request_id": "verify_0f6a898c7e974129a74fc787ce78dc66",
+        "reserved": 3,
+        "completed": 3,
+        "unknown": 0,
+        "usage": {
+          "input_tokens": 9317,
+          "cached_input_tokens": 2816,
+          "output_tokens": 695
+        },
+        "peak_cost_estimate_usd": 0.002801196,
+        "actual_new_battles": 4.0,
+        "qa_delegate_to_stop_seconds": 12.967010499996832,
+        "max_observed_input_chars": 15330,
+        "observation_sha256": "7e04c3bb55baad1e6f94e6f15a9adb5d6ba29d4b64b955d279d82e85af2caf91"
+      },
+      {
+        "case_id": "ind-qa-02",
+        "request_id": "verify_9c2216edcb82401fa9bdd24981542d63",
+        "reserved": 4,
+        "completed": 4,
+        "unknown": 0,
+        "usage": {
+          "input_tokens": 17391,
+          "cached_input_tokens": 8704,
+          "output_tokens": 978
+        },
+        "peak_cost_estimate_usd": 0.003831924,
+        "actual_new_battles": 4.0,
+        "qa_delegate_to_stop_seconds": 12.767284200002905,
+        "max_observed_input_chars": 25114,
+        "observation_sha256": "97537abddca59e58c5ad0d4359021a386f7dc33dbcded0ac0215caed56517708"
+      }
+    ],
+    "total_reserved": 7,
+    "total_completed": 7,
+    "failed": 0,
+    "unknown": 0,
+    "total_battles": 8,
+    "peak_cost_estimate_usd": 0.00663312,
+    "price_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "pricing_note": "Conservative peak estimate; not billing statement; no cache assumptions beyond recorded usage",
+    "remaining_call_grant_closed": 1,
+    "no_extra_case_or_selective_rerun": true
+  },
+  "independent_review_sha256": "8ff8be74dfa9895e76648d1e8875508f5f13a2a083cbb0975c1152ed94cf1067",
+  "quality_boundary": "Both semantic goals complete; two multiple-Decision response anomalies preserved; post-run exact-one guard has only offline verification",
+  "post_run_source_snapshots": {
+    "models": "local-data/qa-independent-v1-32k/live-models.py",
+    "workbench": "local-data/qa-independent-v1-32k/live-workbench.py"
+  },
+  "sha256": {
+    "AGENTS.md": "d07e82d3496a2daa544b7c43e81dac1f9eab09bc67ad19f535a2bb771a8663cd",
+    "README.md": "c57edc9bd84c8cc2f590483c91ef96af00e180a277d8029bc0d716be7302387e",
+    "current_context.md": "280611f3becc811b6b7d0734bbb0b37fa8f4e6066206e41026e887d64bfa578e",
+    "TECHNICAL_PROPOSAL.md": "ab48b92e7906b94a6fa1fd0a51e52e116f85d6f5446f73b80fb8bd7649235151",
+    "IMPLEMENTATION_ROADMAP.md": "75ebe4d350c11ed84281fe10a8d7fac15efe6542521847ad83ee73d539bfc1e9",
+    "task_plan.md": "41968d10bc3c31a5e224809ddf7ecb9d6a31cd675fd2beb39fe6030502992c2e",
+    "progress.md": "f73b57d1682a9eeb0283538a228b6f9d734d4e207e82bc5908bff82435a6df0c",
+    "src/agent_workbench/cli.py": "eb20d7a4a23a71210412b26e63b14c230bb3061aad0575a959626789577362a7",
+    "src/agent_workbench/models.py": "d7952ff8cdc39eeed2cfef5f65947dfdfa79d5d4e5b3309537249e725c35423f",
+    "src/agent_workbench/workbench.py": "c34d9815b4fc02cb21b69100856e1c6a1b71dec3127f975c3e2949838c13ce47",
+    "src/agent_workbench/workbench_store.py": "667f46b339a4f67f6dedf24a64fd373d34b4ae371657585a277045238b12d800",
+    "tests/test_config_agent.py": "cf8169b18378de3175a46cd087defd7d45ef15cbc95c090e84acb97770119aa6",
+    "tests/test_workbench_api.py": "7ba3e643b9684ba2b8ff04290db2e88041e9af642c69b322b708de15ab9d025e",
+    "scripts/prepare_workbench_demo.py": "67b6b824a9ebd33be7d67063e86da9f4caeac2fbf720ddeda05050b5f45293eb",
+    "scripts/prepare_qa_independent.py": "5a4cd4bfc8a87dd011d29664537fbb4510c1b6a675bbde793b6326439a3ab15e",
+    "scripts/serve_qa_acceptance.py": "8ffb7a460c53e8ca922cfb73497a3fb522684a2f1e61084cac25ce2499c803f4",
+    "research/evidence/workbench-qa-20261005.md": "4ad49cc401ab3e7b9f48ece7c83f5a995034423ee85cc2ae6d31775bcbc18cea",
+    "research/evals/qa-independent-v1/cases.json": "ac5964fea822d8acd9bf5a11dae14317a207b03a91b9a456cf9a4cbba80148b4",
+    "research/evals/qa-independent-v1/freeze.json": "881323f7897858c31bec3123c9a2ee3a74c38535e23c51ce1c3f320a696a2c55",
+    "research/evals/qa-independent-v1/README.md": "2bdc1fdaab9b63acd0ddf589b249d37376b411ed82527f265e50f1b4cf1ce727",
+    "frontend/.gitignore": "05cdf6bc6cb850bdb744edb1f6e848e62ae15299ed2559f3ca64bed19863caf3",
+    "frontend/index.html": "0a8c4fa66ee9eb3c9bc8342ee53d472c6b155b7e991030e1132f4c04d5e4edaf",
+    "frontend/package-lock.json": "22a33e617411004a6d07400580d01991bb2efcf0e6ad2aa98d41c41ad5dc27b6",
+    "frontend/package.json": "7621b73f2e506db16967a8546a30053da28c97a664b68872468d20f0b9f4ec6a",
+    "frontend/tsconfig.json": "1a040bd2e2d3b6b082682b16eca8a1a31beca28967db555a8fd45a1dbd4b4fdd",
+    "frontend/vite.config.ts": "83cdd865dfde3afd8f6a1cd77336263e3f04683cb911eb538a503a0a7c17c528",
+    "frontend/src/api.ts": "02d56c73eafef6659339c836363e1a9f3fa97ccd553b9478ec79789190f4044b",
+    "frontend/src/App.test.tsx": "3b2e6ca96d20babd54ff5c401c7c169481c26cee7be0a9efcd057f31ebf114bb",
+    "frontend/src/App.tsx": "ab01f0fb4e49c9ac896a8b61bfb563661b90de7f2b77ca1db1c2b1b489b3aaf1",
+    "frontend/src/main.tsx": "e0a12b080d820a7519f87d494dadd6af075385a2fc9275283222267e2bad2ef0",
+    "frontend/src/ReportView.tsx": "8138b4c4b1a142140b626b076c244206d8d4e176bd79fb71801b1185b9af6252",
+    "frontend/src/styles.css": "7a4806f24db36cc91f1006644e993610bd01308568154e6b3657d33995f4febd",
+    "frontend/src/types.ts": "4ccc7625766ec23a3394b43630352deb56bb7f69b65acd350040e4db85d696a3",
+    "frontend/dist/index.html": "416a5f86d3c9f6de63fb24382c326fbe42ffa1b138a5f1f1ee9e7cd15240a7d6",
+    "frontend/dist/assets/index-C26mhxFk.css": "b77e6f45c4d33ee2ca1d3d2ee2d9642671118f3d190923c5f759323b341b87d6",
+    "frontend/dist/assets/index-DOnZMHqh.js": "ed45de6be188f10e921de38d067ef4b226f700e5a59bf6beebfd20de7f7f6c40",
+    "local-data/qa-independent-v1-32k/authorization.json": "14a66964f8955f263779a7fdc935dbea8cb3946d486588b4468da4517c394b74",
+    "local-data/qa-independent-v1-32k/capacity-check.json": "21716c90647b4f250a38d27eb044feca37991cf915ae0bfabf5cab80b2168ecb",
+    "local-data/qa-independent-v1-32k/closed.json": "9a76b7aab471e15df3b7a3234f2e61b379f302c912fcbfc6ee8f70e65e805969",
+    "local-data/qa-independent-v1-32k/execution-bindings.json": "ee3e4a40944b7d739909ad238e6cabba78fc671dc914b3a6b4425243b97987ea",
+    "local-data/qa-independent-v1-32k/ind-qa-01-observation.json": "7e04c3bb55baad1e6f94e6f15a9adb5d6ba29d4b64b955d279d82e85af2caf91",
+    "local-data/qa-independent-v1-32k/ind-qa-01-outbound-preview.json": "194015a8b15981b12df4e83d75f083831a6caa26f413ffd1d565f35d0d7d8c2e",
+    "local-data/qa-independent-v1-32k/ind-qa-01-report.jpg": "c0ed3dd69c0b178faec30e400847fd7f12e362ec4e5446439393e443c0ec45b3",
+    "local-data/qa-independent-v1-32k/ind-qa-01-start.json": "b004beec190dad8114b9ec56423fe4cfe02396e80a0d44066acf3183a3bbd2d9",
+    "local-data/qa-independent-v1-32k/ind-qa-02-observation.json": "97537abddca59e58c5ad0d4359021a386f7dc33dbcded0ac0215caed56517708",
+    "local-data/qa-independent-v1-32k/ind-qa-02-outbound-preview.json": "eb4110a81d962ee5b44b07bdccc9e70f7278ce690574613cb0b3bf8c6b276534",
+    "local-data/qa-independent-v1-32k/ind-qa-02-report.jpg": "a5769156e6c18a2e300ceda9deb21f5593b7f92f390da565ebc6e65791b4e2a8",
+    "local-data/qa-independent-v1-32k/ind-qa-02-start.json": "2769bb02c04f87435bb6dfd4398b24ca1c17c9ab001a43d533535feb1b4677fd",
+    "local-data/qa-independent-v1-32k/independent-review.json": "8ff8be74dfa9895e76648d1e8875508f5f13a2a083cbb0975c1152ed94cf1067",
+    "local-data/qa-independent-v1-32k/live-models.py": "539bd44276a11a0e2c3e01a8575fdf3b55e552383efe5b7dc74731b8e3e7cf40",
+    "local-data/qa-independent-v1-32k/live-source-hashes.json": "c8af73bd6eb34d0e11e7d1f23f9bfbdd8425d86fc824c9a43580c6ceeb99d7e0",
+    "local-data/qa-independent-v1-32k/live-workbench.py": "05e3b801d41fd79f830af6bc1e6f9d0b7723cfd5a9fd4ec9a5672445f9be6cba",
+    "local-data/qa-independent-v1-32k/model-calls.jsonl": "975fdc3c277ad558ea480b7e09b17b52bfc3f82adff166d5aaf6da13dbac355c",
+    "local-data/qa-independent-v1-32k/outbound-scope.json": "ebf7da9210b7722a05498952caac33074b3e9b0a8c5a979cd3e2bf1bf9a64e1a",
+    "local-data/qa-independent-v1-32k/replay.json": "bb5ee5e4469f15ef313fecfd6b50d1fad425a78ce2b132e930110426048d53cf",
+    "local-data/qa-independent-v1-32k/source-hashes.json": "9be2074bac9695b689fc65d64ef5bb164361c2ecd1ca82fbfb3c3da82084c514",
+    "local-data/qa-independent-v1-32k/usage-summary.json": "e6506aaaa6ae3ba79350d5f0d4856f80b6339439e0ec10c8ec9b029e43a6986b",
+    "local-data/workbench-v1/demo-provenance.json": "42ef8e66d6c1687909aa604c413ec668b25166a42f3589c11a8e4e4f2ba59941",
+    "local-data/workbench-v1/source-preservation.json": "e1436b7d3bfced28e8a67752776aa9d2a1280f24340a755e294865d57d3ec1df",
+    "local-data/workbench-v1/browser-check.json": "25b644a9d68bb31ee73c09c0009e3e5baedf35218228230f98a4a2942ce86ee3",
+    "local-data/workbench-v1/python-final-tests.log": "18e996e32554c877e2a3dbeb6398eb349a6ce1ef36b0a507447267ab9a93ddd3",
+    "local-data/workbench-v1/frontend-final-tests.log": "1910bfb2dbf08e17ea7658437d73234a70010c8836af1a81a1f7a1b966863658",
+    "local-data/workbench-v1/frontend-final-build.log": "6120f9204b6145ff33c6cf6752025aa48bd125922b1bd7b916e571c725e29ea6",
+    "local-data/workbench-v1/frontend-red-tests.log": "c6f49b1e0b10f5c5e6011519bf3571de79452aa3e3ec9d26050f42939535b2a2",
+    "local-data/workbench-v1/multiple-decisions-red.log": "a3ee74c62f832ab30ad22252ca97cb88888b9f2c2e8eaa045f21a90ec0a5153e",
+    "local-data/workbench-v1/zero-budget-resume-red.log": "a8b71dc490dbf4e85adaf02ad422acada02fc0bdf7d16e20e0c377348c45b9b0",
+    "local-data/workbench-v1/zero-budget-resume-green.log": "a357ad532062f47289821aa6f64bfa2acb36b06cf102588bd0da0e1a314e448d",
+    "local-data/workbench-v1/candidate-confirmed.jpg": "9f8b2691fcdea2f734e50f04327ae6b8f53ea8f46fc6c8f71cb96c27a95dfbd4",
+    "local-data/workbench-v1/historical-evidence.jpg": "75c3b54a57eed6eff18fd833be9e77da48eaa9aec2d8d4bb1a6ac434d6c88e11",
+    "local-data/workbench-v1/workbench-desktop.jpg": "6c406c35c7e7955d416b91b2259540dcf17428efe71ebdd96e342ee2090bfe14",
+    "local-data/workbench-v1/workbench-narrow.jpg": "8d760373ed7a7db95c3d5eba09a0bc6462cd9da63c3f3785b9dfd401344964a8"
+  }
+}
