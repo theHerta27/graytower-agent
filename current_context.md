@@ -1,6 +1,16 @@
 # 当前上下文
 
-## 2026-10-05 Coding 正式 Runtime：最新继续入口
+## 2026-10-05 Coding真实验收与M1实施：最新继续入口
+
+- 用户明确授权scope bd9ff502...e1c48后，真实单次批次成功交付：single/auto均只改1.4→1.58并原生Review；固定auto候选同A2A QA实际4场、两对均两版胜，AV分别减少100/7与600/7；结构PASS、总体INC。自主spawn0；另有2个原生Review子线程。不是多Agent质量或速度比较。
+- Coding16＋QA4调用全完成，0未知，峰价估USD0.021308352；未用8次关闭，不重新执行本批。保留single首次LF/CRLF编辑失败与QA一处不支持的机制关联。功能完成不等于机制解释全通过；独立助手复核和原文在local-data/coding-runtime-demo-v1，33源文件保存在research/evidence/coding-live-source-20261005。
+- 新CodingService/工作台接持久run、固定授权任务ID、独立Responses账本、已有完整receipt零模型收尾。默认web不开放收费Coding；缺完整receipt不重跑。原生Review不冒充QA。独立审查修了前端随机ID不匹配授权、导入crash后卡住两项。
+- 真实页面副本local-data/coding-workbench-v1，http://127.0.0.1:8767（PID9360）；原记录不改、两候选可查，auto原确认和QA报告保留。浏览器已核文件任务→候选→原报告、390px无横溢出；模型均关闭。截图coding-desktop.jpg。199 Python tests（197pass+2既有skip）、8前端tests、TypeScript/Vite build通过。
+- 已新建独立游戏repo D:/Desktop/graytower-game，源自旧fdb9e838...（旧路径仅未跟踪current_context，保持不变），branch m1-playable-session。新.venv Python3.11.9及Host依赖已备。qa_next_acceptance实现BattleSession/同Bot路径；workbench_api实现SQLite/HTTP Host；candidate_domain_v1做Unity隔离smoke。不要重复派工或覆盖并行文件。
+- Unity6000.3.19f1已安装：受限用户首跑许可198；经正式审批的宿主用户许可可用，补齐非敏感Windows路径环境后真实UTF EditMode/PlayMode各1项PASS。Windows Player构建/运行仍在验；不把host smoke当受限代码Worker或产品完整引擎验收。
+- 用户要求最终全部完工后提供简单易懂的**中文**使用手册，按实际全流程讲操作、结果、故障处理；现在不把未交付Unity/NPC写成可用功能。其他M2/M4/M5门槛继续。
+
+## 2026-10-05 Coding 正式 Runtime：历史准备入口
 
 - 已固定官方发布 openai-codex==0.160.0＋默认 CLI==0.160.0，独立 research/.venv-coding；主循环/原生子调度/Review 均复用，不改SDK。新增 single/auto 文件业务入口，原生只读MCP共享给子，主thread独占动态edit_text。namespace仅在DeepSeek边界无损映射，shared SQLite按全部父子/Review调用计额。
 - CodingWorkspace导入完整实际文件与目录，绑定精确bytes/hash/diff、来源artifact和Review最终树；author=coding、kind=numeric_config，同A2A QA已扩准入；仍拒code/build。旧manifest环境drift保留，旧报告收据可读，不重封或放宽旧hash。

@@ -28,3 +28,5 @@
 - 2026-10-05 JSON/Config续轮：JSON mode默认，公开LangChain generate保留全部choice，严格原文校验；4次旧异常上下文协议回归通过，12题Config首次确认独立助手复核12/12（24标准）通过，非盲非真人/非QA全链。新授权28次/USD1.10实际16次/0战斗/估USD0.018343908，剩余12次关闭；json-config-acceptance-v2为master scope，两个子账本均封存，不能续用。旧v1准备无调用。原词句/原评分保留，不以同集结果调参后再称独立确认。
 
 - 2026-10-05 Coding续轮：正式SDK/默认CLI固定0.160.0；新coding文件能力支持single/auto原生子Agent，仅primary动态写，MCP只读。最终fixture及189项测试通过，尚非真实模型里程碑；新scope bd9ff50285c0757d777932617f3e1ce9d01648e1d90b08d82fcac598d70e1c48（coding-runtime-demo-v1）待用户授权，最多24 Responses＋4 Chat、4场、USD0.85。旧授权均关闭。授权后run_coding_demo单次执行，先查源码/SDK/冻结环境与Review树绑定，不自动重跑或应用。
+
+- 2026-10-05最新：coding-runtime-demo-v1已获明确外发授权并完成20调用/4场，峰价估USD0.021308352，未用8次关闭。自主spawn0、原生Review子线程2；QA机制弱关联保留，不当协作质量证明。中文最终使用手册待全产品完成。M1只在D:/Desktop/graytower-game新clone实施，旧游戏继续只读。

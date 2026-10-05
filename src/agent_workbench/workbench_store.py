@@ -21,6 +21,8 @@ class WorkbenchStore:
                     input_hash TEXT NOT NULL, status TEXT NOT NULL,
                     result TEXT, result_hash TEXT, error TEXT);
                 CREATE TABLE IF NOT EXISTS candidates (manifest TEXT PRIMARY KEY);
+                CREATE TABLE IF NOT EXISTS coding_runs (
+                    id TEXT PRIMARY KEY, details TEXT NOT NULL, details_hash TEXT NOT NULL);
             ''')
 
     def connect(self):
@@ -84,3 +86,33 @@ class WorkbenchStore:
     def candidates(self):
         with closing(self.connect()) as db:
             return [row['manifest'] for row in db.execute('SELECT manifest FROM candidates ORDER BY manifest')]
+
+    def start_coding(self, operation_id, payload, details):
+        """Claim operation and its recovery references in one local transaction."""
+        with closing(self.connect()) as db, db:
+            db.execute('INSERT INTO operations VALUES (?,?,?,?,?,?,?,?)',
+                       (operation_id, 'coding', canonical(payload), digest(payload), 'running', None, None, None))
+            db.execute('INSERT INTO coding_runs VALUES (?,?,?)',
+                       (operation_id, canonical(details), digest(details)))
+        return self.get(operation_id)
+
+    def coding_details(self, operation_id):
+        self.get(operation_id)  # Also verify the immutable business input.
+        with closing(self.connect()) as db:
+            row = db.execute('SELECT details,details_hash FROM coding_runs WHERE id=?', (operation_id,)).fetchone()
+        if row is None:
+            raise KeyError(operation_id)
+        details = json.loads(row['details'])
+        if digest(details) != row['details_hash']:
+            raise ValueError('coding recovery reference integrity failure')
+        return details
+
+    def save_coding_details(self, operation_id, details):
+        with closing(self.connect()) as db, db:
+            if db.execute('UPDATE coding_runs SET details=?,details_hash=? WHERE id=?',
+                          (canonical(details), digest(details), operation_id)).rowcount != 1:
+                raise KeyError(operation_id)
+
+    def coding_ids(self):
+        with closing(self.connect()) as db:
+            return [row['id'] for row in db.execute('SELECT id FROM coding_runs ORDER BY rowid DESC')]

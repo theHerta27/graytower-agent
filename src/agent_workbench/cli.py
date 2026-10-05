@@ -70,6 +70,8 @@ def main(argv=None):
     commands.add_parser('show').add_argument('request_id')
     commands.add_parser('report').add_argument('request_id')
     commands.add_parser('explain').add_argument('request_id')
+    commands.add_parser('coding-runs', help='读取已保存 Coding 运行；不调用模型')
+    commands.add_parser('coding-show', help='读取已保存 Coding 结果；不调用模型').add_argument('operation_id')
     commands.add_parser('serve').add_argument('--port', type=int, default=8771)
     sub = commands.add_parser('web', help='本机 React 工作台；模型默认关闭')
     sub.add_argument('--port', type=int, default=8765)
@@ -83,6 +85,13 @@ def main(argv=None):
         from .workbench import serve as serve_workbench
         serve_workbench(root, port=args.port, call_cap=args.call_cap, audit_path=args.audit_path,
                         model_actions=('verify',) if args.qa_only else ('draft', 'verify'))
+        return
+    if args.command in ('coding-runs', 'coding-show'):
+        from .coding.service import CodingService
+        coding = CodingService(root)
+        result = ({'runs': coding.list_runs()} if args.command == 'coding-runs'
+                  else {'run': coding.get_run(args.operation_id)})
+        print(json.dumps(result, ensure_ascii=False, indent=2))
         return
     repo, store = CandidateRepository(root), JobStore(root)
     if args.command in ('preview', 'draft'):

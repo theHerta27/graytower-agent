@@ -91,3 +91,11 @@
 已完成官方JSON Output/安装版LangChain源码核对。严格JSON与完整choice检查先失败后修复通过，SDK截断异常保留原usage。独立审查两项P2（多choice取首、fixture来源配对）已修；无SDK fork。4次旧QA输入协议回归＋12题首次Config确认集的v2输入/源hash/cap已冻结；集中新授权待回复，当前0新增模型/战斗。旧v1准备不覆盖、不执行。
 
 本轮收尾：用户明确授权后，4次JSON回归先过，再12题Config首次确认；16次全completed/无unknown，12/12题由独立助手24标准复核且父重跑评分器；全包3合成QA题仍NOT_RUN。149 tests（147 pass+2既有skip）/pip check过，真实1.48候选只读页面已展示。估USD0.018343908，未用12调用关闭。没有新战斗或候选确认/应用。详见research/evidence/json-decisions-config-confirmation-20261005.md。阶段14完成，仅指此小步；下一步G0-C/Coding正式接入与同QA业务链。
+
+## 2026-10-05 Coding真实链路、工作台与M1启动
+
+明确授权后，single/auto文件修改和原生Review完成，固定auto候选交同A2A QA，真实4场。20模型调用/0未知/峰价估USD0.021308352，未用8次关闭。自主委派0、原生Review子线程2；single首次编辑被拒后恢复，QA弱机制关联保留，不当全面质量或协作收益通过。33源文件另存，原始证据不改。
+
+Coding工作台新增持久run/关闭态读取、准确委派数、Review与候选跳转；固定授权ID与导入crash两项审查问题均修复。199 Python tests=197pass+2旧skip、8前端tests、build通过；8767真实页面串起文件→候选→QA原报告，390px正常，0额外模型/战斗。付费CLI未开放，显式服务启动适配另验。
+
+新game repo D:/Desktop/graytower-game从fdb9e838克隆，branch m1-playable-session，旧目录不改。BattleSession与Host并行实施；本机Unity许可/真实UTF smoke推进中。完整中文使用手册待全产品实际交付。

@@ -1,4 +1,4 @@
-import type { Candidate, Operation, RequestDetail, RequestSummary, Status, Trace } from './types';
+import type { Candidate, CodingRun, Operation, RequestDetail, RequestSummary, Status, Trace } from './types';
 
 export class ApiError extends Error {
   constructor(message: string, public code: string, public status: number) { super(message); }
@@ -23,6 +23,10 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
 const part = encodeURIComponent;
 export const api = {
   status: () => request<Status>('/status'),
+  codingRuns: () => request<{ runs: CodingRun[] }>('/coding/runs'),
+  codingRun: (id: string) => request<{ run: CodingRun }>(`/coding/runs/${part(id)}`),
+  codingStart: (id: string, text: string, mode: 'single' | 'auto') => request<Operation>('/coding/runs', { operation_id: id, request: text, mode }),
+  codingResume: (id: string) => request<Operation>(`/coding/runs/${part(id)}/resume`, {}),
   candidates: () => request<{ candidates: Candidate[] }>('/candidates'),
   inspect: (hash: string) => request<Candidate>('/candidates/inspect', { manifest_hash: hash }),
   confirm: (hash: string) => request<Candidate>(`/candidates/${part(hash)}/confirm`, {}),

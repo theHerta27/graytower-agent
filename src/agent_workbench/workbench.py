@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager, closing
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, ValidationError
@@ -47,6 +48,12 @@ class DraftInput(Input):
     operation_id: str = Field(pattern=r'^[a-zA-Z0-9_-]{1,80}$')
     request: str = Field(min_length=1, max_length=4000)
     parent_manifest: str | None = Field(default=None, pattern=r'^[a-f0-9]{64}$')
+
+
+class CodingInput(Input):
+    operation_id: str = Field(pattern=r'^[a-zA-Z0-9_-]{1,80}$')
+    request: str = Field(min_length=1, max_length=4000)
+    mode: Literal['single', 'auto']
 
 
 class CandidateInput(Input):
@@ -98,7 +105,7 @@ class LocalOriginMiddleware:
 
 
 class Workbench:
-    def __init__(self, root, *, call_cap, audit_path, model_factory, model_actions):
+    def __init__(self, root, *, call_cap, audit_path, model_factory, model_actions, coding_service=None):
         self.root = Path(root).resolve()
         self.root.mkdir(parents=True, exist_ok=True)
         if type(call_cap) is not int or call_cap < 0:
@@ -111,6 +118,10 @@ class Workbench:
         self.model_actions = tuple(dict.fromkeys(model_actions))
         self.jobs, self.repo = JobStore(self.root), CandidateRepository(self.root)
         self.operations = WorkbenchStore(self.root)
+        from .coding.service import CodingService
+        self.coding = coding_service or CodingService(self.root, store=self.operations, repo=self.repo)
+        if self.coding.root != self.root:
+            raise ValueError('Coding service must use the same local data root')
         self.model = None
         if call_cap:
             if model_factory is None:
@@ -203,10 +214,15 @@ class Workbench:
             async with local_verifier(self.root, agent.run) as endpoint:
                 return await delegate(endpoint, **payload)
 
-    def launch(self, operation_id, kind, payload):
+    def launch(self, operation_id, kind, payload, *, recover_coding=False):
         async def work():
             try:
-                result = await (self.run_draft(payload) if kind == 'draft' else self.run_verification(payload))
+                if kind == 'coding':
+                    run = self.coding.recover if recover_coding else self.coding.execute
+                    completed = await asyncio.to_thread(run, operation_id)
+                    result = completed['result']
+                else:
+                    result = await (self.run_draft(payload) if kind == 'draft' else self.run_verification(payload))
             except asyncio.CancelledError:
                 # A thread or physical worker may still be running. Keep the
                 # durable running claim for next startup's interrupted state.
@@ -216,6 +232,36 @@ class Workbench:
             else:
                 self.operations.finish(operation_id, result=result)
         self.task = asyncio.create_task(work(), name='workbench-' + operation_id)
+
+    async def start_coding(self, value):
+        payload = value.model_dump()
+        async with self.admission:
+            previous = self.operations.existing(value.operation_id, 'coding', payload)
+            if previous:
+                return previous
+            self.require_idle()
+            if not self.coding.status()['enabled']:
+                raise APIError('coding_disabled', self.coding.status()['reason'], 403)
+            try:
+                operation = self.coding.admit(payload)
+            except ValueError:
+                raise APIError('coding_not_authorized', '任务内容或模式不符合本次启动授权。', 403) from None
+            self.launch(value.operation_id, 'coding', payload)
+            return operation
+
+    async def recover_coding(self, operation_id):
+        async with self.admission:
+            saved = self.coding.get_run(operation_id)
+            if saved['status'] in ('completed', 'running'):
+                return self.operations.get(operation_id)
+            self.require_idle()
+            try:
+                self.coding.require_receipt(operation_id)
+            except ValueError:
+                raise APIError('recovery_required', '缺少完整 Runtime 收据；保留现场，不会重新调用模型。', 409) from None
+            operation = self.operations.resume(operation_id)
+            self.launch(operation_id, 'coding', {}, recover_coding=True)
+            return operation
 
     async def draft(self, value):
         payload = value.model_dump(exclude={'operation_id'})
@@ -278,10 +324,10 @@ async def body(request, schema):
 
 
 def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, frontend_dist=None,
-               model_actions=('draft', 'verify')):
+               model_actions=('draft', 'verify'), coding_service=None):
     """Startup authority cannot be set by HTTP. model_factory is an offline test seam."""
     workbench = Workbench(root, call_cap=call_cap, audit_path=audit_path,
-                          model_factory=model_factory, model_actions=model_actions)
+                          model_factory=model_factory, model_actions=model_actions, coding_service=coding_service)
 
     @asynccontextmanager
     async def lifespan(app):
@@ -295,7 +341,20 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
                 await workbench.task
 
     async def status(request):
-        return JSONResponse({'model': workbench.model_status(), 'profile': PROFILE})
+        return JSONResponse({'model': workbench.model_status(), 'coding': workbench.coding.status(), 'profile': PROFILE})
+
+    async def coding_runs(request):
+        if request.method == 'POST':
+            return JSONResponse(await workbench.start_coding(await body(request, CodingInput)), status_code=202)
+        return JSONResponse({'runs': workbench.coding.list_runs()})
+
+    async def coding_detail(request):
+        return JSONResponse({'run': workbench.coding.get_run(request.path_params['operation_id'])})
+
+    async def coding_recover(request):
+        if (await request.body()).strip() not in (b'', b'{}'):
+            raise APIError('invalid_input', '收尾只能使用原任务和收据，不接受新参数。')
+        return JSONResponse(await workbench.recover_coding(request.path_params['operation_id']), status_code=202)
 
     async def candidates(request):
         return JSONResponse({'candidates': await asyncio.to_thread(workbench.candidate_list)})
@@ -366,6 +425,9 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
         return PlainTextResponse('前端尚未构建。请在 frontend 目录运行 npm run build，再启动工作台。', status_code=503)
 
     routes = [Route('/api/status', status), Route('/api/candidates', candidates),
+        Route('/api/coding/runs', coding_runs, methods=['GET', 'POST']),
+        Route('/api/coding/runs/{operation_id}', coding_detail),
+        Route('/api/coding/runs/{operation_id}/resume', coding_recover, methods=['POST']),
         Route('/api/candidates/inspect', inspect_candidate, methods=['POST']),
         Route('/api/candidates/{manifest_hash}/confirm', confirm_candidate, methods=['POST']),
         Route('/api/requests', requests), Route('/api/requests/{request_id}', request_detail),

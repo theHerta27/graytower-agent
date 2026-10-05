@@ -6,6 +6,7 @@
 完整阅读 JD、任务书与两项目四份入口文档；核对实现、研究本地 Codex 源码，进行必要的小规模技术验证；交付总体方案、明确技术取舍、分阶段路线与首个交付阶段。历史阶段7已交付独立Verification实验切片；当前阶段10按最新附件完成四能力审计/必要验证/方案与路线，产品迁移在后续明确阶段执行。
 
 ## 阶段
+16. [in_progress] 2026-10-05：Coding真实20调用/4场及工作台切片已完成（199 Python/8前端tests），保留QA语义瑕疵；未用8调用关闭。继续M1新graytower-game的BattleSession/Host与G0-U实际引擎检查，不把切片当全产品完成。最终手册使用中文。
 15. [in_progress] 2026-10-05：Coding官方SDK/默认Runtime0.160.0、single/auto原生协作、主线程文件编辑与只读MCP、原生Review及完整来源候选同A2A已实现；189 tests（187 pass+2 opt-in skip），最终单/协作fixture分别5/10请求通过，0模型0战斗。新真实scope bd9ff502…e1c48 待授权，28调用/4场/USD0.85。以真实业务演示为退出门槛，不因离线实现或文档结束G0-C/M2。
 
 14. [complete] 2026-10-05：默认JSON mode＋严格单choice/完整原文/Schema校验落地；4次已知QA异常输入协议回归通过，既有12题Config首次确认均首答完成，独立助手24项标准复核12/12通过（全包另3合成QA未运行）。本轮16调用/0新战斗，峰价估USD0.018343908；未用12次关闭。149 tests（147 pass+2 opt-in skip）与真实1.48候选页面演示完成；M3整体仍未关闭。详见research/evidence/json-decisions-config-confirmation-20261005.md。下一步稳定Coding Runtime业务入口及同QA集成。

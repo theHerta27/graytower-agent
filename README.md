@@ -1,6 +1,6 @@
 # 米哈游 Agent 项目群
 
-最新 Coding 增量：正式 SDK/CLI 0.160.0 的 single/auto 文件编辑、原生 Review、只读 MCP 与同 A2A 候选准入已通过本地脚本化验证；新的真实 DeepSeek 验收范围已备，尚待授权。可运行 `scripts/check_coding_slice.py --out <新目录> --mode auto --relay` 验证离线链路，或 `scripts/run_coding_demo.py --data <新目录> --mode both` 准备外发预览；两者默认均不收费。详见[Coding 接入与证据](research/evidence/coding-runtime-integration-20261005.md)。
+最新 Coding 增量：真实 DeepSeek 单任务及 auto 文件编辑→原生 Review→冻结候选→同 A2A 独立 QA 已执行，20次请求、4场、峰价估USD0.021308352；未用8次关闭。auto自主委派0，原生Review子线程2，不据此声称多Agent质量提升；首次编辑失败及QA弱机制关联保留。新增文件工作台可浏览两条真实记录和原报告，见[真实验收](research/evidence/coding-live-workbench-20261005.md)。
 
 “可玩游戏＋Coding＋Config＋独立Verification＋NPC”的技术与实施工作区。2026-10-05开始单机 V1 实施：Config、独立 QA、标准 A2A/MCP 和本地 SQLite 恢复已有 CLI，React 浏览器工作台接入同一业务服务；四能力全产品、Electron 和可玩 Unity 尚未交付。
 
@@ -9,6 +9,16 @@
 此前 Config 结果：默认JSON严格单决定适配已完成4次真实已知上下文回归；12题Config首次确认均首答完成，独立助手24项标准复核12/12通过。16调用峰价估USD0.018343908、0新战斗，未用额度关闭。此前[候选演示](http://127.0.0.1:8766/)保留1.4→1.48的真实记录；本轮领域适配升级后，旧冻结候选新检查会提示环境漂移，旧报告/收据仍保留，完整结果与限制见[确认报告](research/evidence/json-decisions-config-confirmation-20261005.md)。
 
 ## 浏览器工作台
+
+当前新增的Coding真实演示位于 [文件工作台](http://127.0.0.1:8767/)。点击“文件开发”，可查看两种模式的实际修改、原生 Review，再点“核对这一候选”进入差异与同一独立QA报告。该目录只复制已关闭批次的证据；浏览不会新增模型或战斗。重启命令：
+
+```powershell
+$env:PYTHONPATH = 'src'
+$env:PYTHONUTF8 = '1'
+.\.venv\Scripts\python.exe -m agent_workbench.cli --data local-data/coding-workbench-v1 web --port 8767
+```
+
+需要在新目录建立展示副本时运行 `scripts/prepare_coding_workbench_demo.py --data <新目录>`，拒绝覆盖已有目录；`coding-runs`、`coding-show <operation_id>` 可在CLI只读查看。Coding Responses额度独立于下文Config/QA的Chat开关，当前普通`web`不会据`--call-cap`开放Coding。完整中文使用手册在游戏、NPC和联合交付完成后补齐。
 
 本机入口为 `http://127.0.0.1:8765`。策划从“配置提案”查看需求与前后差异，按完整候选身份确认；“独立验证”可选择现有候选、填写验证目标和战斗预算，再读取程序计算的事实、运行错误、战斗摘录和单列的模型意见。确认不会应用配置或启动战斗。
 

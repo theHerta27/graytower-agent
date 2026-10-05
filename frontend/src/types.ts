@@ -3,7 +3,18 @@ export interface Candidate {
   manifest_hash: string; request: string; diff: Diff[]; confirmed: boolean;
   validation: { passed?: boolean; errors?: string[]; layers?: Record<string, { passed?: boolean; errors?: string[]; status?: string }> };
 }
-export interface Status { model: { enabled: boolean; remaining_calls: number; reason: string; actions?: string[] }; profile: string }
+export interface Status { model: { enabled: boolean; remaining_calls: number; reason: string; actions?: string[] }; profile: string;
+  coding?: { enabled: boolean; remaining_calls: number; reason: string; modes: string[];
+    tasks?: { operation_id: string; request: string; mode: 'single' | 'auto' }[] };
+}
+export interface CodingRun {
+  operation_id: string; request: string; mode: 'single' | 'auto';
+  status: 'running' | 'completed' | 'interrupted' | 'failed'; stage: string; error: string | null;
+  manifest_hash: string | null; summary: string; review_text: string;
+  spawned_thread_ids: string[]; spawn_attempts: number; seconds: number | null;
+  budget: { reserved: number; completed: number; failed: number; unknown: number; known_cost_usd: string;
+    unknown_cost_reserved_usd: string; max_calls: number; cost_cap_usd: string } | null;
+}
 export interface RequestSummary {
   request_id: string; manifest_hash: string; goal: string; status: string;
   charged_battles: number; max_battles: number; verdict?: string | null;
@@ -24,7 +35,7 @@ export interface Facts {
 }
 export interface RequestDetail { request: RequestSummary & { report: Report | null }; facts: Facts | null; report_text: string | null }
 export interface Operation {
-  operation_id: string; kind: 'draft' | 'verify'; status: 'running' | 'completed' | 'interrupted' | 'failed';
+  operation_id: string; kind: 'draft' | 'verify' | 'coding'; status: 'running' | 'completed' | 'interrupted' | 'failed';
   result: { status?: string; message?: string; proposal_message?: string; candidate?: Candidate; [key: string]: unknown } | null;
   error: string | null;
 }
