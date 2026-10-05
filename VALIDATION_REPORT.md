@@ -1,6 +1,8 @@
 # 材料调研与必要技术验证报告
 
-> **当前实施验证（2026-10-05，以本段及 current_context 为准）：** Coding 真实批次已授权并完成 20 调用/4 场、同 A2A QA 与工作台演示，见[真实记录](research/evidence/coding-live-workbench-20261005.md)。新游戏 BattleSession/Host 完成 HTTP 一局 85 命令及恢复/重放，Unity 产品 EditMode 2/2、PlayMode 1/1、UTF Player 1/1 和 Windows 构建通过；真实 OS 输入、丢响应现场和 Player 重启仍未完成，窗口采集超时单列阻断，M1/G0-U 不关闭。见 [M1 记录](research/evidence/m1-game-unity-20261005.md)。下文“最新”字样属于各历史轮次，不代表仍待复用旧授权或需要重跑原批次。
+> 2026-10-05最新演示结果：官方Unity21原退出复现已正常关闭；新增键盘5项PlayMode/5项Player与构建通过，营地离线NPC→真实支援→Unity按键→85命令胜利→分享战报闭环实际完成。NPC4项基本集成测试、前端8项测试及build通过。详情见[演示记录](research/evidence/story-demo-20261005.json)与[中文手册](使用手册.md)。用户要求优先正常演示，完整大矩阵及真实模型NPC后续；下方原失败与未测记录不倒算。
+
+> **2026-10-05 M1 最新验收：** 用户已在真实 Unity 中完成破盾战技及丢响应重试：相同请求提交两次，仅结算一次，revision 1、1 条命令、11 个事件，完整组件状态与权威快照一致。已确认态 Player 重启和正式启动器均读回同一存档、无新行动。但原生 Alt+F4 退出两次触发 UnityPlayer.dll 访问冲突；一次独立恢复探针在读回后超时回收。正常退出、pending 跨 Player 重启及完整自动战斗输入未通过，M1/G0-U 不关闭。详见[现场证据](research/evidence/m1-player-interaction-20261005.md)。
 
 > **Coding最新离线增量（2026-10-05）：** 正式SDK/CLI0.160.0原生生命周期/权限probe3/3，产品single/auto文件→MCP检查→原生Review→冻结候选分别5/10次本地脚本响应成功。189 tests（187通过、2既有opt-in跳过），0外部模型/0战斗；不等于DeepSeek质量或Coding→QA真实模型验收。新scope待授权。详见[Coding接入与限制](research/evidence/coding-runtime-integration-20261005.md)。
 

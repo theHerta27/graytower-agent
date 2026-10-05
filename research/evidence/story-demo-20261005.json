@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-05",
+  "scope": "Local demonstration; offline NPC text, real LangGraph/world/Unity battle",
+  "model_calls": 0,
+  "first_battle": {
+    "commands": 85,
+    "outcome": {
+      "outcome": "win",
+      "reason": "boss_dead"
+    },
+    "native_os_commands": 1,
+    "fixed_policy_http_commands": 84,
+    "report_shared": true,
+    "lan_memories": 3,
+    "li_memories": 0
+  },
+  "ui_inputs": "Actual browser buttons plus native sky Return, Return, Alt+F4. Screenshot capture for Unity still unavailable; no screenshot proof claimed.",
+  "earlier_failures": [
+    "Player relative cwd path preserved in path-fix-01",
+    "Initial journal lacked canonical key sorting; original file retained; revision0 corrected before actions"
+  ],
+  "validation": {
+    "npc_unittest": 4,
+    "frontend_tests": 8,
+    "unity_playmode": 5,
+    "unity_player_tests": 5,
+    "build": "build-attempt-02"
+  },
+  "limits": [
+    "NPC real DeepSeek not run",
+    "Full OS-driven battle not run",
+    "Code/build isolation Worker and Electron not completed"
+  ],
+  "artifacts": {
+    "D:\\Desktop\\mihoyo-agent-project\\local-data\\story-demo-v1\\acceptance\\keyboard-action.json": "c15d9e66140dbb8125f8a9d9c69be33c1bdf5c4be015ca7c58fb40610232b588",
+    "D:\\Desktop\\mihoyo-agent-project\\local-data\\story-demo-v1\\acceptance\\completed-camp.json": "065b5d3d07f68fd0c525949d5c5af63213eb73d75adf324765057bafa9a00f2f",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-6000.3.21f1-v1\\build-attempt-02\\player-manifest.json": "9f373de21174beecb5fe5628e68d149f6d4fa62e9f3e1b1fdd74dc974af7e557",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-patch-restore-v1\\patch-result.json": "8a411507a737bee085603fd1fb902bd97c67c9783d7365389766d55ddd0d5466",
+    "D:\\Desktop\\mihoyo-agent-project\\local-data\\story-demo-v1\\players\\battle_f88052b57bf512b0573f6bd8\\evidence\\component-state.json": "c962a6f58764fe62445b71a73ec0552c22a9306742f87a8b82ab56a96681b3ca"
+  },
+  "second_battle": {
+    "revision": 0,
+    "automatic_new_journal_loaded": true,
+    "choice": "sp_supply",
+    "skill_points": 4,
+    "opening_shields": 0,
+    "left_open_for_user": true
+  }
+}

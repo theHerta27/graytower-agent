@@ -1,0 +1,111 @@
+{
+  "schema_version": "m1-player-interaction-v1",
+  "date": "2026-10-05",
+  "scope": "human action and raw retry evidence; confirmed-state restart readback; formal launcher restore and failure on normal close",
+  "overall_m1_passed": false,
+  "human_retry_business_check_passed": true,
+  "confirmed_player_readback_passed": true,
+  "normal_player_exit_passed": false,
+  "automated_combat_input_passed": false,
+  "pending_across_player_restart_tested": false,
+  "new_model_calls": 0,
+  "new_battles": 0,
+  "existing_battle_commands_accepted": 1,
+  "session_id": "play_7805592e7fc84f98bf055afc8a9bea7f",
+  "counts": {
+    "revision": 1,
+    "unique_commands": 1,
+    "command_rows": 1,
+    "command_revisions": [
+      1
+    ],
+    "duplicate_ledger_command_ids": [],
+    "events": 11,
+    "duplicate_event_ids": [],
+    "first_event_id": "event_000001",
+    "last_event_id": "event_000011",
+    "proxy_command_attempts": 2,
+    "proxy_repeated_command_ids": {
+      "cmd_a401a0232db546af94c2c276f23696a9": 2
+    },
+    "proxy_status_counts": {
+      "200": 2
+    },
+    "dropped_200_replies": 1
+  },
+  "retry_pairs": [
+    {
+      "command_id": "cmd_a401a0232db546af94c2c276f23696a9",
+      "dropped_exchange": "exchange-000008",
+      "retry_exchange": "exchange-000009",
+      "ledger_rows": 1,
+      "request_sha256": "432a1f33e04f6edc97ccd46eaa17eda512b27ed1ceb1daeb92174f9e7bfb8a18",
+      "response_sha256": "95316d6f81add0abca0ea30616747c979d890d461fc4d0049ff816b1edff44d3",
+      "dropped_response_sha256": "95316d6f81add0abca0ea30616747c979d890d461fc4d0049ff816b1edff44d3",
+      "retry_response_sha256": "de0dee2a102cd13ca07f62d0de74722f2428b5f924cee35a583f2908a7df9f04",
+      "canonical_receipt_sha256": "de0dee2a102cd13ca07f62d0de74722f2428b5f924cee35a583f2908a7df9f04",
+      "request_bytes_identical": true,
+      "response_bytes_identical": false,
+      "response_semantically_identical": true
+    }
+  ],
+  "focused_test_verification": {
+    "command": ".venv/Scripts/python.exe -X utf8 -B -m pytest -q scripts/tests/test_live_business.py scripts/tests/test_play_live.py",
+    "exit_code": 0,
+    "passed": 37,
+    "seconds": 8.34,
+    "kind": "offline fixtures",
+    "raw_tool_result_chunk": "d100a9"
+  },
+  "source": {
+    "scripts/check_live_business.py": {
+      "sha256": "56e574b4b6c78807b402e3afcb7602eb80a35d0bf9ec1ac73be6e147da2fea48",
+      "archived_path": "D:\\Desktop\\graytower-game\\docs\\evidence\\m1-player-input-source-20261005\\check_live_business.py.txt"
+    },
+    "scripts/play_live.py": {
+      "sha256": "9d38c105e5e0e4d9a2f2626f976ffc992bc807910e2163b9006558de3fb88cb2",
+      "archived_path": "D:\\Desktop\\graytower-game\\docs\\evidence\\m1-player-input-source-20261005\\play_live.py.txt"
+    },
+    "scripts/tests/test_live_business.py": {
+      "sha256": "acade47139199366a2477e57efbdd1dbf5f80b96945a80b571103df304f64d4f",
+      "archived_path": "D:\\Desktop\\graytower-game\\docs\\evidence\\m1-player-input-source-20261005\\test_live_business.py.txt"
+    },
+    "scripts/tests/test_play_live.py": {
+      "sha256": "2329a339e1e5d480f7f1570f38c884c71026aadbcef29324a8059e889f1f16a0",
+      "archived_path": "D:\\Desktop\\graytower-game\\docs\\evidence\\m1-player-input-source-20261005\\test_play_live.py.txt"
+    }
+  },
+  "artifact_sha256": {
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-business-v1\\business-check-01.json": "dad3066528b16ebedba47853fb2608fce38cedc3b44fc7c7fb1c4beed1a3b0bf",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-business-v1\\business-check-02.json": "ed4e2ef87623c7858cc23f3198185b9c31caa92740f6cbbd24320a4c1a5ec4a5",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-business-v1\\os-interaction.json": "e13a9e2647dd7ec0ddb86511cfacb38bd7de16b3366eee78f892984d92ccda05",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-business-v1\\user-after-retry.png": "b6832e8faca8a3ec3acef4285a0e45cca748271d925c886c47bf5d70a6fbe8cf",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-business-v1\\owned-services-stop.json": "4c1a2a9fc6833c3aa12f7f93337818d09cb138ba94d7e48c1523d368904ed24e",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-player-recovery-v1\\prepared.json": "8ac03f015dc47a626d9530b8d9fc6dfbaad025a83c72f6dcc8997b1238a6a7c0",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-player-recovery-v1\\player-finished.json": "7212699278ec890ab4bdc4f38e079ecd97d1d99fc8584cbbc569b236d7a1348b",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-player-recovery-v1\\independent-review-01.json": "4be8e6bfe653dffa6c52539a5feb9ff925eb2f61628a853c6e07785e59f85a35",
+    "D:\\Desktop\\graytower-game\\local-data\\launcher-restore-v1\\prepared.json": "0c5890f3bed993589e4979e3d381e1e4cd1913ca7c30a95d598effc549bcd389",
+    "D:\\Desktop\\graytower-game\\local-data\\launcher-restore-v1\\independent-review.json": "d0efc714f4dfaa2a1cf128fb4ac6e0c68bca59a905451ca8bb926bf82c313ca1",
+    "D:\\Desktop\\graytower-game\\local-data\\launcher-restore-v1\\windows-crash-events.json": "3d6064353981f19be00ac132eff0e3cd9b150cde716f32b4ca72ccceb21dde82",
+    "D:\\Desktop\\graytower-game\\local-data\\launcher-restore-v1\\data\\launches\\20261005T103321Z-7280feae\\started.json": "211c5a0787cba2f02d7d9376b96997ef3dbdff168318a0d0fee5924f17c41adc",
+    "D:\\Desktop\\graytower-game\\local-data\\launcher-restore-v1\\data\\launches\\20261005T103321Z-7280feae\\cleanup.json": "6d1f97c954c4db2354c21440679f4a340ad1c54eef90db8cc20582f5f6812d7a",
+    "D:\\Desktop\\graytower-game\\local-data\\unity-live-v1\\build-attempt-01\\player-manifest.json": "de4d0ec562b67228eefe42f30a06dc6c7c0a9cf1404824e45191b4b20bf5dd27"
+  },
+  "known_exit_fault": {
+    "windows_exception": "0xc0000005",
+    "module": "UnityPlayer.dll",
+    "rva": "0xc2ecc9",
+    "affected_pids": [
+      41724,
+      30192
+    ],
+    "diagnosis_status": "under investigation"
+  },
+  "limitations": [
+    "Manual player input is not automated input",
+    "The 90-second recovery probe timed out after successful readback",
+    "Normal launcher close failed; shutdown log text does not establish success",
+    "No pending-action cross-process recovery proof",
+    "No new model or multi-agent quality result"
+  ]
+}

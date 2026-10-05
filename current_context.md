@@ -1,13 +1,27 @@
 # 当前上下文
 
-## 2026-10-05 M1 游戏与 Unity：最新继续入口
+## 2026-10-05：可直接演示的营地闭环
 
-- 新仓库 `D:/Desktop/graytower-game`，分支 `m1-playable-session`，核心提交 `ddd81a3`，Unity 客户端与修复后执行器提交 `18b2d00`。Bot 与真人共用 BattleSession，6 份改前黄金 Trace 一致；真实 Host HTTP 一局 85 命令获胜，第 5 命令后重启同 ID 收据一致。从冻结初始输入重算完整重放，不改变原库。旧游戏只读。
-- Unity 产品已实现真实 uGUI 合法动作选择、请求先落盘、同 ID 重试、收据后读最新状态、组件状态导出。EditMode 2/2、PlayMode 1/1、UTF Player 1/1、Windows Mono 构建通过；早期编译命名空间错误、Null 图形设备失败均保留。UTF Player 改用 D3D11，未放宽 Shader 检查。31 项辅助脚本 fixture 测试通过。
-- 当前现场 `local-data/unity-live-business-v1`：Host 8781、一次丢响应代理 8780、Player PID 41724（17:33:30，窗口 111284962）。只有这一个 Graytower 进程；旧存档锁冲突属于已退出历史实例。自动窗口采集经恢复/重选仍超时；用户已恢复窗口，另请用户完成新战斗→选行动→执行→重试。17:56 已收到真实 Unity 新战斗与状态读取，session `play_7805592e7fc84f98bf055afc8a9bea7f`，revision 0，尚未行动/故障重试。不要把这一步写成整体通过，也不要在用户操作时关闭服务或抢占端口。
-- `scripts/check_live_business.py` 只读核对完整状态/组件、丢失及重复收据、唯一账本记录；它本身不证明 OS 输入或 Player 跨进程恢复。后者需原 pending journal、退出/启动身份和重启后请求链另证。`开始试玩.cmd` 调本机启动器，启动器已有 fixture，当前端口占用期间未实际启动。关闭后的正式 launcher 演示仍待做。
-- 本轮无新增模型调用。所有既有 DeepSeek 批次已关闭，不能换目录复用额度。完整中文使用手册待 NPC/代码 Worker/桌面集成和四能力实际交付后写；当前 README 只描述已实现阶段。
-- 收尾发现旧进程先Popen再入Job会漏提前spawn的子，已隔离复现并以挂起→入Job→恢复修复；默认Player核验完整236文件而非仅相同Unity loader。父辅助suite v2 62项通过（v1日志编码采集失败、结果不可用，保留）；新helper真实Unity EditMode attempt03 2/2、9.297秒、源码未变，14个已记录owned PID均消失。18:02实际初始组件14全局字段/4单位与SQLite匹配，仍不能替代待完成的行动重试与OS验收。
+按用户“优先快速闭环，不扩复杂严谨度”的最新要求，本轮交付本机演示：React营地→真实LangGraph离线对话/玩家选择→世界支援→Unity实际按键→同规则结算→分享战报→角色记忆隔离。入口 http://127.0.0.1:8780/camp ，双击 `开始剧情演示.cmd`；中文步骤见[使用手册](使用手册.md)。研发真实历史结果仍在8767。当前演示NPC是明确标注的离线台词，0新增模型调用，不冒充真实DeepSeek自由对话。
+
+Unity升级官方6000.3.21f1后，同原存档、UIA读取和Alt+F4退出已正常exit0；新键盘5项PlayMode/Player均通过，构建02完整封存。当前真实营地首场85条命令胜利：1条由原生Enter两次提交，其余84条由页面明确标注的固定策略完成；战报实际分享后岚知道、砾仍0来源记忆。不能将固定策略等同OS自动操作。新NPC4项unittest、前端8项测试与build通过。
+
+本轮先保证正常展示，暂不扩分布式保障、完整故障矩阵、Electron和大型协作对照。NPC真实模型/代码build隔离Worker等仍待后续，四能力完整发布未宣布完成。下方早期失败/预算记录保留为历史，最新运行入口以上文及手册为准。
+
+
+## 2026-10-05 M1 玩家现场与正式启动器：最新继续入口
+
+- 续行中：Unity6000.3.21f1官方包签名/官方MD5/SHA256已核验，并列安装成功，旧19保留。一次准备导入正常退出且源码/包/DLL无改变；新root的EditMode2/2、PlayMode1/1已通过，Windows Player测试/产品构建/实际UIA后退出仍在验，尚不能称修复已验证。精确记录在game/local-data/unity-toolchain-6000.3.21和unity-live-6000.3.21f1-v1。
+- 两个新增隔离实现：游戏`local-data/worktrees/m1-keyboard-ui`只改Hud/Client和键盘测试；工作台`local-data/worktrees/npc-agent-v1`只实现NPC领域/图/CLI，均未合并主仓。键盘前两次旧19 PlayMode因测试夹具关闭EventSystem而失败，不算业务TDD证据。M4世界HTTP前两次入口/脚本路径失败保留，v3真实2场（盾战胜、SP场固定短上限超时）和跨进程同收据恢复已运行；仍待最终审查/合并，不称完整NPC交付。
+
+- 用户已完成破盾战技与丢响应重试。`graytower-game/local-data/unity-live-business-v1` 同一命令2次POST，原始请求字节相同，完整收据语义相同；SQLite为revision1/1命令/11事件。完整14全局字段/4单位组件与权威状态一致。用户截图保留，不能冒充自动战斗输入。
+- 检查器首轮误把响应JSON键序作为字节身份，原失败保留；现比较完整字段/类型/数组顺序并拒绝重复key，新business-check-02通过。默认launcher使用D3D11，可选--evidence，默认关闭。父本轮定向37 tests通过，未重跑旧战斗/模型/引擎测试。
+- Player单独重启读回成功，但探针90秒超时并回收，不算正常退出。正式CLI用逐字节存档副本实际启动，恢复同一状态；Alt+F4后Player exit0xC0000005，launcher正确报告失败并清理Host。Windows事件证实18:24旧Player、18:33正式Player均UnityPlayer.dll+0xc2ecc9。不能仅凭Shutdown日志断言正常退出；原C#和236文件构建未改。
+- 原现场Host20868/子5664与代理6112/子30148已按完整命令/创建时间核对后回收，旧Player41724已退出；不再向用户请求同一轮手工操作。旧原始存档/日志保留。正式副本local-data/launcher-restore-v1，服务与Player当前已结束。其他工作台8765/8766/8767保持原样。
+- 当前先定位退出崩溃；自动窗口采集持续超时，完整自动OS战斗输入、pending跨重启、胜负/分发仍待完成，M1/G0-U不关闭。NPC领域与图可独立推进。真实模型批次均已关闭，本轮无模型调用；最终完整手册用中文。
+- 本轮报告：research/evidence/m1-player-interaction-20261005.md。旧M1引擎/runner记录仍在m1-game-unity-20261005与graytower-game/docs/evidence，历史seal不改。游戏当前提交18b2d00，本轮checker/launcher修改待独立收尾提交。
+- 退出故障后续：两份已有dump直接定位PlatformAccessibilityManager清理时GetScreenManager为空，高度吻合官方UUM-146676；6000.3.21f1已修。官方包下载到game/local-data/unity-toolchain-6000.3.21，旧19不卸载，计划并列安装E:/Unity6/6000.3.21f1。新runner root为unity-live-6000.3.21f1-v1，保留旧attempt预算/记录；源码与同一rev1存档对照不变，再跑完整引擎及UIA后退出。仅省略显式UIA查询的控制组仍崩溃，不能声称该调用是唯一触发源。
+- 下载期间并行M4.1：独立Git worktree `D:/Desktop/graytower-game/local-data/worktrees/m4-world-support`（branch同名、base18b2d00）由qa_next_acceptance实现版本化初态支援/SQLite世界收据/真实HTTP演示，禁止改主游戏仓/Unity/模型。范围和接缝见路线第6节新增实施包；完成后父审并合并，不把领域切片当NPC已交付。
 
 ## 2026-10-05 Coding真实验收与M1实施：最新继续入口
 
