@@ -2,6 +2,15 @@
 
 更新：2026-10-05，Asia/Shanghai。工作目录D:/Desktop/mihoyo-agent-project，已初始化Git（基线321ae64）。用户已批准进入实施，V1限定单机、本地服务、SQLite。旧游戏、旧Coding、Codex参考树、旧verification源码及封存实验保持原样。新产品CLI切片已实现并实际演示；四能力完整产品仍未完成。
 
+## 2026-10-05 JSON 决定与 Config 首次确认：最新继续入口
+
+- Config/Verification默认JSON mode。LangChain ChatDeepSeek公开generate保留全部choice；适配层严格拒绝多choice、非stop、截断、重复key、多个对象/数组/混合文本、非有限数和非法Schema。SDK length/filter抛异常时保存completion/usage，原始失败不丢；显式function_calling仅兼容选项，无自动fallback，无SDK fork。
+- 用户授权master scope `8f1aaf8c5f795f35283dcbb7c0ddf6ef5709df68dc868630028e67cd90eb3ed3`，最多28次/USD1.10/0新battle。4次已知QA异常输入回放全部合法单决定，仅协议回归无工具；随后12题Config首次确认各1调用，4候选/4澄清/4拒绝。
+- 独立开发助手逐题24项冻结标准复核12/12通过，父另跑冻结评分器核验；非盲非真人，不是总体成功率。全confirmation包15题为12 PASS+3合成QA解释NOT_RUN。c01预检/确认顺序文案含混保留为非计分可用性问题，不改原文或评分标准。
+- 两个新账本16completed、0failed/unknown，0新战斗/确认/应用，峰价估USD0.018343908；未用12次关闭。原旧账本一律不复用。v1仅执行前准备，因代码审查修复改为v2；v2源hash/预览先封存授权，再执行，未依确认结果调参。
+- 工程149 tests（147 pass+2既有opt-in skip）、pip check通过；前端无改动。真实候选只读副本工作台 `http://127.0.0.1:8766/`（PID见local-data/config-confirmation-demo-v1/web.pid），模型关闭，已读取首题1.4→1.48、待确认；原8765保留旧QA工作台。scope/关闭在local-data/json-config-acceptance-v2；原始回归在json-decision-regression-v2；Config观测/逐题复核在config-confirmation-v2。
+- 完整报告research/evidence/json-decisions-config-confirmation-20261005.md及对应JSON seal。这个小步已完成，M3整体、QA新版全链、稳定Coding SDK/Runtime正式入口、Unity/NPC仍未交付。后续优先推进G0-C/Coding正式接入并复用同QA，在集成批次确认QA全链，避免反复追加同类窄示例。当前现场只读可展示，无收费任务待运行。
+
 ## 2026-10-05 React 工作台与新 QA 验收：当前继续入口
 
 - React/TypeScript 工作台和 Starlette 同源 API 已落地，复用现有 Config/候选/A2A/MCP/独立 QA；候选确认、验证目标/预算、持久操作、程序事实/原错误/Trace 都可浏览器操作。入口 `http://127.0.0.1:8765`，当前以 `local-data/workbench-v1` 启动且关闭模型；启动命令见 README。Electron、Coding Runtime、Unity/NPC 仍未完成。

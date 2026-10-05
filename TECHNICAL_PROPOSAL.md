@@ -10,6 +10,8 @@ A2A SDK 队列问题已用官方固定版本 Hello World 独立复现并核对�
 
 **实施反馈：** 真实需求评测已发现“文案询问澄清但状态拒绝”、策略与版本混淆、只看日志开头就声称验证机制等问题。因此状态/工具参数的语义进入结构化Schema；每次决策读取当前额度；Trace改为可引用事件摘录并明确单版本边界。程序数值事实与模型调查解释分开验收，合法候选/完成报告不等于需求理解或机制解释正确。原失败和同题开发回归分别保存，详见[V1续验记录](research/evidence/v1-followup-20261005.md)。
 
+**结构化决定的实施选择（2026-10-05）：** Config/Verification图每步需要一个决定，业务工具由程序执行。默认采用DeepSeek JSON Output，LangChain负责模型接入/消息与用量，项目适配层校验完整原文、恰好一个choice、正常终态及Pydantic结构。已实测默认工具解析只取首决定、JSON解析会修复截断，因此不直接信任宽松解析结果；不改框架、不引入provider回退。真实4次已知上下文协议回归和12题首次Config确认已完成；后者独立助手按24项冻结标准复核12/12通过，窄题逐项结果不外推总体成功率或QA全链。见[本轮结果](research/evidence/json-decisions-config-confirmation-20261005.md)。
+
 建设一个可玩的“灰塔前哨”游戏和四个职责清楚的 Agent 能力：**Coding 实现变更，Config 生成策划配置，Verification 独立验证冻结候选，NPC 负责记忆与角色互动**。跨产品委托只有 Config→Verification、Coding→Verification，复用同一张 A2A Agent Card。Coding 内部保留 Codex 原生动态子 Agent，主 Agent 按任务判断是否委派、委派多少和做什么；不固定成 1＋3。
 
 | 能力／使用者 | 真实业务问题 | 推荐与理由 | 可展示成果 |
@@ -22,13 +24,15 @@ A2A SDK 队列问题已用官方固定版本 Hello World 独立复现并核对�
 
 成品全部LLM推理使用DeepSeek，包括Review、规划、解释、辅助与格式修复；不隐式fallback。首个候选为实测过的`deepseek-flash`，任务记录provider、实际model、thinking、prompt/tools与预算。当前开发助手的模型不属于成品模型路由。
 
-Python3.11.9、React/TypeScript共享浏览器/Electron页面、FastAPI本地服务、SQLite领域账本与文件证据继续采用。四能力是业务边界，不强制四个仓库或四台服务：首版一个工作台仓库与一个游戏仓库，Verification作为独立进程/API可单独启动。Config/Coding/NPC模块分离，按安全与生命周期需要拆进程。工作台目前尚非Git仓库，开始产品实现前建立可追溯版本。
+Python3.11.9、React/TypeScript共享浏览器/Electron页面、Starlette同源本地服务、SQLite领域账本与文件证据继续采用；当前没有为少量API再增加FastAPI层。四能力是业务边界，不强制四个仓库或四台服务：首版一个工作台仓库与一个游戏仓库，Verification作为独立进程/API可单独启动。Config/Coding/NPC模块分离，按安全与生命周期需要拆进程。工作台已纳入Git（当前实施基线4e2030d），与只读旧游戏源码分开追溯。
 
 ## 2. 审计结论、证据等级与复用
 
 已读本目录JD/任务书/方案/路线/上下文、两个旧项目的README/current_context，并追踪实际运行模块、测试和Codex参考源码。详见本轮[Verification审计](research/evidence/verification-boundary-audit-20261005.md)、[Coding与Runtime审计](research/evidence/coding-runtime-boundary-audit-20261005.md)、[协议与框架审计](research/evidence/a2a-mcp-langgraph-audit-20261005.md)。不以包名或README历史成绩代替当前实现判断，也未逐文件通读Codex全仓库。
 
-| 源码事实／现状 | 处置决定 | 当前缺口 |
+下表记录本轮架构审计**当时**的源码与缺口，后续实施进度以current_context及本节最新反馈为准。
+
+| 审计时的源码事实 | 处置决定 | 审计时缺口 |
 |---|---|---|
 | 旧Verification根层含review→修复；v2可反复propose/simulate；旧prompt要求FAIL后修候选 | 需求、配置生成、diff迁Config；旧自动优化循环降为显式实验，不入默认QA | Config的独立模块、Schema查询与确认流程尚无产品实现 |
 | 当前`combat_worker.py`仍在Verifier内部`apply_changes`；输入是changes而非上游完整候选 | 改为Author先物化冻结，Verifier只读并复检；完成receipt必须绑定预期候选hash | 当前src仍是可信numeric实验切片，本轮研究探针不冒充已完成该迁移 |

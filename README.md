@@ -4,6 +4,8 @@
 
 先读[总体方案](TECHNICAL_PROPOSAL.md)，再看[实施路线](IMPLEMENTATION_ROADMAP.md)、[验证报告](VALIDATION_REPORT.md)和[当前上下文](current_context.md)。图状态、领域事实、外部Job与NPC丢响应恢复详见[框架设计](FRAMEWORK_ORCHESTRATION_DESIGN.md)。
 
+最新结果：默认JSON严格单决定适配已完成4次真实已知上下文回归；12题Config首次确认均首答完成，独立助手24项标准复核12/12通过。16调用峰价估USD0.018343908、0新战斗，未用额度关闭。可在[本轮候选演示](http://127.0.0.1:8766/)读取1.4→1.48的真实候选（模型关闭、待确认），完整结果与限制见[确认报告](research/evidence/json-decisions-config-confirmation-20261005.md)。
+
 ## 浏览器工作台
 
 本机入口为 `http://127.0.0.1:8765`。策划从“配置提案”查看需求与前后差异，按完整候选身份确认；“独立验证”可选择现有候选、填写验证目标和战斗预算，再读取程序计算的事实、运行错误、战斗摘录和单列的模型意见。确认不会应用配置或启动战斗。
@@ -26,7 +28,7 @@ $env:PYTHONUTF8 = '1'
 
 ## CLI 业务入口
 
-最新续验：Config首轮6个开发需求通过5个，修复后同题回归6/6；新候选已交独立QA跑4场，但首次非法策略和Trace过度解释仍计失败。预算/状态/报告/证据摘录已据此修复，后两项QA模型效果仍待独立确认，M3未关闭。详见[真实续验、费用与限制](research/evidence/v1-followup-20261005.md)。
+此前CLI开发结果：Config首轮6个开发需求通过5个，修复后同题回归6/6；新候选已交独立QA跑4场，但首次非法策略和Trace过度解释仍计失败。预算/状态/报告/证据摘录已据此修复，后两项QA模型效果仍待独立确认，M3未关闭。详见[真实续验、费用与限制](research/evidence/v1-followup-20261005.md)。
 
 使用当前项目 `.venv`；可用 [锁文件](requirements-v1.lock.txt) 重建。游戏仍固定使用可信的 `D:/Desktop/combat-foundation` 和它的解释器，新工作台不会改写游戏基线。真实模型通过环境变量 `DEEPSEEK_API_KEY` 提供凭据，禁止写入前端、候选或证据。每个 data 目录的演示调用账本最多 8 次；重启不重置。
 

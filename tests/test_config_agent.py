@@ -168,7 +168,7 @@ class ModelGatewayTests(unittest.TestCase):
         client = httpx.Client(transport=httpx.MockTransport(handler or successful_response))
         self.addCleanup(client.close)
         return ModelGateway(api_key="sk-explicit-offline-fixture", audit_path=self.audit_path,
-                            http_client=client, **kwargs)
+                            http_client=client, output_method='function_calling', **kwargs)
 
     def test_real_langchain_path_matches_complete_reviewable_preview_and_saves_usage(self):
         gateway = self.gateway(max_calls=1)

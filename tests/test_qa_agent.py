@@ -50,7 +50,7 @@ class DecisionContractTests(unittest.TestCase):
     def test_provider_schema_enumerates_strategy_choices(self):
         from agent_workbench.models import ModelGateway
         preview = ModelGateway().preview([{'role': 'user', 'content': 'schema inspection only'}], Decision)
-        policies = preview['payload']['tools'][0]['function']['parameters']['properties']['policies']
+        policies = preview['schema']['properties']['policies']
         self.assertEqual(policies['items'].get('enum'), ['balanced', 'survival', 'basic_only'])
         for policy in ('balanced', 'survival', 'basic_only'):
             decision = Decision.model_validate({'action': 'simulate', 'reason': 'one paired seed',

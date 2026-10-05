@@ -85,3 +85,9 @@
 - 修复报告胜负展示、检查不可用交付、动态额度与正常预算停止、策略Schema/诊断、Trace有界事件视图。新批估USD0.019767372，旧批累计USD0.004608756；无SDK fork或生产级范围扩张。证据见research/evidence/v1-followup-20261005.md。
 
 - 本轮最终117 tests / 115通过 / 2 opt-in跳过；真实Trace只读压缩和MCP复制读取通过，0新增物理作业；独立源码复核无新增P1/P2。
+
+## 2026-10-05 单决定协议收敛与确认集准备
+
+已完成官方JSON Output/安装版LangChain源码核对。严格JSON与完整choice检查先失败后修复通过，SDK截断异常保留原usage。独立审查两项P2（多choice取首、fixture来源配对）已修；无SDK fork。4次旧QA输入协议回归＋12题首次Config确认集的v2输入/源hash/cap已冻结；集中新授权待回复，当前0新增模型/战斗。旧v1准备不覆盖、不执行。
+
+本轮收尾：用户明确授权后，4次JSON回归先过，再12题Config首次确认；16次全completed/无unknown，12/12题由独立助手24标准复核且父重跑评分器；全包3合成QA题仍NOT_RUN。149 tests（147 pass+2既有skip）/pip check过，真实1.48候选只读页面已展示。估USD0.018343908，未用12调用关闭。没有新战斗或候选确认/应用。详见research/evidence/json-decisions-config-confirmation-20261005.md。阶段14完成，仅指此小步；下一步G0-C/Coding正式接入与同QA业务链。
