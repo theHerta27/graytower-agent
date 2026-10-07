@@ -122,3 +122,5 @@ Coding工作台新增持久run/关闭态读取、准确委派数、Review与候�
 ## 2026-10-07 GitHub 私密仓库交付
 
 用户已授权上传两仓库：theHerta27/mihoyo-agent-project 与 theHerta27/graytower-game。保留源码历史，按文件清单提交，排除密钥/安装包/虚拟环境/本地运行数据。检查历史、整理可复现固定基线与安装步骤后推送；不改旧项目和封存实验，不新增付费模型调用。
+
+上传完成：两个Private仓库main已推送并GitHub克隆回读验证；固定基线独立安装、克隆源码describe/create、CLI help通过，未跑新模型或新战斗。中文GitHub使用手册已交付。

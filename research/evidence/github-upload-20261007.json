@@ -15,7 +15,8 @@
   "new_files_scan": {
     "files": 161,
     "bytes": 3061294,
-    "provider_or_private_key_pattern_hits": 0
+    "provider_or_private_key_pattern_hits": 0,
+    "additional_oracle_cs_files": 4
   },
   "validation": {
     "unittest_total": 203,
@@ -43,5 +44,11 @@
     "No new paid model calls",
     "Historical raw evidence remains local; curated source/methods/summaries uploaded",
     "Frozen evaluation packet whitespace retained intentionally"
-  ]
+  ],
+  "delivery": {
+    "pushed_to": "main",
+    "both_private_confirmed": true,
+    "github_clone_validation": "Both repositories cloned; frozen history restored and installed; cloned source describe/create and CLI help passed",
+    "clone_validation_scope": "Reused existing workbench interpreter; independently installed frozen game baseline. Did not rebuild Unity or run new LLM acceptance."
+  }
 }

@@ -29,6 +29,8 @@ git remote -v
 git status
 ```
 
+本机项目目录最初由开发沙箱账号创建。管理员 Git 首次推送报告所有权不一致时，本次使用 `git -c safe.directory=D:/Desktop/mihoyo-agent-project push -u origin HEAD:main`（游戏对应其精确路径）完成推送，没有修改全局安全配置。如果日后在终端遇到相同提示，可对单次命令使用这个精确目录参数；不要使用通配符信任所有目录。
+
 `origin` 是远端名称，URL 指定目标仓库；它不是模型接口。上传代码不需要调用 DeepSeek，也不会同步 API Key。
 
 ## 以后怎样更新

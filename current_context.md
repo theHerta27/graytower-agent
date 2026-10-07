@@ -2,7 +2,7 @@
 
 ## 2026-10-07：GitHub 私密仓库交付
 
-用户已明确授权上传两仓库并要求中文连接手册。GitHub 登录账号 theHerta27；沙箱最初误报无效，正常权限核实可用，已创建两个 Private 仓库。源码导航整理与精选研究源码/方法/摘要纳入提交，原始批量运行目录仍本地。旧游戏 origin 改名 local-baseline，GitHub 为新 origin。固定验证基线通过游戏历史 fdb9e838 还原到 local-data/verification-baseline，明确源文件换行可导致新字节身份，旧证据不复用；本机旧 checkout 不变，新机器不必克隆第三仓库。demo_v1 不再读取旧项目 .env，改用本机环境变量。203 tests（2 skip）与最终候选模块8 tests（1 skip）通过，独立基线 describe/create 通过。GitHub使用手册.md 记录安装与同步操作；上传完成后以远端 main 和 clone 回读为准。
+用户已明确授权上传两仓库并要求中文连接手册。GitHub 登录账号 theHerta27；沙箱最初误报无效，正常权限核实可用，已创建两个 Private 仓库。源码导航整理与精选研究源码/方法/摘要纳入提交，原始批量运行目录仍本地。旧游戏 origin 改名 local-baseline，GitHub 为新 origin。固定验证基线通过游戏历史 fdb9e838 还原到 local-data/verification-baseline，明确源文件换行可导致新字节身份，旧证据不复用；本机旧 checkout 不变，新机器不必克隆第三仓库。demo_v1 不再读取旧项目 .env，改用本机环境变量。203 tests（2 skip）与最终候选模块8 tests（1 skip）通过，独立基线 describe/create 通过。GitHub使用手册.md 记录安装与同步操作；两个仓库已成功 push main，GitHub API确认均Private；实际从GitHub clone后还原/安装固定基线，使用克隆源码完成describe/create与CLI help。克隆验收复用工作台既有解释器，未重新构建Unity/运行LLM，不冒充全新机器完整产品验收。详见research/evidence/github-upload-20261007.json。
 
 
 ## 2026-10-06：源码导航整理
