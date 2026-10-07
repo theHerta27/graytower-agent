@@ -1,0 +1,27 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 15094,
+  "packet_path": "tasks/public/confirm04/packet.md",
+  "packet_sha256": "c6084aa74e18eaf3b3cd92f9794614f81a75c99424f87e23beedfe629bc1f67f",
+  "schema_version": 1,
+  "source_paths": [
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py"
+  ],
+  "split": "confirmation",
+  "task_id": "confirm04",
+  "title": "配对清单不可变集合整理"
+}

@@ -10,3 +10,7 @@ node_modules/
 dist/
 *.sqlite-wal
 *.sqlite-shm
+
+# Local editor settings are not part of the product.
+.idea/
+.vscode/

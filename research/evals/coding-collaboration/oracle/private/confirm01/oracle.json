@@ -1,0 +1,77 @@
+{
+  "candidate_hashes": {
+    "combat-foundation/game-core/combat_core/v2/boss.py": "e13b9869a2b0a23a83bec9bf0924abdd57f2a6c9a96d137c54ea9ff266767fa2",
+    "combat-foundation/game-core/combat_core/v2/bots.py": "aca2d1606720a23ae21e32b3fc113006533bd3a2b1278173d79330ea213d8acc",
+    "combat-foundation/game-core/combat_core/v2/effects.py": "aa84a3d2fc5777696fc8cfe8a9ed9b7931ab426c11b12cd9eafe849b0a34c3cd",
+    "combat-foundation/game-core/combat_core/v2/simulation.py": "2f55f78ab60461ebd585e2b45481ca7d6c7796da93df548b600fb0784b71a2ea",
+    "combat-foundation/game-core/combat_core/v2/state.py": "ad31243aa37bab8275ba17414df2f7640157f4c33956a134c671b94f0ead934a"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "benchmark_injected",
+  "issues": [
+    {
+      "aliases": [
+        "普通攻击后终结技"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 142,
+          "path": "combat-foundation/game-core/combat_core/v2/effects.py",
+          "start_line": 137
+        }
+      ],
+      "fix": "在终结技入口恢复normal_used校验。",
+      "issue_id": "C01-WINDOW",
+      "required_evidence": [
+        "入口缺少normal_used限制。",
+        "bot.choose_ultimate仍限制但外部ActionRequest绕过bot，resolve_action依赖validate_action准入。"
+      ],
+      "root_cause": "validate_action移除normal_used检查，允许普通行动后的终结技。",
+      "severity": "P1",
+      "trigger": "当前活跃玩家满能，normal_used=True且ultimate_used=False，直接提交其拥有的终结技。",
+      "verification_ids": [
+        "C01-WINDOW"
+      ]
+    },
+    {
+      "aliases": [
+        "取消蓄力不推进轮转"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 97,
+          "path": "combat-foundation/game-core/combat_core/v2/state.py",
+          "start_line": 92
+        }
+      ],
+      "fix": "成功取消蓄力时推进skill_index一次；未蓄力时不推进。",
+      "issue_id": "C01-CHARGE",
+      "required_evidence": [
+        "resolve_enemy_action启动蓄力不增加skill_index。",
+        "choose_enemy_action用pool[skill_index%len(pool)]，取消后未推进会重复该槽而非下一槽。"
+      ],
+      "root_cause": "cancel_charge清空charging却不推进skill_index，使下一次仍选择被取消的蓄力槽。",
+      "severity": "P2",
+      "trigger": "Boss本阶段位于一个interruptible技能槽；启动时advance=False，被击破后cancel_charge，下次choose_enemy_action。",
+      "verification_ids": [
+        "C01-CHARGE"
+      ]
+    }
+  ],
+  "non_issues": [
+    "apply_phase_transition新阶段重置charging/skill_index仍符合题设。"
+  ],
+  "packet_sha256": "466c83fa329de7e37715861db4c4d320cc601fc62268391eabfb5efd15dc0011",
+  "schema_version": 1,
+  "scope": "候选清理了行动入口和蓄力取消逻辑。请针对玩家动作准入以及Boss被击破后的技能轮转审查。调用方既可能是内置bot，也可能是未来的受控玩家输入；不能用bot当前不发送某类请求代替入口校验。",
+  "source_hashes": {
+    "combat-foundation/game-core/combat_core/v2/boss.py": "3f72edee3a2557ee56f1b8e9e2d960a676bed7d6eca747039484700190f09397",
+    "combat-foundation/game-core/combat_core/v2/bots.py": "e7231dd469aad9701106a7ee1b98584439e951e8428f8435b61145badd8f60bf",
+    "combat-foundation/game-core/combat_core/v2/effects.py": "afa556490c51666714edaa3fe83a0f570e71abc71daf64934412b7b4c487bad6",
+    "combat-foundation/game-core/combat_core/v2/simulation.py": "69ef0558b02a7c39d9459d6e0fb0d670608fce1417043915adeee42b3b3b8379",
+    "combat-foundation/game-core/combat_core/v2/state.py": "17a00fb56541d70f4c781d25220df334cec761b7bc6c840aafb29c5af3e0a117"
+  },
+  "split": "confirmation",
+  "task_id": "confirm01",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

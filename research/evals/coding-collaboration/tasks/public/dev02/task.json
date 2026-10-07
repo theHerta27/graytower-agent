@@ -1,0 +1,27 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 19079,
+  "packet_path": "tasks/public/dev02/packet.md",
+  "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+  "schema_version": 1,
+  "source_paths": [
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/workflow.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py"
+  ],
+  "split": "development",
+  "task_id": "dev02",
+  "title": "实验恢复与账本对账调查"
+}

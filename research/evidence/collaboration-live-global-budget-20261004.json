@@ -1,0 +1,6324 @@
+{
+  "limits": {
+    "max_usd": 3.0,
+    "max_calls": 600,
+    "max_output_tokens": 1000000
+  },
+  "calls_reserved": 352,
+  "output_tokens_reserved_or_actual": 686534,
+  "usd_reserved_or_actual": 1.0223918879999998,
+  "reservations": {
+    "cf1b84a7b37d493a824de151a60ddbb4": {
+      "input_bytes_upper_bound": 23111,
+      "output_cap": 2000,
+      "reserved_usd": 0.0093333,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 4168,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 265,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 4433
+      },
+      "actual_peak_estimate_usd": 0.0015683999999999997
+    },
+    "d841484569ef43c78f017a7b0bffdf09": {
+      "input_bytes_upper_bound": 24668,
+      "output_cap": 2000,
+      "reserved_usd": 0.009800399999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 4480,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "reasoning_tokens": 4
+        },
+        "total_tokens": 4571
+      },
+      "actual_peak_estimate_usd": 0.000211344
+    },
+    "ae7115789f6748c08df251a142dd412e": {
+      "input_bytes_upper_bound": 16175,
+      "output_cap": 2000,
+      "reserved_usd": 0.0072525,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 2386,
+        "input_tokens_details": {
+          "cached_tokens": 128
+        },
+        "output_tokens": 1404,
+        "output_tokens_details": {
+          "reasoning_tokens": 415
+        },
+        "total_tokens": 3790
+      },
+      "actual_peak_estimate_usd": 0.002362968
+    },
+    "7cce79346445483382ebc8effbb8a85c": {
+      "input_bytes_upper_bound": 34809,
+      "output_cap": 2000,
+      "reserved_usd": 0.012842699999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6750,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 421,
+        "output_tokens_details": {
+          "reasoning_tokens": 356
+        },
+        "total_tokens": 7171
+      },
+      "actual_peak_estimate_usd": 0.0012507120000000002
+    },
+    "952b6a99fa794f97bb908f4d8c48d217": {
+      "input_bytes_upper_bound": 41767,
+      "output_cap": 2000,
+      "reserved_usd": 0.0149301,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8231,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 795,
+        "output_tokens_details": {
+          "reasoning_tokens": 197
+        },
+        "total_tokens": 9026
+      },
+      "actual_peak_estimate_usd": 0.001315908
+    },
+    "ba20cddaaa30426ca4f5741a253fca7c": {
+      "input_bytes_upper_bound": 37937,
+      "output_cap": 4000,
+      "reserved_usd": 0.0161811,
+      "status": "reserved"
+    },
+    "bd0fddc38b644830856cf6ea7d152d5d": {
+      "input_bytes_upper_bound": 39800,
+      "output_cap": 4000,
+      "reserved_usd": 0.016739999999999998,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8877,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 4000,
+        "output_tokens_details": {
+          "reasoning_tokens": 4000
+        },
+        "total_tokens": 12877
+      },
+      "actual_peak_estimate_usd": 0.007463099999999999
+    },
+    "3a448ba64ff3413b95e16d71142e1aeb": {
+      "input_bytes_upper_bound": 39837,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316119,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8881,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 1931,
+        "output_tokens_details": {
+          "reasoning_tokens": 961
+        },
+        "total_tokens": 10812
+      },
+      "actual_peak_estimate_usd": 0.0029870039999999997
+    },
+    "f45adc32a2c64d40bfd7177c17c3d38d": {
+      "input_bytes_upper_bound": 39801,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316011,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8877,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 4709,
+        "output_tokens_details": {
+          "reasoning_tokens": 3798
+        },
+        "total_tokens": 13586
+      },
+      "actual_peak_estimate_usd": 0.006319404
+    },
+    "30be84b3038249e48d1d1af2fedd9c8e": {
+      "input_bytes_upper_bound": 47987,
+      "output_cap": 16384,
+      "reserved_usd": 0.0340569,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10835,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 1125,
+        "output_tokens_details": {
+          "reasoning_tokens": 319
+        },
+        "total_tokens": 11960
+      },
+      "actual_peak_estimate_usd": 0.002643636
+    },
+    "0309c6b14f2e4eeb8831248bb6a58591": {
+      "input_bytes_upper_bound": 40994,
+      "output_cap": 16384,
+      "reserved_usd": 0.031959,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9044,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 3793,
+        "output_tokens_details": {
+          "reasoning_tokens": 2973
+        },
+        "total_tokens": 12837
+      },
+      "actual_peak_estimate_usd": 0.005270303999999999
+    },
+    "75b787887a4e470d8b3b570f47d4a6ac": {
+      "input_bytes_upper_bound": 41035,
+      "output_cap": 16384,
+      "reserved_usd": 0.0319713,
+      "status": "reserved"
+    },
+    "2f254e01ef47457a82c70e5445f3d0d6": {
+      "input_bytes_upper_bound": 54182,
+      "output_cap": 16384,
+      "reserved_usd": 0.0359154,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12088,
+        "input_tokens_details": {
+          "cached_tokens": 11904
+        },
+        "output_tokens": 533,
+        "output_tokens_details": {
+          "reasoning_tokens": 336
+        },
+        "total_tokens": 12621
+      },
+      "actual_peak_estimate_usd": 0.000766224
+    },
+    "e93111460a3142c396b734977e453a29": {
+      "input_bytes_upper_bound": 41109,
+      "output_cap": 15259,
+      "reserved_usd": 0.030643499999999997,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9068,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 4268,
+        "output_tokens_details": {
+          "reasoning_tokens": 3448
+        },
+        "total_tokens": 13336
+      },
+      "actual_peak_estimate_usd": 0.005847504
+    },
+    "de3d535ef73e4b068f3dfe6a8551d413": {
+      "input_bytes_upper_bound": 56584,
+      "output_cap": 15851,
+      "reserved_usd": 0.0359964,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12643,
+        "input_tokens_details": {
+          "cached_tokens": 12416
+        },
+        "output_tokens": 139,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 12782
+      },
+      "actual_peak_estimate_usd": 0.000309396
+    },
+    "031deb82bcc94d46ac0f907438bc1b73": {
+      "input_bytes_upper_bound": 67930,
+      "output_cap": 16384,
+      "reserved_usd": 0.0400398,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14589,
+        "input_tokens_details": {
+          "cached_tokens": 12672
+        },
+        "output_tokens": 137,
+        "output_tokens_details": {
+          "reasoning_tokens": 12
+        },
+        "total_tokens": 14726
+      },
+      "actual_peak_estimate_usd": 0.000815532
+    },
+    "d1ecb2343d7e46308cd9fb3d9a578349": {
+      "input_bytes_upper_bound": 39801,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316011,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8877,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 3725,
+        "output_tokens_details": {
+          "reasoning_tokens": 2709
+        },
+        "total_tokens": 12602
+      },
+      "actual_peak_estimate_usd": 0.005138604
+    },
+    "4444291532ee4275a56bb9fb9c59fa13": {
+      "input_bytes_upper_bound": 47987,
+      "output_cap": 16384,
+      "reserved_usd": 0.0340569,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10835,
+        "input_tokens_details": {
+          "cached_tokens": 8576
+        },
+        "output_tokens": 653,
+        "output_tokens_details": {
+          "reasoning_tokens": 20
+        },
+        "total_tokens": 11488
+      },
+      "actual_peak_estimate_usd": 0.001512756
+    },
+    "b7ababc3a7eb4dcdaf31f162ac4f43ea": {
+      "input_bytes_upper_bound": 40693,
+      "output_cap": 16384,
+      "reserved_usd": 0.0318687,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8978,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2145,
+        "output_tokens_details": {
+          "reasoning_tokens": 1294
+        },
+        "total_tokens": 11123
+      },
+      "actual_peak_estimate_usd": 0.003272904
+    },
+    "179193cbd28b4c12b338431c87df7b61": {
+      "input_bytes_upper_bound": 40835,
+      "output_cap": 16384,
+      "reserved_usd": 0.0319113,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9014,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 6763,
+        "output_tokens_details": {
+          "reasoning_tokens": 5923
+        },
+        "total_tokens": 15777
+      },
+      "actual_peak_estimate_usd": 0.008825303999999999
+    },
+    "c93fe0b0c7d94e64bd913c363d438fe8": {
+      "input_bytes_upper_bound": 51921,
+      "output_cap": 16384,
+      "reserved_usd": 0.0352371,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11615,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 728,
+        "output_tokens_details": {
+          "reasoning_tokens": 598
+        },
+        "total_tokens": 12343
+      },
+      "actual_peak_estimate_usd": 0.001008852
+    },
+    "87eac685697541ecb8eb29db08bd08a6": {
+      "input_bytes_upper_bound": 40888,
+      "output_cap": 15731,
+      "reserved_usd": 0.0311436,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9019,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 4601,
+        "output_tokens_details": {
+          "reasoning_tokens": 3788
+        },
+        "total_tokens": 13620
+      },
+      "actual_peak_estimate_usd": 0.0062324039999999995
+    },
+    "b6196b4a97a14bf5a7d87ba56a2ef88a": {
+      "input_bytes_upper_bound": 65389,
+      "output_cap": 16384,
+      "reserved_usd": 0.0392775,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14212,
+        "input_tokens_details": {
+          "cached_tokens": 12288
+        },
+        "output_tokens": 119,
+        "output_tokens_details": {
+          "reasoning_tokens": 12
+        },
+        "total_tokens": 14331
+      },
+      "actual_peak_estimate_usd": 0.000793728
+    },
+    "b74bdcec3580468b94e7c7471a366551": {
+      "input_bytes_upper_bound": 76199,
+      "output_cap": 16384,
+      "reserved_usd": 0.0425205,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16122,
+        "input_tokens_details": {
+          "cached_tokens": 14208
+        },
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 16213
+      },
+      "actual_peak_estimate_usd": 0.000768648
+    },
+    "381b31e373ef42d9bed8e78be7dd6c45": {
+      "input_bytes_upper_bound": 86833,
+      "output_cap": 16384,
+      "reserved_usd": 0.04571069999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18062,
+        "input_tokens_details": {
+          "cached_tokens": 16128
+        },
+        "output_tokens": 438,
+        "output_tokens_details": {
+          "reasoning_tokens": 272
+        },
+        "total_tokens": 18500
+      },
+      "actual_peak_estimate_usd": 0.0012025679999999998
+    },
+    "c40c5ae9a9114cb29db774cd9832019b": {
+      "input_bytes_upper_bound": 103909,
+      "output_cap": 16384,
+      "reserved_usd": 0.0508335,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21167,
+        "input_tokens_details": {
+          "cached_tokens": 18432
+        },
+        "output_tokens": 1033,
+        "output_tokens_details": {
+          "reasoning_tokens": 108
+        },
+        "total_tokens": 22200
+      },
+      "actual_peak_estimate_usd": 0.002170692
+    },
+    "16b2b3c6fda747bcbd70c929061d81b9": {
+      "input_bytes_upper_bound": 39821,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316071,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8885,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 1869,
+        "output_tokens_details": {
+          "reasoning_tokens": 743
+        },
+        "total_tokens": 10754
+      },
+      "actual_peak_estimate_usd": 0.002913804
+    },
+    "1d7a72d65ddc4ba6b3e536c5cf62ecfd": {
+      "input_bytes_upper_bound": 50400,
+      "output_cap": 16384,
+      "reserved_usd": 0.0347808,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10051,
+        "input_tokens_details": {
+          "cached_tokens": 8832
+        },
+        "output_tokens": 4060,
+        "output_tokens_details": {
+          "reasoning_tokens": 2660
+        },
+        "total_tokens": 14111
+      },
+      "actual_peak_estimate_usd": 0.005290692
+    },
+    "3d8d753c73644039ae6c8be06d87346b": {
+      "input_bytes_upper_bound": 71990,
+      "output_cap": 16384,
+      "reserved_usd": 0.0412578,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11491,
+        "input_tokens_details": {
+          "cached_tokens": 9984
+        },
+        "output_tokens": 3592,
+        "output_tokens_details": {
+          "reasoning_tokens": 2163
+        },
+        "total_tokens": 15083
+      },
+      "actual_peak_estimate_usd": 0.004822404
+    },
+    "d71d08c557d94b75a3c9d3ed6240a6e1": {
+      "input_bytes_upper_bound": 91187,
+      "output_cap": 16384,
+      "reserved_usd": 0.0470169,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12960,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 3583,
+        "output_tokens_details": {
+          "reasoning_tokens": 2090
+        },
+        "total_tokens": 16543
+      },
+      "actual_peak_estimate_usd": 0.004838352
+    },
+    "e9e8e4517bbb45428f2bf057d3faa263": {
+      "input_bytes_upper_bound": 47978,
+      "output_cap": 16384,
+      "reserved_usd": 0.0340542,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10837,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 2197,
+        "output_tokens_details": {
+          "reasoning_tokens": 1809
+        },
+        "total_tokens": 13034
+      },
+      "actual_peak_estimate_usd": 0.0033285240000000002
+    },
+    "19c017e5564e4f88b030d451522c88ba": {
+      "input_bytes_upper_bound": 58462,
+      "output_cap": 16384,
+      "reserved_usd": 0.037199399999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13081,
+        "input_tokens_details": {
+          "cached_tokens": 12928
+        },
+        "output_tokens": 93,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 13174
+      },
+      "actual_peak_estimate_usd": 0.000235068
+    },
+    "72f013bf0456447b96990dea4aa6de8a": {
+      "input_bytes_upper_bound": 41145,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320043,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9045,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2936,
+        "output_tokens_details": {
+          "reasoning_tokens": 2073
+        },
+        "total_tokens": 11981
+      },
+      "actual_peak_estimate_usd": 0.004242203999999999
+    },
+    "727b046e0e6240bfa1f57c80044bb4d0": {
+      "input_bytes_upper_bound": 59015,
+      "output_cap": 16384,
+      "reserved_usd": 0.037365300000000004,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13196,
+        "input_tokens_details": {
+          "cached_tokens": 13056
+        },
+        "output_tokens": 113,
+        "output_tokens_details": {
+          "reasoning_tokens": 26
+        },
+        "total_tokens": 13309
+      },
+      "actual_peak_estimate_usd": 0.000255936
+    },
+    "c9dc5d376b4f495687bdb17f1886e59f": {
+      "input_bytes_upper_bound": 70350,
+      "output_cap": 16384,
+      "reserved_usd": 0.0407658,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15208,
+        "input_tokens_details": {
+          "cached_tokens": 13184
+        },
+        "output_tokens": 103,
+        "output_tokens_details": {
+          "reasoning_tokens": 20
+        },
+        "total_tokens": 15311
+      },
+      "actual_peak_estimate_usd": 0.0008099039999999999
+    },
+    "85a5aef30374457aab9dfd6579c83c40": {
+      "input_bytes_upper_bound": 76330,
+      "output_cap": 16384,
+      "reserved_usd": 0.042559799999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16231,
+        "input_tokens_details": {
+          "cached_tokens": 15232
+        },
+        "output_tokens": 284,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16515
+      },
+      "actual_peak_estimate_usd": 0.0007318919999999999
+    },
+    "4da7665e591b4b978430f57cf1eb6539": {
+      "input_bytes_upper_bound": 77996,
+      "output_cap": 16384,
+      "reserved_usd": 0.0430596,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16562,
+        "input_tokens_details": {
+          "cached_tokens": 16384
+        },
+        "output_tokens": 87,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16649
+      },
+      "actual_peak_estimate_usd": 0.000256104
+    },
+    "12314d5c839b42ce93661535d2812e44": {
+      "input_bytes_upper_bound": 41207,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320229,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9070,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 4499,
+        "output_tokens_details": {
+          "reasoning_tokens": 3609
+        },
+        "total_tokens": 13569
+      },
+      "actual_peak_estimate_usd": 0.005560824000000001
+    },
+    "c786ab8e6f06420dab8ecbbb5588c571": {
+      "input_bytes_upper_bound": 78379,
+      "output_cap": 16384,
+      "reserved_usd": 0.043174500000000005,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16671,
+        "input_tokens_details": {
+          "cached_tokens": 16512
+        },
+        "output_tokens": 87,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16758
+      },
+      "actual_peak_estimate_usd": 0.000251172
+    },
+    "f990f34ba94b48b4823a299e8f839de3": {
+      "input_bytes_upper_bound": 89660,
+      "output_cap": 16384,
+      "reserved_usd": 0.0465588,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18711,
+        "input_tokens_details": {
+          "cached_tokens": 16640
+        },
+        "output_tokens": 108,
+        "output_tokens_details": {
+          "reasoning_tokens": 21
+        },
+        "total_tokens": 18819
+      },
+      "actual_peak_estimate_usd": 0.00085074
+    },
+    "3687fa6368a34045a2daa45da9f8e919": {
+      "input_bytes_upper_bound": 95766,
+      "output_cap": 16384,
+      "reserved_usd": 0.0483906,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19766,
+        "input_tokens_details": {
+          "cached_tokens": 18816
+        },
+        "output_tokens": 282,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20048
+      },
+      "actual_peak_estimate_usd": 0.000736296
+    },
+    "60a41c175c33407da0f52c61a833a114": {
+      "input_bytes_upper_bound": 97466,
+      "output_cap": 16384,
+      "reserved_usd": 0.0489006,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20095,
+        "input_tokens_details": {
+          "cached_tokens": 19840
+        },
+        "output_tokens": 87,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20182
+      },
+      "actual_peak_estimate_usd": 0.00029994
+    },
+    "89bc6f3802684097af90aaf8b9a0fa67": {
+      "input_bytes_upper_bound": 41240,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320328,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9068,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 4461,
+        "output_tokens_details": {
+          "reasoning_tokens": 3409
+        },
+        "total_tokens": 13529
+      },
+      "actual_peak_estimate_usd": 0.005514624
+    },
+    "defcac2da9974743bcb28e44bf4a798e": {
+      "input_bytes_upper_bound": 97849,
+      "output_cap": 16384,
+      "reserved_usd": 0.049015500000000004,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20204,
+        "input_tokens_details": {
+          "cached_tokens": 19968
+        },
+        "output_tokens": 87,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20291
+      },
+      "actual_peak_estimate_usd": 0.000295008
+    },
+    "389552356f94468f963e38dbedf3f3d0": {
+      "input_bytes_upper_bound": 111438,
+      "output_cap": 16384,
+      "reserved_usd": 0.0530922,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 22568,
+        "input_tokens_details": {
+          "cached_tokens": 20224
+        },
+        "output_tokens": 130,
+        "output_tokens_details": {
+          "reasoning_tokens": 46
+        },
+        "total_tokens": 22698
+      },
+      "actual_peak_estimate_usd": 0.0009805439999999999
+    },
+    "6f5ec20d6e7c4c15934ef300f59a1fc6": {
+      "input_bytes_upper_bound": 118820,
+      "output_cap": 16384,
+      "reserved_usd": 0.055306799999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 23807,
+        "input_tokens_details": {
+          "cached_tokens": 22656
+        },
+        "output_tokens": 1192,
+        "output_tokens_details": {
+          "reasoning_tokens": 112
+        },
+        "total_tokens": 24999
+      },
+      "actual_peak_estimate_usd": 0.001911636
+    },
+    "8c6d226810b64e8fa3ae2b6b4b4b4fec": {
+      "input_bytes_upper_bound": 45901,
+      "output_cap": 16384,
+      "reserved_usd": 0.0334311,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9285,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 726,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 10011
+      },
+      "actual_peak_estimate_usd": 0.0036567
+    },
+    "4d0a194d937b487a8df5097e9715cb29": {
+      "input_bytes_upper_bound": 38791,
+      "output_cap": 16384,
+      "reserved_usd": 0.031298099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7461,
+        "input_tokens_details": {
+          "cached_tokens": 5120
+        },
+        "output_tokens": 11565,
+        "output_tokens_details": {
+          "reasoning_tokens": 10633
+        },
+        "total_tokens": 19026
+      },
+      "actual_peak_estimate_usd": 0.014611019999999999
+    },
+    "7db53fa770f2407a86b9cd86d2e8aff4": {
+      "input_bytes_upper_bound": 38859,
+      "output_cap": 16384,
+      "reserved_usd": 0.0313185,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7480,
+        "input_tokens_details": {
+          "cached_tokens": 5120
+        },
+        "output_tokens": 2228,
+        "output_tokens_details": {
+          "reasoning_tokens": 1101
+        },
+        "total_tokens": 9708
+      },
+      "actual_peak_estimate_usd": 0.00341232
+    },
+    "2c7caf77216a447bb918f44b79065b00": {
+      "input_bytes_upper_bound": 50148,
+      "output_cap": 16384,
+      "reserved_usd": 0.0347052,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10144,
+        "input_tokens_details": {
+          "cached_tokens": 9984
+        },
+        "output_tokens": 1415,
+        "output_tokens_details": {
+          "reasoning_tokens": 1188
+        },
+        "total_tokens": 11559
+      },
+      "actual_peak_estimate_usd": 0.001805904
+    },
+    "d079dc695f06454b8d19b94e340d06e3": {
+      "input_bytes_upper_bound": 38939,
+      "output_cap": 15658,
+      "reserved_usd": 0.0304713,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7500,
+        "input_tokens_details": {
+          "cached_tokens": 5120
+        },
+        "output_tokens": 4588,
+        "output_tokens_details": {
+          "reasoning_tokens": 3419
+        },
+        "total_tokens": 12088
+      },
+      "actual_peak_estimate_usd": 0.006250319999999999
+    },
+    "75caebde0f3141b4bca91dfca48b66f4": {
+      "input_bytes_upper_bound": 70104,
+      "output_cap": 16384,
+      "reserved_usd": 0.040692,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14016,
+        "input_tokens_details": {
+          "cached_tokens": 11520
+        },
+        "output_tokens": 263,
+        "output_tokens_details": {
+          "reasoning_tokens": 139
+        },
+        "total_tokens": 14279
+      },
+      "actual_peak_estimate_usd": 0.0011335199999999998
+    },
+    "3cec43d46b80419bb090ef3bc0f662a2": {
+      "input_bytes_upper_bound": 85648,
+      "output_cap": 16384,
+      "reserved_usd": 0.0453552,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16860,
+        "input_tokens_details": {
+          "cached_tokens": 14208
+        },
+        "output_tokens": 107,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 16967
+      },
+      "actual_peak_estimate_usd": 0.0010092480000000001
+    },
+    "d57e65fc6c7a40feb8c2d5ada5b37b27": {
+      "input_bytes_upper_bound": 97484,
+      "output_cap": 16384,
+      "reserved_usd": 0.048906000000000005,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19042,
+        "input_tokens_details": {
+          "cached_tokens": 16896
+        },
+        "output_tokens": 692,
+        "output_tokens_details": {
+          "reasoning_tokens": 502
+        },
+        "total_tokens": 19734
+      },
+      "actual_peak_estimate_usd": 0.001575576
+    },
+    "dda454e25e5545b7b703498c78a7969a": {
+      "input_bytes_upper_bound": 120290,
+      "output_cap": 16384,
+      "reserved_usd": 0.0557478,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 23195,
+        "input_tokens_details": {
+          "cached_tokens": 19712
+        },
+        "output_tokens": 1282,
+        "output_tokens_details": {
+          "reasoning_tokens": 54
+        },
+        "total_tokens": 24477
+      },
+      "actual_peak_estimate_usd": 0.0027015719999999997
+    },
+    "440e8d19ca894ccaa9fdd674e7eb8fc6": {
+      "input_bytes_upper_bound": 37735,
+      "output_cap": 16384,
+      "reserved_usd": 0.0309813,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7335,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 2968,
+        "output_tokens_details": {
+          "reasoning_tokens": 1797
+        },
+        "total_tokens": 10303
+      },
+      "actual_peak_estimate_usd": 0.004219188
+    },
+    "14e62eb9ed1a40fbaf63634207b93134": {
+      "input_bytes_upper_bound": 53314,
+      "output_cap": 16384,
+      "reserved_usd": 0.035655,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8546,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 4763,
+        "output_tokens_details": {
+          "reasoning_tokens": 3405
+        },
+        "total_tokens": 13309
+      },
+      "actual_peak_estimate_usd": 0.0061343759999999995
+    },
+    "88753c42ba884ea990baa2e992c49b5d": {
+      "input_bytes_upper_bound": 77178,
+      "output_cap": 16384,
+      "reserved_usd": 0.0428142,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9944,
+        "input_tokens_details": {
+          "cached_tokens": 8448
+        },
+        "output_tokens": 5475,
+        "output_tokens_details": {
+          "reasoning_tokens": 4112
+        },
+        "total_tokens": 15419
+      },
+      "actual_peak_estimate_usd": 0.0070694880000000005
+    },
+    "633d349054b1444eb289c0fc821b7437": {
+      "input_bytes_upper_bound": 103956,
+      "output_cap": 16384,
+      "reserved_usd": 0.0508476,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11347,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 3396,
+        "output_tokens_details": {
+          "reasoning_tokens": 2063
+        },
+        "total_tokens": 14743
+      },
+      "actual_peak_estimate_usd": 0.004581636
+    },
+    "5b59ea225f7544209b47601b3203bb93": {
+      "input_bytes_upper_bound": 45892,
+      "output_cap": 16384,
+      "reserved_usd": 0.0334284,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9287,
+        "input_tokens_details": {
+          "cached_tokens": 7040
+        },
+        "output_tokens": 1973,
+        "output_tokens_details": {
+          "reasoning_tokens": 1671
+        },
+        "total_tokens": 11260
+      },
+      "actual_peak_estimate_usd": 0.0030839400000000003
+    },
+    "b0c104b14b374bed983eb8e9fda77a8f": {
+      "input_bytes_upper_bound": 55573,
+      "output_cap": 16384,
+      "reserved_usd": 0.036332699999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11305,
+        "input_tokens_details": {
+          "cached_tokens": 11136
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 11390
+      },
+      "actual_peak_estimate_usd": 0.000219516
+    },
+    "cc6eeb7e349a4d6798b8f27a0c83a917": {
+      "input_bytes_upper_bound": 39087,
+      "output_cap": 16384,
+      "reserved_usd": 0.031386899999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7538,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 3197,
+        "output_tokens_details": {
+          "reasoning_tokens": 2151
+        },
+        "total_tokens": 10735
+      },
+      "actual_peak_estimate_usd": 0.004554888
+    },
+    "a0689b130bde483caa4ed2120441e8bd": {
+      "input_bytes_upper_bound": 55956,
+      "output_cap": 16384,
+      "reserved_usd": 0.0364476,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11412,
+        "input_tokens_details": {
+          "cached_tokens": 11264
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 11497
+      },
+      "actual_peak_estimate_usd": 0.00021398400000000002
+    },
+    "cda341e1c3a84712a3da8b31cdfc4dad": {
+      "input_bytes_upper_bound": 66273,
+      "output_cap": 16384,
+      "reserved_usd": 0.0395427,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13790,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 74,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 13864
+      },
+      "actual_peak_estimate_usd": 0.0008765520000000001
+    },
+    "0eaef6fae957455a81a659a0e92c191c": {
+      "input_bytes_upper_bound": 71629,
+      "output_cap": 16384,
+      "reserved_usd": 0.0411495,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14983,
+        "input_tokens_details": {
+          "cached_tokens": 13824
+        },
+        "output_tokens": 307,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15290
+      },
+      "actual_peak_estimate_usd": 0.000799044
+    },
+    "0d0d298a0b054d83a9fa3fce77d80317": {
+      "input_bytes_upper_bound": 73251,
+      "output_cap": 16384,
+      "reserved_usd": 0.041636099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15334,
+        "input_tokens_details": {
+          "cached_tokens": 15104
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15418
+      },
+      "actual_peak_estimate_usd": 0.000260424
+    },
+    "01566243303c488083236aa136e15e11": {
+      "input_bytes_upper_bound": 39078,
+      "output_cap": 16384,
+      "reserved_usd": 0.0313842,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7543,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 4954,
+        "output_tokens_details": {
+          "reasoning_tokens": 3748
+        },
+        "total_tokens": 12497
+      },
+      "actual_peak_estimate_usd": 0.0061003080000000005
+    },
+    "31945ab8e8d74f6fa1a1722d799430a9": {
+      "input_bytes_upper_bound": 73634,
+      "output_cap": 16384,
+      "reserved_usd": 0.041750999999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15440,
+        "input_tokens_details": {
+          "cached_tokens": 15232
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15524
+      },
+      "actual_peak_estimate_usd": 0.000254592
+    },
+    "6955b945f91f4925a8862929445dbf1f": {
+      "input_bytes_upper_bound": 74017,
+      "output_cap": 16384,
+      "reserved_usd": 0.0418659,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15546,
+        "input_tokens_details": {
+          "cached_tokens": 15360
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15630
+      },
+      "actual_peak_estimate_usd": 0.00024876
+    },
+    "7c65cf07947b4494ba813d9a19694183": {
+      "input_bytes_upper_bound": 88904,
+      "output_cap": 16384,
+      "reserved_usd": 0.046332,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18257,
+        "input_tokens_details": {
+          "cached_tokens": 15616
+        },
+        "output_tokens": 62,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18319
+      },
+      "actual_peak_estimate_usd": 0.0009603959999999999
+    },
+    "aa152e5678cf4d808de465ef1529adcc": {
+      "input_bytes_upper_bound": 96353,
+      "output_cap": 16384,
+      "reserved_usd": 0.0485667,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19606,
+        "input_tokens_details": {
+          "cached_tokens": 18304
+        },
+        "output_tokens": 351,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19957
+      },
+      "actual_peak_estimate_usd": 0.000921624
+    },
+    "799c8497b2f043b499382715b6eab33d": {
+      "input_bytes_upper_bound": 98196,
+      "output_cap": 16384,
+      "reserved_usd": 0.0491196,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20002,
+        "input_tokens_details": {
+          "cached_tokens": 19840
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20087
+      },
+      "actual_peak_estimate_usd": 0.00026964000000000003
+    },
+    "f0a542011c5d4fbd91c8cdcc8d330119": {
+      "input_bytes_upper_bound": 39300,
+      "output_cap": 16384,
+      "reserved_usd": 0.0314508,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7587,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 8735,
+        "output_tokens_details": {
+          "reasoning_tokens": 7833
+        },
+        "total_tokens": 16322
+      },
+      "actual_peak_estimate_usd": 0.010650708
+    },
+    "d16f382657c14e32b6f052babeb66acf": {
+      "input_bytes_upper_bound": 98579,
+      "output_cap": 16384,
+      "reserved_usd": 0.0492345,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20109,
+        "input_tokens_details": {
+          "cached_tokens": 19968
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20194
+      },
+      "actual_peak_estimate_usd": 0.000264108
+    },
+    "49eec37d051248b8a5ceb885b46ca5c3": {
+      "input_bytes_upper_bound": 98962,
+      "output_cap": 16384,
+      "reserved_usd": 0.0493494,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20216,
+        "input_tokens_details": {
+          "cached_tokens": 19968
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 20301
+      },
+      "actual_peak_estimate_usd": 0.000296208
+    },
+    "b9cd700368bd4290b212328ee9c402f9": {
+      "input_bytes_upper_bound": 110785,
+      "output_cap": 16384,
+      "reserved_usd": 0.0528963,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 22282,
+        "input_tokens_details": {
+          "cached_tokens": 20224
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 117
+        },
+        "total_tokens": 22462
+      },
+      "actual_peak_estimate_usd": 0.000954744
+    },
+    "70140e52c082465381c8a69d1fdcd1b0": {
+      "input_bytes_upper_bound": 117327,
+      "output_cap": 16384,
+      "reserved_usd": 0.054858899999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 23425,
+        "input_tokens_details": {
+          "cached_tokens": 22400
+        },
+        "output_tokens": 1312,
+        "output_tokens_details": {
+          "reasoning_tokens": 35
+        },
+        "total_tokens": 24737
+      },
+      "actual_peak_estimate_usd": 0.0020163
+    },
+    "b617283c6e8747bf93d0e17f6aa38c18": {
+      "input_bytes_upper_bound": 37715,
+      "output_cap": 16384,
+      "reserved_usd": 0.030975299999999997,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7327,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 2795,
+        "output_tokens_details": {
+          "reasoning_tokens": 1707
+        },
+        "total_tokens": 10122
+      },
+      "actual_peak_estimate_usd": 0.004009188
+    },
+    "eabffa9499e44bebb75c56ef7ee7f14b": {
+      "input_bytes_upper_bound": 47987,
+      "output_cap": 16384,
+      "reserved_usd": 0.0340569,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10835,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 1879,
+        "output_tokens_details": {
+          "reasoning_tokens": 1025
+        },
+        "total_tokens": 12714
+      },
+      "actual_peak_estimate_usd": 0.0029463239999999993
+    },
+    "b6a9ca5e1685457ea12bc7d65ec7f771": {
+      "input_bytes_upper_bound": 41105,
+      "output_cap": 16384,
+      "reserved_usd": 0.0319923,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9069,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2998,
+        "output_tokens_details": {
+          "reasoning_tokens": 1884
+        },
+        "total_tokens": 12067
+      },
+      "actual_peak_estimate_usd": 0.004323804
+    },
+    "f1cf0899740148aa85616ae3788c1c40": {
+      "input_bytes_upper_bound": 41161,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320091,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9087,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2037,
+        "output_tokens_details": {
+          "reasoning_tokens": 1139
+        },
+        "total_tokens": 11124
+      },
+      "actual_peak_estimate_usd": 0.003176004
+    },
+    "7a6bb9e43eb448fca09e8d206a078853": {
+      "input_bytes_upper_bound": 57629,
+      "output_cap": 16384,
+      "reserved_usd": 0.036949499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12840,
+        "input_tokens_details": {
+          "cached_tokens": 12672
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 12
+        },
+        "total_tokens": 12994
+      },
+      "actual_peak_estimate_usd": 0.000311232
+    },
+    "1612131cd2614dbcb90f8e0b4dd761cf": {
+      "input_bytes_upper_bound": 41117,
+      "output_cap": 14505,
+      "reserved_usd": 0.0297411,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9060,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 3409,
+        "output_tokens_details": {
+          "reasoning_tokens": 2260
+        },
+        "total_tokens": 12469
+      },
+      "actual_peak_estimate_usd": 0.004249823999999999
+    },
+    "bc50ee7beac14ad884d3a94f06168aea": {
+      "input_bytes_upper_bound": 69305,
+      "output_cap": 16384,
+      "reserved_usd": 0.0404523,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14959,
+        "input_tokens_details": {
+          "cached_tokens": 12928
+        },
+        "output_tokens": 116,
+        "output_tokens_details": {
+          "reasoning_tokens": 9
+        },
+        "total_tokens": 15075
+      },
+      "actual_peak_estimate_usd": 0.0008260679999999999
+    },
+    "a9f79d0e51b2419e9cd0fcfbca730979": {
+      "input_bytes_upper_bound": 83628,
+      "output_cap": 16384,
+      "reserved_usd": 0.044749199999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17470,
+        "input_tokens_details": {
+          "cached_tokens": 14976
+        },
+        "output_tokens": 101,
+        "output_tokens_details": {
+          "reasoning_tokens": 17
+        },
+        "total_tokens": 17571
+      },
+      "actual_peak_estimate_usd": 0.000959256
+    },
+    "35c5d8b154534562b7308e66b8189e09": {
+      "input_bytes_upper_bound": 99116,
+      "output_cap": 16384,
+      "reserved_usd": 0.0493956,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20038,
+        "input_tokens_details": {
+          "cached_tokens": 17536
+        },
+        "output_tokens": 332,
+        "output_tokens_details": {
+          "reasoning_tokens": 165
+        },
+        "total_tokens": 20370
+      },
+      "actual_peak_estimate_usd": 0.001254216
+    },
+    "a140fa18a7a4448ab9714b4a7f5beb36": {
+      "input_bytes_upper_bound": 120253,
+      "output_cap": 16384,
+      "reserved_usd": 0.0557367,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 23695,
+        "input_tokens_details": {
+          "cached_tokens": 20352
+        },
+        "output_tokens": 1058,
+        "output_tokens_details": {
+          "reasoning_tokens": 43
+        },
+        "total_tokens": 24753
+      },
+      "actual_peak_estimate_usd": 0.002394612
+    },
+    "5bd2726617d440f0bbf3504400efe2a7": {
+      "input_bytes_upper_bound": 39821,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316071,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8885,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2060,
+        "output_tokens_details": {
+          "reasoning_tokens": 1302
+        },
+        "total_tokens": 10945
+      },
+      "actual_peak_estimate_usd": 0.0031430039999999996
+    },
+    "769c9a0a25114759a17045b64fcc2742": {
+      "input_bytes_upper_bound": 50704,
+      "output_cap": 16384,
+      "reserved_usd": 0.034872,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9683,
+        "input_tokens_details": {
+          "cached_tokens": 8832
+        },
+        "output_tokens": 16384,
+        "output_tokens_details": {
+          "reasoning_tokens": 16384
+        },
+        "total_tokens": 26067
+      },
+      "actual_peak_estimate_usd": 0.019969092
+    },
+    "ac94a1190ccf4f4dac25699b70724862": {
+      "input_bytes_upper_bound": 47978,
+      "output_cap": 16384,
+      "reserved_usd": 0.0340542,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10837,
+        "input_tokens_details": {
+          "cached_tokens": 8576
+        },
+        "output_tokens": 616,
+        "output_tokens_details": {
+          "reasoning_tokens": 339
+        },
+        "total_tokens": 11453
+      },
+      "actual_peak_estimate_usd": 0.001468956
+    },
+    "154bc82294cc4cc593472e3f1997b8d9": {
+      "input_bytes_upper_bound": 51141,
+      "output_cap": 16384,
+      "reserved_usd": 0.035003099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11499,
+        "input_tokens_details": {
+          "cached_tokens": 11264
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 4
+        },
+        "total_tokens": 11588
+      },
+      "actual_peak_estimate_usd": 0.000244884
+    },
+    "ee4af608063f4868bfe51cd2c478b8a4": {
+      "input_bytes_upper_bound": 40983,
+      "output_cap": 16384,
+      "reserved_usd": 0.0319557,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9044,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 3462,
+        "output_tokens_details": {
+          "reasoning_tokens": 2630
+        },
+        "total_tokens": 12506
+      },
+      "actual_peak_estimate_usd": 0.004873104
+    },
+    "3d4bdc3205f54835a5c1c223bcbc8b97": {
+      "input_bytes_upper_bound": 51692,
+      "output_cap": 16384,
+      "reserved_usd": 0.035168399999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11610,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 143,
+        "output_tokens_details": {
+          "reasoning_tokens": 58
+        },
+        "total_tokens": 11753
+      },
+      "actual_peak_estimate_usd": 0.000305352
+    },
+    "117fc25811114de1a2a9eabfed7c676c": {
+      "input_bytes_upper_bound": 62891,
+      "output_cap": 16384,
+      "reserved_usd": 0.038528099999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13586,
+        "input_tokens_details": {
+          "cached_tokens": 11648
+        },
+        "output_tokens": 79,
+        "output_tokens_details": {
+          "reasoning_tokens": 16
+        },
+        "total_tokens": 13665
+      },
+      "actual_peak_estimate_usd": 0.000746088
+    },
+    "0fcf5fae5ce0418789f6b5d6d808096d": {
+      "input_bytes_upper_bound": 68501,
+      "output_cap": 16384,
+      "reserved_usd": 0.0402111,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14554,
+        "input_tokens_details": {
+          "cached_tokens": 13568
+        },
+        "output_tokens": 305,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14859
+      },
+      "actual_peak_estimate_usd": 0.000743208
+    },
+    "6ad37e52f70242f5b4b901f35fca415b": {
+      "input_bytes_upper_bound": 70139,
+      "output_cap": 16384,
+      "reserved_usd": 0.0407025,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14904,
+        "input_tokens_details": {
+          "cached_tokens": 14720
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14989
+      },
+      "actual_peak_estimate_usd": 0.00024552
+    },
+    "77f996c6b9854258b9479d977ccd95f6": {
+      "input_bytes_upper_bound": 41197,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320199,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9091,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 5401,
+        "output_tokens_details": {
+          "reasoning_tokens": 4508
+        },
+        "total_tokens": 14492
+      },
+      "actual_peak_estimate_usd": 0.0066495239999999995
+    },
+    "fb9a5d65c6d4446d8f3394aaa4391d57": {
+      "input_bytes_upper_bound": 70522,
+      "output_cap": 16384,
+      "reserved_usd": 0.0408174,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15011,
+        "input_tokens_details": {
+          "cached_tokens": 14848
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15096
+      },
+      "actual_peak_estimate_usd": 0.000239988
+    },
+    "0094164447a64bdf8414124881d79804": {
+      "input_bytes_upper_bound": 70905,
+      "output_cap": 16384,
+      "reserved_usd": 0.0409323,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15118,
+        "input_tokens_details": {
+          "cached_tokens": 14976
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15203
+      },
+      "actual_peak_estimate_usd": 0.00023445600000000002
+    },
+    "14e55a61ad324edc8ab419dd75124b53": {
+      "input_bytes_upper_bound": 82714,
+      "output_cap": 16384,
+      "reserved_usd": 0.044475,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17156,
+        "input_tokens_details": {
+          "cached_tokens": 15104
+        },
+        "output_tokens": 63,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17219
+      },
+      "actual_peak_estimate_usd": 0.000781824
+    },
+    "c78dadf95fea422c974920cba65d244c": {
+      "input_bytes_upper_bound": 88624,
+      "output_cap": 16384,
+      "reserved_usd": 0.046248,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18168,
+        "input_tokens_details": {
+          "cached_tokens": 17152
+        },
+        "output_tokens": 354,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18522
+      },
+      "actual_peak_estimate_usd": 0.0008325120000000001
+    },
+    "78c596670e0e47be87a0c4e4de8e182c": {
+      "input_bytes_upper_bound": 90519,
+      "output_cap": 16384,
+      "reserved_usd": 0.0468165,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18569,
+        "input_tokens_details": {
+          "cached_tokens": 18432
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18655
+      },
+      "actual_peak_estimate_usd": 0.000254892
+    },
+    "ae2f55b016824d12bba146826f2e1ba4": {
+      "input_bytes_upper_bound": 41456,
+      "output_cap": 16384,
+      "reserved_usd": 0.0320976,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9140,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 9974,
+        "output_tokens_details": {
+          "reasoning_tokens": 9060
+        },
+        "total_tokens": 19114
+      },
+      "actual_peak_estimate_usd": 0.012151824
+    },
+    "440e4b0d36c54a2f804039587e9999e2": {
+      "input_bytes_upper_bound": 90902,
+      "output_cap": 16384,
+      "reserved_usd": 0.0469314,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18677,
+        "input_tokens_details": {
+          "cached_tokens": 18432
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18763
+      },
+      "actual_peak_estimate_usd": 0.000287292
+    },
+    "7f66893052ad4e3abe89d657f86d6759": {
+      "input_bytes_upper_bound": 91285,
+      "output_cap": 16384,
+      "reserved_usd": 0.0470463,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18785,
+        "input_tokens_details": {
+          "cached_tokens": 18560
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18871
+      },
+      "actual_peak_estimate_usd": 0.00028206
+    },
+    "c9d921d4bac64a0287e3b92f73372470": {
+      "input_bytes_upper_bound": 91668,
+      "output_cap": 16384,
+      "reserved_usd": 0.0471612,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18893,
+        "input_tokens_details": {
+          "cached_tokens": 18688
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18979
+      },
+      "actual_peak_estimate_usd": 0.000276828
+    },
+    "6e30f96b9549497f8ab4cc6240d83142": {
+      "input_bytes_upper_bound": 92051,
+      "output_cap": 16384,
+      "reserved_usd": 0.0472761,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19001,
+        "input_tokens_details": {
+          "cached_tokens": 18816
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19087
+      },
+      "actual_peak_estimate_usd": 0.000271596
+    },
+    "088d8e43212648eda26a34e2756de247": {
+      "input_bytes_upper_bound": 104264,
+      "output_cap": 16384,
+      "reserved_usd": 0.05094,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21086,
+        "input_tokens_details": {
+          "cached_tokens": 19072
+        },
+        "output_tokens": 473,
+        "output_tokens_details": {
+          "reasoning_tokens": 409
+        },
+        "total_tokens": 21559
+      },
+      "actual_peak_estimate_usd": 0.001286232
+    },
+    "847b9744aca14b68a3b10b2de2cf1433": {
+      "input_bytes_upper_bound": 112287,
+      "output_cap": 16384,
+      "reserved_usd": 0.053346899999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 22530,
+        "input_tokens_details": {
+          "cached_tokens": 21504
+        },
+        "output_tokens": 1328,
+        "output_tokens_details": {
+          "reasoning_tokens": 178
+        },
+        "total_tokens": 23858
+      },
+      "actual_peak_estimate_usd": 0.002030424
+    },
+    "69b5b71641b143d0a6180b376a3e693c": {
+      "input_bytes_upper_bound": 39801,
+      "output_cap": 16384,
+      "reserved_usd": 0.0316011,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8877,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2581,
+        "output_tokens_details": {
+          "reasoning_tokens": 1545
+        },
+        "total_tokens": 11458
+      },
+      "actual_peak_estimate_usd": 0.0037658039999999998
+    },
+    "d52e2998ee6c4321808d1065f8742151": {
+      "input_bytes_upper_bound": 37735,
+      "output_cap": 16384,
+      "reserved_usd": 0.0309813,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7335,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 2364,
+        "output_tokens_details": {
+          "reasoning_tokens": 1197
+        },
+        "total_tokens": 9699
+      },
+      "actual_peak_estimate_usd": 0.0034943879999999993
+    },
+    "39a49efa8511469bb7644a79c81d296f": {
+      "input_bytes_upper_bound": 50633,
+      "output_cap": 16384,
+      "reserved_usd": 0.0348507,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8542,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 3037,
+        "output_tokens_details": {
+          "reasoning_tokens": 1882
+        },
+        "total_tokens": 11579
+      },
+      "actual_peak_estimate_usd": 0.004061976
+    },
+    "57b10baf9f1e403e9b62ea1ccae045f5": {
+      "input_bytes_upper_bound": 66138,
+      "output_cap": 16384,
+      "reserved_usd": 0.0395022,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9737,
+        "input_tokens_details": {
+          "cached_tokens": 8448
+        },
+        "output_tokens": 4395,
+        "output_tokens_details": {
+          "reasoning_tokens": 3228
+        },
+        "total_tokens": 14132
+      },
+      "actual_peak_estimate_usd": 0.005711388
+    },
+    "94f48826b7ed408b9ade1e0ef4f7fbb2": {
+      "input_bytes_upper_bound": 88097,
+      "output_cap": 16384,
+      "reserved_usd": 0.046089899999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10944,
+        "input_tokens_details": {
+          "cached_tokens": 9728
+        },
+        "output_tokens": 5232,
+        "output_tokens_details": {
+          "reasoning_tokens": 4019
+        },
+        "total_tokens": 16176
+      },
+      "actual_peak_estimate_usd": 0.006701568
+    },
+    "bd869dca21ed4ea1bf203207a6881f2c": {
+      "input_bytes_upper_bound": 45892,
+      "output_cap": 16384,
+      "reserved_usd": 0.0334284,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9287,
+        "input_tokens_details": {
+          "cached_tokens": 7040
+        },
+        "output_tokens": 1125,
+        "output_tokens_details": {
+          "reasoning_tokens": 816
+        },
+        "total_tokens": 10412
+      },
+      "actual_peak_estimate_usd": 0.0020663400000000003
+    },
+    "a625a90b23c24752ae4ea6b7dfe31e68": {
+      "input_bytes_upper_bound": 51497,
+      "output_cap": 16384,
+      "reserved_usd": 0.0351099,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10457,
+        "input_tokens_details": {
+          "cached_tokens": 10240
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 4
+        },
+        "total_tokens": 10546
+      },
+      "actual_peak_estimate_usd": 0.00023333999999999999
+    },
+    "58ba799a551e4b2882b3f19285d75b64": {
+      "input_bytes_upper_bound": 39043,
+      "output_cap": 16384,
+      "reserved_usd": 0.0313737,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7527,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 2730,
+        "output_tokens_details": {
+          "reasoning_tokens": 1713
+        },
+        "total_tokens": 10257
+      },
+      "actual_peak_estimate_usd": 0.003991188
+    },
+    "1e471a786a5c45eab42c60ff17039562": {
+      "input_bytes_upper_bound": 52040,
+      "output_cap": 16384,
+      "reserved_usd": 0.0352728,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10568,
+        "input_tokens_details": {
+          "cached_tokens": 10368
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 10653
+      },
+      "actual_peak_estimate_usd": 0.000224208
+    },
+    "c83c3493b59f45a6bec793798e80d7e9": {
+      "input_bytes_upper_bound": 65324,
+      "output_cap": 16384,
+      "reserved_usd": 0.039258,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12880,
+        "input_tokens_details": {
+          "cached_tokens": 10624
+        },
+        "output_tokens": 73,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 12953
+      },
+      "actual_peak_estimate_usd": 0.000828144
+    },
+    "5e15b125b2314814a490989829e40920": {
+      "input_bytes_upper_bound": 72152,
+      "output_cap": 16384,
+      "reserved_usd": 0.04130639999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14039,
+        "input_tokens_details": {
+          "cached_tokens": 12928
+        },
+        "output_tokens": 314,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14353
+      },
+      "actual_peak_estimate_usd": 0.000787668
+    },
+    "c55096b7faf14b948e928398b84f9333": {
+      "input_bytes_upper_bound": 73950,
+      "output_cap": 16384,
+      "reserved_usd": 0.0418458,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14397,
+        "input_tokens_details": {
+          "cached_tokens": 14208
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14481
+      },
+      "actual_peak_estimate_usd": 0.000242748
+    },
+    "182e0ca2d5634d15b0641a53f744f4c0": {
+      "input_bytes_upper_bound": 39089,
+      "output_cap": 16384,
+      "reserved_usd": 0.0313875,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7539,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 3318,
+        "output_tokens_details": {
+          "reasoning_tokens": 2471
+        },
+        "total_tokens": 10857
+      },
+      "actual_peak_estimate_usd": 0.004135908
+    },
+    "5c70d08fc65041ffa2bf6a8b630050e1": {
+      "input_bytes_upper_bound": 85046,
+      "output_cap": 16384,
+      "reserved_usd": 0.045174599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16362,
+        "input_tokens_details": {
+          "cached_tokens": 14464
+        },
+        "output_tokens": 62,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16424
+      },
+      "actual_peak_estimate_usd": 0.0007305839999999999
+    },
+    "13b348c9a8d941f699d37d4b4ed74f26": {
+      "input_bytes_upper_bound": 90599,
+      "output_cap": 16384,
+      "reserved_usd": 0.0468405,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17338,
+        "input_tokens_details": {
+          "cached_tokens": 16384
+        },
+        "output_tokens": 339,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17677
+      },
+      "actual_peak_estimate_usd": 0.000791304
+    },
+    "080b0a5a0b884b929f9a070dcc18a323": {
+      "input_bytes_upper_bound": 92567,
+      "output_cap": 16384,
+      "reserved_usd": 0.0474309,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17720,
+        "input_tokens_details": {
+          "cached_tokens": 17536
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17803
+      },
+      "actual_peak_estimate_usd": 0.000260016
+    },
+    "a0d31be27b5a49c28c54ac9deb1453e5": {
+      "input_bytes_upper_bound": 39262,
+      "output_cap": 16384,
+      "reserved_usd": 0.0314394,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7564,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 16030,
+        "output_tokens_details": {
+          "reasoning_tokens": 14987
+        },
+        "total_tokens": 23594
+      },
+      "actual_peak_estimate_usd": 0.019397808
+    },
+    "907b7bfa68e54cbb97f34f1451cb45e4": {
+      "input_bytes_upper_bound": 105075,
+      "output_cap": 16384,
+      "reserved_usd": 0.0511833,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20054,
+        "input_tokens_details": {
+          "cached_tokens": 17792
+        },
+        "output_tokens": 227,
+        "output_tokens_details": {
+          "reasoning_tokens": 166
+        },
+        "total_tokens": 20281
+      },
+      "actual_peak_estimate_usd": 0.001057752
+    },
+    "8752256e15be4a6895c36e938460369f": {
+      "input_bytes_upper_bound": 112169,
+      "output_cap": 16384,
+      "reserved_usd": 0.0533115,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21381,
+        "input_tokens_details": {
+          "cached_tokens": 20224
+        },
+        "output_tokens": 1233,
+        "output_tokens_details": {
+          "reasoning_tokens": 22
+        },
+        "total_tokens": 22614
+      },
+      "actual_peak_estimate_usd": 0.001948044
+    },
+    "1a1ef724eaf64ee79818710ff8eac1af": {
+      "input_bytes_upper_bound": 37715,
+      "output_cap": 16384,
+      "reserved_usd": 0.030975299999999997,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7327,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 3463,
+        "output_tokens_details": {
+          "reasoning_tokens": 2487
+        },
+        "total_tokens": 10790
+      },
+      "actual_peak_estimate_usd": 0.004810788
+    },
+    "c9cb5931bfcd4fe899c234783ab16ed0": {
+      "input_bytes_upper_bound": 45901,
+      "output_cap": 16384,
+      "reserved_usd": 0.0334311,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9285,
+        "input_tokens_details": {
+          "cached_tokens": 7040
+        },
+        "output_tokens": 2095,
+        "output_tokens_details": {
+          "reasoning_tokens": 1032
+        },
+        "total_tokens": 11380
+      },
+      "actual_peak_estimate_usd": 0.00322974
+    },
+    "a589da1f61ed4274a003bdd47211c526": {
+      "input_bytes_upper_bound": 39444,
+      "output_cap": 16384,
+      "reserved_usd": 0.031493999999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7626,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 3923,
+        "output_tokens_details": {
+          "reasoning_tokens": 3076
+        },
+        "total_tokens": 11549
+      },
+      "actual_peak_estimate_usd": 0.005452487999999999
+    },
+    "e9e1e187e9b74aa2a8301d46118acd2f": {
+      "input_bytes_upper_bound": 39231,
+      "output_cap": 16384,
+      "reserved_usd": 0.0314301,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7587,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 6320,
+        "output_tokens_details": {
+          "reasoning_tokens": 5446
+        },
+        "total_tokens": 13907
+      },
+      "actual_peak_estimate_usd": 0.008317188
+    },
+    "f365ef86c7244fe0929487d6d1e4c0a2": {
+      "input_bytes_upper_bound": 56383,
+      "output_cap": 16384,
+      "reserved_usd": 0.036575699999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11509,
+        "input_tokens_details": {
+          "cached_tokens": 11264
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 20
+        },
+        "total_tokens": 11660
+      },
+      "actual_peak_estimate_usd": 0.000322284
+    },
+    "116bcdee04174c16a0a85791b72eb1c2": {
+      "input_bytes_upper_bound": 39241,
+      "output_cap": 14289,
+      "reserved_usd": 0.0289191,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7578,
+        "input_tokens_details": {
+          "cached_tokens": 5248
+        },
+        "output_tokens": 12915,
+        "output_tokens_details": {
+          "reasoning_tokens": 11904
+        },
+        "total_tokens": 20493
+      },
+      "actual_peak_estimate_usd": 0.016228488
+    },
+    "621fd376d8774b29b7a59082218fd80c": {
+      "input_bytes_upper_bound": 57081,
+      "output_cap": 16233,
+      "reserved_usd": 0.036603899999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11682,
+        "input_tokens_details": {
+          "cached_tokens": 11520
+        },
+        "output_tokens": 205,
+        "output_tokens_details": {
+          "reasoning_tokens": 74
+        },
+        "total_tokens": 11887
+      },
+      "actual_peak_estimate_usd": 0.00036372
+    },
+    "76a0ec705d304a9da125ec329530c826": {
+      "input_bytes_upper_bound": 68483,
+      "output_cap": 16384,
+      "reserved_usd": 0.0402057,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13784,
+        "input_tokens_details": {
+          "cached_tokens": 11776
+        },
+        "output_tokens": 114,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 13898
+      },
+      "actual_peak_estimate_usd": 0.000809856
+    },
+    "13be5c1e8a504963aa09842da36d9c51": {
+      "input_bytes_upper_bound": 69079,
+      "output_cap": 16384,
+      "reserved_usd": 0.040384500000000004,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13920,
+        "input_tokens_details": {
+          "cached_tokens": 13696
+        },
+        "output_tokens": 108,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14028
+      },
+      "actual_peak_estimate_usd": 0.000278976
+    },
+    "bf4c6d5d9b444d228249876e82217af9": {
+      "input_bytes_upper_bound": 80018,
+      "output_cap": 16384,
+      "reserved_usd": 0.043666199999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15941,
+        "input_tokens_details": {
+          "cached_tokens": 13952
+        },
+        "output_tokens": 96,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 16037
+      },
+      "actual_peak_estimate_usd": 0.0007956119999999999
+    },
+    "95f1d13b54ab4fbaadbbaba4a29ba765": {
+      "input_bytes_upper_bound": 80588,
+      "output_cap": 16384,
+      "reserved_usd": 0.04383719999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16059,
+        "input_tokens_details": {
+          "cached_tokens": 15872
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16145
+      },
+      "actual_peak_estimate_usd": 0.000254532
+    },
+    "10ed004cc6a44aca878dd9e7b25e3a61": {
+      "input_bytes_upper_bound": 80971,
+      "output_cap": 16384,
+      "reserved_usd": 0.043952099999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16167,
+        "input_tokens_details": {
+          "cached_tokens": 16000
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16253
+      },
+      "actual_peak_estimate_usd": 0.0002493
+    },
+    "f52776de5a5a48c8b8ad905c2ca315ef": {
+      "input_bytes_upper_bound": 93872,
+      "output_cap": 16384,
+      "reserved_usd": 0.0478224,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18446,
+        "input_tokens_details": {
+          "cached_tokens": 16128
+        },
+        "output_tokens": 502,
+        "output_tokens_details": {
+          "reasoning_tokens": 335
+        },
+        "total_tokens": 18948
+      },
+      "actual_peak_estimate_usd": 0.0013945680000000001
+    },
+    "47e704f514d145d5abd8dc3cdbe5ac5f": {
+      "input_bytes_upper_bound": 112837,
+      "output_cap": 16384,
+      "reserved_usd": 0.053511899999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21861,
+        "input_tokens_details": {
+          "cached_tokens": 18944
+        },
+        "output_tokens": 1449,
+        "output_tokens_details": {
+          "reasoning_tokens": 28
+        },
+        "total_tokens": 23310
+      },
+      "actual_peak_estimate_usd": 0.002727564
+    },
+    "9b0f3482207e458b90cfbbcda14c5bb4": {
+      "input_bytes_upper_bound": 51287,
+      "output_cap": 32768,
+      "reserved_usd": 0.0547077,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11422,
+        "input_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "output_tokens": 1906,
+        "output_tokens_details": {
+          "reasoning_tokens": 1482
+        },
+        "total_tokens": 13328
+      },
+      "actual_peak_estimate_usd": 0.0033053519999999997
+    },
+    "ad71248520544676b5c79132a5fea1f4": {
+      "input_bytes_upper_bound": 40534,
+      "output_cap": 32768,
+      "reserved_usd": 0.051481799999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8939,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 3254,
+        "output_tokens_details": {
+          "reasoning_tokens": 2458
+        },
+        "total_tokens": 12193
+      },
+      "actual_peak_estimate_usd": 0.004592004
+    },
+    "37a188927e5949ecac3fa54edf299763": {
+      "input_bytes_upper_bound": 40564,
+      "output_cap": 32768,
+      "reserved_usd": 0.051490799999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8942,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 1930,
+        "output_tokens_details": {
+          "reasoning_tokens": 975
+        },
+        "total_tokens": 10872
+      },
+      "actual_peak_estimate_usd": 0.003004104
+    },
+    "f921fd31f1bf4b6e8306cd9b78b2667c": {
+      "input_bytes_upper_bound": 61157,
+      "output_cap": 32768,
+      "reserved_usd": 0.057668699999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13458,
+        "input_tokens_details": {
+          "cached_tokens": 13312
+        },
+        "output_tokens": 638,
+        "output_tokens_details": {
+          "reasoning_tokens": 504
+        },
+        "total_tokens": 14096
+      },
+      "actual_peak_estimate_usd": 0.0008892720000000001
+    },
+    "3b46d24007e4492cbb2a3190e76edc51": {
+      "input_bytes_upper_bound": 40574,
+      "output_cap": 30862,
+      "reserved_usd": 0.0492066,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8945,
+        "input_tokens_details": {
+          "cached_tokens": 8704
+        },
+        "output_tokens": 3005,
+        "output_tokens_details": {
+          "reasoning_tokens": 2007
+        },
+        "total_tokens": 11950
+      },
+      "actual_peak_estimate_usd": 0.003730524
+    },
+    "f436fa71a9944609adeca6270fc4eaf9": {
+      "input_bytes_upper_bound": 76463,
+      "output_cap": 32768,
+      "reserved_usd": 0.062260499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16175,
+        "input_tokens_details": {
+          "cached_tokens": 14080
+        },
+        "output_tokens": 120,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 16295
+      },
+      "actual_peak_estimate_usd": 0.00085698
+    },
+    "103cc8169bdb412c8146d10444b34440": {
+      "input_bytes_upper_bound": 89407,
+      "output_cap": 32768,
+      "reserved_usd": 0.0661437,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18454,
+        "input_tokens_details": {
+          "cached_tokens": 16256
+        },
+        "output_tokens": 97,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 18551
+      },
+      "actual_peak_estimate_usd": 0.000873336
+    },
+    "94de8f399198437dac4dcb69d643bcc3": {
+      "input_bytes_upper_bound": 100421,
+      "output_cap": 32768,
+      "reserved_usd": 0.06944789999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20316,
+        "input_tokens_details": {
+          "cached_tokens": 18432
+        },
+        "output_tokens": 220,
+        "output_tokens_details": {
+          "reasoning_tokens": 50
+        },
+        "total_tokens": 20536
+      },
+      "actual_peak_estimate_usd": 0.000939792
+    },
+    "6652ec4d457e4fe0b86609dfe6350435": {
+      "input_bytes_upper_bound": 119032,
+      "output_cap": 32768,
+      "reserved_usd": 0.07503119999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 23446,
+        "input_tokens_details": {
+          "cached_tokens": 20480
+        },
+        "output_tokens": 1508,
+        "output_tokens_details": {
+          "reasoning_tokens": 358
+        },
+        "total_tokens": 24954
+      },
+      "actual_peak_estimate_usd": 0.00282228
+    },
+    "1dfc99e00ed04dfd8e2b04365b55210f": {
+      "input_bytes_upper_bound": 41278,
+      "output_cap": 32768,
+      "reserved_usd": 0.051705,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9306,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 3250,
+        "output_tokens_details": {
+          "reasoning_tokens": 2360
+        },
+        "total_tokens": 12556
+      },
+      "actual_peak_estimate_usd": 0.0066917999999999995
+    },
+    "e9b780942b214b6b8c2101ae4fcab502": {
+      "input_bytes_upper_bound": 41298,
+      "output_cap": 32768,
+      "reserved_usd": 0.051711,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9314,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 5135,
+        "output_tokens_details": {
+          "reasoning_tokens": 4369
+        },
+        "total_tokens": 14449
+      },
+      "actual_peak_estimate_usd": 0.006811176
+    },
+    "319996c3150a4a19a92ca13378febe35": {
+      "input_bytes_upper_bound": 66566,
+      "output_cap": 32768,
+      "reserved_usd": 0.059291399999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10150,
+        "input_tokens_details": {
+          "cached_tokens": 9216
+        },
+        "output_tokens": 3650,
+        "output_tokens_details": {
+          "reasoning_tokens": 2853
+        },
+        "total_tokens": 13800
+      },
+      "actual_peak_estimate_usd": 0.0047154960000000004
+    },
+    "99845817454444288b761fefee65c598": {
+      "input_bytes_upper_bound": 84957,
+      "output_cap": 32768,
+      "reserved_usd": 0.0648087,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11007,
+        "input_tokens_details": {
+          "cached_tokens": 10112
+        },
+        "output_tokens": 3092,
+        "output_tokens_details": {
+          "reasoning_tokens": 2240
+        },
+        "total_tokens": 14099
+      },
+      "actual_peak_estimate_usd": 0.004039572
+    },
+    "2e2da382fc324e61b7597244dc57c230": {
+      "input_bytes_upper_bound": 100845,
+      "output_cap": 32768,
+      "reserved_usd": 0.0695751,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11924,
+        "input_tokens_details": {
+          "cached_tokens": 10880
+        },
+        "output_tokens": 2820,
+        "output_tokens_details": {
+          "reasoning_tokens": 1846
+        },
+        "total_tokens": 14744
+      },
+      "actual_peak_estimate_usd": 0.00376248
+    },
+    "acda72d7263b4f09a93dc6f3ec259191": {
+      "input_bytes_upper_bound": 116099,
+      "output_cap": 32768,
+      "reserved_usd": 0.0741513,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12973,
+        "input_tokens_details": {
+          "cached_tokens": 11904
+        },
+        "output_tokens": 2142,
+        "output_tokens_details": {
+          "reasoning_tokens": 1138
+        },
+        "total_tokens": 15115
+      },
+      "actual_peak_estimate_usd": 0.0029625240000000002
+    },
+    "216ef63b202b4d5ab96da82210e18c39": {
+      "input_bytes_upper_bound": 128055,
+      "output_cap": 32768,
+      "reserved_usd": 0.0777381,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14044,
+        "input_tokens_details": {
+          "cached_tokens": 12928
+        },
+        "output_tokens": 1108,
+        "output_tokens_details": {
+          "reasoning_tokens": 114
+        },
+        "total_tokens": 15152
+      },
+      "actual_peak_estimate_usd": 0.001741968
+    },
+    "8e5ce3ca2e7448bb90c213f162bab6d2": {
+      "input_bytes_upper_bound": 52720,
+      "output_cap": 32768,
+      "reserved_usd": 0.055137599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11843,
+        "input_tokens_details": {
+          "cached_tokens": 7168
+        },
+        "output_tokens": 460,
+        "output_tokens_details": {
+          "reasoning_tokens": 36
+        },
+        "total_tokens": 12303
+      },
+      "actual_peak_estimate_usd": 0.0019975080000000003
+    },
+    "9c68e662008744bb9f2825a4514bf10b": {
+      "input_bytes_upper_bound": 41967,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519117,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9360,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 5722,
+        "output_tokens_details": {
+          "reasoning_tokens": 5210
+        },
+        "total_tokens": 15082
+      },
+      "actual_peak_estimate_usd": 0.007529376
+    },
+    "7114d4efd0e643fcb1f5a1430d295c53": {
+      "input_bytes_upper_bound": 41997,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519207,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9363,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 4257,
+        "output_tokens_details": {
+          "reasoning_tokens": 3624
+        },
+        "total_tokens": 13620
+      },
+      "actual_peak_estimate_usd": 0.005772276
+    },
+    "5872b810e3c24041a676de5cb2365339": {
+      "input_bytes_upper_bound": 55762,
+      "output_cap": 32768,
+      "reserved_usd": 0.056050199999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12432,
+        "input_tokens_details": {
+          "cached_tokens": 12288
+        },
+        "output_tokens": 1355,
+        "output_tokens_details": {
+          "reasoning_tokens": 1221
+        },
+        "total_tokens": 13787
+      },
+      "actual_peak_estimate_usd": 0.0017429280000000001
+    },
+    "da3ad634ebf0434bb3b7bf5eddcd7c41": {
+      "input_bytes_upper_bound": 42007,
+      "output_cap": 32308,
+      "reserved_usd": 0.0513717,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9366,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 6141,
+        "output_tokens_details": {
+          "reasoning_tokens": 5442
+        },
+        "total_tokens": 15507
+      },
+      "actual_peak_estimate_usd": 0.008033976
+    },
+    "12402e818af14aaea6b8237627359d48": {
+      "input_bytes_upper_bound": 62063,
+      "output_cap": 31413,
+      "reserved_usd": 0.05631449999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13809,
+        "input_tokens_details": {
+          "cached_tokens": 13568
+        },
+        "output_tokens": 140,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 13949
+      },
+      "actual_peak_estimate_usd": 0.000321708
+    },
+    "d152ef6e89ce4584aeb781733767c14b": {
+      "input_bytes_upper_bound": 70788,
+      "output_cap": 32768,
+      "reserved_usd": 0.060558,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15358,
+        "input_tokens_details": {
+          "cached_tokens": 13824
+        },
+        "output_tokens": 119,
+        "output_tokens_details": {
+          "reasoning_tokens": 9
+        },
+        "total_tokens": 15477
+      },
+      "actual_peak_estimate_usd": 0.000685944
+    },
+    "2f1091e9f4d24903a38c03a26720e1d2": {
+      "input_bytes_upper_bound": 78155,
+      "output_cap": 32768,
+      "reserved_usd": 0.0627681,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16646,
+        "input_tokens_details": {
+          "cached_tokens": 15360
+        },
+        "output_tokens": 92,
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        },
+        "total_tokens": 16738
+      },
+      "actual_peak_estimate_usd": 0.00058836
+    },
+    "dfdf106d5d6945cd9528b3dacdfd3572": {
+      "input_bytes_upper_bound": 87637,
+      "output_cap": 32768,
+      "reserved_usd": 0.0656127,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18279,
+        "input_tokens_details": {
+          "cached_tokens": 16640
+        },
+        "output_tokens": 240,
+        "output_tokens_details": {
+          "reasoning_tokens": 70
+        },
+        "total_tokens": 18519
+      },
+      "actual_peak_estimate_usd": 0.00087954
+    },
+    "ee326990cf7c472aabb134ad4751b54b": {
+      "input_bytes_upper_bound": 100536,
+      "output_cap": 32768,
+      "reserved_usd": 0.0694824,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20487,
+        "input_tokens_details": {
+          "cached_tokens": 18432
+        },
+        "output_tokens": 876,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 21363
+      },
+      "actual_peak_estimate_usd": 0.001778292
+    },
+    "5ff08bb1e27a4b149a280c08c0a49a78": {
+      "input_bytes_upper_bound": 52710,
+      "output_cap": 32768,
+      "reserved_usd": 0.0551346,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11847,
+        "input_tokens_details": {
+          "cached_tokens": 9344
+        },
+        "output_tokens": 1688,
+        "output_tokens_details": {
+          "reasoning_tokens": 1529
+        },
+        "total_tokens": 13535
+      },
+      "actual_peak_estimate_usd": 0.0028325639999999997
+    },
+    "b28518849440498fbebd7f63fdb16821": {
+      "input_bytes_upper_bound": 61076,
+      "output_cap": 32768,
+      "reserved_usd": 0.0576444,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13577,
+        "input_tokens_details": {
+          "cached_tokens": 13440
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 4
+        },
+        "total_tokens": 13663
+      },
+      "actual_peak_estimate_usd": 0.00022494000000000002
+    },
+    "c3cc5a74cce642a2997875a6da6bc256": {
+      "input_bytes_upper_bound": 41959,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519093,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9360,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 3922,
+        "output_tokens_details": {
+          "reasoning_tokens": 3327
+        },
+        "total_tokens": 13282
+      },
+      "actual_peak_estimate_usd": 0.0053693759999999995
+    },
+    "0b856d6d2f1d454380da98b2bf89e163": {
+      "input_bytes_upper_bound": 61619,
+      "output_cap": 32768,
+      "reserved_usd": 0.0578073,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13685,
+        "input_tokens_details": {
+          "cached_tokens": 13440
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 3
+        },
+        "total_tokens": 13770
+      },
+      "actual_peak_estimate_usd": 0.00025613999999999997
+    },
+    "5e4f67948c3949a0913d6cae03ee7213": {
+      "input_bytes_upper_bound": 69573,
+      "output_cap": 32768,
+      "reserved_usd": 0.0601935,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15097,
+        "input_tokens_details": {
+          "cached_tokens": 13696
+        },
+        "output_tokens": 73,
+        "output_tokens_details": {
+          "reasoning_tokens": 13
+        },
+        "total_tokens": 15170
+      },
+      "actual_peak_estimate_usd": 0.000590076
+    },
+    "7e5843f2fc2941fca445be4c459043cc": {
+      "input_bytes_upper_bound": 73660,
+      "output_cap": 32768,
+      "reserved_usd": 0.0614196,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15809,
+        "input_tokens_details": {
+          "cached_tokens": 15104
+        },
+        "output_tokens": 148,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15957
+      },
+      "actual_peak_estimate_usd": 0.00047972399999999995
+    },
+    "a98f20a73cd1451cbcfd264ac09b33fc": {
+      "input_bytes_upper_bound": 74583,
+      "output_cap": 32768,
+      "reserved_usd": 0.061696499999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16001,
+        "input_tokens_details": {
+          "cached_tokens": 15744
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16084
+      },
+      "actual_peak_estimate_usd": 0.00027116399999999995
+    },
+    "71ffe93911d54d7dbe3a6752143a44bb": {
+      "input_bytes_upper_bound": 41989,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519183,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9363,
+        "input_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "output_tokens": 2643,
+        "output_tokens_details": {
+          "reasoning_tokens": 1881
+        },
+        "total_tokens": 12006
+      },
+      "actual_peak_estimate_usd": 0.003308628
+    },
+    "e1eb562d8ab54b198a80eaf29c981991": {
+      "input_bytes_upper_bound": 74966,
+      "output_cap": 32768,
+      "reserved_usd": 0.0618114,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16106,
+        "input_tokens_details": {
+          "cached_tokens": 15872
+        },
+        "output_tokens": 83,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16189
+      },
+      "actual_peak_estimate_usd": 0.000265032
+    },
+    "6b799fe756f84da89fddb2133d799c36": {
+      "input_bytes_upper_bound": 85249,
+      "output_cap": 32768,
+      "reserved_usd": 0.0648963,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17852,
+        "input_tokens_details": {
+          "cached_tokens": 16128
+        },
+        "output_tokens": 71,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 17923
+      },
+      "actual_peak_estimate_usd": 0.0006991679999999999
+    },
+    "d39128d9588247e2b058f3bbb2fd7fc7": {
+      "input_bytes_upper_bound": 90571,
+      "output_cap": 32768,
+      "reserved_usd": 0.0664929,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18729,
+        "input_tokens_details": {
+          "cached_tokens": 17920
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18880
+      },
+      "actual_peak_estimate_usd": 0.00053142
+    },
+    "41ef8221c0cb4dbb93c628d9068405a1": {
+      "input_bytes_upper_bound": 91503,
+      "output_cap": 32768,
+      "reserved_usd": 0.0667725,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18927,
+        "input_tokens_details": {
+          "cached_tokens": 18688
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19013
+      },
+      "actual_peak_estimate_usd": 0.000287028
+    },
+    "adb5d02f938d4a919d4e6f7175613fd6": {
+      "input_bytes_upper_bound": 41999,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519213,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9366,
+        "input_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "output_tokens": 3484,
+        "output_tokens_details": {
+          "reasoning_tokens": 2863
+        },
+        "total_tokens": 12850
+      },
+      "actual_peak_estimate_usd": 0.004318728
+    },
+    "96cd9a0a20244a29a20c4a92018ce13d": {
+      "input_bytes_upper_bound": 91886,
+      "output_cap": 32768,
+      "reserved_usd": 0.0668874,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19035,
+        "input_tokens_details": {
+          "cached_tokens": 18816
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19121
+      },
+      "actual_peak_estimate_usd": 0.000281796
+    },
+    "041f487e9e404f50b9b43e78c52cca60": {
+      "input_bytes_upper_bound": 100129,
+      "output_cap": 32768,
+      "reserved_usd": 0.0693603,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20508,
+        "input_tokens_details": {
+          "cached_tokens": 19072
+        },
+        "output_tokens": 107,
+        "output_tokens_details": {
+          "reasoning_tokens": 43
+        },
+        "total_tokens": 20615
+      },
+      "actual_peak_estimate_usd": 0.000673632
+    },
+    "b72698e1f33e4d1c9cc90ab191bf4b3d": {
+      "input_bytes_upper_bound": 104610,
+      "output_cap": 32768,
+      "reserved_usd": 0.0707046,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21280,
+        "input_tokens_details": {
+          "cached_tokens": 20608
+        },
+        "output_tokens": 956,
+        "output_tokens_details": {
+          "reasoning_tokens": 124
+        },
+        "total_tokens": 22236
+      },
+      "actual_peak_estimate_usd": 0.0014724480000000001
+    },
+    "2c2f27d917ee4f668ee723df2d10f97a": {
+      "input_bytes_upper_bound": 34536,
+      "output_cap": 32768,
+      "reserved_usd": 0.0496824,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6867,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 2450,
+        "output_tokens_details": {
+          "reasoning_tokens": 1776
+        },
+        "total_tokens": 9317
+      },
+      "actual_peak_estimate_usd": 0.0050001
+    },
+    "ef56fd40b82841d9b897869a910b0369": {
+      "input_bytes_upper_bound": 47158,
+      "output_cap": 32768,
+      "reserved_usd": 0.053468999999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7611,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 3296,
+        "output_tokens_details": {
+          "reasoning_tokens": 2295
+        },
+        "total_tokens": 10907
+      },
+      "actual_peak_estimate_usd": 0.004244004
+    },
+    "47d957bc989d42dc966ecead11df3491": {
+      "input_bytes_upper_bound": 63902,
+      "output_cap": 32768,
+      "reserved_usd": 0.058492199999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8672,
+        "input_tokens_details": {
+          "cached_tokens": 7552
+        },
+        "output_tokens": 9344,
+        "output_tokens_details": {
+          "reasoning_tokens": 8339
+        },
+        "total_tokens": 18016
+      },
+      "actual_peak_estimate_usd": 0.011594111999999998
+    },
+    "815c8dd0c485438c8154229ea1929bf6": {
+      "input_bytes_upper_bound": 108328,
+      "output_cap": 32768,
+      "reserved_usd": 0.07182,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9742,
+        "input_tokens_details": {
+          "cached_tokens": 8576
+        },
+        "output_tokens": 5108,
+        "output_tokens_details": {
+          "reasoning_tokens": 3955
+        },
+        "total_tokens": 14850
+      },
+      "actual_peak_estimate_usd": 0.006530856
+    },
+    "372710fae1db4ca59a9dbbe925c2c664": {
+      "input_bytes_upper_bound": 134125,
+      "output_cap": 32768,
+      "reserved_usd": 0.0795591,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10970,
+        "input_tokens_details": {
+          "cached_tokens": 9728
+        },
+        "output_tokens": 1837,
+        "output_tokens_details": {
+          "reasoning_tokens": 820
+        },
+        "total_tokens": 12807
+      },
+      "actual_peak_estimate_usd": 0.002635368
+    },
+    "470b776d8e124d918eb198c2fb17b9bb": {
+      "input_bytes_upper_bound": 144238,
+      "output_cap": 32768,
+      "reserved_usd": 0.082593,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12054,
+        "input_tokens_details": {
+          "cached_tokens": 10880
+        },
+        "output_tokens": 1035,
+        "output_tokens_details": {
+          "reasoning_tokens": 18
+        },
+        "total_tokens": 13089
+      },
+      "actual_peak_estimate_usd": 0.00165948
+    },
+    "52608ee3b9bb48ed830f7383ff1fc86b": {
+      "input_bytes_upper_bound": 45958,
+      "output_cap": 32768,
+      "reserved_usd": 0.053108999999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9396,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 572,
+        "output_tokens_details": {
+          "reasoning_tokens": 148
+        },
+        "total_tokens": 9968
+      },
+      "actual_peak_estimate_usd": 0.002112816
+    },
+    "31e3526a07ad468dba06731fb8396423": {
+      "input_bytes_upper_bound": 35205,
+      "output_cap": 32768,
+      "reserved_usd": 0.0498831,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6913,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 1324,
+        "output_tokens_details": {
+          "reasoning_tokens": 406
+        },
+        "total_tokens": 8237
+      },
+      "actual_peak_estimate_usd": 0.002232684
+    },
+    "d2589fc6eeb8429191cfe81a54d8c6c1": {
+      "input_bytes_upper_bound": 35235,
+      "output_cap": 32768,
+      "reserved_usd": 0.049892099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6916,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 5977,
+        "output_tokens_details": {
+          "reasoning_tokens": 5072
+        },
+        "total_tokens": 12893
+      },
+      "actual_peak_estimate_usd": 0.007817184
+    },
+    "da706abb29464e23b04e6143277ca91e": {
+      "input_bytes_upper_bound": 49529,
+      "output_cap": 32768,
+      "reserved_usd": 0.0541803,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10098,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 726,
+        "output_tokens_details": {
+          "reasoning_tokens": 592
+        },
+        "total_tokens": 10824
+      },
+      "actual_peak_estimate_usd": 0.0010029359999999998
+    },
+    "6d699906dba3405ea75aa29e57d9ea5e": {
+      "input_bytes_upper_bound": 35245,
+      "output_cap": 32196,
+      "reserved_usd": 0.049208699999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6919,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 4553,
+        "output_tokens_details": {
+          "reasoning_tokens": 3803
+        },
+        "total_tokens": 11472
+      },
+      "actual_peak_estimate_usd": 0.0061092839999999995
+    },
+    "81b129546e3f4c29a9a2509c331555da": {
+      "input_bytes_upper_bound": 64207,
+      "output_cap": 32768,
+      "reserved_usd": 0.058583699999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12855,
+        "input_tokens_details": {
+          "cached_tokens": 10752
+        },
+        "output_tokens": 125,
+        "output_tokens_details": {
+          "reasoning_tokens": 14
+        },
+        "total_tokens": 12980
+      },
+      "actual_peak_estimate_usd": 0.0008454119999999999
+    },
+    "9becfc7f8a3d4c6bad445f6ae975b20a": {
+      "input_bytes_upper_bound": 64821,
+      "output_cap": 32768,
+      "reserved_usd": 0.0587679,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13002,
+        "input_tokens_details": {
+          "cached_tokens": 12800
+        },
+        "output_tokens": 117,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 13119
+      },
+      "actual_peak_estimate_usd": 0.0002778
+    },
+    "2656b6bf212740e099c8cb5934b2a51d": {
+      "input_bytes_upper_bound": 74847,
+      "output_cap": 32768,
+      "reserved_usd": 0.061775699999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14790,
+        "input_tokens_details": {
+          "cached_tokens": 13056
+        },
+        "output_tokens": 93,
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        },
+        "total_tokens": 14883
+      },
+      "actual_peak_estimate_usd": 0.000710136
+    },
+    "42b84f611765450281dd180f45371782": {
+      "input_bytes_upper_bound": 87088,
+      "output_cap": 32768,
+      "reserved_usd": 0.06544799999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16864,
+        "input_tokens_details": {
+          "cached_tokens": 14848
+        },
+        "output_tokens": 284,
+        "output_tokens_details": {
+          "reasoning_tokens": 114
+        },
+        "total_tokens": 17148
+      },
+      "actual_peak_estimate_usd": 0.001034688
+    },
+    "b7a0266664a648a9b2b13dd41e0ecb62": {
+      "input_bytes_upper_bound": 104602,
+      "output_cap": 32768,
+      "reserved_usd": 0.07070219999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19898,
+        "input_tokens_details": {
+          "cached_tokens": 17024
+        },
+        "output_tokens": 1016,
+        "output_tokens_details": {
+          "reasoning_tokens": 17
+        },
+        "total_tokens": 20914
+      },
+      "actual_peak_estimate_usd": 0.002183544
+    },
+    "2fbaf01a1a9944238cdd68181181ccca": {
+      "input_bytes_upper_bound": 34516,
+      "output_cap": 32768,
+      "reserved_usd": 0.049676399999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6859,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 2212,
+        "output_tokens_details": {
+          "reasoning_tokens": 1371
+        },
+        "total_tokens": 9071
+      },
+      "actual_peak_estimate_usd": 0.0032820839999999998
+    },
+    "23f30c14082947d882b88e8599b1bc3a": {
+      "input_bytes_upper_bound": 46862,
+      "output_cap": 32768,
+      "reserved_usd": 0.0533802,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9458,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 2005,
+        "output_tokens_details": {
+          "reasoning_tokens": 1566
+        },
+        "total_tokens": 11463
+      },
+      "actual_peak_estimate_usd": 0.0052434000000000005
+    },
+    "d8c7d707967a4e2eaa265a968b4325ed": {
+      "input_bytes_upper_bound": 36109,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501543,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6975,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 10834,
+        "output_tokens_details": {
+          "reasoning_tokens": 10108
+        },
+        "total_tokens": 17809
+      },
+      "actual_peak_estimate_usd": 0.013136436
+    },
+    "6855ed7988c3420aa0d445cee1ea5e2e": {
+      "input_bytes_upper_bound": 36139,
+      "output_cap": 32768,
+      "reserved_usd": 0.050163299999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6978,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 7615,
+        "output_tokens_details": {
+          "reasoning_tokens": 6881
+        },
+        "total_tokens": 14593
+      },
+      "actual_peak_estimate_usd": 0.009839016
+    },
+    "1e717689734c4c069d4940fad172a789": {
+      "input_bytes_upper_bound": 56882,
+      "output_cap": 32768,
+      "reserved_usd": 0.0563862,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11591,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 140,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 11731
+      },
+      "actual_peak_estimate_usd": 0.000296052
+    },
+    "a982418b765c40aea53dc6afc66cee3a": {
+      "input_bytes_upper_bound": 36149,
+      "output_cap": 30763,
+      "reserved_usd": 0.0477603,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6981,
+        "input_tokens_details": {
+          "cached_tokens": 4736
+        },
+        "output_tokens": 6578,
+        "output_tokens_details": {
+          "reasoning_tokens": 5953
+        },
+        "total_tokens": 13559
+      },
+      "actual_peak_estimate_usd": 0.008595516
+    },
+    "25bacb4d8cd24cf9b860ed59b092b6ad": {
+      "input_bytes_upper_bound": 57520,
+      "output_cap": 32628,
+      "reserved_usd": 0.0564096,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11753,
+        "input_tokens_details": {
+          "cached_tokens": 11520
+        },
+        "output_tokens": 153,
+        "output_tokens_details": {
+          "reasoning_tokens": 19
+        },
+        "total_tokens": 11906
+      },
+      "actual_peak_estimate_usd": 0.00032262
+    },
+    "8c63244178ac4d0ab19ed56e9c7422e2": {
+      "input_bytes_upper_bound": 66035,
+      "output_cap": 32768,
+      "reserved_usd": 0.0591321,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13299,
+        "input_tokens_details": {
+          "cached_tokens": 11904
+        },
+        "output_tokens": 117,
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        },
+        "total_tokens": 13416
+      },
+      "actual_peak_estimate_usd": 0.000630324
+    },
+    "143782131aba4701aeb5ab1b23803363": {
+      "input_bytes_upper_bound": 75444,
+      "output_cap": 32768,
+      "reserved_usd": 0.0619548,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15029,
+        "input_tokens_details": {
+          "cached_tokens": 13312
+        },
+        "output_tokens": 94,
+        "output_tokens_details": {
+          "reasoning_tokens": 9
+        },
+        "total_tokens": 15123
+      },
+      "actual_peak_estimate_usd": 0.0007077720000000001
+    },
+    "18d82b2d46624da786859b18b30f99e7": {
+      "input_bytes_upper_bound": 85571,
+      "output_cap": 32768,
+      "reserved_usd": 0.06499289999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16718,
+        "input_tokens_details": {
+          "cached_tokens": 15104
+        },
+        "output_tokens": 376,
+        "output_tokens_details": {
+          "reasoning_tokens": 206
+        },
+        "total_tokens": 17094
+      },
+      "actual_peak_estimate_usd": 0.001026024
+    },
+    "b9185a63f5dc4d34b8e6c0e780266bef": {
+      "input_bytes_upper_bound": 100231,
+      "output_cap": 32768,
+      "reserved_usd": 0.0693909,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19303,
+        "input_tokens_details": {
+          "cached_tokens": 17024
+        },
+        "output_tokens": 1242,
+        "output_tokens_details": {
+          "reasoning_tokens": 58
+        },
+        "total_tokens": 20545
+      },
+      "actual_peak_estimate_usd": 0.0022762439999999998
+    },
+    "0bed16b29bdf4b8b987138ae9a474ae9": {
+      "input_bytes_upper_bound": 35420,
+      "output_cap": 32768,
+      "reserved_usd": 0.049947599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6921,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 7842,
+        "output_tokens_details": {
+          "reasoning_tokens": 7094
+        },
+        "total_tokens": 14763
+      },
+      "actual_peak_estimate_usd": 0.010056684
+    },
+    "0eb3be7fc57946dc922f367ae4015703": {
+      "input_bytes_upper_bound": 35440,
+      "output_cap": 32768,
+      "reserved_usd": 0.0499536,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6929,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 5688,
+        "output_tokens_details": {
+          "reasoning_tokens": 4374
+        },
+        "total_tokens": 12617
+      },
+      "actual_peak_estimate_usd": 0.0074742839999999994
+    },
+    "a4de746102d34d788ca457d48154fbd1": {
+      "input_bytes_upper_bound": 61634,
+      "output_cap": 32768,
+      "reserved_usd": 0.057811799999999997,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8313,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 7506,
+        "output_tokens_details": {
+          "reasoning_tokens": 5944
+        },
+        "total_tokens": 15819
+      },
+      "actual_peak_estimate_usd": 0.009468971999999999
+    },
+    "101210630bc1444d92551698bc6f9796": {
+      "input_bytes_upper_bound": 96840,
+      "output_cap": 32768,
+      "reserved_usd": 0.0683736,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9935,
+        "input_tokens_details": {
+          "cached_tokens": 8192
+        },
+        "output_tokens": 3381,
+        "output_tokens_details": {
+          "reasoning_tokens": 1659
+        },
+        "total_tokens": 13316
+      },
+      "actual_peak_estimate_usd": 0.0046292519999999995
+    },
+    "28a4d491597e4ff8999dad70d8309db1": {
+      "input_bytes_upper_bound": 114563,
+      "output_cap": 32768,
+      "reserved_usd": 0.07369049999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11722,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 9589,
+        "output_tokens_details": {
+          "reasoning_tokens": 7500
+        },
+        "total_tokens": 21311
+      },
+      "actual_peak_estimate_usd": 0.012125736
+    },
+    "648c44b7e3d247b7a134ba270524abb1": {
+      "input_bytes_upper_bound": 159239,
+      "output_cap": 32768,
+      "reserved_usd": 0.0870933,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13886,
+        "input_tokens_details": {
+          "cached_tokens": 11648
+        },
+        "output_tokens": 8741,
+        "output_tokens_details": {
+          "reasoning_tokens": 7193
+        },
+        "total_tokens": 22627
+      },
+      "actual_peak_estimate_usd": 0.011230487999999999
+    },
+    "7ccc28aaf4054e628257bf2ed836ce30": {
+      "input_bytes_upper_bound": 198443,
+      "output_cap": 32768,
+      "reserved_usd": 0.09885449999999998,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15501,
+        "input_tokens_details": {
+          "cached_tokens": 13824
+        },
+        "output_tokens": 3389,
+        "output_tokens_details": {
+          "reasoning_tokens": 1743
+        },
+        "total_tokens": 18890
+      },
+      "actual_peak_estimate_usd": 0.004652844
+    },
+    "cadc03d902e94fb581f8f73b79538c37": {
+      "input_bytes_upper_bound": 46852,
+      "output_cap": 32768,
+      "reserved_usd": 0.0533772,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9462,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 1752,
+        "output_tokens_details": {
+          "reasoning_tokens": 1488
+        },
+        "total_tokens": 11214
+      },
+      "actual_peak_estimate_usd": 0.002908872
+    },
+    "8a29c6ef6d6244de84f65bff511dc0ba": {
+      "input_bytes_upper_bound": 55109,
+      "output_cap": 32768,
+      "reserved_usd": 0.055854299999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11259,
+        "input_tokens_details": {
+          "cached_tokens": 11008
+        },
+        "output_tokens": 85,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 11344
+      },
+      "actual_peak_estimate_usd": 0.000243348
+    },
+    "026a943d9e534b688d6988180265ddfd": {
+      "input_bytes_upper_bound": 36101,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501519,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6975,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 3750,
+        "output_tokens_details": {
+          "reasoning_tokens": 2988
+        },
+        "total_tokens": 10725
+      },
+      "actual_peak_estimate_usd": 0.005162483999999999
+    },
+    "cdc92966e88c4bca9735d3f1e5bee30a": {
+      "input_bytes_upper_bound": 55492,
+      "output_cap": 32768,
+      "reserved_usd": 0.0559692,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11366,
+        "input_tokens_details": {
+          "cached_tokens": 11136
+        },
+        "output_tokens": 105,
+        "output_tokens_details": {
+          "reasoning_tokens": 20
+        },
+        "total_tokens": 11471
+      },
+      "actual_peak_estimate_usd": 0.000261816
+    },
+    "f9fab6d630f244e7aee611e5729f5976": {
+      "input_bytes_upper_bound": 66015,
+      "output_cap": 32768,
+      "reserved_usd": 0.0591261,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13138,
+        "input_tokens_details": {
+          "cached_tokens": 11392
+        },
+        "output_tokens": 73,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 13211
+      },
+      "actual_peak_estimate_usd": 0.0006797519999999999
+    },
+    "bcb8dad1463f4f39ab241073362c8c71": {
+      "input_bytes_upper_bound": 71346,
+      "output_cap": 32768,
+      "reserved_usd": 0.0607254,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14017,
+        "input_tokens_details": {
+          "cached_tokens": 13184
+        },
+        "output_tokens": 148,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14165
+      },
+      "actual_peak_estimate_usd": 0.000506604
+    },
+    "ddef1e47a2c64675abe7876b0d314f83": {
+      "input_bytes_upper_bound": 72271,
+      "output_cap": 32768,
+      "reserved_usd": 0.0610029,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14214,
+        "input_tokens_details": {
+          "cached_tokens": 14080
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14303
+      },
+      "actual_peak_estimate_usd": 0.00023148
+    },
+    "a73490715dcd4efb9b508fd2d197fbf6": {
+      "input_bytes_upper_bound": 36131,
+      "output_cap": 32768,
+      "reserved_usd": 0.050160899999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6978,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 9199,
+        "output_tokens_details": {
+          "reasoning_tokens": 8600
+        },
+        "total_tokens": 16177
+      },
+      "actual_peak_estimate_usd": 0.011175336
+    },
+    "6ceae78e82ea409283cd14e73a711823": {
+      "input_bytes_upper_bound": 72654,
+      "output_cap": 32768,
+      "reserved_usd": 0.0611178,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14325,
+        "input_tokens_details": {
+          "cached_tokens": 14080
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14414
+      },
+      "actual_peak_estimate_usd": 0.00026478
+    },
+    "3667eae8916a40a984cacb3cefad233e": {
+      "input_bytes_upper_bound": 73037,
+      "output_cap": 32768,
+      "reserved_usd": 0.0612327,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14436,
+        "input_tokens_details": {
+          "cached_tokens": 14208
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14525
+      },
+      "actual_peak_estimate_usd": 0.000260448
+    },
+    "54ed9fbf5d9940439972920e35813510": {
+      "input_bytes_upper_bound": 73420,
+      "output_cap": 32768,
+      "reserved_usd": 0.0613476,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14547,
+        "input_tokens_details": {
+          "cached_tokens": 14336
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14636
+      },
+      "actual_peak_estimate_usd": 0.000256116
+    },
+    "fb584b3e8ce04312905ebb4d437fc1d5": {
+      "input_bytes_upper_bound": 81233,
+      "output_cap": 32768,
+      "reserved_usd": 0.0636915,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15983,
+        "input_tokens_details": {
+          "cached_tokens": 14592
+        },
+        "output_tokens": 67,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16050
+      },
+      "actual_peak_estimate_usd": 0.000585252
+    },
+    "035d5e8778414c13afa96400b485e7f1": {
+      "input_bytes_upper_bound": 85145,
+      "output_cap": 32768,
+      "reserved_usd": 0.0648651,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16692,
+        "input_tokens_details": {
+          "cached_tokens": 16000
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16843
+      },
+      "actual_peak_estimate_usd": 0.00048479999999999997
+    },
+    "f7b377357f2744e78c6ffd8a999ce619": {
+      "input_bytes_upper_bound": 86077,
+      "output_cap": 32768,
+      "reserved_usd": 0.0651447,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16892,
+        "input_tokens_details": {
+          "cached_tokens": 16640
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16981
+      },
+      "actual_peak_estimate_usd": 0.00028224
+    },
+    "22b174a0e25c456cadaded1ec2af905d": {
+      "input_bytes_upper_bound": 36141,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501639,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6981,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 14446,
+        "output_tokens_details": {
+          "reasoning_tokens": 13491
+        },
+        "total_tokens": 21427
+      },
+      "actual_peak_estimate_usd": 0.017472636000000003
+    },
+    "05df7bbbcf264bd8be8299fe55d52281": {
+      "input_bytes_upper_bound": 86460,
+      "output_cap": 32768,
+      "reserved_usd": 0.0652596,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17003,
+        "input_tokens_details": {
+          "cached_tokens": 16768
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17092
+      },
+      "actual_peak_estimate_usd": 0.000277908
+    },
+    "bb9614e965714211930d32aaf390b427": {
+      "input_bytes_upper_bound": 86843,
+      "output_cap": 32768,
+      "reserved_usd": 0.0653745,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17114,
+        "input_tokens_details": {
+          "cached_tokens": 16896
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17203
+      },
+      "actual_peak_estimate_usd": 0.000273576
+    },
+    "ba7eb356a7b545ce96ef6b6347049033": {
+      "input_bytes_upper_bound": 87226,
+      "output_cap": 32768,
+      "reserved_usd": 0.0654894,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17225,
+        "input_tokens_details": {
+          "cached_tokens": 17024
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17314
+      },
+      "actual_peak_estimate_usd": 0.00026924399999999997
+    },
+    "d27105adc7fe474594a0c40ce8799ee1": {
+      "input_bytes_upper_bound": 87609,
+      "output_cap": 32768,
+      "reserved_usd": 0.0656043,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17336,
+        "input_tokens_details": {
+          "cached_tokens": 17152
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17425
+      },
+      "actual_peak_estimate_usd": 0.00026491199999999996
+    },
+    "0e7cb495d2464046a64cd9fd8c78975c": {
+      "input_bytes_upper_bound": 87992,
+      "output_cap": 32768,
+      "reserved_usd": 0.0657192,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17447,
+        "input_tokens_details": {
+          "cached_tokens": 17280
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17536
+      },
+      "actual_peak_estimate_usd": 0.00026058
+    },
+    "a735e1f6282a443989ee61aa3a8bd36f": {
+      "input_bytes_upper_bound": 99467,
+      "output_cap": 32768,
+      "reserved_usd": 0.06916169999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19609,
+        "input_tokens_details": {
+          "cached_tokens": 17536
+        },
+        "output_tokens": 595,
+        "output_tokens_details": {
+          "reasoning_tokens": 528
+        },
+        "total_tokens": 20204
+      },
+      "actual_peak_estimate_usd": 0.001441116
+    },
+    "59a9d8982d274a099b9d28daea06f05e": {
+      "input_bytes_upper_bound": 107512,
+      "output_cap": 32768,
+      "reserved_usd": 0.0715752,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21209,
+        "input_tokens_details": {
+          "cached_tokens": 20096
+        },
+        "output_tokens": 912,
+        "output_tokens_details": {
+          "reasoning_tokens": 25
+        },
+        "total_tokens": 22121
+      },
+      "actual_peak_estimate_usd": 0.0015488759999999998
+    },
+    "ca50c56b8a894b2ca13330c518f3bb6a": {
+      "input_bytes_upper_bound": 33036,
+      "output_cap": 32768,
+      "reserved_usd": 0.049232399999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6378,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 261,
+        "output_tokens_details": {
+          "reasoning_tokens": 254
+        },
+        "total_tokens": 6639
+      },
+      "actual_peak_estimate_usd": 0.0022265999999999996
+    },
+    "4cbf6d1dbdb4418388a947b66830340e": {
+      "input_bytes_upper_bound": 33056,
+      "output_cap": 32768,
+      "reserved_usd": 0.0492384,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6386,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 147
+        },
+        "total_tokens": 6540
+      },
+      "actual_peak_estimate_usd": 0.0008211119999999999
+    },
+    "7dee4d29f8664290bb59c46759226791": {
+      "input_bytes_upper_bound": 34520,
+      "output_cap": 32768,
+      "reserved_usd": 0.0496776,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6463,
+        "input_tokens_details": {
+          "cached_tokens": 6272
+        },
+        "output_tokens": 262,
+        "output_tokens_details": {
+          "reasoning_tokens": 255
+        },
+        "total_tokens": 6725
+      },
+      "actual_peak_estimate_usd": 0.000409332
+    },
+    "f14cfe59c0794751b8ae60b7afce5313": {
+      "input_bytes_upper_bound": 36361,
+      "output_cap": 32768,
+      "reserved_usd": 0.050229899999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6530,
+        "input_tokens_details": {
+          "cached_tokens": 6272
+        },
+        "output_tokens": 114,
+        "output_tokens_details": {
+          "reasoning_tokens": 107
+        },
+        "total_tokens": 6644
+      },
+      "actual_peak_estimate_usd": 0.000251832
+    },
+    "fe1b7b833d814c348e3febce942e719b": {
+      "input_bytes_upper_bound": 37534,
+      "output_cap": 32768,
+      "reserved_usd": 0.050581799999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6602,
+        "input_tokens_details": {
+          "cached_tokens": 6400
+        },
+        "output_tokens": 371,
+        "output_tokens_details": {
+          "reasoning_tokens": 364
+        },
+        "total_tokens": 6973
+      },
+      "actual_peak_estimate_usd": 0.0005442
+    },
+    "3f6b349049b84c8ca5e7656df6009fa6": {
+      "input_bytes_upper_bound": 39964,
+      "output_cap": 32768,
+      "reserved_usd": 0.0513108,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6684,
+        "input_tokens_details": {
+          "cached_tokens": 6528
+        },
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "reasoning_tokens": 84
+        },
+        "total_tokens": 6775
+      },
+      "actual_peak_estimate_usd": 0.000195168
+    },
+    "445bd385bf1c4fbfa2a063638545197f": {
+      "input_bytes_upper_bound": 41081,
+      "output_cap": 32768,
+      "reserved_usd": 0.051645899999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6758,
+        "input_tokens_details": {
+          "cached_tokens": 6528
+        },
+        "output_tokens": 65,
+        "output_tokens_details": {
+          "reasoning_tokens": 58
+        },
+        "total_tokens": 6823
+      },
+      "actual_peak_estimate_usd": 0.000186168
+    },
+    "5f82ea2c4e134dc9bee4eb2bd7b804f8": {
+      "input_bytes_upper_bound": 44478,
+      "output_cap": 32768,
+      "reserved_usd": 0.052665,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8915,
+        "input_tokens_details": {
+          "cached_tokens": 4224
+        },
+        "output_tokens": 753,
+        "output_tokens_details": {
+          "reasoning_tokens": 329
+        },
+        "total_tokens": 9668
+      },
+      "actual_peak_estimate_usd": 0.0023362440000000003
+    },
+    "0fb68df302bb4ae39e74257ea6b1de60": {
+      "input_bytes_upper_bound": 33725,
+      "output_cap": 32768,
+      "reserved_usd": 0.0494391,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6432,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 130,
+        "output_tokens_details": {
+          "reasoning_tokens": 123
+        },
+        "total_tokens": 6562
+      },
+      "actual_peak_estimate_usd": 0.000806112
+    },
+    "d7d3a30504f448c091af8b601584d018": {
+      "input_bytes_upper_bound": 33755,
+      "output_cap": 32768,
+      "reserved_usd": 0.049448099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6435,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 459,
+        "output_tokens_details": {
+          "reasoning_tokens": 452
+        },
+        "total_tokens": 6894
+      },
+      "actual_peak_estimate_usd": 0.001201812
+    },
+    "452c6c87e7f04b70919162a6a8062ed4": {
+      "input_bytes_upper_bound": 48745,
+      "output_cap": 32768,
+      "reserved_usd": 0.053945099999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9804,
+        "input_tokens_details": {
+          "cached_tokens": 9600
+        },
+        "output_tokens": 141,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 9945
+      },
+      "actual_peak_estimate_usd": 0.000288
+    },
+    "9d56b1ea9241495695fb0e500b43dac2": {
+      "input_bytes_upper_bound": 33765,
+      "output_cap": 32015,
+      "reserved_usd": 0.0485475,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6438,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 306,
+        "output_tokens_details": {
+          "reasoning_tokens": 299
+        },
+        "total_tokens": 6744
+      },
+      "actual_peak_estimate_usd": 0.001019112
+    },
+    "60b49e6aec39448ca78f3e901a95cc01": {
+      "input_bytes_upper_bound": 49592,
+      "output_cap": 32768,
+      "reserved_usd": 0.054199199999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10054,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 121,
+        "output_tokens_details": {
+          "reasoning_tokens": 6
+        },
+        "total_tokens": 10175
+      },
+      "actual_peak_estimate_usd": 0.000263736
+    },
+    "6f3ea230f0214ce68d21d4c64df236a2": {
+      "input_bytes_upper_bound": 50948,
+      "output_cap": 32768,
+      "reserved_usd": 0.054606,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10377,
+        "input_tokens_details": {
+          "cached_tokens": 10112
+        },
+        "output_tokens": 260,
+        "output_tokens_details": {
+          "reasoning_tokens": 83
+        },
+        "total_tokens": 10637
+      },
+      "actual_peak_estimate_usd": 0.000452172
+    },
+    "4535c32db74a43f5888e4f959769e960": {
+      "input_bytes_upper_bound": 52657,
+      "output_cap": 32768,
+      "reserved_usd": 0.05511869999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10704,
+        "input_tokens_details": {
+          "cached_tokens": 10496
+        },
+        "output_tokens": 7,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 10711
+      },
+      "actual_peak_estimate_usd": 0.000133776
+    },
+    "388a6554da4a4322bb4946d0974cf9e6": {
+      "input_bytes_upper_bound": 52710,
+      "output_cap": 32768,
+      "reserved_usd": 0.0551346,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11847,
+        "input_tokens_details": {
+          "cached_tokens": 9344
+        },
+        "output_tokens": 644,
+        "output_tokens_details": {
+          "reasoning_tokens": 499
+        },
+        "total_tokens": 12491
+      },
+      "actual_peak_estimate_usd": 0.001579764
+    },
+    "82561bef5ca446809567ffc307c99100": {
+      "input_bytes_upper_bound": 55980,
+      "output_cap": 32768,
+      "reserved_usd": 0.0561156,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12537,
+        "input_tokens_details": {
+          "cached_tokens": 12288
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 12623
+      },
+      "actual_peak_estimate_usd": 0.000251628
+    },
+    "b7c6ae9cdf64478f910cf4663a46b4a9": {
+      "input_bytes_upper_bound": 41959,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519093,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9360,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 4023,
+        "output_tokens_details": {
+          "reasoning_tokens": 3425
+        },
+        "total_tokens": 13383
+      },
+      "actual_peak_estimate_usd": 0.005490576
+    },
+    "b3fa20047205490883e809da8d6a08e5": {
+      "input_bytes_upper_bound": 56363,
+      "output_cap": 32768,
+      "reserved_usd": 0.056230499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12645,
+        "input_tokens_details": {
+          "cached_tokens": 12416
+        },
+        "output_tokens": 122,
+        "output_tokens_details": {
+          "reasoning_tokens": 36
+        },
+        "total_tokens": 12767
+      },
+      "actual_peak_estimate_usd": 0.00028959600000000004
+    },
+    "5c1a03c93abf4e3a8bd20d2f950c3663": {
+      "input_bytes_upper_bound": 64591,
+      "output_cap": 32768,
+      "reserved_usd": 0.0586989,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14108,
+        "input_tokens_details": {
+          "cached_tokens": 12672
+        },
+        "output_tokens": 74,
+        "output_tokens_details": {
+          "reasoning_tokens": 10
+        },
+        "total_tokens": 14182
+      },
+      "actual_peak_estimate_usd": 0.000595632
+    },
+    "5ff14133b54b490283231f49a3888be3": {
+      "input_bytes_upper_bound": 68741,
+      "output_cap": 32768,
+      "reserved_usd": 0.059943899999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14824,
+        "input_tokens_details": {
+          "cached_tokens": 14080
+        },
+        "output_tokens": 148,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14972
+      },
+      "actual_peak_estimate_usd": 0.00048527999999999993
+    },
+    "279387d5c0364580bf685f61f2be7c53": {
+      "input_bytes_upper_bound": 69663,
+      "output_cap": 32768,
+      "reserved_usd": 0.060220499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15022,
+        "input_tokens_details": {
+          "cached_tokens": 14848
+        },
+        "output_tokens": 90,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15112
+      },
+      "actual_peak_estimate_usd": 0.00024928799999999996
+    },
+    "b11d7ddf4d284aab93a621b68c07a74e": {
+      "input_bytes_upper_bound": 41989,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519183,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9363,
+        "input_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "output_tokens": 2887,
+        "output_tokens_details": {
+          "reasoning_tokens": 2219
+        },
+        "total_tokens": 12250
+      },
+      "actual_peak_estimate_usd": 0.0036014280000000003
+    },
+    "24ad06c0fa3740058b6bd26af2a7c634": {
+      "input_bytes_upper_bound": 70046,
+      "output_cap": 32768,
+      "reserved_usd": 0.0603354,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15134,
+        "input_tokens_details": {
+          "cached_tokens": 14976
+        },
+        "output_tokens": 90,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15224
+      },
+      "actual_peak_estimate_usd": 0.000245256
+    },
+    "b632976c7637485e9d67ccdd6f79c45a": {
+      "input_bytes_upper_bound": 78715,
+      "output_cap": 32768,
+      "reserved_usd": 0.0629361,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16713,
+        "input_tokens_details": {
+          "cached_tokens": 15104
+        },
+        "output_tokens": 68,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 16781
+      },
+      "actual_peak_estimate_usd": 0.000654924
+    },
+    "76e83cc7dd3240a695ce8581cbbd54e9": {
+      "input_bytes_upper_bound": 83055,
+      "output_cap": 32768,
+      "reserved_usd": 0.06423809999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17493,
+        "input_tokens_details": {
+          "cached_tokens": 16768
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17644
+      },
+      "actual_peak_estimate_usd": 0.000499308
+    },
+    "5b091d43ffa7422fb8d4796bc23f5259": {
+      "input_bytes_upper_bound": 83989,
+      "output_cap": 32768,
+      "reserved_usd": 0.0645183,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17694,
+        "input_tokens_details": {
+          "cached_tokens": 17536
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17783
+      },
+      "actual_peak_estimate_usd": 0.000259416
+    },
+    "4c7d733046fb4c27bc06de9556162a9d": {
+      "input_bytes_upper_bound": 41999,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519213,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9366,
+        "input_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "output_tokens": 3345,
+        "output_tokens_details": {
+          "reasoning_tokens": 2535
+        },
+        "total_tokens": 12711
+      },
+      "actual_peak_estimate_usd": 0.004151928
+    },
+    "50508bc1c0724aa7ad483c04de283bf8": {
+      "input_bytes_upper_bound": 84372,
+      "output_cap": 32768,
+      "reserved_usd": 0.0646332,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17805,
+        "input_tokens_details": {
+          "cached_tokens": 17664
+        },
+        "output_tokens": 89,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 17894
+      },
+      "actual_peak_estimate_usd": 0.000255084
+    },
+    "385ccaea623d45aabdace6e8956d2cc9": {
+      "input_bytes_upper_bound": 95379,
+      "output_cap": 32768,
+      "reserved_usd": 0.0679353,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19665,
+        "input_tokens_details": {
+          "cached_tokens": 17792
+        },
+        "output_tokens": 67,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19732
+      },
+      "actual_peak_estimate_usd": 0.0007490519999999999
+    },
+    "16c2d209d8bd4f6585bdb3c84d470e6a": {
+      "input_bytes_upper_bound": 100888,
+      "output_cap": 32768,
+      "reserved_usd": 0.069588,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20586,
+        "input_tokens_details": {
+          "cached_tokens": 19712
+        },
+        "output_tokens": 1206,
+        "output_tokens_details": {
+          "reasoning_tokens": 343
+        },
+        "total_tokens": 21792
+      },
+      "actual_peak_estimate_usd": 0.001827672
+    },
+    "28422a97490d45d9af3441bcf857f0b2": {
+      "input_bytes_upper_bound": 41298,
+      "output_cap": 32768,
+      "reserved_usd": 0.051711,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9314,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 2013,
+        "output_tokens_details": {
+          "reasoning_tokens": 1157
+        },
+        "total_tokens": 11327
+      },
+      "actual_peak_estimate_usd": 0.003064776
+    },
+    "f112a7fd29144a359e06327c5406c613": {
+      "input_bytes_upper_bound": 52750,
+      "output_cap": 32768,
+      "reserved_usd": 0.0551466,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10240,
+        "input_tokens_details": {
+          "cached_tokens": 9216
+        },
+        "output_tokens": 4299,
+        "output_tokens_details": {
+          "reasoning_tokens": 3232
+        },
+        "total_tokens": 14539
+      },
+      "actual_peak_estimate_usd": 0.005521296
+    },
+    "2068566884ab44c0b8a4bc01aebd3856": {
+      "input_bytes_upper_bound": 74889,
+      "output_cap": 32768,
+      "reserved_usd": 0.0617883,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11367,
+        "input_tokens_details": {
+          "cached_tokens": 10112
+        },
+        "output_tokens": 4231,
+        "output_tokens_details": {
+          "reasoning_tokens": 3067
+        },
+        "total_tokens": 15598
+      },
+      "actual_peak_estimate_usd": 0.005514372
+    },
+    "388f2cc8a5b74356938705eec259858c": {
+      "input_bytes_upper_bound": 96923,
+      "output_cap": 32768,
+      "reserved_usd": 0.0683985,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12596,
+        "input_tokens_details": {
+          "cached_tokens": 11264
+        },
+        "output_tokens": 11087,
+        "output_tokens_details": {
+          "reasoning_tokens": 9953
+        },
+        "total_tokens": 23683
+      },
+      "actual_peak_estimate_usd": 0.013771584
+    },
+    "0aa366a764be45ed835a6c6d87a804ef": {
+      "input_bytes_upper_bound": 151170,
+      "output_cap": 32768,
+      "reserved_usd": 0.0846726,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13805,
+        "input_tokens_details": {
+          "cached_tokens": 12544
+        },
+        "output_tokens": 2767,
+        "output_tokens_details": {
+          "reasoning_tokens": 1756
+        },
+        "total_tokens": 16572
+      },
+      "actual_peak_estimate_usd": 0.0037739640000000003
+    },
+    "6d0defc76cf940e0b07f044a6c4f6c72": {
+      "input_bytes_upper_bound": 165775,
+      "output_cap": 32768,
+      "reserved_usd": 0.0890541,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14883,
+        "input_tokens_details": {
+          "cached_tokens": 13696
+        },
+        "output_tokens": 1230,
+        "output_tokens_details": {
+          "reasoning_tokens": 207
+        },
+        "total_tokens": 16113
+      },
+      "actual_peak_estimate_usd": 0.0019142760000000001
+    },
+    "456bbd1725504341ac1860fe409bae0e": {
+      "input_bytes_upper_bound": 52720,
+      "output_cap": 32768,
+      "reserved_usd": 0.055137599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11843,
+        "input_tokens_details": {
+          "cached_tokens": 9344
+        },
+        "output_tokens": 1435,
+        "output_tokens_details": {
+          "reasoning_tokens": 1011
+        },
+        "total_tokens": 13278
+      },
+      "actual_peak_estimate_usd": 0.002527764
+    },
+    "9444de215591430bb88b98a722682776": {
+      "input_bytes_upper_bound": 41967,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519117,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9360,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 2204,
+        "output_tokens_details": {
+          "reasoning_tokens": 1250
+        },
+        "total_tokens": 11564
+      },
+      "actual_peak_estimate_usd": 0.0033077759999999997
+    },
+    "d0726299e60044618002a41388899dea": {
+      "input_bytes_upper_bound": 41997,
+      "output_cap": 32768,
+      "reserved_usd": 0.0519207,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9363,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 3461,
+        "output_tokens_details": {
+          "reasoning_tokens": 2711
+        },
+        "total_tokens": 12824
+      },
+      "actual_peak_estimate_usd": 0.004817076
+    },
+    "3471dbd63417481c9cfae11f57ba26cd": {
+      "input_bytes_upper_bound": 60458,
+      "output_cap": 32768,
+      "reserved_usd": 0.057458999999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13408,
+        "input_tokens_details": {
+          "cached_tokens": 13184
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 19
+        },
+        "total_tokens": 13562
+      },
+      "actual_peak_estimate_usd": 0.000331104
+    },
+    "41374e211599447d89150ce33ea20ce0": {
+      "input_bytes_upper_bound": 42007,
+      "output_cap": 31333,
+      "reserved_usd": 0.050201699999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9366,
+        "input_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "output_tokens": 2867,
+        "output_tokens_details": {
+          "reasoning_tokens": 1948
+        },
+        "total_tokens": 12233
+      },
+      "actual_peak_estimate_usd": 0.003578328
+    },
+    "a63ff688abd84094b8588248d45b5ad8": {
+      "input_bytes_upper_bound": 72883,
+      "output_cap": 32768,
+      "reserved_usd": 0.06118649999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15615,
+        "input_tokens_details": {
+          "cached_tokens": 13440
+        },
+        "output_tokens": 121,
+        "output_tokens_details": {
+          "reasoning_tokens": 11
+        },
+        "total_tokens": 15736
+      },
+      "actual_peak_estimate_usd": 0.0008783399999999999
+    },
+    "c83a52946a0a4b819d82e55e24a13a15": {
+      "input_bytes_upper_bound": 84513,
+      "output_cap": 32768,
+      "reserved_usd": 0.0646755,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17723,
+        "input_tokens_details": {
+          "cached_tokens": 15616
+        },
+        "output_tokens": 99,
+        "output_tokens_details": {
+          "reasoning_tokens": 16
+        },
+        "total_tokens": 17822
+      },
+      "actual_peak_estimate_usd": 0.000844596
+    },
+    "656324683bbc4b3c91766cc00dc3ecae": {
+      "input_bytes_upper_bound": 94524,
+      "output_cap": 32768,
+      "reserved_usd": 0.0676788,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19461,
+        "input_tokens_details": {
+          "cached_tokens": 17792
+        },
+        "output_tokens": 190,
+        "output_tokens_details": {
+          "reasoning_tokens": 19
+        },
+        "total_tokens": 19651
+      },
+      "actual_peak_estimate_usd": 0.000835452
+    },
+    "a84b545faffd4458aef6e61c9a23f3e2": {
+      "input_bytes_upper_bound": 111419,
+      "output_cap": 32768,
+      "reserved_usd": 0.07274729999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 22398,
+        "input_tokens_details": {
+          "cached_tokens": 19584
+        },
+        "output_tokens": 996,
+        "output_tokens_details": {
+          "reasoning_tokens": 46
+        },
+        "total_tokens": 23394
+      },
+      "actual_peak_estimate_usd": 0.002156904
+    },
+    "06630ff51dc54e62962962134a304793": {
+      "input_bytes_upper_bound": 41278,
+      "output_cap": 32768,
+      "reserved_usd": 0.051705,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9306,
+        "input_tokens_details": {
+          "cached_tokens": 7296
+        },
+        "output_tokens": 3626,
+        "output_tokens_details": {
+          "reasoning_tokens": 2556
+        },
+        "total_tokens": 12932
+      },
+      "actual_peak_estimate_usd": 0.0049979759999999995
+    },
+    "c2e00b82cc3b44cd9e21f3514b8f6d15": {
+      "input_bytes_upper_bound": 45958,
+      "output_cap": 32768,
+      "reserved_usd": 0.053108999999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9396,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 1007,
+        "output_tokens_details": {
+          "reasoning_tokens": 583
+        },
+        "total_tokens": 10403
+      },
+      "actual_peak_estimate_usd": 0.0019950719999999996
+    },
+    "50e118288cf44d78a55fc7d9b0300085": {
+      "input_bytes_upper_bound": 35205,
+      "output_cap": 32768,
+      "reserved_usd": 0.0498831,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6913,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 1255,
+        "output_tokens_details": {
+          "reasoning_tokens": 605
+        },
+        "total_tokens": 8168
+      },
+      "actual_peak_estimate_usd": 0.002149884
+    },
+    "b741c6e960d743439aae4cf645826681": {
+      "input_bytes_upper_bound": 35235,
+      "output_cap": 32768,
+      "reserved_usd": 0.049892099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6916,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 2102,
+        "output_tokens_details": {
+          "reasoning_tokens": 1260
+        },
+        "total_tokens": 9018
+      },
+      "actual_peak_estimate_usd": 0.003167184
+    },
+    "ee5ccdcfd07a46879b08b84e125384ce": {
+      "input_bytes_upper_bound": 51495,
+      "output_cap": 32768,
+      "reserved_usd": 0.0547701,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10535,
+        "input_tokens_details": {
+          "cached_tokens": 10368
+        },
+        "output_tokens": 138,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 10673
+      },
+      "actual_peak_estimate_usd": 0.000277908
+    },
+    "08411641eae84988b6f094ff6f650196": {
+      "input_bytes_upper_bound": 35245,
+      "output_cap": 31761,
+      "reserved_usd": 0.0486867,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6919,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 2234,
+        "output_tokens_details": {
+          "reasoning_tokens": 1203
+        },
+        "total_tokens": 9153
+      },
+      "actual_peak_estimate_usd": 0.0027996359999999994
+    },
+    "5649b9b5e71140439963277dcdc11083": {
+      "input_bytes_upper_bound": 59988,
+      "output_cap": 32768,
+      "reserved_usd": 0.057317999999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 12164,
+        "input_tokens_details": {
+          "cached_tokens": 10624
+        },
+        "output_tokens": 116,
+        "output_tokens_details": {
+          "reasoning_tokens": 5
+        },
+        "total_tokens": 12280
+      },
+      "actual_peak_estimate_usd": 0.000664944
+    },
+    "804cfb05749b4c0ab124526c6813d809": {
+      "input_bytes_upper_bound": 71535,
+      "output_cap": 32768,
+      "reserved_usd": 0.0607821,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14147,
+        "input_tokens_details": {
+          "cached_tokens": 12160
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14231
+      },
+      "actual_peak_estimate_usd": 0.0007698599999999999
+    },
+    "bb7c19acdad8477f812d8d243d6a99fd": {
+      "input_bytes_upper_bound": 84986,
+      "output_cap": 32768,
+      "reserved_usd": 0.0648174,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 16478,
+        "input_tokens_details": {
+          "cached_tokens": 14208
+        },
+        "output_tokens": 256,
+        "output_tokens_details": {
+          "reasoning_tokens": 82
+        },
+        "total_tokens": 16734
+      },
+      "actual_peak_estimate_usd": 0.0010734479999999999
+    },
+    "5da3c7e8ef1747e5be9123f3f77ae3f2": {
+      "input_bytes_upper_bound": 102088,
+      "output_cap": 32768,
+      "reserved_usd": 0.069948,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 19441,
+        "input_tokens_details": {
+          "cached_tokens": 16640
+        },
+        "output_tokens": 1048,
+        "output_tokens_details": {
+          "reasoning_tokens": 19
+        },
+        "total_tokens": 20489
+      },
+      "actual_peak_estimate_usd": 0.00219774
+    },
+    "0d7cdb2f743c49d4a8d7642350326a2f": {
+      "input_bytes_upper_bound": 34516,
+      "output_cap": 32768,
+      "reserved_usd": 0.049676399999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6859,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 2942,
+        "output_tokens_details": {
+          "reasoning_tokens": 2086
+        },
+        "total_tokens": 9801
+      },
+      "actual_peak_estimate_usd": 0.004158084
+    },
+    "ce82f1e891274358970d3f58b6c1c262": {
+      "input_bytes_upper_bound": 34536,
+      "output_cap": 32768,
+      "reserved_usd": 0.0496824,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6867,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 3037,
+        "output_tokens_details": {
+          "reasoning_tokens": 2256
+        },
+        "total_tokens": 9904
+      },
+      "actual_peak_estimate_usd": 0.004274484
+    },
+    "c1e324f82cd145dda3f3d60513b09cef": {
+      "input_bytes_upper_bound": 49891,
+      "output_cap": 32768,
+      "reserved_usd": 0.0542889,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 7718,
+        "input_tokens_details": {
+          "cached_tokens": 6784
+        },
+        "output_tokens": 2465,
+        "output_tokens_details": {
+          "reasoning_tokens": 1564
+        },
+        "total_tokens": 10183
+      },
+      "actual_peak_estimate_usd": 0.003278904
+    },
+    "57ba49996e8641d7b2345c5bcd089c2a": {
+      "input_bytes_upper_bound": 62454,
+      "output_cap": 32768,
+      "reserved_usd": 0.0580578,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8679,
+        "input_tokens_details": {
+          "cached_tokens": 7680
+        },
+        "output_tokens": 6678,
+        "output_tokens_details": {
+          "reasoning_tokens": 5735
+        },
+        "total_tokens": 15357
+      },
+      "actual_peak_estimate_usd": 0.00835938
+    },
+    "af762c0529734ac48e2cd84399ccf68e": {
+      "input_bytes_upper_bound": 94744,
+      "output_cap": 32768,
+      "reserved_usd": 0.0677448,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9687,
+        "input_tokens_details": {
+          "cached_tokens": 8576
+        },
+        "output_tokens": 1766,
+        "output_tokens_details": {
+          "reasoning_tokens": 763
+        },
+        "total_tokens": 11453
+      },
+      "actual_peak_estimate_usd": 0.002503956
+    },
+    "639da6d5692b4bf38f8ed459e3a7b7bf": {
+      "input_bytes_upper_bound": 104672,
+      "output_cap": 32768,
+      "reserved_usd": 0.0707232,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10765,
+        "input_tokens_details": {
+          "cached_tokens": 9600
+        },
+        "output_tokens": 2969,
+        "output_tokens_details": {
+          "reasoning_tokens": 2001
+        },
+        "total_tokens": 13734
+      },
+      "actual_peak_estimate_usd": 0.003969899999999999
+    },
+    "3dbb5dd86c2c4e748e2064ca0efc19de": {
+      "input_bytes_upper_bound": 120164,
+      "output_cap": 32768,
+      "reserved_usd": 0.07537079999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11800,
+        "input_tokens_details": {
+          "cached_tokens": 10752
+        },
+        "output_tokens": 1023,
+        "output_tokens_details": {
+          "reasoning_tokens": 55
+        },
+        "total_tokens": 12823
+      },
+      "actual_peak_estimate_usd": 0.001606512
+    },
+    "596867a12de8499f9c98509a53c06860": {
+      "input_bytes_upper_bound": 46852,
+      "output_cap": 32768,
+      "reserved_usd": 0.0533772,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9462,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 2245,
+        "output_tokens_details": {
+          "reasoning_tokens": 2080
+        },
+        "total_tokens": 11707
+      },
+      "actual_peak_estimate_usd": 0.003500472
+    },
+    "f02e70e94dd042f19287e416fce79805": {
+      "input_bytes_upper_bound": 57401,
+      "output_cap": 32768,
+      "reserved_usd": 0.0565419,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11755,
+        "input_tokens_details": {
+          "cached_tokens": 11520
+        },
+        "output_tokens": 92,
+        "output_tokens_details": {
+          "reasoning_tokens": 4
+        },
+        "total_tokens": 11847
+      },
+      "actual_peak_estimate_usd": 0.00025002
+    },
+    "e50abd95e2f143ed9fb95b14c88db192": {
+      "input_bytes_upper_bound": 36101,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501519,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6975,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 4032,
+        "output_tokens_details": {
+          "reasoning_tokens": 3238
+        },
+        "total_tokens": 11007
+      },
+      "actual_peak_estimate_usd": 0.005500883999999999
+    },
+    "7a9ad0331df7411e92485f2566722fc0": {
+      "input_bytes_upper_bound": 57944,
+      "output_cap": 32768,
+      "reserved_usd": 0.0567048,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11869,
+        "input_tokens_details": {
+          "cached_tokens": 11648
+        },
+        "output_tokens": 91,
+        "output_tokens_details": {
+          "reasoning_tokens": 3
+        },
+        "total_tokens": 11960
+      },
+      "actual_peak_estimate_usd": 0.00024538800000000003
+    },
+    "727813e7e84b42e6ae32403732ce7af6": {
+      "input_bytes_upper_bound": 68850,
+      "output_cap": 32768,
+      "reserved_usd": 0.0599766,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13697,
+        "input_tokens_details": {
+          "cached_tokens": 11904
+        },
+        "output_tokens": 101,
+        "output_tokens_details": {
+          "reasoning_tokens": 17
+        },
+        "total_tokens": 13798
+      },
+      "actual_peak_estimate_usd": 0.0007305240000000001
+    },
+    "c71ef00fa015452cad03ded03236bd89": {
+      "input_bytes_upper_bound": 74646,
+      "output_cap": 32768,
+      "reserved_usd": 0.0617154,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14636,
+        "input_tokens_details": {
+          "cached_tokens": 13696
+        },
+        "output_tokens": 148,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14784
+      },
+      "actual_peak_estimate_usd": 0.000541776
+    },
+    "8b8ea91337f44809bebc693d7ce08232": {
+      "input_bytes_upper_bound": 75570,
+      "output_cap": 32768,
+      "reserved_usd": 0.061992599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14830,
+        "input_tokens_details": {
+          "cached_tokens": 14592
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 14916
+      },
+      "actual_peak_estimate_usd": 0.000262152
+    },
+    "7dc8828976a24a6b8f26e5f49ab22266": {
+      "input_bytes_upper_bound": 36131,
+      "output_cap": 32768,
+      "reserved_usd": 0.050160899999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6978,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 5242,
+        "output_tokens_details": {
+          "reasoning_tokens": 4444
+        },
+        "total_tokens": 12220
+      },
+      "actual_peak_estimate_usd": 0.006426935999999999
+    },
+    "aa536f63fdc0485eabc01f98a4075a80": {
+      "input_bytes_upper_bound": 75953,
+      "output_cap": 32768,
+      "reserved_usd": 0.062107499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14938,
+        "input_tokens_details": {
+          "cached_tokens": 14720
+        },
+        "output_tokens": 215,
+        "output_tokens_details": {
+          "reasoning_tokens": 129
+        },
+        "total_tokens": 15153
+      },
+      "actual_peak_estimate_usd": 0.00041171999999999997
+    },
+    "e1eb058b27324907a8b2f7469b90d6d6": {
+      "input_bytes_upper_bound": 77186,
+      "output_cap": 32768,
+      "reserved_usd": 0.0624774,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15175,
+        "input_tokens_details": {
+          "cached_tokens": 14976
+        },
+        "output_tokens": 86,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 15261
+      },
+      "actual_peak_estimate_usd": 0.00025275600000000003
+    },
+    "1ef7ed7e691c463480d012c0a573d7ac": {
+      "input_bytes_upper_bound": 87493,
+      "output_cap": 32768,
+      "reserved_usd": 0.0655695,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17002,
+        "input_tokens_details": {
+          "cached_tokens": 15232
+        },
+        "output_tokens": 94,
+        "output_tokens_details": {
+          "reasoning_tokens": 12
+        },
+        "total_tokens": 17096
+      },
+      "actual_peak_estimate_usd": 0.0007351920000000001
+    },
+    "1da2ae9a665447f1bb9e68ed955f2364": {
+      "input_bytes_upper_bound": 93042,
+      "output_cap": 32768,
+      "reserved_usd": 0.0672342,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17938,
+        "input_tokens_details": {
+          "cached_tokens": 17024
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18089
+      },
+      "actual_peak_estimate_usd": 0.000557544
+    },
+    "465faa6cfe054264bdfb4f4b107b9bff": {
+      "input_bytes_upper_bound": 93974,
+      "output_cap": 32768,
+      "reserved_usd": 0.0675138,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18134,
+        "input_tokens_details": {
+          "cached_tokens": 17920
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18218
+      },
+      "actual_peak_estimate_usd": 0.00027252
+    },
+    "275cf03220ba4ef385be25409240d72b": {
+      "input_bytes_upper_bound": 36141,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501639,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6981,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 6593,
+        "output_tokens_details": {
+          "reasoning_tokens": 5850
+        },
+        "total_tokens": 13574
+      },
+      "actual_peak_estimate_usd": 0.008049035999999999
+    },
+    "e664551ecfba4487a4aeb80c99309d1b": {
+      "input_bytes_upper_bound": 94357,
+      "output_cap": 32768,
+      "reserved_usd": 0.0676287,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18240,
+        "input_tokens_details": {
+          "cached_tokens": 18048
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18324
+      },
+      "actual_peak_estimate_usd": 0.000266688
+    },
+    "e493bd8259e349feb290289ab18009a7": {
+      "input_bytes_upper_bound": 94740,
+      "output_cap": 32768,
+      "reserved_usd": 0.0677436,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 18346,
+        "input_tokens_details": {
+          "cached_tokens": 18176
+        },
+        "output_tokens": 84,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 18430
+      },
+      "actual_peak_estimate_usd": 0.000260856
+    },
+    "13f77bce748a4159b54bb9ae373a43dd": {
+      "input_bytes_upper_bound": 104173,
+      "output_cap": 32768,
+      "reserved_usd": 0.0705735,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20057,
+        "input_tokens_details": {
+          "cached_tokens": 18304
+        },
+        "output_tokens": 421,
+        "output_tokens_details": {
+          "reasoning_tokens": 359
+        },
+        "total_tokens": 20478
+      },
+      "actual_peak_estimate_usd": 0.001140924
+    },
+    "322bd45cb94f4214b55098786739e1d7": {
+      "input_bytes_upper_bound": 110617,
+      "output_cap": 32768,
+      "reserved_usd": 0.0725067,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 21265,
+        "input_tokens_details": {
+          "cached_tokens": 20352
+        },
+        "output_tokens": 1263,
+        "output_tokens_details": {
+          "reasoning_tokens": 127
+        },
+        "total_tokens": 22528
+      },
+      "actual_peak_estimate_usd": 0.001911612
+    },
+    "05ea7ae4a34f4495ad7b00e1851d09e6": {
+      "input_bytes_upper_bound": 35420,
+      "output_cap": 32768,
+      "reserved_usd": 0.049947599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6921,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 8333,
+        "output_tokens_details": {
+          "reasoning_tokens": 7696
+        },
+        "total_tokens": 15254
+      },
+      "actual_peak_estimate_usd": 0.010645884000000001
+    },
+    "4e7ddca1c2cb49bebb77e700c97ebe46": {
+      "input_bytes_upper_bound": 35440,
+      "output_cap": 32768,
+      "reserved_usd": 0.0499536,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6929,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 9174,
+        "output_tokens_details": {
+          "reasoning_tokens": 7727
+        },
+        "total_tokens": 16103
+      },
+      "actual_peak_estimate_usd": 0.011657484
+    },
+    "643615b7137c415792ffdb8abdccf08f": {
+      "input_bytes_upper_bound": 79163,
+      "output_cap": 32768,
+      "reserved_usd": 0.0630705,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8446,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 8530,
+        "output_tokens_details": {
+          "reasoning_tokens": 7059
+        },
+        "total_tokens": 16976
+      },
+      "actual_peak_estimate_usd": 0.010737672
+    },
+    "87e4387d3a21435a9a73f9be6df95dfd": {
+      "input_bytes_upper_bound": 119924,
+      "output_cap": 32768,
+      "reserved_usd": 0.0752988,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9977,
+        "input_tokens_details": {
+          "cached_tokens": 8320
+        },
+        "output_tokens": 7018,
+        "output_tokens_details": {
+          "reasoning_tokens": 5388
+        },
+        "total_tokens": 16995
+      },
+      "actual_peak_estimate_usd": 0.00896862
+    },
+    "999117bd2bde440a8f5f82bd516387b6": {
+      "input_bytes_upper_bound": 153710,
+      "output_cap": 32768,
+      "reserved_usd": 0.0854346,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11672,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 8324,
+        "output_tokens_details": {
+          "reasoning_tokens": 6574
+        },
+        "total_tokens": 19996
+      },
+      "actual_peak_estimate_usd": 0.010592735999999998
+    },
+    "2d0f9972fc02444f9ffc2c644b2e4a8a": {
+      "input_bytes_upper_bound": 192437,
+      "output_cap": 32768,
+      "reserved_usd": 0.09705269999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 13497,
+        "input_tokens_details": {
+          "cached_tokens": 11648
+        },
+        "output_tokens": 4539,
+        "output_tokens_details": {
+          "reasoning_tokens": 2893
+        },
+        "total_tokens": 18036
+      },
+      "actual_peak_estimate_usd": 0.006071388
+    },
+    "71c44cb9111c4c5d8df6fc92241a66f7": {
+      "input_bytes_upper_bound": 214857,
+      "output_cap": 32768,
+      "reserved_usd": 0.1037787,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 15210,
+        "input_tokens_details": {
+          "cached_tokens": 13440
+        },
+        "output_tokens": 1744,
+        "output_tokens_details": {
+          "reasoning_tokens": 68
+        },
+        "total_tokens": 16954
+      },
+      "actual_peak_estimate_usd": 0.00270444
+    },
+    "360777c25a4845c594be36a2de2e5ba2": {
+      "input_bytes_upper_bound": 46862,
+      "output_cap": 32768,
+      "reserved_usd": 0.0533802,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 9458,
+        "input_tokens_details": {
+          "cached_tokens": 6912
+        },
+        "output_tokens": 433,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 9891
+      },
+      "actual_peak_estimate_usd": 0.001324872
+    },
+    "bd26cace8539417bb66e855f97b2c15f": {
+      "input_bytes_upper_bound": 36109,
+      "output_cap": 32768,
+      "reserved_usd": 0.0501543,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6975,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 2666,
+        "output_tokens_details": {
+          "reasoning_tokens": 1591
+        },
+        "total_tokens": 9641
+      },
+      "actual_peak_estimate_usd": 0.0038616839999999998
+    },
+    "cd438a6595624416b78c4200c014b3b4": {
+      "input_bytes_upper_bound": 36139,
+      "output_cap": 32768,
+      "reserved_usd": 0.050163299999999994,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6978,
+        "input_tokens_details": {
+          "cached_tokens": 4864
+        },
+        "output_tokens": 5712,
+        "output_tokens_details": {
+          "reasoning_tokens": 4524
+        },
+        "total_tokens": 12690
+      },
+      "actual_peak_estimate_usd": 0.007517784
+    },
+    "62bb4b1a171645fdba180853954cd1de": {
+      "input_bytes_upper_bound": 49790,
+      "output_cap": 32768,
+      "reserved_usd": 0.0542586,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10024,
+        "input_tokens_details": {
+          "cached_tokens": 9856
+        },
+        "output_tokens": 2372,
+        "output_tokens_details": {
+          "reasoning_tokens": 2235
+        },
+        "total_tokens": 12396
+      },
+      "actual_peak_estimate_usd": 0.002955936
+    },
+    "53fec1996229478db0d64cd000dc2d5b": {
+      "input_bytes_upper_bound": 36149,
+      "output_cap": 32335,
+      "reserved_usd": 0.0496467,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6981,
+        "input_tokens_details": {
+          "cached_tokens": 6656
+        },
+        "output_tokens": 8846,
+        "output_tokens_details": {
+          "reasoning_tokens": 7361
+        },
+        "total_tokens": 15827
+      },
+      "actual_peak_estimate_usd": 0.010752635999999998
+    },
+    "73f778cfe1aa4b28916bafdce0ca073d": {
+      "input_bytes_upper_bound": 73405,
+      "output_cap": 32768,
+      "reserved_usd": 0.0613431,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 14685,
+        "input_tokens_details": {
+          "cached_tokens": 12288
+        },
+        "output_tokens": 130,
+        "output_tokens_details": {
+          "reasoning_tokens": 16
+        },
+        "total_tokens": 14815
+      },
+      "actual_peak_estimate_usd": 0.000948828
+    },
+    "5634d4b1755f4e8aa0d31965346ea37e": {
+      "input_bytes_upper_bound": 87862,
+      "output_cap": 32768,
+      "reserved_usd": 0.0656802,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 17344,
+        "input_tokens_details": {
+          "cached_tokens": 14720
+        },
+        "output_tokens": 92,
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        },
+        "total_tokens": 17436
+      },
+      "actual_peak_estimate_usd": 0.00098592
+    },
+    "f8b0b738cd564c12b25c5ab7c96a9cc2": {
+      "input_bytes_upper_bound": 106526,
+      "output_cap": 32768,
+      "reserved_usd": 0.07127939999999999,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 20575,
+        "input_tokens_details": {
+          "cached_tokens": 17408
+        },
+        "output_tokens": 2626,
+        "output_tokens_details": {
+          "reasoning_tokens": 2453
+        },
+        "total_tokens": 23201
+      },
+      "actual_peak_estimate_usd": 0.004205748
+    },
+    "03dfbfd3b5664d0c9ca0800f707b5345": {
+      "input_bytes_upper_bound": 140222,
+      "output_cap": 32768,
+      "reserved_usd": 0.0813882,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 27085,
+        "input_tokens_details": {
+          "cached_tokens": 23168
+        },
+        "output_tokens": 1684,
+        "output_tokens_details": {
+          "reasoning_tokens": 227
+        },
+        "total_tokens": 28769
+      },
+      "actual_peak_estimate_usd": 0.003334908
+    },
+    "68020094149e4230b9c954c894c4160d": {
+      "input_bytes_upper_bound": 33056,
+      "output_cap": 32768,
+      "reserved_usd": 0.0492384,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6386,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 192
+        },
+        "total_tokens": 6585
+      },
+      "actual_peak_estimate_usd": 0.0008751119999999999
+    },
+    "b7d22cd10f614ebdb932575944b953d7": {
+      "input_bytes_upper_bound": 34691,
+      "output_cap": 32768,
+      "reserved_usd": 0.0497289,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6463,
+        "input_tokens_details": {
+          "cached_tokens": 6272
+        },
+        "output_tokens": 313,
+        "output_tokens_details": {
+          "reasoning_tokens": 306
+        },
+        "total_tokens": 6776
+      },
+      "actual_peak_estimate_usd": 0.00047053199999999996
+    },
+    "3e6f8e0ee8f748f4b25992423b598897": {
+      "input_bytes_upper_bound": 36906,
+      "output_cap": 32768,
+      "reserved_usd": 0.0503934,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6530,
+        "input_tokens_details": {
+          "cached_tokens": 6272
+        },
+        "output_tokens": 806,
+        "output_tokens_details": {
+          "reasoning_tokens": 799
+        },
+        "total_tokens": 7336
+      },
+      "actual_peak_estimate_usd": 0.001082232
+    },
+    "45f8a8e0f4594c8bbe44602214a14fed": {
+      "input_bytes_upper_bound": 41392,
+      "output_cap": 32768,
+      "reserved_usd": 0.0517392,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6602,
+        "input_tokens_details": {
+          "cached_tokens": 6400
+        },
+        "output_tokens": 675,
+        "output_tokens_details": {
+          "reasoning_tokens": 668
+        },
+        "total_tokens": 7277
+      },
+      "actual_peak_estimate_usd": 0.000909
+    },
+    "1dbe0e5b8552459fbc304d32a976e09a": {
+      "input_bytes_upper_bound": 45384,
+      "output_cap": 32768,
+      "reserved_usd": 0.0529368,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6684,
+        "input_tokens_details": {
+          "cached_tokens": 6528
+        },
+        "output_tokens": 78,
+        "output_tokens_details": {
+          "reasoning_tokens": 71
+        },
+        "total_tokens": 6762
+      },
+      "actual_peak_estimate_usd": 0.000179568
+    },
+    "97a77d5a2aa5425186e0e0bc01f6852b": {
+      "input_bytes_upper_bound": 46482,
+      "output_cap": 32768,
+      "reserved_usd": 0.0532662,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6758,
+        "input_tokens_details": {
+          "cached_tokens": 6528
+        },
+        "output_tokens": 209,
+        "output_tokens_details": {
+          "reasoning_tokens": 202
+        },
+        "total_tokens": 6967
+      },
+      "actual_peak_estimate_usd": 0.000358968
+    },
+    "5d79db39cf364f5eb0ed7fd25d2862fd": {
+      "input_bytes_upper_bound": 44478,
+      "output_cap": 32768,
+      "reserved_usd": 0.052665,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 8915,
+        "input_tokens_details": {
+          "cached_tokens": 6400
+        },
+        "output_tokens": 1167,
+        "output_tokens_details": {
+          "reasoning_tokens": 733
+        },
+        "total_tokens": 10082
+      },
+      "actual_peak_estimate_usd": 0.0021932999999999996
+    },
+    "c95ad16e13be4e60846d4a046bf05920": {
+      "input_bytes_upper_bound": 33725,
+      "output_cap": 32768,
+      "reserved_usd": 0.0494391,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6432,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 417,
+        "output_tokens_details": {
+          "reasoning_tokens": 410
+        },
+        "total_tokens": 6849
+      },
+      "actual_peak_estimate_usd": 0.001150512
+    },
+    "fe396c51334a4e9aa536b57a023257d7": {
+      "input_bytes_upper_bound": 50870,
+      "output_cap": 32768,
+      "reserved_usd": 0.054582599999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10213,
+        "input_tokens_details": {
+          "cached_tokens": 9984
+        },
+        "output_tokens": 138,
+        "output_tokens_details": {
+          "reasoning_tokens": 5
+        },
+        "total_tokens": 10351
+      },
+      "actual_peak_estimate_usd": 0.00029420399999999995
+    },
+    "a69205138fee46e19187ae890380f9d4": {
+      "input_bytes_upper_bound": 33755,
+      "output_cap": 32768,
+      "reserved_usd": 0.049448099999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6435,
+        "input_tokens_details": {
+          "cached_tokens": 6144
+        },
+        "output_tokens": 400,
+        "output_tokens_details": {
+          "reasoning_tokens": 393
+        },
+        "total_tokens": 6835
+      },
+      "actual_peak_estimate_usd": 0.000604164
+    },
+    "89dd5b52184b44bdbfb26433660a7cc1": {
+      "input_bytes_upper_bound": 33765,
+      "output_cap": 31601,
+      "reserved_usd": 0.048050699999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6438,
+        "input_tokens_details": {
+          "cached_tokens": 6144
+        },
+        "output_tokens": 234,
+        "output_tokens_details": {
+          "reasoning_tokens": 227
+        },
+        "total_tokens": 6672
+      },
+      "actual_peak_estimate_usd": 0.00040586400000000003
+    },
+    "6f544ea3c53d45ce9c949f613b2806c5": {
+      "input_bytes_upper_bound": 51884,
+      "output_cap": 32768,
+      "reserved_usd": 0.0548868,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10456,
+        "input_tokens_details": {
+          "cached_tokens": 10240
+        },
+        "output_tokens": 116,
+        "output_tokens_details": {
+          "reasoning_tokens": 7
+        },
+        "total_tokens": 10572
+      },
+      "actual_peak_estimate_usd": 0.00026544000000000003
+    },
+    "530112dc8dbf4af6b33d7f956e22b9c3": {
+      "input_bytes_upper_bound": 53246,
+      "output_cap": 32768,
+      "reserved_usd": 0.055295399999999995,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 10762,
+        "input_tokens_details": {
+          "cached_tokens": 10496
+        },
+        "output_tokens": 263,
+        "output_tokens_details": {
+          "reasoning_tokens": 94
+        },
+        "total_tokens": 11025
+      },
+      "actual_peak_estimate_usd": 0.000458376
+    },
+    "b3a24ecd37ab43c1bac66a0dd41f0e2c": {
+      "input_bytes_upper_bound": 54953,
+      "output_cap": 32768,
+      "reserved_usd": 0.055807499999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 11092,
+        "input_tokens_details": {
+          "cached_tokens": 10880
+        },
+        "output_tokens": 131,
+        "output_tokens_details": {
+          "reasoning_tokens": 124
+        },
+        "total_tokens": 11223
+      },
+      "actual_peak_estimate_usd": 0.00028607999999999997
+    },
+    "79d0eed52b8e4af883cd7bc38a4b044f": {
+      "input_bytes_upper_bound": 33036,
+      "output_cap": 32768,
+      "reserved_usd": 0.049232399999999996,
+      "status": "settled",
+      "usage": {
+        "input_tokens": 6378,
+        "input_tokens_details": {
+          "cached_tokens": 4352
+        },
+        "output_tokens": 278,
+        "output_tokens_details": {
+          "reasoning_tokens": 271
+        },
+        "total_tokens": 6656
+      },
+      "actual_peak_estimate_usd": 0.0009675119999999999
+    }
+  }
+}

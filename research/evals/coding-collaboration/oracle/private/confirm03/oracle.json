@@ -1,0 +1,73 @@
+{
+  "candidate_hashes": {
+    "herta-agent-coding/backend/herta_agent/service/events.py": "2680c07afdb6b57d4d3876bfbb51afeb27cac18d2b07c6416cedea4a53c09236",
+    "herta-agent-coding/backend/herta_agent/service/runs.py": "656aeccb875b7467ad8ddbbb8aff07e05ccf86da7100cc3e22c3b18b915f13b5",
+    "herta-agent-coding/backend/herta_agent/service/sse.py": "24ce70389343c31679b39fb502e36057c881ecd3671f5ee869fc454751afcbc2"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "benchmark_injected",
+  "issues": [
+    {
+      "aliases": [
+        "队列丢失唤醒"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 69,
+          "path": "herta-agent-coding/backend/herta_agent/service/events.py",
+          "start_line": 64
+        }
+      ],
+      "fix": "成功取出并更新字节数后恢复_space.set。",
+      "issue_id": "C03-WAKEUP",
+      "required_evidence": [
+        "put在QueueFull后clear并await _space.wait。",
+        "get_nowait不再set导致即使有空间仍阻塞，RunHandle.emit到时取消run。"
+      ],
+      "root_cause": "get_nowait释放队列空间但不再set _space，已等待生产者不会继续。",
+      "severity": "P1",
+      "trigger": "队列满后put等待，消费者get_nowait取走一个事件，随后无人取消。",
+      "verification_ids": [
+        "C03-WAKEUP"
+      ]
+    },
+    {
+      "aliases": [
+        "取消传播至提交任务"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 105,
+          "path": "herta-agent-coding/backend/herta_agent/service/runs.py",
+          "start_line": 100
+        }
+      ],
+      "fix": "用asyncio.shield保护拥有的任务，并保留循环处理重复外部取消。",
+      "issue_id": "C03-OWNERSHIP",
+      "required_evidence": [
+        "asyncio.shield被删除，取消传播给task。",
+        "task变为cancelled/done，循环结束后task.result再次抛CancelledError，持久化收尾未完成。"
+      ],
+      "root_cause": "_wait_owned直接await将外层取消传播到所有权任务，捕获外层CancelledError不能恢复已取消任务。",
+      "severity": "P1",
+      "trigger": "finish_run或response cleanup尚未完成，正在_wait_owned的调用者收到cancel。",
+      "verification_ids": [
+        "C03-OWNERSHIP"
+      ]
+    }
+  ],
+  "non_issues": [
+    "RunResponse设计上断线取消Run，题目没有要求继续后台推理。"
+  ],
+  "packet_sha256": "0213e5f7a7615f7ef31ea94bd8c6677d2be6ed4320b9acf5381a5cfdddfe0649",
+  "schema_version": 1,
+  "scope": "候选简化了SSE内存队列和持久化清理等待。请审查消费者变慢、断线以及取消到达提交阶段时，是否仍保持有界背压与清理任务所有权。仅讨论给定单进程服务实现，不假设多worker部署。",
+  "source_hashes": {
+    "herta-agent-coding/backend/herta_agent/service/events.py": "fa386300cf8f62e4abe50ee6248b3f1c05706b5d88bdbbe31a3f43375951cf6e",
+    "herta-agent-coding/backend/herta_agent/service/runs.py": "83add7bbcb3ac5c074927caad9300f21fbd32f4c8f4344b66912ac78dfd52a97",
+    "herta-agent-coding/backend/herta_agent/service/sse.py": "c140fef3e271ac34aad10e4ebc26dc269f1af1b44b5f3d0dd17888bb28633d10"
+  },
+  "split": "confirmation",
+  "task_id": "confirm03",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

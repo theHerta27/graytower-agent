@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "model_calls": 0,
+  "unity_started": false,
+  "checks": [
+    {
+      "verification_id": "D01-HISTORY",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "original_hp": 1200,
+        "recorded_hp": 1200,
+        "live_hp": 1193
+      },
+      "candidate": {
+        "original_hp": 1200,
+        "recorded_hp": 1193,
+        "live_hp": 1193
+      },
+      "detail": "Same recorded event is read after later live-state mutation."
+    },
+    {
+      "verification_id": "D01-DURATION",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": [
+        1
+      ],
+      "candidate": [],
+      "detail": "A shield granted during its owner turn must survive that same turn end."
+    },
+    {
+      "verification_id": "D01-DISPLAY",
+      "passed": true,
+      "kind": "source_verified_csharp_numeric_witness_not_unity_execution",
+      "baseline": 200,
+      "candidate": 120,
+      "detail": "Exact C# source expression inspected; input shield values [120,80]. Empty list remains 0."
+    },
+    {
+      "verification_id": "D02-APPROVAL",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "rejected": "ValueError: approval plan hash mismatch",
+        "approved": null
+      },
+      "candidate": {
+        "rejected": false,
+        "approved": 1
+      },
+      "detail": "Executed frozen Store with real SQLite, distinct temporary database for every branch/case."
+    },
+    {
+      "verification_id": "D02-RETRY",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "rejected": "RuntimeError: worker outcome unknown; reconcile receipt, no automatic retry",
+        "charged": 4
+      },
+      "candidate": {
+        "rejected": false,
+        "charged": 4
+      },
+      "detail": "Executed frozen Store with real SQLite, distinct temporary database for every branch/case."
+    },
+    {
+      "verification_id": "D02-RECEIPT",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "rejected": "ValueError: receipt plan hash mismatch",
+        "status": "running"
+      },
+      "candidate": {
+        "rejected": false,
+        "status": "completed"
+      },
+      "detail": "Executed frozen Store with real SQLite, distinct temporary database for every branch/case."
+    },
+    {
+      "verification_id": "C01-WINDOW",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": "ValueError: ultimate window/energy invalid",
+      "candidate": false,
+      "detail": "Same owned ultimate submitted directly after a normal action, with full energy."
+    },
+    {
+      "verification_id": "C01-CHARGE",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "skill_index": 1,
+        "next_skill": "boss_sweep"
+      },
+      "candidate": {
+        "skill_index": 0,
+        "next_skill": "boss_charge"
+      },
+      "detail": "Actual baseline phase_3 skill pool; next action chosen by unchanged real boss selector."
+    },
+    {
+      "verification_id": "C02-DUPLICATE",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "rejected": "ValueError: missing, duplicate or foreign paired result",
+        "rows": 3
+      },
+      "candidate": {
+        "rejected": false,
+        "rows": 3
+      },
+      "detail": "All expected pairs plus one duplicate; duplicate cannot create another observation."
+    },
+    {
+      "verification_id": "C02-RATIO",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": 0.8,
+      "candidate": 1.25,
+      "detail": "Both pairs win, baseline AV 100 and candidate AV 80."
+    },
+    {
+      "verification_id": "C02-FINGERPRINT",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "fingerprint_changed": true
+      },
+      "candidate": {
+        "fingerprint_changed": false
+      },
+      "detail": "Actual frozen source_fingerprint function on a minimal valid source tree; only package entry changed."
+    },
+    {
+      "verification_id": "C03-WAKEUP",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "producer_resumed": true,
+        "queue_size": 128
+      },
+      "candidate": {
+        "producer_resumed": false,
+        "queue_size": 127
+      },
+      "detail": "Real EventQueue filled to 128, put waits, consumer frees one slot; deterministic event-loop yields."
+    },
+    {
+      "verification_id": "C03-OWNERSHIP",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "owned_cancelled": false,
+        "commits": [
+          "persisted"
+        ],
+        "caller_cancelled": false
+      },
+      "candidate": {
+        "owned_cancelled": true,
+        "commits": [],
+        "caller_cancelled": true
+      },
+      "detail": "Cancellation arrives while an owned commit waits; baseline persists, candidate commit is cancelled."
+    },
+    {
+      "verification_id": "C04-CLEAN",
+      "passed": true,
+      "kind": "executed_frozen_python",
+      "baseline": {
+        "valid_report": {
+          "profile": "descriptive-v1",
+          "verdict": "DESCRIPTIVE_ONLY",
+          "plan_hash": "3ec25a3557f5529536175aca49794cc1b500868c2b632912e648132f0dd95e8c",
+          "simulated_battles": 4,
+          "policies": {
+            "balanced": {
+              "pairs": 2,
+              "baseline_win_rate": 1.0,
+              "candidate_win_rate": 1.0,
+              "transitions": {
+                "win->win": 2
+              },
+              "common_wins": 2,
+              "paired_av_ratio_median": 0.8,
+              "no_observed_win_regressions": true
+            }
+          },
+          "limitation": "固定小样本描述；不证明总体胜率、严格非劣或玩家通关时间改善。未经人工采纳不修改游戏。"
+        },
+        "duplicate_rejected": true,
+        "foreign_rejected": true
+      },
+      "candidate": {
+        "valid_report": {
+          "profile": "descriptive-v1",
+          "verdict": "DESCRIPTIVE_ONLY",
+          "plan_hash": "3ec25a3557f5529536175aca49794cc1b500868c2b632912e648132f0dd95e8c",
+          "simulated_battles": 4,
+          "policies": {
+            "balanced": {
+              "pairs": 2,
+              "baseline_win_rate": 1.0,
+              "candidate_win_rate": 1.0,
+              "transitions": {
+                "win->win": 2
+              },
+              "common_wins": 2,
+              "paired_av_ratio_median": 0.8,
+              "no_observed_win_regressions": true
+            }
+          },
+          "limitation": "固定小样本描述；不证明总体胜率、严格非劣或玩家通关时间改善。未经人工采纳不修改游戏。"
+        },
+        "duplicate_rejected": true,
+        "foreign_rejected": true
+      },
+      "detail": "AST confirms only expected set construction changed; valid and invalid receipt behavior agrees."
+    }
+  ],
+  "check_count": 14,
+  "issue_count": 13,
+  "manifest_sha256": "38aa788ab996211b289e11d15a39a44242ccf7fffe315e91bc7b1f02a879f7f1",
+  "verifier_sha256": "eb0dd95ab5fb4d821c6cd93bd9e52f90cf3ea496e0a719392e3c348aa27e456a",
+  "limits": [
+    "C# display source verified with arithmetic witness, not compiled/Unity execution.",
+    "Completeness is restricted to explicitly bounded candidate mutations, not whole repositories.",
+    "Recovery logs in public dev02 are labeled diagnostic fixtures, not historical incident logs."
+  ]
+}

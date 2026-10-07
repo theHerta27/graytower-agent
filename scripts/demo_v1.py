@@ -54,15 +54,10 @@ def prepare(root):
 
 
 def load_local_credential():
-    for line in Path('D:/Desktop/combat-foundation/.env').read_text(encoding='utf-8').splitlines():
-        if '=' in line and not line.lstrip().startswith('#'):
-            key, value = line.split('=', 1)
-            if key.strip() == 'COMBAT_API_KEY':
-                value = value.strip().strip('"').strip("'")
-                if value and not value.startswith('your-'):
-                    os.environ['DEEPSEEK_API_KEY'] = value
-                    return
-    raise RuntimeError('specified DeepSeek credential is unavailable')
+    # Keys are supplied by the operator, never read from a different project.
+    if not os.environ.get('DEEPSEEK_API_KEY', '').strip():
+        raise RuntimeError('Set DEEPSEEK_API_KEY in the local environment before live execution')
+
 
 
 async def live(root, spec):

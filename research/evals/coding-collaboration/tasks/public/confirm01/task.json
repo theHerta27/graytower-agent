@@ -1,0 +1,28 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 23382,
+  "packet_path": "tasks/public/confirm01/packet.md",
+  "packet_sha256": "466c83fa329de7e37715861db4c4d320cc601fc62268391eabfb5efd15dc0011",
+  "schema_version": 1,
+  "source_paths": [
+    "combat-foundation/game-core/combat_core/v2/effects.py",
+    "combat-foundation/game-core/combat_core/v2/state.py",
+    "combat-foundation/game-core/combat_core/v2/boss.py",
+    "combat-foundation/game-core/combat_core/v2/bots.py",
+    "combat-foundation/game-core/combat_core/v2/simulation.py"
+  ],
+  "split": "confirmation",
+  "task_id": "confirm01",
+  "title": "行动窗口和Boss蓄力轮转评审"
+}

@@ -1,0 +1,98 @@
+{
+  "candidate_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py": "1658a9bf9e112a708ca782f6ea96cb40f08148157ba573df42e27efe63a14aa1",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "02d7a82bcbeb4285f508622ed4d233e31d56a608a6934805a4fdb64e951f1dc2",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "def2eb33da135c5862a100c87b21fe2072eb0f537ade5f0d9e264cf44b18b6c9"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "benchmark_injected",
+  "issues": [
+    {
+      "aliases": [],
+      "allowed_locations": [
+        {
+          "end_line": 20,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+          "start_line": 15
+        }
+      ],
+      "fix": "同时校验行数和集合，拒绝重复pair。",
+      "issue_id": "C02-DUPLICATE",
+      "required_evidence": [
+        "set(actual)仍等于expected但len(actual)多于expected。",
+        "后续data按原rows统计pairs/胜率/中位数，重复不会再被过滤。"
+      ],
+      "root_cause": "集合去重后比较丢失行数约束，重复同一pair可被接受并污染指标权重。",
+      "severity": "P1",
+      "trigger": "结果包含所有预期pair，同时额外复制某一个(policy,seed)行。",
+      "verification_ids": [
+        "C02-DUPLICATE"
+      ]
+    },
+    {
+      "aliases": [
+        "AV倒数",
+        "基线候选比值颠倒"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 36,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+          "start_line": 31
+        }
+      ],
+      "fix": "恢复cav/bav，保持共同获胜筛选。",
+      "issue_id": "C02-RATIO",
+      "required_evidence": [
+        "规范定义candidate/baseline应为0.8。",
+        "实际bav/cav得到1.25，方向与指标含义相反。"
+      ],
+      "root_cause": "AV比率被取倒数，颠倒候选快慢方向。",
+      "severity": "P2",
+      "trigger": "共同获胜baseline AV=100，candidate AV=80。",
+      "verification_ids": [
+        "C02-RATIO"
+      ]
+    },
+    {
+      "aliases": [
+        "入口指纹缺失"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 22,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py",
+          "start_line": 17
+        }
+      ],
+      "fix": "纳入包入口及其路径和字节。",
+      "issue_id": "C02-FINGERPRINT",
+      "required_evidence": [
+        "新列表排除所有__init__.py。",
+        "work后续导入这些包，检查前后指纹都无法检测入口变化。"
+      ],
+      "root_cause": "源指纹排除可执行包入口，入口修改不会使计划失效。",
+      "severity": "P1",
+      "trigger": "冻结后只修改combat_core/__init__.py或verification_agent/__init__.py再执行。",
+      "verification_ids": [
+        "C02-FINGERPRINT"
+      ]
+    }
+  ],
+  "non_issues": [
+    "本题不要求从小样本升级为严格非劣推断。"
+  ],
+  "packet_sha256": "2cb9c1ceefae33042c45e39bafc798a4d57dace6ea8e5f7c4fa075c9d6779bca",
+  "schema_version": 1,
+  "scope": "为精简结果报告和源码扫描，候选调整了配对集合校验、AV指标和游戏指纹文件选择。请判断是否仍能拒绝重复结果、保持指标方向，以及把本次运行实际导入的规则源码全部纳入冻结。无需评价统计显著性或提出更多样本。",
+  "source_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py": "e80d1ac86b6e09130ac97e0a4111a5aa69fa8009c5142a623e69bc520a7895c6",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "7288d24999859df5f1dd9d0e13b1a95271833daed3c5e061b3b6266cc8dd3f13",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "def2eb33da135c5862a100c87b21fe2072eb0f537ade5f0d9e264cf44b18b6c9"
+  },
+  "split": "confirmation",
+  "task_id": "confirm02",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

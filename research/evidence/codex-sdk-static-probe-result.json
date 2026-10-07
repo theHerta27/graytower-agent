@@ -1,0 +1,19 @@
+{
+  "scope": "offline in-memory SDK behavior; no real subprocess/model/tool",
+  "checks": {
+    "default_command_approval": {
+      "decision": "accept"
+    },
+    "default_file_approval": {
+      "decision": "accept"
+    },
+    "high_level_signatures": {
+      "Codex": "(config: 'CodexConfig | None' = None) -> 'None'",
+      "AsyncCodex": "(config: 'CodexConfig | None' = None) -> 'None'"
+    },
+    "custom_executable_override": "fixture-codex.exe",
+    "installed_alpha_passes_version_floor": true,
+    "waiting_approval_blocks_notification_reader": true,
+    "notification_resumes_after_handler_returns": true
+  }
+}

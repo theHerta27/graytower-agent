@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-04 10:52:04 UTC",
+  "audit_type": "public-packet evidence availability, independent of solver outputs",
+  "auditor": "collaboration_benchmark subagent",
+  "scope": ["dev01", "confirm01", "confirm02", "confirm03", "confirm04"],
+  "excluded_from_this_requested_audit": ["dev02"],
+  "method": "Manually checked each required_evidence clause against the frozen public rules, candidate diff and numbered snippets. Compared missing code edges with frozen private candidate snapshots only to identify the omission. Standard Python, asyncio, Pydantic and C# library semantics and hypothetical numeric examples count as ordinary reasoning, not missing repository evidence.",
+  "frozen_manifest_sha256": "38aa788ab996211b289e11d15a39a44242ccf7fffe315e91bc7b1f02a879f7f1",
+  "summary": {
+    "tasks_audited": 5,
+    "confirmation_tasks_audited": 4,
+    "known_issue_entries_audited": 10,
+    "required_evidence_entries_audited": 20,
+    "fully_supported_entries": 18,
+    "partially_supported_composite_entries": 1,
+    "source_specific_entries_unavailable": 1,
+    "tasks_with_common_material_ceiling": 2,
+    "confirmation_tasks_with_common_material_ceiling": 1,
+    "whole_root_causes_unassessable": 0
+  },
+  "adjudication_guidance": {
+    "applies_to": "All modes and all repetitions receiving the same frozen packet, symmetrically.",
+    "frozen_artifacts": "Do not edit packets, oracle.json files, task splits, known issue denominators or confirmation tasks after this audit.",
+    "unavailable_clause": "Record the unavailable repository-specific clause as common_material_limit / not_assessable_from_packet. Do not penalize a solver for failing to supply its exact hidden assignment or hidden call edge, and do not reward a guessed hidden line as publicly verified evidence.",
+    "remaining_requirements": "Continue to require the root cause, trigger, causal business consequence and all evidence that is actually public. Missing one private-only clause does not excuse an unrelated or unsupported finding.",
+    "reporting": "If the original strict evidence-completeness number is retained, explicitly report the shared material ceiling alongside it. Any availability-adjusted evidence result must be separately labeled and applied equally across conditions; it does not alter frozen ground truth or model outputs.",
+    "examples": "Numeric values in the oracle are witnesses, not exact-string requirements. Equivalent supported examples satisfy the same causal requirement."
+  },
+  "tasks": [
+    {
+      "task_id": "dev01",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "common_material_ceiling": true,
+      "issues": [
+        {
+          "issue_id": "D01-HISTORY",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": [
+            "combat-foundation/game-core/combat_core/v2/trace.py:108-119, especially candidate line 116",
+            "combat-foundation/game-core/combat_core/v2/state.py:28-75, nested mutable units and shields",
+            "combat-foundation/game-core/combat_core/v2/effects.py:114-125, later mutation of nested state",
+            "Public business rule 1: independent immutable historical event state"
+          ]
+        },
+        {
+          "issue_id": "D01-DURATION",
+          "required_evidence_coverage": ["source_specific_clause_unavailable", "supported"],
+          "limited_requirement_index_zero_based": 0,
+          "limited_requirement": "apply_skill_effects会记录fresh_turn。",
+          "missing_private_source_ref": "combat-foundation/game-core/combat_core/v2/effects.py:213-221; candidate assignment line 219",
+          "public_source_ranges_for_file": [[110, 127], [222, 231]],
+          "diff_contains_missing_assignment": false,
+          "public_refs": [
+            "Public business rule 3 states the owner-turn creation exemption.",
+            "Candidate diff shows removal of the sh.fresh_turn == state.normal_turn_count guard.",
+            "combat-foundation/game-core/combat_core/v2/state.py:20-26 declares ShieldInstance.fresh_turn.",
+            "combat-foundation/game-core/combat_core/v2/effects.py:121-125 shows remaining=1 removal / other remaining decrement."
+          ],
+          "effect_on_scoring": "The behavior violation remains inferable from the public rule, deleted guard and expiry loop. Exact proof that apply_skill_effects assigns fresh_turn at creation cannot be required from this packet. A solver may describe that assignment as an inference, but cannot cite its omitted line as public evidence."
+        },
+        {
+          "issue_id": "D01-DISPLAY",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": [
+            "combat-foundation/game-unity/Assets/Runtime/CombatStateV2.cs:18-33",
+            "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs:14",
+            "Public business rule 2 defines additive shield display; ordinary arithmetic supports any unequal multi-shield witness."
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "confirm01",
+      "packet_sha256": "466c83fa329de7e37715861db4c4d320cc601fc62268391eabfb5efd15dc0011",
+      "common_material_ceiling": true,
+      "issues": [
+        {
+          "issue_id": "C01-WINDOW",
+          "required_evidence_coverage": ["supported", "partially_supported_composite"],
+          "limited_requirement_index_zero_based": 1,
+          "limited_subclause": "resolve_action依赖validate_action准入。",
+          "missing_private_source_ref": "combat-foundation/game-core/combat_core/v2/effects.py:227-228",
+          "public_source_ranges_for_file": [[127, 214]],
+          "diff_contains_missing_call_edge": false,
+          "public_refs": [
+            "combat-foundation/game-core/combat_core/v2/effects.py:129-140 shows the complete relevant admission branch.",
+            "combat-foundation/game-core/combat_core/v2/bots.py:23-26 shows the bot restriction.",
+            "Public request explicitly requires consideration of direct controlled player input and disallows using bot behavior as the admission boundary.",
+            "combat-foundation/game-core/combat_core/v2/simulation.py:55 and 60 call resolve_action, but do not reveal its body."
+          ],
+          "effect_on_scoring": "The candidate admission defect, valid triggering ActionRequest and bot-vs-entry distinction are publicly assessable. The specific resolve_action -> validate_action repository call edge is omitted and must not be demanded as strictly cited public evidence. boss.resolve_enemy_action calling validate_action is a different public edge and cannot fill the missing player resolver body."
+        },
+        {
+          "issue_id": "C01-CHARGE",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": [
+            "combat-foundation/game-core/combat_core/v2/boss.py:52-57 and 61-86",
+            "combat-foundation/game-core/combat_core/v2/state.py:90-95 and candidate diff",
+            "combat-foundation/game-core/combat_core/v2/effects.py:201-204",
+            "Public business rule 2 defines same-phase slot consumption."
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "confirm02",
+      "packet_sha256": "2cb9c1ceefae33042c45e39bafc798a4d57dace6ea8e5f7c4fa075c9d6779bca",
+      "common_material_ceiling": false,
+      "issues": [
+        {
+          "issue_id": "C02-DUPLICATE",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": ["mihoyo-agent-project/src/agent_workbench/verification/report.py:14-21 and 23-40", "Public business rule 1"]
+        },
+        {
+          "issue_id": "C02-RATIO",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": ["mihoyo-agent-project/src/agent_workbench/verification/report.py:25-38", "Public business rule 2"],
+          "clarification": "100 and 80 are an oracle arithmetic witness, not unseen input required for solving. Any unequal valid common-win AV pair can establish the direction error."
+        },
+        {
+          "issue_id": "C02-FINGERPRINT",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": ["mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py:17-28, 53-62 and 92-98", "Public business rule 3 explicitly includes package entry code"]
+        }
+      ]
+    },
+    {
+      "task_id": "confirm03",
+      "packet_sha256": "0213e5f7a7615f7ef31ea94bd8c6677d2be6ed4320b9acf5381a5cfdddfe0649",
+      "common_material_ceiling": false,
+      "issues": [
+        {
+          "issue_id": "C03-WAKEUP",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": ["herta-agent-coding/backend/herta_agent/service/events.py:49-76 and candidate diff", "herta-agent-coding/backend/herta_agent/service/runs.py:72-82", "Public business rules 1 and 3"]
+        },
+        {
+          "issue_id": "C03-OWNERSHIP",
+          "required_evidence_coverage": ["supported", "supported"],
+          "public_refs": ["herta-agent-coding/backend/herta_agent/service/runs.py:98-105 and 205-218", "herta-agent-coding/backend/herta_agent/service/sse.py:19-38", "Candidate diff and public business rule 2"],
+          "clarification": "Cancellation propagation through await and Task.result behavior are standard asyncio semantics; the repository-owned commit and cleanup call sites are both publicly shown."
+        }
+      ]
+    },
+    {
+      "task_id": "confirm04",
+      "packet_sha256": "c6084aa74e18eaf3b3cd92f9794614f81a75c99424f87e23beedfe629bc1f67f",
+      "common_material_ceiling": false,
+      "issues": [],
+      "clean_control_evidence": "The full candidate diff, full report function and explicit set/frozenset comparison rule are public. No hidden positive-issue evidence requirement exists."
+    }
+  ],
+  "limitations": [
+    "Earlier verify_oracles.py proves injected behavior and candidate hash identity, but its public-line coverage check only ensures a finding location is shown; it does not prove every causal clause is included. This manual audit supplies that missing distinction.",
+    "This record is evaluator-only. Do not send its confirmation issue details to solvers or use them to retune profiles.",
+    "This audit makes no claim about any solver's actual finding or evidence score."
+  ],
+  "real_quality_outputs_read": false,
+  "model_calls": 0,
+  "packets_modified": false,
+  "oracles_modified": false,
+  "confirmation_answers_reported_to_parent": false
+}

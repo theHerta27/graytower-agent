@@ -1,0 +1,27 @@
+{
+  "candidate_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py": "e80d1ac86b6e09130ac97e0a4111a5aa69fa8009c5142a623e69bc520a7895c6",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "8205285a028fcf71390ca96ca72c8a0c640b79132c519393dab1702e7019c69e",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "def2eb33da135c5862a100c87b21fe2072eb0f537ade5f0d9e264cf44b18b6c9"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "clean_control",
+  "issues": [],
+  "non_issues": [
+    "frozenset与set按内容比较相等，不会让所有合法收据失败。",
+    "未新增缺陷；本题候选仅改变集合是否可变。"
+  ],
+  "packet_sha256": "c6084aa74e18eaf3b3cd92f9794614f81a75c99424f87e23beedfe629bc1f67f",
+  "schema_version": 1,
+  "scope": "候选把报告中的预期pair集合明确为不可变集合，以便代码表达“冻结清单”。请只审查这次改动是否改变当前授权、结果校验或报告计算。可以没有发现；不要把原有代码的拓展建议算成本次回归。",
+  "source_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py": "e80d1ac86b6e09130ac97e0a4111a5aa69fa8009c5142a623e69bc520a7895c6",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "7288d24999859df5f1dd9d0e13b1a95271833daed3c5e061b3b6266cc8dd3f13",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "def2eb33da135c5862a100c87b21fe2072eb0f537ade5f0d9e264cf44b18b6c9"
+  },
+  "split": "confirmation",
+  "task_id": "confirm04",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

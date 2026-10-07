@@ -1,0 +1,29 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 21762,
+  "packet_path": "tasks/public/dev01/packet.md",
+  "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+  "schema_version": 1,
+  "source_paths": [
+    "combat-foundation/game-core/combat_core/v2/effects.py",
+    "combat-foundation/game-core/combat_core/v2/state.py",
+    "combat-foundation/game-core/combat_core/v2/trace.py",
+    "combat-foundation/game-core/combat_core/v2/simulation.py",
+    "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs",
+    "combat-foundation/game-unity/Assets/Runtime/CombatStateV2.cs"
+  ],
+  "split": "development",
+  "task_id": "dev01",
+  "title": "护盾与战斗快照跨层评审"
+}

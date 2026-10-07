@@ -1,5 +1,15 @@
 # 当前上下文
 
+## 2026-10-07：GitHub 私密仓库交付
+
+用户已明确授权上传两仓库并要求中文连接手册。GitHub 登录账号 theHerta27；沙箱最初误报无效，正常权限核实可用，已创建两个 Private 仓库。源码导航整理与精选研究源码/方法/摘要纳入提交，原始批量运行目录仍本地。旧游戏 origin 改名 local-baseline，GitHub 为新 origin。固定验证基线通过游戏历史 fdb9e838 还原到 local-data/verification-baseline，明确源文件换行可导致新字节身份，旧证据不复用；本机旧 checkout 不变，新机器不必克隆第三仓库。demo_v1 不再读取旧项目 .env，改用本机环境变量。203 tests（2 skip）与最终候选模块8 tests（1 skip）通过，独立基线 describe/create 通过。GitHub使用手册.md 记录安装与同步操作；上传完成后以远端 main 和 clone 回读为准。
+
+
+## 2026-10-06：源码导航整理
+
+工作台 Verification 主实现由 `qa.py` 移至 `verification/agent.py`，旧模块仅重导出 Decision/State/VerificationAgent，保持既有脚本兼容；CLI/工作台使用新路径。四个 Agent 目录新增中文 README，根 README 提供入口。此次只整理源码与说明，不改变业务流程、不重新执行封存模型实验，也不修改历史证据。Codex Runtime 仍为官方 SDK 启动的外部依赖进程，未复制 Runtime 源码。本轮显式 .venv 执行 unittest discover：203项、2项跳过，其余通过；新旧导入身份一致，CLI --help 与 git diff --check 通过。
+
+
 ## 2026-10-05：可直接演示的营地闭环
 
 按用户“优先快速闭环，不扩复杂严谨度”的最新要求，本轮交付本机演示：React营地→真实LangGraph离线对话/玩家选择→世界支援→Unity实际按键→同规则结算→分享战报→角色记忆隔离。入口 http://127.0.0.1:8780/camp ，双击 `开始剧情演示.cmd`；中文步骤见[使用手册](使用手册.md)。研发真实历史结果仍在8767。当前演示NPC是明确标注的离线台词，0新增模型调用，不冒充真实DeepSeek自由对话。

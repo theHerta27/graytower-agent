@@ -1,0 +1,66 @@
+{
+  "checked_date": "2026-10-05",
+  "repository": "https://github.com/a2aproject/a2a-python",
+  "release": "v1.2.1",
+  "release_sha": "041c17bbe8d5ced7a8f6c48761152ce01ffbfc14",
+  "compared_main": "e649325e041e44c0b0fe57e3eef0699cad164a1e",
+  "compare_url": "https://github.com/a2aproject/a2a-python/compare/v1.2.1...e649325e041e44c0b0fe57e3eef0699cad164a1e",
+  "total_commits": 13,
+  "all_changed_files": [
+    ".github/workflows/acts-nightly.yaml",
+    ".github/workflows/acts.yaml",
+    ".github/workflows/itk.yaml",
+    ".github/workflows/nightly.yaml",
+    "src/a2a/client/transports/rest.py",
+    "src/a2a/compat/v0_3/jsonrpc_adapter.py",
+    "src/a2a/compat/v0_3/proto_utils.py",
+    "src/a2a/compat/v0_3/rest_adapter.py",
+    "src/a2a/compat/v0_3/rest_transport.py",
+    "src/a2a/server/agent_execution/active_task.py",
+    "src/a2a/server/request_handlers/default_request_handler.py",
+    "src/a2a/server/request_handlers/default_request_handler_v2.py",
+    "src/a2a/server/routes/common.py",
+    "src/a2a/server/routes/jsonrpc_dispatcher.py",
+    "src/a2a/server/routes/jsonrpc_routes.py",
+    "src/a2a/server/routes/rest_dispatcher.py",
+    "src/a2a/server/routes/rest_routes.py",
+    "src/a2a/server/tasks/database_push_notification_config_store.py",
+    "src/a2a/server/tasks/inmemory_push_notification_config_store.py",
+    "src/a2a/server/tasks/push_notification_config_store.py",
+    "tests/client/transports/test_rest_client.py",
+    "tests/compat/v0_3/test_grpc_handler.py",
+    "tests/compat/v0_3/test_jsonrpc_app_compat.py",
+    "tests/compat/v0_3/test_proto_utils.py",
+    "tests/compat/v0_3/test_rest_routes_compat.py",
+    "tests/compat/v0_3/test_rest_transport.py",
+    "tests/integration/test_multiserver.py",
+    "tests/integration/test_scenarios.py",
+    "tests/server/request_handlers/test_default_request_handler.py",
+    "tests/server/request_handlers/test_default_request_handler_v2.py",
+    "tests/server/routes/test_common.py",
+    "tests/server/routes/test_jsonrpc_dispatcher.py",
+    "tests/server/routes/test_jsonrpc_routes.py",
+    "tests/server/routes/test_rest_dispatcher.py",
+    "tests/server/routes/test_rest_routes.py",
+    "tests/server/tasks/test_database_push_notification_config_store.py",
+    "tests/server/tasks/test_inmemory_push_notifications.py",
+    "uv.lock"
+  ],
+  "relevant_patches": [
+    {
+      "filename": "src/a2a/server/agent_execution/active_task.py",
+      "patch": "@@ -528,7 +528,7 @@ async def start(\n                     self._task_created.set()\n                     if task.status.state in TERMINAL_TASK_STATES:\n                         raise UnsupportedOperationError(\n-                            message=f'Task {task.id} is in terminal state: {task.status.state}'\n+                            message=f'Task {task.id} is in terminal state: {TaskState.Name(task.status.state)}'\n                         )\n                 elif not create_task_if_missing:\n                     raise TaskNotFoundError\n@@ -590,7 +590,7 @@ async def _run_producer(self) -> None:\n                     and task.status.state in TERMINAL_TASK_STATES\n                 ):\n                     raise UnsupportedOperationError(\n-                        message=f'Task {task.id} is in terminal state: {task.status.state}'\n+                        message=f'Task {task.id} is in terminal state: {TaskState.Name(task.status.state)}'\n                     )\n                 request_context.current_task = task\n "
+    },
+    {
+      "filename": "src/a2a/server/request_handlers/default_request_handler_v2.py",
+      "patch": "@@ -29,6 +29,9 @@\n     validate,\n     validate_request_params,\n )\n+from a2a.server.tasks.push_notification_config_store import (\n+    normalize_push_notification_config,\n+)\n from a2a.types.a2a_pb2 import (\n     AgentCard,\n     CancelTaskRequest,\n@@ -497,13 +500,15 @@ async def on_create_task_push_notification_config(  # noqa: D102\n \n         await self._reject_unsafe_push_url(params.url)\n \n-        await self._push_config_store.set_info(\n+        stored = await self._push_config_store.set_info(\n             task_id,\n             params,\n             context,\n         )\n-\n-        return params\n+        if stored is not None:\n+            return stored\n+        # Custom stores written before set_info returned the stored config.\n+        return normalize_push_notification_config(task_id, params)\n \n     @validate_request_params\n     @validate(\n@@ -555,7 +560,7 @@ async def on_subscribe_to_task(  # noqa: D102\n         if task.status.state in TERMINAL_TASK_STATES:\n             raise UnsupportedOperationError(\n                 message=f'Task {task_id} is in terminal state: '\n-                f'{task.status.state}'\n+                f'{TaskState.Name(task.status.state)}'\n             )\n \n         if self._event_stream is None:"
+    },
+    {
+      "filename": "tests/server/request_handlers/test_default_request_handler_v2.py",
+      "patch": "@@ -513,6 +513,84 @@ async def test_set_task_push_notification_config_task_not_found():\n     mock_push_store.set_info.assert_not_awaited()\n \n \n+@pytest.mark.asyncio\n+@pytest.mark.parametrize('store_kind', ['inmemory', 'database'])\n+async def test_create_task_push_notification_config_returns_stored_id(\n+    store_kind,\n+):\n+    \"\"\"Test on_create_task_push_notification_config returns the id that was stored.\"\"\"\n+    if store_kind == 'database':\n+        pytest.importorskip('sqlalchemy')\n+        pytest.importorskip('aiosqlite')\n+        from a2a.server.tasks.database_push_notification_config_store import (\n+            DatabasePushNotificationConfigStore,\n+        )\n+        from sqlalchemy.ext.asyncio import create_async_engine\n+\n+        engine = create_async_engine(\n+            'sqlite+aiosqlite:///file:pushidv2?mode=memory&cache=shared&uri=true'\n+        )\n+        push_config_store = DatabasePushNotificationConfigStore(engine=engine)\n+    else:\n+        push_config_store = InMemoryPushNotificationConfigStore()\n+\n+    task = create_sample_task()\n+    task_store = InMemoryTaskStore()\n+    context = create_server_call_context()\n+    await task_store.save(task, context)\n+\n+    request_handler = DefaultRequestHandlerV2(\n+        agent_executor=MockAgentExecutor(),\n+        task_store=task_store,\n+        push_config_store=push_config_store,\n+        agent_card=create_default_agent_card(),\n+    )\n+    params = TaskPushNotificationConfig(\n+        task_id=task.id, url='http://example.com'\n+    )\n+\n+    response = await request_handler.on_create_task_push_notification_config(\n+        params, context\n+    )\n+\n+    stored = await push_config_store.get_info(task.id, context)\n+    if store_kind == 'database':\n+        await engine.dispose()\n+\n+    assert response.id == task.id\n+    assert list(stored) == [response]\n+    assert params.id == '', 'the request object must not be mutated'\n+\n+\n+@pytest.mark.asyncio\n+async def test_create_task_push_notification_config_normalizes_when_store_returns_none():\n+    \"\"\"A custom store that still returns None from set_info keeps working.\"\"\"\n+    push_config_store = AsyncMock(spec=PushNotificationConfigStore)\n+    push_config_store.set_info.return_value = None\n+\n+    task = create_sample_task()\n+    task_store = InMemoryTaskStore()\n+    context = create_server_call_context()\n+    await task_store.save(task, context)\n+\n+    request_handler = DefaultRequestHandlerV2(\n+        agent_executor=MockAgentExecutor(),\n+        task_store=task_store,\n+        push_config_store=push_config_store,\n+        agent_card=create_default_agent_card(),\n+    )\n+    params = TaskPushNotificationConfig(\n+        task_id=task.id, url='http://example.com'\n+    )\n+\n+    response = await request_handler.on_create_task_push_notification_config(\n+        params, context\n+    )\n+\n+    assert (response.task_id, response.id) == (task.id, task.id)\n+    assert params.id == '', 'the request object must not be mutated'\n+\n+\n @pytest.mark.asyncio\n async def test_get_task_push_notification_config_no_store():\n     \"\"\"Test on_get_task_push_notification_config when _push_config_store is None.\"\"\"\n@@ -1085,7 +1163,7 @@ async def test_on_message_send_task_in_terminal_state(terminal_state):\n             params, create_server_call_context()\n         )\n     assert (\n-        f'Task {task_id} is in terminal state: {terminal_state}'\n+        f'Task {task_id} is in terminal state: {TaskState.Name(terminal_state)}'\n         in exc_info.value.message\n     )\n \n@@ -1125,7 +1203,7 @@ async def test_on_message_send_stream_task_in_terminal_state(terminal_state):\n         ):\n             pass\n     assert (\n-        f'Task {task_id} is in terminal state: {terminal_state}'\n+        f'Task {task_id} is in terminal state: {TaskState.Name(terminal_state)}'\n         in exc_info.value.message\n     )\n \n@@ -1250,7 +1328,7 @@ async def test_on_subscribe_to_task_in_terminal_state(terminal_state):\n             pass\n \n     assert (\n-        f'Task {task_id} is in terminal state: {terminal_state}'\n+        f'Task {task_id} is in terminal state: {TaskState.Name(terminal_state)}'\n         in exc_info.value.message\n     )\n \n@@ -1710,6 +1788,40 @@ async def test_on_message_send_with_push_notification():\n     )\n \n \n+@pytest.mark.asyncio\n+async def test_on_message_send_stores_inline_push_config_under_its_task():\n+    task_store = InMemoryTaskStore()\n+    push_store = InMemoryPushNotificationConfigStore()\n+\n+    request_handler = DefaultRequestHandlerV2(\n+        agent_executor=HelloAgentExecutor(),\n+        task_store=task_store,\n+        push_config_store=push_store,\n+        agent_card=create_default_agent_card(),\n+    )\n+    # SendMessageConfiguration carries neither task_id nor id for the config.\n+    params = SendMessageRequest(\n+        message=Message(\n+            role=Role.ROLE_USER,\n+            message_id='msg_push_inline',\n+            parts=[Part(text='Hi')],\n+        ),\n+        configuration=SendMessageConfiguration(\n+            task_push_notification_config=TaskPushNotificationConfig(\n+                url='http://example.com/webhook'\n+            )\n+        ),\n+    )\n+\n+    context = create_server_call_context()\n+    result = await request_handler.on_message_send(params, context)\n+\n+    stored = await push_store.get_info(result.id, context)\n+    assert [(config.task_id, config.id) for config in stored] == [\n+        (result.id, result.id)\n+    ]\n+\n+\n @pytest.mark.asyncio\n async def test_on_message_send_with_empty_push_notification_config_does_not_call_set_info():\n     task_store = InMemoryTaskStore()"
+    }
+  ],
+  "release_and_pr_status": [{"url":"https://github.com/a2aproject/a2a-python/pull/1178","title":"fix: reject terminal tasks before persisting push config (V2)","state":"open","merged":false,"created_at":"2026-08-10T16:09:12Z","updated_at":"2026-09-30T19:44:01Z"},{"url":"https://github.com/a2aproject/a2a-python/pull/1179","title":"fix: remove zombie registry entries when ActiveTask start fails","state":"open","merged":false,"created_at":"2026-08-10T16:09:20Z","updated_at":"2026-09-11T03:39:58Z"},{"url":"https://github.com/a2aproject/a2a-python/releases/tag/v1.2.1","title":"v1.2.1","created_at":"2026-09-30T11:51:16Z","updated_at":"2026-09-30T11:51:30Z","published_at":"2026-09-30T11:51:30Z","tag_name":"v1.2.1"}],
+  "official_sdk_blobs_matched_installed_lf_contents": [{"path":"src/a2a/server/agent_execution/active_task.py","git_blob":"90198d7c63646e10027a6e47723d957b4f2b989e"},{"path":"src/a2a/server/agent_execution/active_task_registry.py","git_blob":"cae2a55ce6eec5e2a8cbba3d7eef0360a659f969"},{"path":"src/a2a/server/events/event_queue_v2.py","git_blob":"307c8c9e95b6187455b0c8e8bc8e7379f6c6b4c0"},{"path":"src/a2a/server/request_handlers/default_request_handler_v2.py","git_blob":"e78980e967d4f7c1ca10950ebe9d667f33657099"}],
+  "limitation": "Read-only source comparison; current main was not installed or runtime tested."
+}

@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-04 11:14:21 UTC",
+  "reviewer": "collaboration_benchmark subagent",
+  "scope": "Independent examination of the frozen confirmation design, runtime/resource measurement and reporting limits. This is not a quality verdict.",
+  "reviewer_disclosure": "The reviewer authored the task set earlier and is therefore not oracle-naive. This methods review did not reopen oracle answers, inspect model findings or read any quality scores. Runs were projected to an explicit resource/timing/status whitelist before being displayed.",
+  "overall_conclusion": "The registered comparisons are usable as a bounded, descriptive review-profile experiment. The six-stage A+ is a reasonable purposeful same-agent control, but neither equal caps nor its development cost calibration establish identical actual resources. Runtime wall-clock differences in the two-task scheduling subset are observational repeated-run evidence, not a deterministic pure scheduling speedup or population effect.",
+  "reviewed_artifacts": [
+    {
+      "path": "research/evidence/collaboration-confirmation-manifest-20261004-fixed-v1.json",
+      "sha256": "7171ca528582cb2a6ff4db17d7668e7f26454b75866a377eb67006f68ef1d005"
+    },
+    {
+      "path": "research/probes/collaboration_profile_runner.py",
+      "sha256": "f4528c0a22a6def099b77c6db41459ed5fabd56f86f587fb3776d55a7729a61c"
+    },
+    {
+      "path": "research/probes/collaboration_live_runner.py",
+      "sha256": "360109c34b2a3613c1fe019437c7deb8666a04914b6bcfe377c682c73d2f3b19"
+    },
+    {
+      "path": "research/probes/collaboration_profile_batch.py",
+      "sha256": "82bf29aa28ea19b10c52ef014ed3b39de23946b7189ef18683528aa09a91109a"
+    },
+    {
+      "path": "research/probes/collaboration_batch.py",
+      "sha256": "c41e37013ab5a9a5e1f9ee795e48ba3392941f2fb4d40402bb1e6206962f7e6b"
+    },
+    {
+      "path": "research/evals/coding-collaboration/evaluate.py",
+      "sha256": "69af822c9407f4618ae8699731d52393020dda2cfe6899bd3da6e84e771831b3"
+    }
+  ],
+  "registered_design": {
+    "independent_quality_tasks": 4,
+    "repeats_per_task_mode": 2,
+    "assigned_runs": {"single": 8, "single_plus": 8, "team_parallel": 8, "team_serial": 4},
+    "independent_scheduling_tasks": 2,
+    "scheduling_paired_repeats": 4,
+    "repeat_reduction": "The manifest states 3 to 2 repetitions was decided before confirmation calls to preserve the already authorized global budget. Report this departure; do not describe the result as 6 confirmation tasks or 3 repeats.",
+    "scheduling_subset": "Two task IDs were specified before confirmation outputs; the four paired repeats remain two independent tasks.",
+    "assignment_order": "Fixed and partly rotated, not randomized. For each scheduling task, repeat 1 places parallel before serial, repeat 2 places serial before parallel. Other modes intervene in some pairs. This reduces a single fixed-direction order bias but does not eliminate time/order/cache confounding."
+  },
+  "single_plus_assessment": {
+    "reasonable": true,
+    "stages": [
+      "Initial full-packet broad review",
+      "Rules and semantic review",
+      "Contracts, state transitions and recovery review",
+      "Counterexamples and boundary cases",
+      "Exact evidence checking and removal of unsupported or duplicate claims",
+      "Final consolidation"
+    ],
+    "same_agent_evidence": "profile_runner replaces single_plus_turns with 6 and supplies five explicit followups; base runner creates one parent thread and sends every turn to that same thread ID. The request filter supplies no native delegation tools in single/single_plus modes. Only the final turn is selected as final output.",
+    "purpose": "The stages mirror the specialist topics and add verification/consolidation. They provide real opportunities for revision; they are not calls whose sole purpose is to burn tokens.",
+    "calibration": "The frozen manifest derives six turns from a development mean-cost ratio applied to a four-turn A+ profile. This is a pre-confirmation heuristic, not proof that cost grows linearly or that every task will match B's cost.",
+    "limits": [
+      "Six mandatory passes retain prior answers and may anchor, correct or over-revise them. Independent child contexts and same-thread revision differ by construction.",
+      "This tests one registered single-agent revision strategy, not the best achievable single-agent method or every effort setting.",
+      "Stage prompts and context organization differ from B, so any A+/B difference is a difference between complete profiles, not an isolated estimate of agent count alone.",
+      "Do not retrospectively give individual confirmation cells more turns to equal B's realized cost, or select the best intermediate A+ answer."
+    ],
+    "source_refs": ["research/probes/collaboration_profile_runner.py:28-34", "research/probes/collaboration_profile_runner.py:124-128", "research/probes/collaboration_live_runner.py:194-223", "research/probes/collaboration_live_runner.py:550-581"]
+  },
+  "resource_fairness": {
+    "caps": {
+      "single": {"calls": 1, "total_output_tokens": 32768},
+      "single_plus": {"calls": 6, "total_output_tokens": 131072},
+      "team_parallel": {"calls": 24, "total_output_tokens": 131072},
+      "team_serial": {"calls": 24, "total_output_tokens": 131072},
+      "common_per_request_output_tokens": 32768,
+      "common_wall_seconds": 360,
+      "shared_global_defaults": {"usd_peak_reservation_cap": 3.0, "calls": 600, "output_tokens": 1000000}
+    },
+    "what_is_equal": "A+ and both team profiles share the registered total output-token cap, per-request output cap, model/provider, low reasoning effort, packet, and wall-time ceiling. The two team profiles additionally share the same call cap and fixed role messages.",
+    "what_is_not_equal": "A+ has 6 permitted model calls versus 24 for B; context sizes, repeated input, cache hits, actual outputs, coordination calls, wall time and dollar estimates are not equal. There is no separate matched per-run input-token or dollar cap. The global cap is a safety budget shared across runs, not equal resource allocation to every cell.",
+    "recommended_label": "开发费用曲线校准、确认前冻结的额外资源单Agent对照；A+/B具有相同总输出上限和时限，实际资源逐题报告。",
+    "forbidden_overclaim": "完全同资源 / 严格等算力 / 完全同费用 / 单Agent已用尽与协作相同的推理资源",
+    "required_reporting": [
+      "Per task and repetition, show registered caps next to actual input, cached input, uncached input, output, total tokens, requests, estimated cost and wall time.",
+      "Report A+/B actual resource ratios on the same task/repetition cells; do not infer matching from aggregate means alone.",
+      "Report known partial usage, missing-cost counts, truncations and cap exhaustion separately; unknown is not zero and peak reservations are not invoices.",
+      "Show both raw token quantities and price-weighted cost. Cache-heavy repeated input can make greater token traffic cheaper; dollar similarity does not establish equal compute.",
+      "A/B quality can still have business value at higher cost, but that value judgment must use observed quality plus reported costs and remain separate from an equal-resource causal claim."
+    ],
+    "shared_budget_order_risk": {
+      "sum_of_per_run_output_caps": 2883584,
+      "sum_of_per_run_call_caps": 344,
+      "interpretation": "The sum of output ceilings exceeds the shared one-million-output budget, which also includes earlier authorized work. Ceilings are not planned actual consumption; this is not by itself an error. If the global ledger exhausts, later assignments can be censored by fixed order. Preserve every assignment and report started versus not_started plus remaining reservations, rather than analyzing only the affordable tail-free subset."
+    }
+  },
+  "resource_snapshot_not_final_result": {
+    "source": "research/evidence/collaboration-confirmation-20261004-fixed-v1/runs.json",
+    "source_modified_ns_at_read": 1791112263609789600,
+    "status_counts_at_read": {"completed": 10, "started": 1, "not_started": 17},
+    "scope": "Only resource/timing/status keys were displayed. This mid-batch snapshot illustrates resource non-equality; it must not be used as a final quality or performance conclusion.",
+    "same_three_task_repeat1_cells": {
+      "single_plus": {"n": 3, "input_tokens": 191614, "cached_input_tokens": 161152, "output_tokens": 79311, "cost_usd_known_sum": 0.052639356, "requests": 18},
+      "team_parallel": {"n": 3, "input_tokens": 372679, "cached_input_tokens": 313216, "output_tokens": 63343, "cost_usd_known_sum": 0.04786489799999999, "requests": 30}
+    },
+    "illustration_only": "B had more input and requests while A+ had more output and higher estimated cost in this partial same-cell snapshot. There is no single sense in which one consumed exactly the same resource or universally more resource."
+  },
+  "serial_parallel_assessment": {
+    "design_strengths": [
+      "Exact fixed role messages, complete common packet and fork_context=false reduce parent-to-later-child result leakage.",
+      "Spawn-message enum and exact-value guard reject added hints or summaries, and each role may be spawned once. The profile verifies role coverage in runtime lifecycle records.",
+      "Both conditions use the same registered roles, limits, model and synthesis instruction; scheduling instructions are the intended contrast.",
+      "The evaluator retains per-task/repeat time differences and ratios and records whether child schedule evidence conforms."
+    ],
+    "remaining_confounders": [
+      "Each condition resamples model reasoning and output. The runners set low effort but do not fix a sampling seed; they do not replay identical token streams.",
+      "Model output length and parent lifecycle decisions can change with results and readiness. Serial and parallel may issue different numbers of coordinator requests despite equal caps.",
+      "Prompt/history lengths differ naturally: serial parent calls can accumulate earlier child results, while each child is protected from those results. This can change input cost and aggregation behavior.",
+      "Provider queueing, concurrency limits, cache warmup and hit ratios, network latency, machine load and fixed/partly rotated order remain uncontrolled.",
+      "Only two independent tasks support the scheduling comparison; four repeated pairs do not provide four independent business tasks or robust population estimates.",
+      "Buffered SSE introduces validation/forwarding overhead; child active intervals and overlapping HTTP requests establish runtime/request overlap, not simultaneous provider model compute."
+    ],
+    "required_reporting": "Report every paired T_serial minus T_parallel and ratio with child overlap, actual requests/output/cached tokens and quality consistency. Also report the two task-level summaries. Describe any benefit as observed runtime wall-clock improvement for this profile and these tasks, not guaranteed pure scheduling speedup. Do not pool serial's two-task subset against parallel's four-task aggregate.",
+    "live_attestation_boundary": "This review inspected code constraints, not real lifecycle files. Before claiming same-division scheduling evidence, use each run's recorded profile coverage and native audit. evaluate.py explicitly leaves same_division_must_be_audited=true, and normalization does not automatically populate independent_contexts_verified or serial_no_result_leakage_verified."
+  },
+  "timing_measurement_boundary": {
+    "current_report_field": "timing.end_to_end_seconds copied from base result.wall_seconds",
+    "source_start": "collaboration_live_runner.py:411 creates Budget after output/workspace directories and packet.txt are created.",
+    "source_end": "collaboration_live_runner.py:596-599 stops after client.close and server shutdown/close.",
+    "included": ["Runtime initialization after Budget creation", "Parent and child calls", "Native coordination and waits", "Per-request relay processing/saves", "Runtime/client/server cleanup before the recorded endpoint"],
+    "excluded": ["Batch packet read/hash and output directory/packet preparation", "Final native metadata scan and final wire/events/result serialization at base lines 620-632", "Profile coverage audit and profile/result writes after base.run_case returns", "Batch normalization and runs.json persistence", "Independent evidence adjudication and user-facing verified delivery"],
+    "required_label": "Runtime wall-clock through runtime cleanup, with excluded setup/final-artifact/audit stages disclosed.",
+    "not_supported": "An unqualified task-reception-to-verified-delivery total duration. Do not claim the current timer includes final artifact verification or evaluator work.",
+    "frozen_run_handling": "Do not fabricate retroactive missing timings or change frozen sampling. Report this boundary for the current experiment; instrument a complete outer boundary in a future version if that metric is required."
+  },
+  "single_baseline_boundary": {
+    "full_packet": true,
+    "tool_access": "bounded_request removes all tools for single/single_plus; team modes retain only native lifecycle tools. All modes prohibit filesystem lookup, execution, network research and edits.",
+    "recommended_label": "相同完整冻结资料包上的封闭资料代码评审：A为单次单Agent审查，A+为同thread六阶段复查，B为固定分工原生协作。",
+    "interpretation": "A is information-complete relative to the frozen packet and is not intentionally deprived of business evidence supplied to B. It is nevertheless a one-call, no-retrieval, no-test-execution review baseline. This experiment does not replace the proposal's fully capable production single-agent baseline or show an advantage over tool-using repo investigation, patch generation and actual validation.",
+    "source_refs": ["research/probes/collaboration_live_runner.py:194-223", "research/probes/collaboration_live_runner.py:318-330", "research/probes/collaboration_live_runner.py:514-519"]
+  },
+  "evaluator_and_reporting_boundary": {
+    "strengths": [
+      "All assignments and started attempts have separate denominators; incomplete resource data remains unknown.",
+      "Quality eligibility and delivery are distinct; the output states DESCRIPTIVE_ONLY and warns that runs/repeats are not independent tasks.",
+      "Within-task/repeat comparisons retain unsuccessful rows and only compute quality deltas when both rows are eligible.",
+      "Schedule audit checks real interval validity and records unknown/missing boundaries; it does not equate active children with simultaneous model compute."
+    ],
+    "reporting_requirements": [
+      "Pair quality-eligible scores with delivery over all assigned/started runs. Excluding infrastructure failures from quality must not remove them from reliability or cost reporting.",
+      "Report four independent quality tasks and two independent timing tasks, with repeats used for stability. Do not present 24 quality runs or four timing pairs as independent samples.",
+      "Prefer task-level paired deltas and descriptive ranges; no statistical significance, noninferiority, broad equivalence or guaranteed adoption follows from this small suite.",
+      "Apply the separately recorded common-material evidence ceilings symmetrically; do not treat omitted private-only references as an organization advantage or defect.",
+      "Any positive result concerns bounded review findings, not correct patches, game delivery, Unity acceptance or complete production-agent readiness.",
+      "Preserve exact base/profile hashes from the manifest and current normalizer/evaluator hashes. The confirmation manifest directly pins base/profile runners; the additional measurement-code identities are recorded here and the normalizer records its own hash."
+    ]
+  },
+  "paid_requests_made_by_review": 0,
+  "model_findings_displayed_or_inspected": false,
+  "quality_scores_read": false,
+  "oracle_answers_reopened_for_this_review": false,
+  "real_wire_or_event_payloads_read": false,
+  "frozen_code_or_manifest_modified": false
+}

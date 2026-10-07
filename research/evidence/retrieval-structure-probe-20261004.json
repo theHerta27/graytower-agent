@@ -1,0 +1,1216 @@
+{
+  "created_at": "2026-10-04T07:26:01.339663+00:00",
+  "probe": "exploratory_json_ast_relations_v1",
+  "cases_sha256": "65ad7088c04077521f557e8845dd28b983bc128a09f20ea35476bf8f21f17ed7",
+  "script_sha256": "69ecfafdf8e75d4fd3efa7a93b285d5f62290f0b60bb7c2ee9c08b8bbb3d74dd",
+  "base_script_sha256": "94dd8db060791a3ae0b9205ab42002b699c31a3261c54bd6d172e2a94f000df5",
+  "source_manifest": [
+    {
+      "path": "configs/combat/v2/baseline.json",
+      "sha256": "c2cda0ad3f923b3a4189516d7b442ed24bd3eedfe9d0157182de1111212a6809"
+    },
+    {
+      "path": "configs/combat/v2/content-catalog.json",
+      "sha256": "68bb066ad46435e4d3afbb4725db761f66af0980dc3cb636c4395cfcb7c69c82"
+    },
+    {
+      "path": "configs/combat/v2/scenario.json",
+      "sha256": "6560642e7605ac5442b41eb8cf122c1af2fe29cb0876b92e144df95a92fcb9f8"
+    },
+    {
+      "path": "game-core/combat_core/v2/__init__.py",
+      "sha256": "e377b6b7f0f28962cce26cae999ce02123ad4194d8f76ceb58bb5a0f043b43f4"
+    },
+    {
+      "path": "game-core/combat_core/v2/boss.py",
+      "sha256": "3f72edee3a2557ee56f1b8e9e2d960a676bed7d6eca747039484700190f09397"
+    },
+    {
+      "path": "game-core/combat_core/v2/bots.py",
+      "sha256": "e7231dd469aad9701106a7ee1b98584439e951e8428f8435b61145badd8f60bf"
+    },
+    {
+      "path": "game-core/combat_core/v2/cli.py",
+      "sha256": "b64767ba352aeaf54d4acf62eaa6beef9679839b7f5dbd7285a2385df8af5029"
+    },
+    {
+      "path": "game-core/combat_core/v2/config.py",
+      "sha256": "10916823687145e390416fd11dd3e8ca1b3bda7c6303c1a85f7a9ee1954a4d50"
+    },
+    {
+      "path": "game-core/combat_core/v2/contracts.py",
+      "sha256": "d433b882a7e23ded7827b7385f71a52dc5aee82ed7aa8101b9af0996eb3e0cb8"
+    },
+    {
+      "path": "game-core/combat_core/v2/effects.py",
+      "sha256": "afa556490c51666714edaa3fe83a0f570e71abc71daf64934412b7b4c487bad6"
+    },
+    {
+      "path": "game-core/combat_core/v2/report.py",
+      "sha256": "15f7b5353b4e7cce4e74a3b9f705f0670e3cb803d90ec76bc14f5927271518ed"
+    },
+    {
+      "path": "game-core/combat_core/v2/scheduler.py",
+      "sha256": "b111aabce462ebba95ea2711c5327df269c4ff829436a45cf5a65d795a88db7f"
+    },
+    {
+      "path": "game-core/combat_core/v2/simulation.py",
+      "sha256": "69ef0558b02a7c39d9459d6e0fb0d670608fce1417043915adeee42b3b3b8379"
+    },
+    {
+      "path": "game-core/combat_core/v2/state.py",
+      "sha256": "17a00fb56541d70f4c781d25220df334cec761b7bc6c840aafb29c5af3e0a117"
+    },
+    {
+      "path": "game-core/combat_core/v2/trace.py",
+      "sha256": "1d00d1a68bc8acf5bea52190fe8892597e909dac80c42365cdac02981c04eb9f"
+    },
+    {
+      "path": "game-core/tests/v2/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "game-core/tests/v2/test_acceptance.py",
+      "sha256": "ffa06e871acec4987a9c7c0edababd371663df8d0842fcf8b6d58e0ffed4e09c"
+    },
+    {
+      "path": "game-core/tests/v2/test_boss.py",
+      "sha256": "44a277e6632f1393e5a65b4655855b6b8e1218aaf1185b42e657cef8abe26324"
+    },
+    {
+      "path": "game-core/tests/v2/test_bots.py",
+      "sha256": "96576c805d7157de96cdb66330d3fb2ea97cca10c361c186a396ff6689641c6a"
+    },
+    {
+      "path": "game-core/tests/v2/test_boundaries.py",
+      "sha256": "f7cd688c95a4a3807603d6bd6f27313f0e2fed6f5d7807e9b9f7deab875ef672"
+    },
+    {
+      "path": "game-core/tests/v2/test_cli.py",
+      "sha256": "99c550c218cfb3bfa493857618b422d89643ccaec799bf7c419670a6916dfa6e"
+    },
+    {
+      "path": "game-core/tests/v2/test_contracts.py",
+      "sha256": "5e0b060c4c22ffbe8c679cb0f311fe4ec53aa05fad7112979960c72e38a3c9f6"
+    },
+    {
+      "path": "game-core/tests/v2/test_effects.py",
+      "sha256": "800c50ef4237149ee29e0e0688d6108e5ae0a60951f2afd458c77f4aae0e103d"
+    },
+    {
+      "path": "game-core/tests/v2/test_report.py",
+      "sha256": "0a37cf74f83fb1c886114d71ca596dd1b85ac3e6d754930d5509ed38e46a82bb"
+    },
+    {
+      "path": "game-core/tests/v2/test_scheduler.py",
+      "sha256": "194046b0af81034b3381ab2bae5cc2f7b2f5cecf5fbd13053c476388f2db9dc4"
+    },
+    {
+      "path": "game-core/tests/v2/test_simulation.py",
+      "sha256": "54187d66f2f60c821c90ee79925e55c2c398274b225f6b5098c6a7cc5a990241"
+    },
+    {
+      "path": "game-core/tests/v2/test_trace.py",
+      "sha256": "7ae917c6dbad9e9da8040e80db4715d6007c1cfdc9db379a857410bc5cb8cb08"
+    },
+    {
+      "path": "game-core/tests/v2/test_trace_schema.py",
+      "sha256": "435265b0966e5168bc61d66c5cd6815ee6e74a522631f49ce62dff9fe83de482"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/CombatReplay.cs",
+      "sha256": "3c8000653cd1c37768816e7aa22ad02abce414d7acde232732679d4d637cb22e"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/CombatStateV2.cs",
+      "sha256": "52fc148d5c615eea6f1c62bacbe0f6fcbe2baebca222d2327ce9049e327f1ea3"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/CombatUnitView.cs",
+      "sha256": "0462a59a957377aa1ceacb6172b5a92a8975f1773c1f25a2007909e2db3be5ea"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/ReplayClock.cs",
+      "sha256": "b5dee16b795b2dcdd8baf3ff29f21cc73664daef756fe8aa3fcb6f20317d16bf"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/ReplayOptions.cs",
+      "sha256": "20b8db9d80e275a30fe67d5017da013ae871616a91f8e6d2acfd0a931b1b0461"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/ShowcaseHud.cs",
+      "sha256": "fe0b23035e5885f3c2975a65cede01d52fc12a1a7cab77935bd5134b1faccfcd"
+    },
+    {
+      "path": "game-unity/Assets/Runtime/ShowcaseSmoke.cs",
+      "sha256": "33d77a79c7aef428e42e811f76198a3008f39d5692b726dad312c2c6e0b3a7d3"
+    }
+  ],
+  "original_chunks": 363,
+  "shared_enriched_chunks": 650,
+  "context_max_chars": 6000,
+  "max_chunks": 8,
+  "limitations": [
+    "Exploratory follow-up motivated by the first result, same 6 questions, not held out.",
+    "Both new arms share natural JSON object and short AST chunks; old results preserved separately.",
+    "Relations reflect field reads/type comparisons, not verified full data flow or execution effects.",
+    "No embeddings, model/provider calls, production index, or task completion measurements."
+  ],
+  "summary": {
+    "shared_structured_corpus_lexical_alias": {
+      "macro_evidence_group_recall": 0.6666666666666666,
+      "all_evidence_cases": 3,
+      "cases": 6,
+      "latency_ms_median": 0.881874995684484
+    },
+    "shared_structured_corpus_relations": {
+      "macro_evidence_group_recall": 0.8333333333333334,
+      "all_evidence_cases": 5,
+      "cases": 6,
+      "latency_ms_median": 1.03914999999688
+    }
+  },
+  "results": [
+    {
+      "case_id": "symbol_event",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "shield_expired reason",
+      "expanded_query": "shield_expired reason",
+      "relation_seeds": [],
+      "hit_gold": [
+        true,
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 3883,
+      "latency_ms_median": 0.5381999944802374,
+      "selected": [
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 123,
+          "end": 125,
+          "score": 17.566863,
+          "text": "        if sh.remaining==1:\n            u.shields.remove(sh)\n            recorder.emit('shield_expired',state,dict(shield_seq=sh.created_seq,reason='expired'),target_id=actor_id)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 73,
+          "end": 73,
+          "score": 17.511587,
+          "text": "        if shield.value==0:recorder.emit('shield_expired',state,dict(shield_seq=seq,reason='depleted'),target_id=target)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/trace.py",
+          "start": 9,
+          "end": 20,
+          "score": 11.375539,
+          "text": "' turn_started': {},\n'decision': {'skill_id':str,'target_ids':list[str],'reason_code':str},\n'resource_changed': {'resource':Literal['energy','skill_points'],'before':Nat,'after':Nat,'gained':Nat,'spent':Nat,'overflow':Nat,'reason':str},\n'direct_damage': {'amount':Nat,'absorbed':Nat,'hp_loss':Nat,'overkill':Nat,'critical':bool,'skill_id':str,'damage_type':str},\n'heal': {'amount':Nat,'restored':Nat,'overflow':Nat,'skill_id':str},\n'shield_applied': {'value':Nat,'duration':Nat,'skill_id':str,'refreshed':bool},\n'shield_absorbed': {'amount':Nat,'remaining':Nat,'shield_seq':Nat},\n'shield_expired': {'shield_seq':Nat,'reason':str},\n'status_applied': {'buff_id':str,'duration':Nat,'stacks':Nat,'source_id':str,'attack_snapshot':Rational},\n'status_removed': {'buff_id':str,'reason':str},\n'dot_damage': {'amount':Nat,'absorbed':Nat,'hp_loss':Nat,'overkill':Nat,'buff_id':str},\n' toughness_changed': {'before':Nat,'after':Nat,'reduction':Nat,'damage_type':str,'matched':bool},",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/scheduler.py",
+          "start": 33,
+          "end": 35,
+          "score": 7.594231,
+          "text": "        if u.broken and u.toughness!=0:raise ValueError('invalid break state')\n        if any(b.remaining<1 or b.stacks<1 for b in u.buffs.values()):raise ValueError('expired buff retained')\n        if any(s.value<1 or s.remaining<1 for s in u.shields):raise ValueError('expired shield retained')",
+          "relations": []
+        },
+        {
+          "path": "game-unity/Assets/Runtime/ShowcaseHud.cs",
+          "start": 161,
+          "end": 172,
+          "score": 7.426309,
+          "text": "            case \"boss_summon\": case \"summoned\": return \"召唤支援\"; case \"unit_died\": return \"倒下\";\n            case \"dot_damage\": return \"持续伤害\"; case \"status_applied\": return \"施加状态\"; case \"status_removed\": return \"移除状态\";\n            case \"shield_absorbed\": return \"护盾抵挡\"; case \"shield_expired\": return \"护盾结束\"; case \"enrage_changed\": return \"狂暴\";\n            case \"battle_finished\": return \"战斗结束\"; case \"control_skipped\": return \"行动受控\";\n            case \"mingyan_skill\": return \"战技 · 裂焰\";\n            case \"cheling_skill\": return \"战技 · 治疗净化\";\n            case \"yeren_skill\": return \"战技 · 破隙\";\n            case \"boss_heavy\": return \"重击\"; case \"boss_splash\": return \"溅射\";\n            case \"boss_spike_aoe\": return \"群体冲击\"; case \"boss_overload\": return \"过载\";\n            case \"phase_change\": return \"阶段切换\"; case \"break\": return \"击破\";\n            case \"break_skip\": return \"击破停顿\"; case \"interrupt\": return \"打断\";\n            case \"charge\": return \"蓄力\"; case \"summon\": return \"召唤\";",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 57,
+          "end": 68,
+          "score": 5.737526,
+          "text": "\ndef skill_points(state,gained,spent,recorder,uid,reason):\n    before=state.skill_points;overflow=max(0,before+gained-spent-5)\n    state.skill_points=min(5,before+gained-spent)\n    recorder.emit('resource_changed',state,dict(resource='skill_points',before=before,after=state.skill_points,gained=gained,spent=spent,overflow=overflow,reason=reason),actor_id=uid)\n\n\ndef damage(bundle,state,actor,target,amount,kind,payload,recorder):\n    u=state.units[target];left=amount;absorbed=0\n    for shield in list(u.shields):\n        taken=min(left,shield.value)\n        if not taken:continue",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 119,
+          "end": 119,
+          "score": 5.407564,
+          "text": "        if inst.remaining==1:remove_status(bundle,state,actor_id,bid,'expired',recorder)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 49,
+          "end": 60,
+          "score": 4.616078,
+          "text": "    shields: list[ShieldInstance] = Field(default_factory=list)\n    charging: str | None = None\n    skill_index: Nat = 0\n    speed_passive: bool = False\n\nclass ActionRequest(Model):\n    actor_id: Identifier\n    skill_id: Identifier\n    target_ids: list[Identifier]\n    reason_code: str\n\nclass BattleState(Model):",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "symbol_event",
+      "method": "shared_structured_corpus_relations",
+      "query": "shield_expired reason",
+      "expanded_query": "shield_expired reason",
+      "relation_seeds": [],
+      "hit_gold": [
+        true,
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 3883,
+      "latency_ms_median": 0.6128000022727065,
+      "selected": [
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 123,
+          "end": 125,
+          "score": 17.566863,
+          "text": "        if sh.remaining==1:\n            u.shields.remove(sh)\n            recorder.emit('shield_expired',state,dict(shield_seq=sh.created_seq,reason='expired'),target_id=actor_id)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 73,
+          "end": 73,
+          "score": 17.511587,
+          "text": "        if shield.value==0:recorder.emit('shield_expired',state,dict(shield_seq=seq,reason='depleted'),target_id=target)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/trace.py",
+          "start": 9,
+          "end": 20,
+          "score": 11.375539,
+          "text": "' turn_started': {},\n'decision': {'skill_id':str,'target_ids':list[str],'reason_code':str},\n'resource_changed': {'resource':Literal['energy','skill_points'],'before':Nat,'after':Nat,'gained':Nat,'spent':Nat,'overflow':Nat,'reason':str},\n'direct_damage': {'amount':Nat,'absorbed':Nat,'hp_loss':Nat,'overkill':Nat,'critical':bool,'skill_id':str,'damage_type':str},\n'heal': {'amount':Nat,'restored':Nat,'overflow':Nat,'skill_id':str},\n'shield_applied': {'value':Nat,'duration':Nat,'skill_id':str,'refreshed':bool},\n'shield_absorbed': {'amount':Nat,'remaining':Nat,'shield_seq':Nat},\n'shield_expired': {'shield_seq':Nat,'reason':str},\n'status_applied': {'buff_id':str,'duration':Nat,'stacks':Nat,'source_id':str,'attack_snapshot':Rational},\n'status_removed': {'buff_id':str,'reason':str},\n'dot_damage': {'amount':Nat,'absorbed':Nat,'hp_loss':Nat,'overkill':Nat,'buff_id':str},\n' toughness_changed': {'before':Nat,'after':Nat,'reduction':Nat,'damage_type':str,'matched':bool},",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/scheduler.py",
+          "start": 33,
+          "end": 35,
+          "score": 7.594231,
+          "text": "        if u.broken and u.toughness!=0:raise ValueError('invalid break state')\n        if any(b.remaining<1 or b.stacks<1 for b in u.buffs.values()):raise ValueError('expired buff retained')\n        if any(s.value<1 or s.remaining<1 for s in u.shields):raise ValueError('expired shield retained')",
+          "relations": []
+        },
+        {
+          "path": "game-unity/Assets/Runtime/ShowcaseHud.cs",
+          "start": 161,
+          "end": 172,
+          "score": 7.426309,
+          "text": "            case \"boss_summon\": case \"summoned\": return \"召唤支援\"; case \"unit_died\": return \"倒下\";\n            case \"dot_damage\": return \"持续伤害\"; case \"status_applied\": return \"施加状态\"; case \"status_removed\": return \"移除状态\";\n            case \"shield_absorbed\": return \"护盾抵挡\"; case \"shield_expired\": return \"护盾结束\"; case \"enrage_changed\": return \"狂暴\";\n            case \"battle_finished\": return \"战斗结束\"; case \"control_skipped\": return \"行动受控\";\n            case \"mingyan_skill\": return \"战技 · 裂焰\";\n            case \"cheling_skill\": return \"战技 · 治疗净化\";\n            case \"yeren_skill\": return \"战技 · 破隙\";\n            case \"boss_heavy\": return \"重击\"; case \"boss_splash\": return \"溅射\";\n            case \"boss_spike_aoe\": return \"群体冲击\"; case \"boss_overload\": return \"过载\";\n            case \"phase_change\": return \"阶段切换\"; case \"break\": return \"击破\";\n            case \"break_skip\": return \"击破停顿\"; case \"interrupt\": return \"打断\";\n            case \"charge\": return \"蓄力\"; case \"summon\": return \"召唤\";",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 57,
+          "end": 68,
+          "score": 5.737526,
+          "text": "\ndef skill_points(state,gained,spent,recorder,uid,reason):\n    before=state.skill_points;overflow=max(0,before+gained-spent-5)\n    state.skill_points=min(5,before+gained-spent)\n    recorder.emit('resource_changed',state,dict(resource='skill_points',before=before,after=state.skill_points,gained=gained,spent=spent,overflow=overflow,reason=reason),actor_id=uid)\n\n\ndef damage(bundle,state,actor,target,amount,kind,payload,recorder):\n    u=state.units[target];left=amount;absorbed=0\n    for shield in list(u.shields):\n        taken=min(left,shield.value)\n        if not taken:continue",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 119,
+          "end": 119,
+          "score": 5.407564,
+          "text": "        if inst.remaining==1:remove_status(bundle,state,actor_id,bid,'expired',recorder)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 49,
+          "end": 60,
+          "score": 4.616078,
+          "text": "    shields: list[ShieldInstance] = Field(default_factory=list)\n    charging: str | None = None\n    skill_index: Nat = 0\n    speed_passive: bool = False\n\nclass ActionRequest(Model):\n    actor_id: Identifier\n    skill_id: Identifier\n    target_ids: list[Identifier]\n    reason_code: str\n\nclass BattleState(Model):",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "catalogue_zh",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "护盾展开 持续时间 配置",
+      "expanded_query": "护盾展开 持续时间 配置 support_ultimate",
+      "relation_seeds": [],
+      "hit_gold": [
+        false,
+        true
+      ],
+      "evidence_group_recall": 0.5,
+      "all_required_evidence_found": false,
+      "context_chars": 4059,
+      "latency_ms_median": 0.9777999948710203,
+      "selected": [
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 47,
+          "end": 50,
+          "score": 32.601956,
+          "text": "  \"support_ultimate\": {\n    \"display_name\": \"护盾展开\",\n    \"description\": \"为存活队友提供攻击力180%的护盾，持续2个普通回合。消耗全部满额能量，不占本次普通行动，不削韧。\"\n  },",
+          "relations": []
+        },
+        {
+          "path": "game-unity/Assets/Runtime/ShowcaseHud.cs",
+          "start": 153,
+          "end": 164,
+          "score": 19.786344,
+          "text": "        {\n            case \"striker_basic\": case \"support_basic\": case \"breaker_basic\": return \"普通攻击\";\n            case \"striker_skill\": return \"战技 · 强袭\"; case \"striker_ultimate\": return \"终结技 · 爆发射击\";\n            case \"support_skill\": return \"战技 · 群体治疗\"; case \"support_ultimate\": return \"终结技 · 护盾展开\";\n            case \"breaker_skill\": return \"战技 · 破盾攻击\"; case \"breaker_ultimate\": return \"终结技 · 雷霆冲击\";\n            case \"break_triggered\": return \"弱点击破\"; case \"break_damage\": return \"击破伤害\"; case \"action_delayed\": return \"行动延后\";\n            case \"toughness_restored\": return \"韧性恢复\"; case \"phase_changed\": return \"阶段切换\";\n            case \"boss_strike\": return \"首领重击\"; case \"boss_sweep\": return \"范围扫击\"; case \"boss_charge\": return \"蓄力冲击\";\n            case \"boss_summon\": case \"summoned\": return \"召唤支援\"; case \"unit_died\": return \"倒下\";\n            case \"dot_damage\": return \"持续伤害\"; case \"status_applied\": return \"施加状态\"; case \"status_removed\": return \"移除状态\";\n            case \"shield_absorbed\": return \"护盾抵挡\"; case \"shield_expired\": return \"护盾结束\"; case \"enrage_changed\": return \"狂暴\";\n            case \"battle_finished\": return \"战斗结束\"; case \"control_skipped\": return \"行动受控\";",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 34,
+          "end": 38,
+          "score": 13.644671,
+          "text": "      \"skill_slots\": {\n        \"basic_attack\": \"support_basic\",\n        \"skill\": \"support_skill\",\n        \"ultimate\": \"support_ultimate\"\n      },",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_bots.py",
+          "start": 17,
+          "end": 21,
+          "score": 11.4155,
+          "text": "    b,s,r,rec=world;s.units['support_01'].energy=120\n    assert choose_ultimate(b,s,'support_01','basic_only') is None\n    assert choose_ultimate(b,s,'support_01','balanced').skill_id=='support_ultimate'\n    s.units[b.boss_id].weaknesses=['fire']\n    assert choose_normal_action(b,s,'breaker_01','balanced').target_ids==[b.boss_id]",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 121,
+          "end": 132,
+          "score": 11.165683,
+          "text": "    \"support_skill\": {\n      \"skill_type\": \"skill\",\n      \"effect_type\": \"heal\",\n      \"target\": \"all\",\n      \"scaling_stat\": \"ATK\",\n      \"multiplier\": 1.2,\n      \"sp_cost\": 1,\n      \"sp_gain\": 0,\n      \"energy_gain\": 30,\n      \"cleanse\": true\n    },\n    \"support_ultimate\": {",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boundaries.py",
+          "start": 17,
+          "end": 28,
+          "score": 10.580616,
+          "text": "def test_zero_damage_no_energy_full_shield_still_breaks(world):\n    b,s,r,rec=world;boss=s.units[b.boss_id];boss.atk=0\n    act(world,b.boss_id,'boss_strike',['striker_01'])\n    assert s.units['striker_01'].energy==0\n    boss.shields=[ShieldInstance(source_id=b.boss_id,skill_id='support_ultimate',value=10000,remaining=2,created_seq=1)]\n    boss.toughness=30;before=boss.hp\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert boss.hp==before and boss.broken and len(boss.shields)==1\n\ndef test_shield_fifo_and_expiry(world):\n    b,s,r,rec=world;u=s.units['striker_01']\n    u.shields=[ShieldInstance(source_id='support_01',skill_id='support_ultimate',value=10,remaining=1,created_seq=1),ShieldInstance(source_id='striker_01',skill_id='support_ultimate',value=100,remaining=1,created_seq=2)]",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_effects.py",
+          "start": 57,
+          "end": 68,
+          "score": 10.309823,
+          "text": "    before=s.model_copy(deep=True);rng_before=r.getstate()\n    with pytest.raises(ValueError):resolve_action(b,s,ActionRequest(actor_id='striker_01',skill_id='striker_skill',target_ids=[b.boss_id],reason_code='test'),r,rec)\n    assert s==before and r.getstate()==rng_before and not rec.events\n\ndef test_full_shield_hit_energy_and_refresh(world):\n    b,s,_,rec=world;s.units['support_01'].energy=120\n    act(world,'support_01','support_ultimate',b.party)\n    act(world,b.boss_id,'boss_strike',['striker_01'])\n    u=s.units['striker_01'];assert u.hp==1200 and u.energy==5\n    s.units['support_01'].energy=120\n    act(world,'support_01','support_ultimate',b.party)\n    assert len(u.shields)==1 and u.shields[0].value==324",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 7,
+          "end": 11,
+          "score": 7.788316,
+          "text": "  \"support_01\": {\n    \"display_name\": \"支援-01\",\n    \"role_label\": \"支援\",\n    \"description\": \"通过治疗、净化与护盾维持生存，普通攻击恢复战技点并协助物理弱点削韧。\"\n  },",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "catalogue_zh",
+      "method": "shared_structured_corpus_relations",
+      "query": "护盾展开 持续时间 配置",
+      "expanded_query": "护盾展开 持续时间 配置 support_ultimate",
+      "relation_seeds": [
+        "support_ultimate"
+      ],
+      "hit_gold": [
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 1568,
+      "latency_ms_median": 1.0381999964010902,
+      "selected": [
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 47,
+          "end": 50,
+          "score": 71.724304,
+          "text": "  \"support_ultimate\": {\n    \"display_name\": \"护盾展开\",\n    \"description\": \"为存活队友提供攻击力180%的护盾，持续2个普通回合。消耗全部满额能量，不占本次普通行动，不削韧。\"\n  },",
+          "relations": [
+            {
+              "weight": 1.2,
+              "relation": [
+                "name_or_exact_id",
+                "support_ultimate",
+                "json_object"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 132,
+          "end": 142,
+          "score": 50.130121,
+          "text": "    \"support_ultimate\": {\n      \"skill_type\": \"ultimate\",\n      \"effect_type\": \"shield\",\n      \"target\": \"all\",\n      \"scaling_stat\": \"ATK\",\n      \"multiplier\": 1.8,\n      \"sp_cost\": 0,\n      \"sp_gain\": 0,\n      \"energy_gain\": 0,\n      \"shield_duration\": 2\n    },",
+          "relations": [
+            {
+              "weight": 1.2,
+              "relation": [
+                "name_or_exact_id",
+                "support_ultimate",
+                "json_object"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 138,
+          "end": 139,
+          "score": 34.631763,
+          "text": "        if skill.skill_type=='ultimate':\n            if state.ultimate_used or state.normal_used or u.energy!=u.energy_max:raise ValueError('ultimate window/energy invalid')",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "skill_type",
+                "ultimate",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 160,
+          "end": 160,
+          "score": 34.608971,
+          "text": "    if skill.skill_type=='ultimate':state.ultimate_used=True",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "skill_type",
+                "ultimate",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 163,
+          "end": 163,
+          "score": 34.475556,
+          "text": "    if skill.skill_type=='ultimate':energy(bundle,state,uid,state.units[uid].energy_max,recorder,'ultimate',True)",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "skill_type",
+                "ultimate",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/boss.py",
+          "start": 48,
+          "end": 48,
+          "score": 30.971859,
+          "text": "    if skill.target=='all':return [uid for uid,u in sorted(live,key=unit_order)]",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "target",
+                "all",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/bots.py",
+          "start": 16,
+          "end": 16,
+          "score": 30.971859,
+          "text": "    if skill.target=='all':return [uid for uid,u in sorted(live,key=unit_order)]",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "target",
+                "all",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/bots.py",
+          "start": 29,
+          "end": 32,
+          "score": 30.971859,
+          "text": "    if skill.effect_type=='shield':\n        scale={'ATK':u.atk,'HP':u.max_hp,'DEF':u.defense}[skill.scaling_stat]\n        value=int(scale*fraction(skill.multiplier))\n        if not any(sum(sh.value for sh in t.shields)<Fraction(value,2) for t in state.units.values() if t.side=='player' and not t.dead):return None",
+          "relations": [
+            {
+              "weight": 0.95,
+              "relation": [
+                "support_ultimate",
+                "effect_type",
+                "shield",
+                "ast_equality_branch"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "chinese_rule",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "破盾攻击 为什么不额外移除生命护盾",
+      "expanded_query": "破盾攻击 为什么不额外移除生命护盾 breaker_skill",
+      "relation_seeds": [],
+      "hit_gold": [
+        true,
+        false
+      ],
+      "evidence_group_recall": 0.5,
+      "all_required_evidence_found": false,
+      "context_chars": 2992,
+      "latency_ms_median": 1.5390999978990294,
+      "selected": [
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 51,
+          "end": 54,
+          "score": 71.939498,
+          "text": "  \"breaker_skill\": {\n    \"display_name\": \"破盾攻击\",\n    \"description\": \"造成攻击力140%的雷电伤害；命中雷电弱点削减90韧性。消耗1战技点，恢复30基础能量；不额外移除生命护盾。\"\n  },",
+          "relations": []
+        },
+        {
+          "path": "game-unity/Assets/Runtime/ShowcaseHud.cs",
+          "start": 153,
+          "end": 164,
+          "score": 21.33187,
+          "text": "        {\n            case \"striker_basic\": case \"support_basic\": case \"breaker_basic\": return \"普通攻击\";\n            case \"striker_skill\": return \"战技 · 强袭\"; case \"striker_ultimate\": return \"终结技 · 爆发射击\";\n            case \"support_skill\": return \"战技 · 群体治疗\"; case \"support_ultimate\": return \"终结技 · 护盾展开\";\n            case \"breaker_skill\": return \"战技 · 破盾攻击\"; case \"breaker_ultimate\": return \"终结技 · 雷霆冲击\";\n            case \"break_triggered\": return \"弱点击破\"; case \"break_damage\": return \"击破伤害\"; case \"action_delayed\": return \"行动延后\";\n            case \"toughness_restored\": return \"韧性恢复\"; case \"phase_changed\": return \"阶段切换\";\n            case \"boss_strike\": return \"首领重击\"; case \"boss_sweep\": return \"范围扫击\"; case \"boss_charge\": return \"蓄力冲击\";\n            case \"boss_summon\": case \"summoned\": return \"召唤支援\"; case \"unit_died\": return \"倒下\";\n            case \"dot_damage\": return \"持续伤害\"; case \"status_applied\": return \"施加状态\"; case \"status_removed\": return \"移除状态\";\n            case \"shield_absorbed\": return \"护盾抵挡\"; case \"shield_expired\": return \"护盾结束\"; case \"enrage_changed\": return \"狂暴\";\n            case \"battle_finished\": return \"战斗结束\"; case \"control_skipped\": return \"行动受控\";",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 1,
+          "end": 12,
+          "score": 13.253839,
+          "text": "{\n  \"striker_01\": {\n    \"display_name\": \"强攻-01\",\n    \"role_label\": \"强攻\",\n    \"description\": \"以直接生命伤害与终结技爆发为主，火焰弱点匹配时同时削韧。\"\n  },\n  \"support_01\": {\n    \"display_name\": \"支援-01\",\n    \"role_label\": \"支援\",\n    \"description\": \"通过治疗、净化与护盾维持生存，普通攻击恢复战技点并协助物理弱点削韧。\"\n  },\n  \"breaker_01\": {",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 53,
+          "end": 57,
+          "score": 11.902958,
+          "text": "      \"skill_slots\": {\n        \"basic_attack\": \"breaker_basic\",\n        \"skill\": \"breaker_skill\",\n        \"ultimate\": \"breaker_ultimate\"\n      },",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 43,
+          "end": 46,
+          "score": 10.088457,
+          "text": "  \"support_skill\": {\n    \"display_name\": \"群体治疗\",\n    \"description\": \"为存活队友恢复攻击力120%的生命，并净化可驱散负面状态。消耗1战技点，恢复30基础能量，不削韧。\"\n  },",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 47,
+          "end": 50,
+          "score": 9.417608,
+          "text": "  \"support_ultimate\": {\n    \"display_name\": \"护盾展开\",\n    \"description\": \"为存活队友提供攻击力180%的护盾，持续2个普通回合。消耗全部满额能量，不占本次普通行动，不削韧。\"\n  },",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 145,
+          "end": 156,
+          "score": 9.267342,
+          "text": "      \"effect_type\": \"damage\",\n      \"target\": \"single\",\n      \"scaling_stat\": \"ATK\",\n      \"multiplier\": 1.0,\n      \"sp_cost\": 0,\n      \"sp_gain\": 1,\n      \"energy_gain\": 20,\n      \"damage_type\": \"lightning\",\n      \"toughness_reduction\": 30\n    },\n    \"breaker_skill\": {\n      \"skill_type\": \"skill\",",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 25,
+          "end": 36,
+          "score": 7.938643,
+          "text": "    \"description\": \"造成攻击力100%的火焰伤害；命中对应弱点削减30韧性。恢复1战技点及20基础能量。\"\n  },\n  \"support_basic\": {\n    \"display_name\": \"普通攻击\",\n    \"description\": \"造成攻击力100%的物理伤害；命中对应弱点削减30韧性。恢复1战技点及20基础能量。\"\n  },\n  \"breaker_basic\": {\n    \"display_name\": \"普通攻击\",\n    \"description\": \"造成攻击力100%的雷电伤害；命中对应弱点削减30韧性。恢复1战技点及20基础能量。\"\n  },\n  \"striker_skill\": {\n    \"display_name\": \"强袭\",",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "chinese_rule",
+      "method": "shared_structured_corpus_relations",
+      "query": "破盾攻击 为什么不额外移除生命护盾",
+      "expanded_query": "破盾攻击 为什么不额外移除生命护盾 breaker_skill",
+      "relation_seeds": [
+        "breaker_skill"
+      ],
+      "hit_gold": [
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 5966,
+      "latency_ms_median": 1.6985500042210333,
+      "selected": [
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 51,
+          "end": 54,
+          "score": 158.266895,
+          "text": "  \"breaker_skill\": {\n    \"display_name\": \"破盾攻击\",\n    \"description\": \"造成攻击力140%的雷电伤害；命中雷电弱点削减90韧性。消耗1战技点，恢复30基础能量；不额外移除生命护盾。\"\n  },",
+          "relations": [
+            {
+              "weight": 1.2,
+              "relation": [
+                "name_or_exact_id",
+                "breaker_skill",
+                "json_object"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 155,
+          "end": 166,
+          "score": 95.594739,
+          "text": "    \"breaker_skill\": {\n      \"skill_type\": \"skill\",\n      \"effect_type\": \"damage\",\n      \"target\": \"single\",\n      \"scaling_stat\": \"ATK\",\n      \"multiplier\": 1.4,\n      \"sp_cost\": 1,\n      \"sp_gain\": 0,\n      \"energy_gain\": 30,\n      \"damage_type\": \"lightning\",\n      \"toughness_reduction\": 90\n    },",
+          "relations": [
+            {
+              "weight": 1.2,
+              "relation": [
+                "name_or_exact_id",
+                "breaker_skill",
+                "json_object"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/tests/v2/test_contracts.py",
+          "start": 9,
+          "end": 20,
+          "score": 45.810356,
+          "text": "    from combat_core.v2.state import initial_state\n    b = load_bundle(ROOT/'configs/combat/v2/baseline.json')\n    s = initial_state(b, load_scenario(ROOT/'configs/combat/v2/scenario.json'))\n    assert b.contract_version == '2.0'\n    assert s.skill_points == 3\n    assert s.units['support_01'].energy_max == 120\n    assert b.skills['breaker_skill'].toughness_reduction == 90\n    assert b.phases[1].weaknesses == ['lightning', 'physical']\n    d=b.model_dump(); d['phases'][1]['weaknesses'].reverse()\n    assert config_hash(type(b).model_validate(d)) == config_hash(b)\n    d['skills']['striker_skill']['multiplier']=1.98\n    assert config_hash(type(b).model_validate(d)) != config_hash(b)",
+          "relations": [
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "toughness_reduction",
+                "ast_attribute_read"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 161,
+          "end": 172,
+          "score": 41.407829,
+          "text": "    else:state.normal_used=True\n    recorder.cause=recorder.emit('decision',state,dict(skill_id=action.skill_id,target_ids=action.target_ids,reason_code=action.reason_code),actor_id=uid)\n    if skill.skill_type=='ultimate':energy(bundle,state,uid,state.units[uid].energy_max,recorder,'ultimate',True)\n    if skill.sp_cost:skill_points(state,0,skill.sp_cost,recorder,uid,'skill_cost')\n\n\ndef finish_action(bundle,state,action,recorder):\n    skill=bundle.skills[action.skill_id]\n    if skill.energy_gain:energy(bundle,state,action.actor_id,skill.energy_gain,recorder,'skill_gain')\n    if skill.sp_gain:skill_points(state,skill.sp_gain,0,recorder,action.actor_id,'basic_gain')\n    recorder.emit('action_finished',state,dict(skill_id=action.skill_id),actor_id=action.actor_id)\n    recorder.cause=None",
+          "relations": [
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "energy_gain",
+                "ast_attribute_read"
+              ]
+            },
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "sp_gain",
+                "ast_attribute_read"
+              ]
+            },
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "sp_cost",
+                "ast_attribute_read"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 137,
+          "end": 148,
+          "score": 41.294227,
+          "text": "        if action.skill_id not in c.skill_slots.model_dump().values():raise ValueError('skill not owned')\n        if skill.skill_type=='ultimate':\n            if state.ultimate_used or state.normal_used or u.energy!=u.energy_max:raise ValueError('ultimate window/energy invalid')\n        elif state.normal_used:raise ValueError('normal action already used')\n    else:\n        if state.normal_used:raise ValueError('enemy action already used')\n        if u.charging is not None and action.skill_id != u.charging:raise ValueError('locked charge cannot be replaced')\n        allowed=bundle.phases[state.phase_index].skill_pool if uid==bundle.boss_id else [bundle.enemy_templates[u.template_id].skill_id]\n        if action.skill_id not in allowed:raise ValueError('enemy skill not owned')\n    if skill.sp_cost>state.skill_points:raise ValueError('not enough skill points')\n    if len(action.target_ids)!=len(set(action.target_ids)):raise ValueError('duplicate target')\n    side=u.side if skill.effect_type in ('heal','shield','summon') else ('enemy' if u.side=='player' else 'player')",
+          "relations": [
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "sp_cost",
+                "ast_attribute_read"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 185,
+          "end": 196,
+          "score": 41.161821,
+          "text": "            if passive and passive.kind=='low_toughness_bonus' and u.toughness_max and Fraction(u.toughness,u.toughness_max)<=fraction(passive.threshold):bonus+=fraction(passive.value)\n            amount=int(scale*fraction(skill.multiplier)*(1+bonus)*(1+a.crit_damage_bonus if crit else 1)*200/(u.defense+200))\n            damage(bundle,state,uid,tid,amount,'direct_damage',dict(critical=crit,skill_id=action.skill_id,damage_type=skill.damage_type),recorder)\n            if not u.dead and amount>0:energy(bundle,state,tid,bundle.characters[tid].energy_gain_on_hit if tid in bundle.characters else 0,recorder,'hit')\n            if not u.dead and u.side=='enemy':\n                before=u.toughness;matched=skill.damage_type in u.weaknesses\n                reduction=min(before,skill.toughness_reduction) if matched and not u.broken else 0\n                u.toughness-=reduction\n                recorder.emit('toughness_changed',state,dict(before=before,after=u.toughness,reduction=reduction,damage_type=skill.damage_type,matched=matched),actor_id=uid,target_id=tid)\n                if before>0 and u.toughness==0:\n                    u.broken=True\n                    recorder.emit('break_triggered',state,dict(skill_id=action.skill_id,damage_type=skill.damage_type,before=before,after=0),actor_id=uid,target_id=tid)",
+          "relations": [
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "toughness_reduction",
+                "ast_attribute_read"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "game-core/combat_core/v2/contracts.py",
+          "start": 89,
+          "end": 100,
+          "score": 41.089409,
+          "text": "            raise ValueError('shield duration required only for shield')\n        if self.cleanse and self.effect_type != 'heal': raise ValueError('cleanse requires heal')\n        if self.skill_type == 'basic_attack' and (self.effect_type != 'damage' or self.target != 'single' or self.sp_cost or self.sp_gain != 1):\n            raise ValueError('basic attack must be free single damage and recover one SP')\n        if self.skill_type == 'skill' and (self.sp_cost != 1 or self.sp_gain or self.effect_type == 'summon'):\n            raise ValueError('skill costs one SP')\n        if self.skill_type in ('ultimate','enemy_action') and (self.sp_cost or self.sp_gain or self.energy_gain):\n            raise ValueError('ultimate/enemy action cannot recover resources')\n        if self.interruptible and self.skill_type != 'enemy_action': raise ValueError('only enemy can charge')\n        if self.effect_type == 'summon' and self.skill_type != 'enemy_action': raise ValueError('only enemies summon')\n        return self\n",
+          "relations": [
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "energy_gain",
+                "ast_attribute_read"
+              ]
+            },
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "sp_gain",
+                "ast_attribute_read"
+              ]
+            },
+            {
+              "weight": 0.55,
+              "relation": [
+                "breaker_skill",
+                "field",
+                "sp_cost",
+                "ast_attribute_read"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 1,
+          "end": 12,
+          "score": 13.253839,
+          "text": "{\n  \"striker_01\": {\n    \"display_name\": \"强攻-01\",\n    \"role_label\": \"强攻\",\n    \"description\": \"以直接生命伤害与终结技爆发为主，火焰弱点匹配时同时削韧。\"\n  },\n  \"support_01\": {\n    \"display_name\": \"支援-01\",\n    \"role_label\": \"支援\",\n    \"description\": \"通过治疗、净化与护盾维持生存，普通攻击恢复战技点并协助物理弱点削韧。\"\n  },\n  \"breaker_01\": {",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "exact_test",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "test_attribute_binds_damage_and_toughness",
+      "expanded_query": "test_attribute_binds_damage_and_toughness",
+      "relation_seeds": [],
+      "hit_gold": [
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 5964,
+      "latency_ms_median": 0.8434999981545843,
+      "selected": [
+        {
+          "path": "game-core/tests/v2/test_effects.py",
+          "start": 25,
+          "end": 36,
+          "score": 22.190687,
+          "text": "\n@pytest.mark.parametrize('weakness,remaining',[(['fire'],100),(['lightning'],70)])\ndef test_attribute_binds_damage_and_toughness(world,weakness,remaining):\n    b,s,_,rec=world;u=s.units['breaker_01'];u.atk=Fraction(220);u.crit_rate=Fraction(0)\n    target=s.units[b.boss_id];target.defense=Fraction(0);target.weaknesses=weakness;target.toughness=100\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert 14000-target.hp==220 and target.toughness==remaining\n\ndef test_break_damage_delay_feedback_and_no_repeat(world):\n    b,s,_,rec=world;target=s.units[b.boss_id];target.toughness=30;s.units['breaker_01'].crit_rate=Fraction(0)\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert target.broken and target.remaining_distance==12500",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 185,
+          "end": 196,
+          "score": 8.769988,
+          "text": "            if passive and passive.kind=='low_toughness_bonus' and u.toughness_max and Fraction(u.toughness,u.toughness_max)<=fraction(passive.threshold):bonus+=fraction(passive.value)\n            amount=int(scale*fraction(skill.multiplier)*(1+bonus)*(1+a.crit_damage_bonus if crit else 1)*200/(u.defense+200))\n            damage(bundle,state,uid,tid,amount,'direct_damage',dict(critical=crit,skill_id=action.skill_id,damage_type=skill.damage_type),recorder)\n            if not u.dead and amount>0:energy(bundle,state,tid,bundle.characters[tid].energy_gain_on_hit if tid in bundle.characters else 0,recorder,'hit')\n            if not u.dead and u.side=='enemy':\n                before=u.toughness;matched=skill.damage_type in u.weaknesses\n                reduction=min(before,skill.toughness_reduction) if matched and not u.broken else 0\n                u.toughness-=reduction\n                recorder.emit('toughness_changed',state,dict(before=before,after=u.toughness,reduction=reduction,damage_type=skill.damage_type,matched=matched),actor_id=uid,target_id=tid)\n                if before>0 and u.toughness==0:\n                    u.broken=True\n                    recorder.emit('break_triggered',state,dict(skill_id=action.skill_id,damage_type=skill.damage_type,before=before,after=0),actor_id=uid,target_id=tid)",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boss.py",
+          "start": 1,
+          "end": 12,
+          "score": 7.839673,
+          "text": "from fractions import Fraction\nfrom .test_effects import world,act\n\ndef test_phase_crossing_resets_only_final_and_retains_delay(world):\n    from combat_core.v2.boss import apply_phase_transition\n    b,s,r,rec=world;u=s.units[b.boss_id];u.hp=4000;u.broken=True;u.toughness=0;u.remaining_distance=Fraction(12500);u.charging='boss_charge';s.enrage_stacks=3\n    apply_phase_transition(b,s,rec)\n    assert s.phase_index==2 and u.toughness==420 and not u.broken\n    assert u.remaining_distance==12500 and u.charging is None and u.skill_index==0\n    assert s.phase_action_count==0 and s.enrage_stacks==0\n    assert [e.payload.entered for e in rec.events if e.kind=='phase_changed']==[False,True]\n",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boss.py",
+          "start": 17,
+          "end": 28,
+          "score": 7.588351,
+          "text": "    assert s.phase_index==0 and not rec.events\n\ndef test_enrage_and_recovery_do_not_skip(world):\n    from combat_core.v2.boss import begin_enemy_turn,choose_enemy_action\n    b,s,r,rec=world;u=s.units[b.boss_id];s.phase_action_count=8;u.broken=True;u.toughness=0\n    begin_enemy_turn(b,s,b.boss_id,rec)\n    assert s.enrage_stacks==1 and u.atk==Fraction(385,2)\n    assert u.toughness==300 and not u.broken\n    assert choose_enemy_action(b,s,b.boss_id).skill_id=='boss_strike'\n\ndef test_charge_cancel_advances_once(world):\n    from combat_core.v2.boss import apply_phase_transition,resolve_enemy_action,choose_enemy_action",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_effects.py",
+          "start": 41,
+          "end": 52,
+          "score": 7.54627,
+          "text": "\ndef test_lethal_direct_damage_does_not_break(world):\n    b,s,_,rec=world;s.units[b.boss_id].hp=1;s.units[b.boss_id].toughness=1\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert not any(e.kind=='break_triggered' for e in rec.events)\n\ndef test_energy_overflow_and_sp_overflow(world):\n    b,s,_,rec=world;b.characters['striker_01'].energy_regen_rate=.2;s.units['striker_01'].energy=115;s.skill_points=5\n    act(world,'striker_01','striker_basic',[b.boss_id])\n    energy=[e.payload for e in rec.events if e.kind=='resource_changed' and e.payload.resource=='energy'][-1]\n    assert (energy.gained,energy.overflow,energy.after)==(24,19,120)\n    assert any(e.kind=='resource_changed' and e.payload.overflow==1 for e in rec.events)",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_contracts.py",
+          "start": 33,
+          "end": 44,
+          "score": 7.49056,
+          "text": "    if mutation=='extra': d['skills']['breaker_skill']['toughness_damage_type']='fire'\n    with pytest.raises(ValueError): type(b).model_validate(d)\n\ndef test_version_isolation():\n    from combat_core.contracts import load_config\n    from combat_core.v2.config import load_bundle\n    with pytest.raises(ValueError): load_config(ROOT/'configs/combat/v2/baseline.json')\n    with pytest.raises(ValueError): load_bundle(ROOT/'configs/combat/baseline.json')\n    assert load_config(ROOT/'configs/combat/baseline.json')\n\ndef test_break_energy_rejects_unused_threshold_and_fractional_energy():\n    from combat_core.v2.config import load_bundle",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boundaries.py",
+          "start": 17,
+          "end": 28,
+          "score": 7.170485,
+          "text": "def test_zero_damage_no_energy_full_shield_still_breaks(world):\n    b,s,r,rec=world;boss=s.units[b.boss_id];boss.atk=0\n    act(world,b.boss_id,'boss_strike',['striker_01'])\n    assert s.units['striker_01'].energy==0\n    boss.shields=[ShieldInstance(source_id=b.boss_id,skill_id='support_ultimate',value=10000,remaining=2,created_seq=1)]\n    boss.toughness=30;before=boss.hp\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert boss.hp==before and boss.broken and len(boss.shields)==1\n\ndef test_shield_fifo_and_expiry(world):\n    b,s,r,rec=world;u=s.units['striker_01']\n    u.shields=[ShieldInstance(source_id='support_01',skill_id='support_ultimate',value=10,remaining=1,created_seq=1),ShieldInstance(source_id='striker_01',skill_id='support_ultimate',value=100,remaining=1,created_seq=2)]",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_report.py",
+          "start": 33,
+          "end": 33,
+          "score": 3.250254,
+          "text": "    assert m.phases['phase_3']['completed'] is False",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "exact_test",
+      "method": "shared_structured_corpus_relations",
+      "query": "test_attribute_binds_damage_and_toughness",
+      "expanded_query": "test_attribute_binds_damage_and_toughness",
+      "relation_seeds": [],
+      "hit_gold": [
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 5964,
+      "latency_ms_median": 1.1300000114715658,
+      "selected": [
+        {
+          "path": "game-core/tests/v2/test_effects.py",
+          "start": 25,
+          "end": 36,
+          "score": 22.190687,
+          "text": "\n@pytest.mark.parametrize('weakness,remaining',[(['fire'],100),(['lightning'],70)])\ndef test_attribute_binds_damage_and_toughness(world,weakness,remaining):\n    b,s,_,rec=world;u=s.units['breaker_01'];u.atk=Fraction(220);u.crit_rate=Fraction(0)\n    target=s.units[b.boss_id];target.defense=Fraction(0);target.weaknesses=weakness;target.toughness=100\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert 14000-target.hp==220 and target.toughness==remaining\n\ndef test_break_damage_delay_feedback_and_no_repeat(world):\n    b,s,_,rec=world;target=s.units[b.boss_id];target.toughness=30;s.units['breaker_01'].crit_rate=Fraction(0)\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert target.broken and target.remaining_distance==12500",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/effects.py",
+          "start": 185,
+          "end": 196,
+          "score": 8.769988,
+          "text": "            if passive and passive.kind=='low_toughness_bonus' and u.toughness_max and Fraction(u.toughness,u.toughness_max)<=fraction(passive.threshold):bonus+=fraction(passive.value)\n            amount=int(scale*fraction(skill.multiplier)*(1+bonus)*(1+a.crit_damage_bonus if crit else 1)*200/(u.defense+200))\n            damage(bundle,state,uid,tid,amount,'direct_damage',dict(critical=crit,skill_id=action.skill_id,damage_type=skill.damage_type),recorder)\n            if not u.dead and amount>0:energy(bundle,state,tid,bundle.characters[tid].energy_gain_on_hit if tid in bundle.characters else 0,recorder,'hit')\n            if not u.dead and u.side=='enemy':\n                before=u.toughness;matched=skill.damage_type in u.weaknesses\n                reduction=min(before,skill.toughness_reduction) if matched and not u.broken else 0\n                u.toughness-=reduction\n                recorder.emit('toughness_changed',state,dict(before=before,after=u.toughness,reduction=reduction,damage_type=skill.damage_type,matched=matched),actor_id=uid,target_id=tid)\n                if before>0 and u.toughness==0:\n                    u.broken=True\n                    recorder.emit('break_triggered',state,dict(skill_id=action.skill_id,damage_type=skill.damage_type,before=before,after=0),actor_id=uid,target_id=tid)",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boss.py",
+          "start": 1,
+          "end": 12,
+          "score": 7.839673,
+          "text": "from fractions import Fraction\nfrom .test_effects import world,act\n\ndef test_phase_crossing_resets_only_final_and_retains_delay(world):\n    from combat_core.v2.boss import apply_phase_transition\n    b,s,r,rec=world;u=s.units[b.boss_id];u.hp=4000;u.broken=True;u.toughness=0;u.remaining_distance=Fraction(12500);u.charging='boss_charge';s.enrage_stacks=3\n    apply_phase_transition(b,s,rec)\n    assert s.phase_index==2 and u.toughness==420 and not u.broken\n    assert u.remaining_distance==12500 and u.charging is None and u.skill_index==0\n    assert s.phase_action_count==0 and s.enrage_stacks==0\n    assert [e.payload.entered for e in rec.events if e.kind=='phase_changed']==[False,True]\n",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boss.py",
+          "start": 17,
+          "end": 28,
+          "score": 7.588351,
+          "text": "    assert s.phase_index==0 and not rec.events\n\ndef test_enrage_and_recovery_do_not_skip(world):\n    from combat_core.v2.boss import begin_enemy_turn,choose_enemy_action\n    b,s,r,rec=world;u=s.units[b.boss_id];s.phase_action_count=8;u.broken=True;u.toughness=0\n    begin_enemy_turn(b,s,b.boss_id,rec)\n    assert s.enrage_stacks==1 and u.atk==Fraction(385,2)\n    assert u.toughness==300 and not u.broken\n    assert choose_enemy_action(b,s,b.boss_id).skill_id=='boss_strike'\n\ndef test_charge_cancel_advances_once(world):\n    from combat_core.v2.boss import apply_phase_transition,resolve_enemy_action,choose_enemy_action",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_effects.py",
+          "start": 41,
+          "end": 52,
+          "score": 7.54627,
+          "text": "\ndef test_lethal_direct_damage_does_not_break(world):\n    b,s,_,rec=world;s.units[b.boss_id].hp=1;s.units[b.boss_id].toughness=1\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert not any(e.kind=='break_triggered' for e in rec.events)\n\ndef test_energy_overflow_and_sp_overflow(world):\n    b,s,_,rec=world;b.characters['striker_01'].energy_regen_rate=.2;s.units['striker_01'].energy=115;s.skill_points=5\n    act(world,'striker_01','striker_basic',[b.boss_id])\n    energy=[e.payload for e in rec.events if e.kind=='resource_changed' and e.payload.resource=='energy'][-1]\n    assert (energy.gained,energy.overflow,energy.after)==(24,19,120)\n    assert any(e.kind=='resource_changed' and e.payload.overflow==1 for e in rec.events)",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_contracts.py",
+          "start": 33,
+          "end": 44,
+          "score": 7.49056,
+          "text": "    if mutation=='extra': d['skills']['breaker_skill']['toughness_damage_type']='fire'\n    with pytest.raises(ValueError): type(b).model_validate(d)\n\ndef test_version_isolation():\n    from combat_core.contracts import load_config\n    from combat_core.v2.config import load_bundle\n    with pytest.raises(ValueError): load_config(ROOT/'configs/combat/v2/baseline.json')\n    with pytest.raises(ValueError): load_bundle(ROOT/'configs/combat/baseline.json')\n    assert load_config(ROOT/'configs/combat/baseline.json')\n\ndef test_break_energy_rejects_unused_threshold_and_fractional_energy():\n    from combat_core.v2.config import load_bundle",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_boundaries.py",
+          "start": 17,
+          "end": 28,
+          "score": 7.170485,
+          "text": "def test_zero_damage_no_energy_full_shield_still_breaks(world):\n    b,s,r,rec=world;boss=s.units[b.boss_id];boss.atk=0\n    act(world,b.boss_id,'boss_strike',['striker_01'])\n    assert s.units['striker_01'].energy==0\n    boss.shields=[ShieldInstance(source_id=b.boss_id,skill_id='support_ultimate',value=10000,remaining=2,created_seq=1)]\n    boss.toughness=30;before=boss.hp\n    act(world,'breaker_01','breaker_basic',[b.boss_id])\n    assert boss.hp==before and boss.broken and len(boss.shields)==1\n\ndef test_shield_fifo_and_expiry(world):\n    b,s,r,rec=world;u=s.units['striker_01']\n    u.shields=[ShieldInstance(source_id='support_01',skill_id='support_ultimate',value=10,remaining=1,created_seq=1),ShieldInstance(source_id='striker_01',skill_id='support_ultimate',value=100,remaining=1,created_seq=2)]",
+          "relations": []
+        },
+        {
+          "path": "game-core/tests/v2/test_report.py",
+          "start": 33,
+          "end": 33,
+          "score": 3.250254,
+          "text": "    assert m.phases['phase_3']['completed'] is False",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "phase_contract",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "phase_2 toughness_max weaknesses",
+      "expanded_query": "phase_2 toughness_max weaknesses",
+      "relation_seeds": [],
+      "hit_gold": [
+        true,
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 3295,
+      "latency_ms_median": 0.9202499932143837,
+      "selected": [
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 257,
+          "end": 268,
+          "score": 21.383941,
+          "text": "        \"trigger_actions\": 8,\n        \"atk_bonus_per_stack\": 0.1\n      },\n      \"control_immune\": false\n    },\n    {\n      \"phase_id\": \"phase_2\",\n      \"hp_threshold\": 0.7,\n      \"toughness_max\": 360,\n      \"weaknesses\": [\n        \"physical\",\n        \"lightning\"",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/boss.py",
+          "start": 17,
+          "end": 28,
+          "score": 15.952816,
+          "text": "        entered=i==final\n        if entered:\n            state.phase_index=final;phase=bundle.phases[final]\n            boss.toughness_max=phase.toughness_max;boss.toughness=phase.toughness_max\n            boss.weaknesses=list(phase.weaknesses);boss.broken=False\n            boss.charging=None;boss.skill_index=0\n            state.phase_action_count=0;state.enrage_stacks=0\n            if phase.control_immune:\n                for bid in sorted(list(boss.buffs)):\n                    if bundle.buffs[bid].effect_type=='control':remove_status(bundle,state,bundle.boss_id,bid,'phase_immunity',recorder)\n            refresh_passives(bundle,state,recorder)\n        recorder.emit('phase_changed',state,dict(from_phase=bundle.phases[i-1].phase_id,to_phase=bundle.phases[i].phase_id,entered=entered,reason='hp_threshold',weaknesses=bundle.phases[i].weaknesses),target_id=bundle.boss_id)",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 241,
+          "end": 252,
+          "score": 15.370244,
+          "text": "    }\n  },\n  \"phases\": [\n    {\n      \"phase_id\": \"phase_1\",\n      \"hp_threshold\": 1.0,\n      \"toughness_max\": 300,\n      \"weaknesses\": [\n        \"fire\",\n        \"lightning\"\n      ],\n      \"skill_pool\": [",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 81,
+          "end": 92,
+          "score": 14.874564,
+          "text": "    if set(scenario.initial_energy)-set(bundle.party): raise ValueError('unknown initial energy owner')\n    units={}\n    for slot,uid in enumerate(bundle.party):\n        c=bundle.characters[uid]; energy=scenario.initial_energy.get(uid,0)\n        if energy>c.energy_max: raise ValueError('initial energy exceeds maximum')\n        units[uid]=make_unit(c.stats,'player',slot,energy_max=c.energy_max,energy=energy)\n    phase=bundle.phases[0]\n    units[bundle.boss_id]=make_unit(bundle.boss_stats,'enemy',0,toughness=phase.toughness_max,toughness_max=phase.toughness_max,weaknesses=phase.weaknesses)\n    return BattleState(units=units,skill_points=scenario.initial_skill_points)\n\ndef cancel_charge(state: BattleState, actor_id: str) -> bool:\n    unit=state.units[actor_id]",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 281,
+          "end": 292,
+          "score": 14.57061,
+          "text": "    {\n      \"phase_id\": \"phase_3\",\n      \"hp_threshold\": 0.35,\n      \"toughness_max\": 420,\n      \"weaknesses\": [\n        \"fire\",\n        \"lightning\"\n      ],\n      \"skill_pool\": [\n        \"boss_charge\",\n        \"boss_sweep\",\n        \"boss_strike\"",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 29,
+          "end": 35,
+          "score": 13.011613,
+          "text": "    hp: Nat\n    max_hp: Positive\n    energy: Nat = 0\n    energy_max: Nat = 0\n    toughness: Nat = 0\n    toughness_max: Nat = 0\n    weaknesses: list[Element] = Field(default_factory=list)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/contracts.py",
+          "start": 120,
+          "end": 126,
+          "score": 12.915078,
+          "text": "        return self\n\nclass WeaknessModel(Model):\n    weaknesses: list[Element] = Field(min_length=1)\n    toughness_max: Positive\n    @field_validator('weaknesses')\n    @classmethod",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 305,
+          "end": 316,
+          "score": 12.350918,
+          "text": "        \"atk\": 65,\n        \"def\": 50,\n        \"spd\": 75,\n        \"crit_rate\": 0\n      },\n      \"skill_id\": \"add_strike\",\n      \"weaknesses\": [\n        \"physical\",\n        \"lightning\"\n      ],\n      \"toughness_max\": 90\n    }",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "phase_contract",
+      "method": "shared_structured_corpus_relations",
+      "query": "phase_2 toughness_max weaknesses",
+      "expanded_query": "phase_2 toughness_max weaknesses",
+      "relation_seeds": [
+        "phase_2"
+      ],
+      "hit_gold": [
+        true,
+        true,
+        true
+      ],
+      "evidence_group_recall": 1.0,
+      "all_required_evidence_found": true,
+      "context_chars": 3121,
+      "latency_ms_median": 1.04010000359267,
+      "selected": [
+        {
+          "path": "configs/combat/v2/content-catalog.json",
+          "start": 62,
+          "end": 64,
+          "score": 36.855911,
+          "text": "  \"phase_2\": {\n    \"display_name\": \"增援\"\n  },",
+          "relations": [
+            {
+              "weight": 1.2,
+              "relation": [
+                "name_or_exact_id",
+                "phase_2",
+                "json_object"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 257,
+          "end": 268,
+          "score": 21.383941,
+          "text": "        \"trigger_actions\": 8,\n        \"atk_bonus_per_stack\": 0.1\n      },\n      \"control_immune\": false\n    },\n    {\n      \"phase_id\": \"phase_2\",\n      \"hp_threshold\": 0.7,\n      \"toughness_max\": 360,\n      \"weaknesses\": [\n        \"physical\",\n        \"lightning\"",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/boss.py",
+          "start": 17,
+          "end": 28,
+          "score": 15.952816,
+          "text": "        entered=i==final\n        if entered:\n            state.phase_index=final;phase=bundle.phases[final]\n            boss.toughness_max=phase.toughness_max;boss.toughness=phase.toughness_max\n            boss.weaknesses=list(phase.weaknesses);boss.broken=False\n            boss.charging=None;boss.skill_index=0\n            state.phase_action_count=0;state.enrage_stacks=0\n            if phase.control_immune:\n                for bid in sorted(list(boss.buffs)):\n                    if bundle.buffs[bid].effect_type=='control':remove_status(bundle,state,bundle.boss_id,bid,'phase_immunity',recorder)\n            refresh_passives(bundle,state,recorder)\n        recorder.emit('phase_changed',state,dict(from_phase=bundle.phases[i-1].phase_id,to_phase=bundle.phases[i].phase_id,entered=entered,reason='hp_threshold',weaknesses=bundle.phases[i].weaknesses),target_id=bundle.boss_id)",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 241,
+          "end": 252,
+          "score": 15.370244,
+          "text": "    }\n  },\n  \"phases\": [\n    {\n      \"phase_id\": \"phase_1\",\n      \"hp_threshold\": 1.0,\n      \"toughness_max\": 300,\n      \"weaknesses\": [\n        \"fire\",\n        \"lightning\"\n      ],\n      \"skill_pool\": [",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 81,
+          "end": 92,
+          "score": 14.874564,
+          "text": "    if set(scenario.initial_energy)-set(bundle.party): raise ValueError('unknown initial energy owner')\n    units={}\n    for slot,uid in enumerate(bundle.party):\n        c=bundle.characters[uid]; energy=scenario.initial_energy.get(uid,0)\n        if energy>c.energy_max: raise ValueError('initial energy exceeds maximum')\n        units[uid]=make_unit(c.stats,'player',slot,energy_max=c.energy_max,energy=energy)\n    phase=bundle.phases[0]\n    units[bundle.boss_id]=make_unit(bundle.boss_stats,'enemy',0,toughness=phase.toughness_max,toughness_max=phase.toughness_max,weaknesses=phase.weaknesses)\n    return BattleState(units=units,skill_points=scenario.initial_skill_points)\n\ndef cancel_charge(state: BattleState, actor_id: str) -> bool:\n    unit=state.units[actor_id]",
+          "relations": []
+        },
+        {
+          "path": "configs/combat/v2/baseline.json",
+          "start": 281,
+          "end": 292,
+          "score": 14.57061,
+          "text": "    {\n      \"phase_id\": \"phase_3\",\n      \"hp_threshold\": 0.35,\n      \"toughness_max\": 420,\n      \"weaknesses\": [\n        \"fire\",\n        \"lightning\"\n      ],\n      \"skill_pool\": [\n        \"boss_charge\",\n        \"boss_sweep\",\n        \"boss_strike\"",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/state.py",
+          "start": 29,
+          "end": 35,
+          "score": 13.011613,
+          "text": "    hp: Nat\n    max_hp: Positive\n    energy: Nat = 0\n    energy_max: Nat = 0\n    toughness: Nat = 0\n    toughness_max: Nat = 0\n    weaknesses: list[Element] = Field(default_factory=list)",
+          "relations": []
+        },
+        {
+          "path": "game-core/combat_core/v2/contracts.py",
+          "start": 120,
+          "end": 126,
+          "score": 12.915078,
+          "text": "        return self\n\nclass WeaknessModel(Model):\n    weaknesses: list[Element] = Field(min_length=1)\n    toughness_max: Positive\n    @field_validator('weaknesses')\n    @classmethod",
+          "relations": []
+        }
+      ]
+    },
+    {
+      "case_id": "unregistered_alias",
+      "method": "shared_structured_corpus_lexical_alias",
+      "query": "奶妈大招罩子",
+      "expanded_query": "奶妈大招罩子",
+      "relation_seeds": [],
+      "hit_gold": [
+        false,
+        false
+      ],
+      "evidence_group_recall": 0.0,
+      "all_required_evidence_found": false,
+      "context_chars": 0,
+      "latency_ms_median": 0.42640000174287707,
+      "selected": []
+    },
+    {
+      "case_id": "unregistered_alias",
+      "method": "shared_structured_corpus_relations",
+      "query": "奶妈大招罩子",
+      "expanded_query": "奶妈大招罩子",
+      "relation_seeds": [],
+      "hit_gold": [
+        false,
+        false
+      ],
+      "evidence_group_recall": 0.0,
+      "all_required_evidence_found": false,
+      "context_chars": 0,
+      "latency_ms_median": 0.4652499992516823,
+      "selected": []
+    }
+  ]
+}

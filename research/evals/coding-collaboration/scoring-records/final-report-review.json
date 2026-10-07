@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-04 11:38:22 UTC",
+  "status": "passed",
+  "reviewer": "collaboration_benchmark subagent",
+  "scope": "Consistency of final report conclusions with sealed aggregate/run-level scores, measurements and native audit. No re-adjudication or model invocation.",
+  "sources": [
+    {
+      "path": "research/evidence/collaboration-evaluation-20261004.md",
+      "sha256": "cd4b887f4700040a1d8d5e3a9142cb79e8f6abb1ad9d4cbf6332d4e4dd8b9175"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-final/summary.json",
+      "sha256": "e38c1d966a9cfd0ecaba179a35a6edfd7bb069711896f39810b3c71cbfc66bbb"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-final/run-scores.json",
+      "sha256": "ce08988534b63eb100b06eff05b8bf75dff7770b57b606c6bf7411ca3c084720"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-final/measurements.json",
+      "sha256": "966011f19976ff37e749ef5778629e00c86bcc5b93567598bdfebcd45075e03f"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-native-audit-20261004.json",
+      "sha256": "d12ca78c8ce3caaf21a0a2415b7202229cce03c582d725cadead3c75435a38de"
+    }
+  ],
+  "confirmed_quality": {
+    "single": {
+      "delivered": "8/8",
+      "known_root_causes": "14/14",
+      "complete_submitted_evidence": "9/14",
+      "fp": 0,
+      "fn": 0,
+      "clean_control": "2/2"
+    },
+    "single_plus": {
+      "delivered": "8/8",
+      "known_root_causes": "14/14",
+      "complete_submitted_evidence": "10/14",
+      "fp": 0,
+      "fn": 0,
+      "clean_control": "2/2"
+    },
+    "team_parallel": {
+      "delivered": "8/8",
+      "known_root_causes": "14/14",
+      "complete_submitted_evidence": "8/14",
+      "fp": 0,
+      "fn": 0,
+      "clean_control": "2/2"
+    },
+    "team_serial": {
+      "delivered": "4/4",
+      "known_root_causes": "8/8",
+      "complete_submitted_evidence": "4/8",
+      "fp": 0,
+      "fn": 0,
+      "clean_control": "not assigned"
+    },
+    "matched_serial_parallel": {
+      "independent_tasks": 2,
+      "repeat_pairs": 4,
+      "both_known_root_causes": "8/8",
+      "serial_complete_evidence": "4/8",
+      "parallel_complete_evidence": "2/8",
+      "difference_localized_to": "confirm03 repeat 2"
+    },
+    "summary_agrees_with_run_scores": true,
+    "pending_adjudications": 0
+  },
+  "confirmed_native_audit": {
+    "sealed": true,
+    "audited_runs": 28,
+    "all_applicable_checks_passed_runs": 28,
+    "requests": 201,
+    "native_children": 36,
+    "parallel_overlap_verified_runs": 8,
+    "serial_no_prior_result_transfer_verified_runs": 4,
+    "same_thread_six_stage_single_plus_runs": 8,
+    "all_children_completed_before_close_and_summary_teams": 12,
+    "scope_note": "These counts were checked against the sealed audit and its per-run booleans, not re-derived from raw wire content in this review."
+  },
+  "conclusion_checks": [
+    {
+      "check": "No quality uplift overclaim",
+      "passed": true,
+      "report_lines": [
+        113,
+        117,
+        154
+      ],
+      "reason": "The report states no additional known-root-cause detection or delivery benefit, records lower team evidence counts and limits the conclusion to the current small closed-packet suite."
+    },
+    {
+      "check": "No quality-preserving pure scheduling claim",
+      "passed": true,
+      "report_lines": [
+        74,
+        142,
+        144
+      ],
+      "reason": "The report labels the four pairs observational, discloses random generation/cache/request differences and explicitly says 46.9% is not acceleration with all quality unchanged."
+    },
+    {
+      "check": "Runtime timing not full verified-delivery endpoint",
+      "passed": true,
+      "report_lines": [
+        72,
+        142
+      ],
+      "reason": "The timer boundary and excluded preparation, serialization, audit and scoring stages are explicit; UI/tool-validation/product end-to-end time is not claimed."
+    },
+    {
+      "check": "No fully resource-matched claim",
+      "passed": true,
+      "report_lines": [
+        58,
+        131
+      ],
+      "reason": "Same output ceilings are distinguished from actual token, cache, request, cost and time use; the fixed A+ profile is not equated with every possible single-agent strategy."
+    },
+    {
+      "check": "No formal product readiness claim",
+      "passed": true,
+      "report_lines": [
+        154,
+        156,
+        158,
+        160
+      ],
+      "reason": "The recommendation keeps the single-agent product baseline and existing research CLI modes, does not promote this profile to default/recommended production collaboration, and lists remaining integration/validation work."
+    },
+    {
+      "check": "Scoring and sample boundaries disclosed",
+      "passed": true,
+      "report_lines": [
+        20,
+        48,
+        50,
+        52,
+        54,
+        56,
+        62,
+        104
+      ],
+      "reason": "Injected candidates, closed preselected packets, non-human independent adjudication, imperfect blinding, task versus repeat units, evidence gaps and sample-size limits are stated."
+    }
+  ],
+  "measurement_consistency": "The final report retains the previously verified 46.9% ratio-of-total runtime reduction, 50.83 seconds mean pair saving and about +5.9% paired cost. Known/unknown ledger boundaries and totals agree with the prior final-measurement-review.",
+  "adoption_recommendation_consistency": "Retain the complete single-agent baseline and reusable experimental collaboration entry points. Do not market this fixed profile as a demonstrated quality improvement. This is supported by the sealed results without implying universal multi-agent uselessness or architecture equivalence.",
+  "actionable_findings": [],
+  "limitations": [
+    "This review checks report-to-evidence consistency and does not independently reopen individual finding judgments.",
+    "The reviewer authored the benchmark; final causal adjudication was performed and sealed by a different agent.",
+    "No population-level equivalence, significance, natural-defect prevalence or production readiness follows from these results."
+  ],
+  "new_model_calls": 0,
+  "report_modified": false,
+  "sealed_evidence_modified": false
+}

@@ -1,0 +1,100 @@
+{
+  "candidate_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "7288d24999859df5f1dd9d0e13b1a95271833daed3c5e061b3b6266cc8dd3f13",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "0d71439cbd54b1c7839fc88921aa8c9404c072aed65aafec38bb1331a24323b3",
+    "mihoyo-agent-project/src/agent_workbench/verification/workflow.py": "d85cf7bcd1bf8df6eb8f9e50f481fc1a70722084d540a10fb52109a1fde77f0a"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "benchmark_injected",
+  "issues": [
+    {
+      "aliases": [],
+      "allowed_locations": [
+        {
+          "end_line": 89,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/store.py",
+          "start_line": 84
+        }
+      ],
+      "fix": "恢复plan_hash相等检查后才记录批准。",
+      "issue_id": "D02-APPROVAL",
+      "required_evidence": [
+        "查询返回plan_hash却只判断row是否存在。",
+        "后续UPDATE使用request_id写approved，claim检查当前账本hash无法恢复调用者实际批准的hash。"
+      ],
+      "root_cause": "decide不再比较传入plan_hash，旧hash也能批准当前计划。",
+      "severity": "P1",
+      "trigger": "对有效request_id传入其他计划的hash并approve=True。",
+      "verification_ids": [
+        "D02-APPROVAL"
+      ]
+    },
+    {
+      "aliases": [
+        "未知结果重复执行",
+        "恢复重跑"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 101,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/store.py",
+          "start_line": 96
+        }
+      ],
+      "fix": "仅允许new进入执行；running必须对账领域收据或人工处置。",
+      "issue_id": "D02-RETRY",
+      "required_evidence": [
+        "workflow.experiment对未completed状态调用claim后execute。",
+        "running被允许导致第二次执行，而charged_battles仍覆盖为plan.battles而非反映两次执行。"
+      ],
+      "root_cause": "claim允许running再次准入；外部结果未知时会再次调用execute。",
+      "severity": "P1",
+      "trigger": "第一次claim提交后worker可能执行，进程在complete之前退出；新进程resume。",
+      "verification_ids": [
+        "D02-RETRY"
+      ]
+    },
+    {
+      "aliases": [
+        "错计划收据",
+        "complete缺验证"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 108,
+          "path": "mihoyo-agent-project/src/agent_workbench/verification/store.py",
+          "start_line": 103
+        }
+      ],
+      "fix": "提交前恢复完整收据校验，失败保持未确认状态。",
+      "issue_id": "D02-RECEIPT",
+      "required_evidence": [
+        "complete移除build_report校验而仍写result_json/result_hash及completed。",
+        "自身fingerprint(result)只能防后续篡改，不能证明结果绑定计划；show晚校验不能撤销已完成状态。"
+      ],
+      "root_cause": "complete在写completed前不验证收据manifest，错误计划或不完整结果进入持久化事实。",
+      "severity": "P1",
+      "trigger": "running计划收到plan_hash不匹配、game_fingerprint错误或缺少pair的worker结果。",
+      "verification_ids": [
+        "D02-RECEIPT"
+      ]
+    }
+  ],
+  "non_issues": [
+    "普通resume不是批准这一检查仍存在。",
+    "driver_lock仍是进程锁，不是本次候选新问题。"
+  ],
+  "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+  "schema_version": 1,
+  "scope": "一次进程中断后，实验恢复偶发接受了旧批准或不完整结果。请结合冻结候选及诊断记录，审查领域账本的批准、worker准入、收据提交三段边界。checkpoint只用于路由，不能当作已经完成实验的事实。不要推断未展示的网络或数据库故障。",
+  "source_hashes": {
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py": "ff6357a0c04231df2a8e4ea9c6937ddb9846ab59981fc48b9e3b95d306fe75aa",
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py": "7288d24999859df5f1dd9d0e13b1a95271833daed3c5e061b3b6266cc8dd3f13",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py": "def2eb33da135c5862a100c87b21fe2072eb0f537ade5f0d9e264cf44b18b6c9",
+    "mihoyo-agent-project/src/agent_workbench/verification/workflow.py": "d85cf7bcd1bf8df6eb8f9e50f481fc1a70722084d540a10fb52109a1fde77f0a"
+  },
+  "split": "development",
+  "task_id": "dev02",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

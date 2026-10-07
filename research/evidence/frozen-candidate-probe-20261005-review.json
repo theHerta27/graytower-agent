@@ -1,0 +1,55 @@
+{
+  "kind": "independent_local_frozen_candidate_probe_checks",
+  "date": "2026-10-05",
+  "new_model_calls": 0,
+  "actual_new_battles": 4,
+  "tests": {
+    "first_red": {
+      "count": 6,
+      "reason": "probe implementation absent"
+    },
+    "final_green": {
+      "count": 6,
+      "seconds": 0.516,
+      "exit_code": 0,
+      "log": "research/evidence/frozen-candidate-probe-20261005-tests.log",
+      "sha256": "4225848c22024272cd75d8fb6ee108ae6bae3945f263e22e7bd076279e10e920"
+    }
+  },
+  "checks": {
+    "artifact_and_output_files": {
+      "artifacts/78ee419bf179993f4e7a5fae1916ba62792c3874ad65de46fccc0b008ddf33db.json": true,
+      "artifacts/b0732592a05cb85c3cf8a4f159ffd3db3b7bdd01133371ae6978922e15b38dfa.json": true,
+      "artifacts/f596602e208ab5320f7f1a60a3bf602697dc9c9c68130df782459ad3a421f0c3.json": true,
+      "request.json": true,
+      "verification/result.json": true,
+      "verification/traces/11_baseline.json": true,
+      "verification/traces/11_candidate.json": true,
+      "verification/traces/7_baseline.json": true,
+      "verification/traces/7_candidate.json": true
+    },
+    "old_game_files_unchanged": 40,
+    "current_src_files_unchanged": 8,
+    "trace_refs": 4,
+    "candidate_input_unchanged": true,
+    "in_memory_inputs_unchanged": true
+  },
+  "verdicts": {
+    "structural_verdict": "PASS",
+    "behavioral_verdict": "DESCRIPTIVE",
+    "overall_verdict": "INCONCLUSIVE"
+  },
+  "manifest_sha256": "a8da5e95ca4ce120aeee4a3e0d2620f8c633e5e2711ed00b51f066254873091b",
+  "result_sha256": "9f7890d31dd857d90d0ef7a4761654b447081cbfdbf2da0587a016af0f4ed87e",
+  "request_sha256": "787749eebe4dfede1da9797e878cb7ab9277deed89253132f3d68f93a21c1d6d",
+  "probe_sources": {
+    "frozen_candidate_probe.py": "d95ad02484d33f50ca32a577c52883eb59f4c1dbd0def612676cb7b2abd8b9a8",
+    "test_frozen_candidate_probe.py": "31e16c5f33f0c5dfcca75b61d7796ca15bd692f1d9a8ac9a8a6ad583eabbc0ab"
+  },
+  "game_fingerprint": "68aa0460da651796a9f75d77c2433a07b7be2762f4d07f456721e86eada87b7f",
+  "scope": "trusted numeric candidate logical boundary only; not OS read-only sandbox, code/build verification, A2A, distributed jobs or production authorization",
+  "commands": [
+    "D:/Desktop/combat-foundation/.venv/Scripts/python.exe -B -m unittest discover -s research/probes -p test_frozen_candidate_probe.py -v",
+    "D:/Desktop/combat-foundation/.venv/Scripts/python.exe -B research/probes/frozen_candidate_probe.py --output research/evidence/frozen-candidate-probe-20261005"
+  ]
+}

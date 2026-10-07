@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "type": "offline_scoring_tool_validation",
+  "evaluated_at": "2026-10-04T18:19:46.2182263+08:00",
+  "evaluator_version": "causal-adjudication-v1",
+  "evaluator_sha256": "7f03e2006b088caaf99f5b31b3fc29f1d93f663935b6d44a2d6f20f818842e7e",
+  "test_sha256": "17cbe3d26e27705197297d5e8264cbad1592e31097f87d2674e1b916a861ab60",
+  "interpreter": "D:/Desktop/mihoyo-agent-project/research/.venv-framework/Scripts/python.exe",
+  "evaluator_tests": {
+    "log": "evaluator-tests.log",
+    "passed": 14,
+    "failed": 0
+  },
+  "project_tests": {
+    "log": "project-tests.log",
+    "passed": 16,
+    "failed": 0
+  },
+  "paid_model_calls": 0,
+  "secret_reads": 0,
+  "real_quality_evidence": false,
+  "red_green_history": "Initial 11 absent-implementation failures, then 2 evidence/type behavior failures and 1 unsupported novel verdict; all addressed before final verification."
+}

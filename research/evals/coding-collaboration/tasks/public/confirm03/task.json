@@ -1,0 +1,26 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 17016,
+  "packet_path": "tasks/public/confirm03/packet.md",
+  "packet_sha256": "0213e5f7a7615f7ef31ea94bd8c6677d2be6ed4320b9acf5381a5cfdddfe0649",
+  "schema_version": 1,
+  "source_paths": [
+    "herta-agent-coding/backend/herta_agent/service/events.py",
+    "herta-agent-coding/backend/herta_agent/service/runs.py",
+    "herta-agent-coding/backend/herta_agent/service/sse.py"
+  ],
+  "split": "confirmation",
+  "task_id": "confirm03",
+  "title": "SSE背压及取消清理评审"
+}

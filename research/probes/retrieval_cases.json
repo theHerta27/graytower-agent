@@ -1,0 +1,33 @@
+{
+  "frozen_before_first_run": "2026-10-04",
+  "purpose": "Small diagnostic corpus; gold is manually inspected source evidence, not held-out benchmark.",
+  "context_max_chars": 6000,
+  "max_chunks": 8,
+  "cases": [
+    {"id":"symbol_event","kind":"cross_file_symbol","query":"shield_expired reason","gold":[
+      {"path":"game-core/combat_core/v2/effects.py","anchor":"reason='depleted'"},
+      {"path":"game-core/combat_core/v2/trace.py","anchor":"'shield_expired':"},
+      {"path":"game-unity/Assets/Runtime/ShowcaseHud.cs","anchor":"case \"shield_expired\":"}
+    ]},
+    {"id":"catalogue_zh","kind":"chinese_catalogue_name","query":"护盾展开 持续时间 配置","gold":[
+      {"path":"configs/combat/v2/baseline.json","anchor":"\"shield_duration\": 2"},
+      {"path":"configs/combat/v2/content-catalog.json","anchor":"\"display_name\": \"护盾展开\""}
+    ]},
+    {"id":"chinese_rule","kind":"cross_file_chinese_rule","query":"破盾攻击 为什么不额外移除生命护盾","gold":[
+      {"path":"configs/combat/v2/content-catalog.json","anchor":"不额外移除生命护盾"},
+      {"path":"game-core/combat_core/v2/effects.py","anchor":"matched=skill.damage_type in u.weaknesses"}
+    ]},
+    {"id":"exact_test","kind":"exact_symbol","query":"test_attribute_binds_damage_and_toughness","gold":[
+      {"path":"game-core/tests/v2/test_effects.py","anchor":"def test_attribute_binds_damage_and_toughness"}
+    ]},
+    {"id":"phase_contract","kind":"cross_file_fields","query":"phase_2 toughness_max weaknesses","gold":[
+      {"path":"configs/combat/v2/baseline.json","anchor":"\"phase_id\": \"phase_2\""},
+      {"path":"game-core/combat_core/v2/contracts.py","anchor":"weaknesses: list[Element]"},
+      {"path":"game-core/combat_core/v2/boss.py","anchor":"boss.weaknesses=list(phase.weaknesses)"}
+    ]},
+    {"id":"unregistered_alias","kind":"unregistered_player_alias","query":"奶妈大招罩子","gold":[
+      {"path":"configs/combat/v2/content-catalog.json","anchor":"\"display_name\": \"护盾展开\""},
+      {"path":"configs/combat/v2/baseline.json","anchor":"\"shield_duration\": 2"}
+    ]}
+  ]
+}

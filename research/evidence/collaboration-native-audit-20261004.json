@@ -1,0 +1,1274 @@
+{
+  "updated_utc": "2026-10-04T10:46:36.718343+00:00",
+  "batch": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-development-20261004-v5",
+  "scope": "Independent read-only audit of finalized result/wire/events; no model calls, no quality scoring, no mutation of runs.json. Only directories with three final artifacts and all request end timestamps included.",
+  "limitations": [
+    "fork_context=false proves no automatic parent transcript inheritance; manual spawn-message review is separately required for serial answer leakage.",
+    "Native active-to-idle intervals are observed SDK timings, not OS CPU timings.",
+    "Runtime parent-generated specialization can differ between repetitions even with the same role template."
+  ],
+  "runs": [
+    {
+      "run_id": "dev01-single-r1-v5",
+      "mode": "single",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "581945b8f2c2a234d8d4ddc238dc1da7f471ff9a80ad3b770ce2d6b784a6668b",
+        "wire.json": "32e0a5ddbfceee3fcdf62c378a1ba6877db9cae665533ef1bd941e962cdf7daa",
+        "events.json": "6f91d27e74c761f8e7f25911662900c9c525c88c708a90bfe0ff95e2b4929f3f"
+      },
+      "parent_thread_id": "01a10678-4b32-7b43-af18-c633be38f62c",
+      "request_count": 1,
+      "turn_count": 1,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a10678-4b32-7b43-af18-c633be38f62c",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": null,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: no child tasks.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev01-single_plus-r1-v5",
+      "mode": "single_plus",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "3b33303685acc59eeb64087380d27df9395efdda5b2b9de817f824746199d8f9",
+        "wire.json": "d89733fd653a6665b584dab14d5978fb00e609e51bb735488f552a9da2ee94cd",
+        "events.json": "45a3df864a3de1e14cfe7d8ead22ee65e1d18914adc224c151ec7a9f649685cc"
+      },
+      "parent_thread_id": "01a10679-5d0e-7f62-a603-701bad97bd85",
+      "request_count": 4,
+      "turn_count": 4,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a10679-5d0e-7f62-a603-701bad97bd85",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a10679-5d0e-7f62-a603-701bad97bd85",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a10679-5d0e-7f62-a603-701bad97bd85",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a10679-5d0e-7f62-a603-701bad97bd85",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": null,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: no child tasks.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev01-single_plus-r2-v5",
+      "mode": "single_plus",
+      "runner_pass": false,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "a4b5a8568cdf00f6beb0130ffe18ec5ad319236f07f9d664e924575ca93f4a31",
+        "wire.json": "66bdf2ddd53b4025243a1c56c9f5adf576610f7091a8747acf63ca691c3f8537",
+        "events.json": "f1819b94c822458319dd410488c260520efafbc43a2a879d448ad888855b02f7"
+      },
+      "parent_thread_id": "01a10680-cd11-7022-89b4-6835dcd9161e",
+      "request_count": 2,
+      "turn_count": 2,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a10680-cd11-7022-89b4-6835dcd9161e",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a10680-cd11-7022-89b4-6835dcd9161e",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": null,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: no child tasks.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev01-team_parallel-r1-v5",
+      "mode": "team_parallel",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "0c38fc3f5e244a67e0269385415ddee9f27205d75c4e8848ae6b3cc4117cb693",
+        "wire.json": "9452830d8e69a701f6d2193130f343bec1eda201a3975d167912525875f29bc9",
+        "events.json": "d3d4918ff75662e21ee7acbca431654f9b60fd7639eb237a075f867d5e8a1cec"
+      },
+      "parent_thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+      "request_count": 9,
+      "turn_count": 1,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a10678-ad59-7913-908e-ae4d99e55c01",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a10678-ad9b-74d3-8214-1dce6bb985da",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 5,
+          "thread_id": "01a10678-adda-79e1-8054-9290061018f1",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 6,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 7,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 8,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 9,
+          "thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [
+        {
+          "child_id": "01a10678-ad59-7913-908e-ae4d99e55c01",
+          "sender_thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "spawn_call_id": "call_00_h5lYKGeVulaj9XpUp06V8305",
+          "spawn_start_seconds": 5.3439999999973224,
+          "spawn_completed_seconds": 5.406999999991967,
+          "active_seconds": 5.421999999991385,
+          "idle_seconds": 17.078999999997905,
+          "wait_completed_seconds": 17.093999999997322,
+          "closed_seconds": 42.296999999991385,
+          "request_ids": [
+            2
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 1: rules and semantic correctness. Review the full frozen task packet given in your common instructions (dev01 shield/snapshot cross-layer review). Scope: shield duration semantics, shield display sum vs max, fresh_turn rule, remaining decrement on holder turn end, stacking of shields from different sources, ultimate not advancing normal turn, and replay display requirements. Report only actionable defects newly introduced by the frozen candidate diff, with exact packet file + candidate line numbers and concrete triggering examples. Do not delegate. Return concise findings JSON: {\"findings\":[{\"path\",\"line\",\"title\",\"why\",\"evidence\",\"fix\"}]}. Empty array if none.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a10678-ad9b-74d3-8214-1dce6bb985da",
+          "sender_thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "spawn_call_id": "call_01_or2h6BlOLy4GuIkhdFdp0836",
+          "spawn_start_seconds": 5.421999999991385,
+          "spawn_completed_seconds": 5.4689999999973224,
+          "active_seconds": 5.485000000000582,
+          "idle_seconds": 38.46899999999732,
+          "wait_completed_seconds": 38.48500000000058,
+          "closed_seconds": 42.328999999997905,
+          "request_ids": [
+            3
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 2: contracts, state transitions and recovery. Review the full frozen task packet given in your common instructions (dev01 shield/snapshot cross-layer review). Scope: EventRecorder.emit state_after deep copy semantics (historical immutability of each event's state_after), pydantic model semantics of deep=False copies and mutation aliasing across events, cause/event_id validation, end_statuses removal ordering, and Unity typed replay contract (UnitSnapshotV2 required ShieldSnapshotV2 fields vs candidate C# accessor). Report only actionable defects newly introduced by the frozen candidate diff, with exact packet file + candidate line numbers and concrete triggering examples. Do not delegate. Return concise findings JSON: {\"findings\":[{\"path\",\"line\",\"title\",\"why\",\"evidence\",\"fix\"}]}. Empty array if none.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a10678-adda-79e1-8054-9290061018f1",
+          "sender_thread_id": "01a10678-9d7a-7080-ba4a-e582fe8412a3",
+          "spawn_call_id": "call_02_vN71lV5WfdaslmFWNuQO0927",
+          "spawn_start_seconds": 5.485000000000582,
+          "spawn_completed_seconds": 5.64100000000326,
+          "active_seconds": 5.64100000000326,
+          "idle_seconds": 28.671999999991385,
+          "wait_completed_seconds": 28.687999999994645,
+          "closed_seconds": 42.36000000000058,
+          "request_ids": [
+            5
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 3: tests, counterexamples and missed boundary cases. Review the full frozen task packet given in your common instructions (dev01 shield/snapshot cross-layer review). Scope: construct concrete counterexamples for the end_statuses shield branch (remaining==1 removal vs fresh_turn skip removal, shield created in holder's current normal turn, multi-source sum, empty shield), for the Max() vs Sum() display change, and for deep=False snapshot aliasing (later mutations rewriting earlier events' state_after). Identify missed boundary cases and any defect the diff introduces. Report only actionable defects newly introduced by the frozen candidate diff, with exact packet file + candidate line numbers and concrete triggering examples. Do not delegate. Return concise findings JSON: {\"findings\":[{\"path\",\"line\",\"title\",\"why\",\"evidence\",\"fix\"}]}. Empty array if none.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "actual_child_overlap": [
+        {
+          "children": [
+            "01a10678-ad59-7913-908e-ae4d99e55c01",
+            "01a10678-ad9b-74d3-8214-1dce6bb985da"
+          ],
+          "overlap_seconds": 11.593999999997322
+        },
+        {
+          "children": [
+            "01a10678-ad59-7913-908e-ae4d99e55c01",
+            "01a10678-adda-79e1-8054-9290061018f1"
+          ],
+          "overlap_seconds": 11.437999999994645
+        },
+        {
+          "children": [
+            "01a10678-ad9b-74d3-8214-1dce6bb985da",
+            "01a10678-adda-79e1-8054-9290061018f1"
+          ],
+          "overlap_seconds": 23.030999999988126
+        }
+      ],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": true,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: all child instructions were produced before first wait/result.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev01-team_parallel-r2-v5",
+      "mode": "team_parallel",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "36e03055db919852de8590777f07a22c0ec65e839865a526b38ad516d31c7147",
+        "wire.json": "6c6ac3186e3cd997166bc45340e545ef7e313aa95d5b40c193c8edc4a85e3e9d",
+        "events.json": "bb754e4890ee358f228884de275978a16627f3a0fd0dfbaffcf169bce47db8a0"
+      },
+      "parent_thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+      "request_count": 9,
+      "turn_count": 1,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a10680-58ec-7862-a692-4fe4a5050dd1",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a10680-5939-7b92-bfa6-fa47fa77fd0f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 5,
+          "thread_id": "01a10680-5996-7113-9cf9-29004d729dcf",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 6,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 7,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 8,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 9,
+          "thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [
+        {
+          "child_id": "01a10680-58ec-7862-a692-4fe4a5050dd1",
+          "sender_thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "spawn_call_id": "call_00_S97UkfDxlwn5IIA4W1Ko2562",
+          "spawn_start_seconds": 10.718999999997322,
+          "spawn_completed_seconds": 10.781000000002678,
+          "active_seconds": 10.781000000002678,
+          "idle_seconds": 26.547000000005937,
+          "wait_completed_seconds": 26.547000000005937,
+          "closed_seconds": 32.0,
+          "request_ids": [
+            2
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 1: rules and semantic correctness reviewer. Scope: review the frozen task packet that appears in your common/system instructions (dev01 shield and battle-snapshot cross-layer review). Focus ONLY on business-rule and semantic correctness: shield duration/stacking semantics, remaining settlement at the holder's normal turn end, fresh_turn behavior, sum-vs-max display semantics, and the requirement that Python is the single settlement authority. Inspect the frozen diff plus the listed source excerpts (effects.py, state.py, trace.py, simulation.py, CombatUnitView.cs, CombatStateV2.cs). Report ONLY newly introduced actionable defects caused by the candidate diff; do not report pre-existing baseline issues or optional refactors. For each finding give: path (repo/relative), line (candidate file line number), title, why (root cause and business consequence), evidence (concrete source chain and a specific triggering example verifiable from the packet), fix (minimal correction). Return a concise JSON object {\"findings\":[...]} only, no markdown fences. Do not delegate to any other agent.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a10680-5939-7b92-bfa6-fa47fa77fd0f",
+          "sender_thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "spawn_call_id": "call_01_4LNfKJySOe5AWPQXCutp0326",
+          "spawn_start_seconds": 10.797000000005937,
+          "spawn_completed_seconds": 10.875,
+          "active_seconds": 10.85899999999674,
+          "idle_seconds": 21.656000000002678,
+          "wait_completed_seconds": 21.672000000005937,
+          "closed_seconds": 32.04700000000594,
+          "request_ids": [
+            3
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 2: contracts, state transitions and recovery reviewer. Scope: review the frozen task packet that appears in your common/system instructions (dev01 shield and battle-snapshot cross-layer review). Focus ONLY on contracts, state transitions and immutability/replay-recovery guarantees: whether each event's state_after is a complete independent snapshot, whether later damage/expiry can rewrite history, pydantic model_copy(deep=...) semantics, sharing of nested mutable objects (units dict, UnitState, shields list, buffs dict), serialization of snapshots, and Unity load/display-from-authoritative-snapshot behavior (CombatUnitView.Load/Export, UnitSnapshotV2). Inspect the frozen diff plus the listed source excerpts. Report ONLY newly introduced actionable defects caused by the candidate diff; not pre-existing baseline issues or optional refactors. For each finding give: path (repo/relative), line (candidate file line number), title, why, evidence (concrete source chain + specific triggering example verifiable from the packet), fix. Return a concise JSON object {\"findings\":[...]} only, no markdown fences. Do not delegate to any other agent.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a10680-5996-7113-9cf9-29004d729dcf",
+          "sender_thread_id": "01a10680-346c-76a0-a444-044f45bbdec4",
+          "spawn_call_id": "call_02_ytwlvOGyCx5ooBxW3F1X3894",
+          "spawn_start_seconds": 10.922000000005937,
+          "spawn_completed_seconds": 11.031000000002678,
+          "active_seconds": 11.031000000002678,
+          "idle_seconds": 28.672000000005937,
+          "wait_completed_seconds": 28.687000000005355,
+          "closed_seconds": 32.062000000005355,
+          "request_ids": [
+            5
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 3: tests, counterexamples and missed boundary cases reviewer. Scope: review the frozen task packet that appears in your common/system instructions (dev01 shield and battle-snapshot cross-layer review). Focus ONLY on counterexamples and boundary cases introduced by the candidate diff: shield with remaining==1 created in the holder's current normal turn, multiple stacked shields with different values, empty shield list, ultimate vs normal turn interaction, snapshot after a single-event vs multi-event turn, retroactive mutation of an earlier event's state_after, replay display of shields. Walk concrete triggering sequences against the packet source and identify which rule each violates. Report ONLY newly introduced actionable defects caused by the candidate diff; not pre-existing baseline issues or optional refactors. For each finding give: path (repo/relative), line (candidate file line number), title, why, evidence (concrete counterexample sequence verifiable from the packet), fix. Return a concise JSON object {\"findings\":[...]} only, no markdown fences. Do not delegate to any other agent.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "actual_child_overlap": [
+        {
+          "children": [
+            "01a10680-58ec-7862-a692-4fe4a5050dd1",
+            "01a10680-5939-7b92-bfa6-fa47fa77fd0f"
+          ],
+          "overlap_seconds": 10.797000000005937
+        },
+        {
+          "children": [
+            "01a10680-58ec-7862-a692-4fe4a5050dd1",
+            "01a10680-5996-7113-9cf9-29004d729dcf"
+          ],
+          "overlap_seconds": 15.51600000000326
+        },
+        {
+          "children": [
+            "01a10680-5939-7b92-bfa6-fa47fa77fd0f",
+            "01a10680-5996-7113-9cf9-29004d729dcf"
+          ],
+          "overlap_seconds": 10.625
+        }
+      ],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": true,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: all child instructions were produced before first wait/result.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev01-team_serial-r1-v5",
+      "mode": "team_serial",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "45abb98aab40c9eee590ec7204faee7d4f8ab5dcdacddf597bbd8f2cceadc547",
+        "wire.json": "877ac2993815c3448336725dce2f37c38d0c8f3cccef85a9937e5f2300baf3b6",
+        "events.json": "dd90f120d69da9154834a687bc90003e5333fa168bc256b3b863d94501896f19"
+      },
+      "parent_thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+      "request_count": 16,
+      "turn_count": 1,
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a1067a-9064-77b1-8ca8-dcfeae6aeae6",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 5,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 6,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 7,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 8,
+          "thread_id": "01a1067a-ddef-7e40-84fc-74f1e447a2e2",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 9,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 10,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 11,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 12,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 13,
+          "thread_id": "01a1067b-49b8-7981-b728-91a5a732b8b3",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 14,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 15,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 16,
+          "thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [
+        {
+          "child_id": "01a1067a-9064-77b1-8ca8-dcfeae6aeae6",
+          "sender_thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "spawn_call_id": "call_00_ObOIzztMlBycka5rEXsn8619",
+          "spawn_start_seconds": 11.984000000011292,
+          "spawn_completed_seconds": 12.031000000002678,
+          "active_seconds": 12.047000000005937,
+          "idle_seconds": 27.531000000002678,
+          "wait_completed_seconds": 27.531000000002678,
+          "closed_seconds": 29.281000000002678,
+          "request_ids": [
+            3
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 1: rules and semantic correctness reviewer. Review the frozen task packet contained in your common instructions (dev01 shield & combat snapshot cross-layer review). Scope: the business rules in the packet (authoritative Python settlement, shield stacking/display sum, remaining settled at holder's normal turn end with fresh-turn no-duration-loss, Unity loads/displays only from authoritative snapshots) versus the frozen candidate diff and the candidate source excerpts. Identify only candidate-introduced actionable defects and justify each with packet file names and candidate line numbers. Pay special attention to effects.py end_statuses shield handling and CombatUnitView.cs Shield display. Return concise JSON: {\"findings\":[{\"path\":\"仓库名/相对路径\",\"line\":候选行号,\"title\":\"简短标题\",\"why\":\"根因与业务后果\",\"evidence\":\"源码链路及具体触发例子\",\"fix\":\"最小修正建议\"}]}. Do not delegate to any sub-agent. Do not run tools. Base everything only on the packet.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067a-ddef-7e40-84fc-74f1e447a2e2",
+          "sender_thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "spawn_call_id": "call_00_ET_eejjZR5WQNPkyxwZI86a6155",
+          "spawn_start_seconds": 31.828000000008615,
+          "spawn_completed_seconds": 31.889999999999418,
+          "active_seconds": 31.906000000002678,
+          "idle_seconds": 54.92200000000594,
+          "wait_completed_seconds": 54.953000000008615,
+          "closed_seconds": 56.96800000000803,
+          "request_ids": [
+            8
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 2: contracts, state transitions and recovery reviewer. Review the frozen task packet contained in your common instructions (dev01 shield & combat snapshot cross-layer review). Scope: event/snapshot contract integrity, immutability and replay/recovery guarantees, and state-transition/end-of-turn settlement semantics across the frozen candidate diff and candidate source excerpts. Focus on trace.py EventRecorder.emit (state_after copy depth), effects.py end_statuses ordering/transition (shields vs buffs fresh_turn handling, remove_status/refresh_passives interplay), simulation.py turn loop, and how Unity CombatStateV2/CombatUnitView load snapshots. Identify only candidate-introduced actionable defects with packet file names and candidate line numbers. Return concise JSON: {\"findings\":[{\"path\":\"仓库名/相对路径\",\"line\":候选行号,\"title\":\"简短标题\",\"why\":\"根因与业务后果\",\"evidence\":\"源码链路及具体触发例子\",\"fix\":\"最小修正建议\"}]}. Do not delegate to any sub-agent. Do not run tools. Base everything only on the packet.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067b-49b8-7981-b728-91a5a732b8b3",
+          "sender_thread_id": "01a1067a-6518-7843-96fc-997193a8062f",
+          "spawn_call_id": "call_00_ET_BtH65a4rokEdyBahAx9H4594",
+          "spawn_start_seconds": 59.42200000000594,
+          "spawn_completed_seconds": 59.48400000001129,
+          "active_seconds": 59.48400000001129,
+          "idle_seconds": 83.60900000001129,
+          "wait_completed_seconds": 83.60900000001129,
+          "closed_seconds": 86.34300000000803,
+          "request_ids": [
+            13
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 3: tests, counterexamples and missed boundary cases reviewer. Review the frozen task packet contained in your common instructions (dev01 shield & combat snapshot cross-layer review). Scope: construct concrete counterexamples and boundary cases that expose candidate-introduced defects across the frozen diff and candidate source excerpts — e.g. shield created on the current normal turn with remaining==1 vs >1, multiple stacked shields with equal/large values, empty shield list, shallow-copied state_after observed after later damage/shield-expiry, ultimate turn not advancing normal_turn_count, and Unity Load/Export replay path. Only report issues actually introduced by the candidate diff, with packet file names and candidate line numbers. Merge duplicate phenomena by root cause. Return concise JSON: {\"findings\":[{\"path\":\"仓库名/相对路径\",\"line\":候选行号,\"title\":\"简短标题\",\"why\":\"根因与业务后果\",\"evidence\":\"源码链路及具体触发例子\",\"fix\":\"最小修正建议\"}]}. Do not delegate to any sub-agent. Do not run tools. Base everything only on the packet.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": true,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "No prior child JSON, attribution or explicit result is directly forwarded in later spawn messages. However later messages contain concrete defect hypotheses overlapping prior child outputs; these are also derivable from the full packet. Semantic answer leakage cannot be excluded or positively demonstrated from this trace. A strict schedule-only comparison is not verified.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring.",
+      "serial_manual_review": {
+        "source": "events.json item/completed spawnAgent prompts and earlier completed wait agentStates messages; no hidden oracle used",
+        "reviewed_spawn_call_ids": [
+          "call_00_ObOIzztMlBycka5rEXsn8619",
+          "call_00_ET_eejjZR5WQNPkyxwZI86a6155",
+          "call_00_ET_BtH65a4rokEdyBahAx9H4594"
+        ],
+        "no_direct_prior_result_reference_observed": true,
+        "literal_prior_json_forwarding_observed": false,
+        "later_prompt_concrete_hypotheses_overlap_prior_results": true,
+        "examples": [
+          "Specialist 2 message focuses explicitly on state_after copy depth and fresh_turn handling after specialist 1 has returned findings covering those paths.",
+          "Specialist 3 message asks for shallow-copied state_after after later damage/shield-expiry and current-turn shield remaining boundary cases after specialists 1 and 2 returned those patterns."
+        ],
+        "causal_origin_of_hypotheses": "undetermined: supplied packet itself also supports generating these hypotheses",
+        "strict_no_semantic_result_leakage_verified": null,
+        "strict_schedule_only_control_verified": false,
+        "no_business_finding_quality_score_assigned": true
+      }
+    },
+    {
+      "run_id": "dev02-single-r1-v5",
+      "mode": "single",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "256dda7ec3cfd4c0f267571362fb43abe37678226cb91133d1f899e886013d92",
+        "wire.json": "73ad132a70a57ca09a799eb00c553fce0c5ff18317ea7c7dad88f1a080267013",
+        "events.json": "66058feca31ba8742b3f6cabf9fad62d1bfb375c8161b0b416af63fcab44c540"
+      },
+      "parent_thread_id": "01a1067f-f640-7da0-b3b9-d6fa52c78df3",
+      "request_count": 1,
+      "turn_count": 1,
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a1067f-f640-7da0-b3b9-d6fa52c78df3",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": null,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: no child tasks.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev02-single_plus-r1-v5",
+      "mode": "single_plus",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "3d6545a737b11ebab5699e3b5a8b25282f5272fd882fedfd2669198fac79cc1d",
+        "wire.json": "a3a9d859e762138e438f4e64ac3f4c8b34f203715241a9a338bc6e16998ff978",
+        "events.json": "273db04648f80540332965a2197d12870eefc6bcf071f10cf4dcde76e72dc2ea"
+      },
+      "parent_thread_id": "01a1067c-f53c-7ca0-a6bb-f08dffb0d48d",
+      "request_count": 4,
+      "turn_count": 4,
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a1067c-f53c-7ca0-a6bb-f08dffb0d48d",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a1067c-f53c-7ca0-a6bb-f08dffb0d48d",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a1067c-f53c-7ca0-a6bb-f08dffb0d48d",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a1067c-f53c-7ca0-a6bb-f08dffb0d48d",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": null,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: no child tasks.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev02-team_parallel-r1-v5",
+      "mode": "team_parallel",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "f68045c9ae0573166b5302644ffbb5fc8d217745b9c5ab0b8eb8a2d86b701936",
+        "wire.json": "81f17864f0292d1ca81f714e10626a6ef41608b93ab4f92fc59b27a6aa01b199",
+        "events.json": "9aaa15022a8d173585a13678e011fab5d98f9600b817d6ca1e48ee047e31bb50"
+      },
+      "parent_thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+      "request_count": 9,
+      "turn_count": 1,
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a1067b-ea6c-7be2-bfb6-5329dd5d5a96",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a1067b-eac3-7780-bf9e-9a07330f6829",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 5,
+          "thread_id": "01a1067b-eb02-7640-aa53-5bc3c540e68d",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 6,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 7,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 8,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 9,
+          "thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [
+        {
+          "child_id": "01a1067b-ea6c-7be2-bfb6-5329dd5d5a96",
+          "sender_thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "spawn_call_id": "call_00_ET_BItQnBh5dU44l5QHnCqh7258",
+          "spawn_start_seconds": 5.389999999999418,
+          "spawn_completed_seconds": 5.467999999993481,
+          "active_seconds": 5.452999999994063,
+          "idle_seconds": 58.63999999999942,
+          "wait_completed_seconds": 58.65600000000268,
+          "closed_seconds": 63.40600000000268,
+          "request_ids": [
+            2
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 1: rules and semantic correctness reviewer. Review the frozen task packet in your common instructions (the dev02 experiment recovery / ledger reconciliation audit with the candidate diff and diagnostic record). Scope: business rules and semantic correctness — approval/plan_hash binding, worker admission and charged_battles semantics, receipt completeness/immutability semantics, and whether checkpoint/log evidence is being treated as authoritative domain fact. Check especially whether decide() still enforces rule 1 (approval must match the same request_id's immutable plan_hash) and whether the authorize node in workflow.py can accept a stale/interrupt-sourced approval. Return concise JSON findings: array of objects with path, line, title, why, evidence, fix. Base every claim on packet file/line references only. No delegation. Reply with the JSON only.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067b-eac3-7780-bf9e-9a07330f6829",
+          "sender_thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "spawn_call_id": "call_01_ET_yiYebYUj7CIu4OiuvyyZ3320",
+          "spawn_start_seconds": 5.467999999993481,
+          "spawn_completed_seconds": 5.514999999999418,
+          "active_seconds": 5.5310000000026776,
+          "idle_seconds": 16.98399999999674,
+          "wait_completed_seconds": 16.98399999999674,
+          "closed_seconds": 63.421000000002095,
+          "request_ids": [
+            3
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 2: contracts, state transitions and recovery reviewer. Review the frozen task packet in your common instructions (the dev02 experiment recovery / ledger reconciliation audit with the candidate diff and diagnostic record). Scope: contracts, state machine transitions and crash recovery — claim() job_status guard, complete() receipt validation before acknowledging completion, idempotency/replay behavior, and the interrupted resume path in diagnostic lines 017-018 (status=running, result_json=null, checkpoint next=experiment, worker_outcome=unavailable, diagnostic_boundary=before_claim). Determine precisely what the candidate source does when that resume reaches experiment/claim, and whether re-execution and double-charging are prevented. Return concise JSON findings: array of objects with path, line, title, why, evidence, fix. Base every claim on packet file/line references only. No delegation. Reply with the JSON only.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067b-eb02-7640-aa53-5bc3c540e68d",
+          "sender_thread_id": "01a1067b-d90b-7a33-bafd-fb072433dba4",
+          "spawn_call_id": "call_02_ET_eE1upfxw97BYVwF57C6i4560",
+          "spawn_start_seconds": 5.5460000000020955,
+          "spawn_completed_seconds": 5.6560000000026776,
+          "active_seconds": 5.6560000000026776,
+          "idle_seconds": 28.796000000002095,
+          "wait_completed_seconds": 28.812000000005355,
+          "closed_seconds": 63.45299999999406,
+          "request_ids": [
+            5
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 3: tests, counterexamples and missed boundary cases reviewer. Review the frozen task packet in your common instructions (the dev02 experiment recovery / ledger reconciliation audit with the candidate diff and diagnostic record). Scope: counterexamples and boundary cases — walk concrete scenarios through store.py/workflow.py/report.py/contracts.py to find missed boundaries: decide() with a mismatched plan_hash, decide() on an already-approved run, claim() when job_status=='running' with no receipt, complete() without report validation, complete() with a mismatched plan, show() calling build_report on unvalidated stored result_json, and the _drive()/authorize interrupt-vs-domain-state interaction. For each, state the exact inputs and the resulting observable behavior, and whether it violates a stated business rule. Return concise JSON findings: array of objects with path, line, title, why, evidence, fix. Base every claim on packet file/line references only. No delegation. Reply with the JSON only.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "actual_child_overlap": [
+        {
+          "children": [
+            "01a1067b-ea6c-7be2-bfb6-5329dd5d5a96",
+            "01a1067b-eac3-7780-bf9e-9a07330f6829"
+          ],
+          "overlap_seconds": 11.452999999994063
+        },
+        {
+          "children": [
+            "01a1067b-ea6c-7be2-bfb6-5329dd5d5a96",
+            "01a1067b-eb02-7640-aa53-5bc3c540e68d"
+          ],
+          "overlap_seconds": 23.139999999999418
+        },
+        {
+          "children": [
+            "01a1067b-eac3-7780-bf9e-9a07330f6829",
+            "01a1067b-eb02-7640-aa53-5bc3c540e68d"
+          ],
+          "overlap_seconds": 11.327999999994063
+        }
+      ],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": true,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Not applicable: all child instructions were produced before first wait/result.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring."
+    },
+    {
+      "run_id": "dev02-team_serial-r1-v5",
+      "mode": "team_serial",
+      "runner_pass": true,
+      "runner_sha256": "b53b144a33e66aca986c60a3208324d9eff0a34d0a71b151c80ea68c6fbd3eff",
+      "artifact_sha256": {
+        "result.json": "8b6559c9f3ec7434de9db5bdce0e54f0608b520682039f4a72f6c019d3524bdd",
+        "wire.json": "f2486a439a6fdaa16313e8a54e3ed30988347953890f88e6c7bd030409b75e09",
+        "events.json": "a2c15c550594321684293247f371938e17383cdb5f89ceb1ac842d939e55a48c"
+      },
+      "parent_thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+      "request_count": 18,
+      "turn_count": 1,
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+      "all_actual_request_packets_match": true,
+      "request_packet_checks": [
+        {
+          "request_id": 1,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 2,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 3,
+          "thread_id": "01a1067e-52f4-73b2-9b17-a657579dea72",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 4,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 5,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 6,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 7,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 8,
+          "thread_id": "01a1067e-9bbc-7340-925a-a09727f8bc42",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 9,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 10,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 11,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 12,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 13,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 14,
+          "thread_id": "01a1067f-11ba-7b73-b472-2cfe2037a607",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 15,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 16,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 17,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        },
+        {
+          "request_id": 18,
+          "thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+          "matches_frozen_result_hash": true
+        }
+      ],
+      "observed_provider_models": [
+        "deepseek-flash"
+      ],
+      "only_native_lifecycle_tools_declared": true,
+      "child_identity_matches_result": true,
+      "all_child_threads_correlated_to_parent": true,
+      "children": [
+        {
+          "child_id": "01a1067e-52f4-73b2-9b17-a657579dea72",
+          "sender_thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "spawn_call_id": "call_00_S8r5YjNMYPvR4LxhGZJY2433",
+          "spawn_start_seconds": 11.187999999994645,
+          "spawn_completed_seconds": 11.218999999997322,
+          "active_seconds": 11.218999999997322,
+          "idle_seconds": 25.718999999997322,
+          "wait_completed_seconds": 25.718999999997322,
+          "closed_seconds": 27.375,
+          "request_ids": [
+            3
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 1: rules and semantic correctness reviewer. Scope: review the frozen packet in your common instructions (dev02 experiment-resume/ledger reconciliation candidate diff plus the related source files store.py, workflow.py, report.py, contracts.py and the diagnostic fixture). Focus on whether the candidate code honors the four stated business rules (plan_hash-bound approval, conservative worker admission with no automatic retry on running/unknown outcome, complete-receipt binding to plan_hash+game_fingerprint with exactly one baseline/candidate per (policy,seed) verified before complete, and completed-ledger idempotency). Read-only: do not edit files, do not run commands, do not use any tool other than returning your answer; no delegation, no sub-agents. Base every claim strictly on packet evidence with file path + candidate line numbers. Return ONLY a JSON object of the form {\"findings\":[{\"path\":\"...\",\"line\":<int>,\"title\":\"...\",\"why\":\"...\",\"evidence\":\"...\",\"fix\":\"...\"}]} — list independent root causes, merge duplicate symptoms, and return an empty findings array if you find nothing. No markdown fences, no prose outside the JSON.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067e-9bbc-7340-925a-a09727f8bc42",
+          "sender_thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "spawn_call_id": "call_00_ET_gJ6uairHx2QiU9bCUWc79473",
+          "spawn_start_seconds": 29.796999999991385,
+          "spawn_completed_seconds": 29.85899999999674,
+          "active_seconds": 29.875,
+          "idle_seconds": 55.655999999988126,
+          "wait_completed_seconds": 55.671999999991385,
+          "closed_seconds": 57.280999999988126,
+          "request_ids": [
+            8
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 2: contracts, state transitions and recovery reviewer. Scope: review the frozen packet in your common instructions (dev02 candidate diff plus store.py, workflow.py, report.py, contracts.py and the diagnostic fixture). Focus on the domain state machine and recovery semantics: job_status transitions (new -> running -> completed), the decide/claim/complete boundaries, idempotency and re-entry, interaction between the LangGraph checkpoint driver in workflow.py (_drive/experiment/authorize) and the SQLite domain ledger, charged_battles accounting on re-admission, and whether a completed ledger plus stale/un-synced checkpoint can be safely resumed without re-executing or double-charging. Verify claims against packet line numbers. Read-only: do not edit files, do not run commands, do not use any tool other than returning your answer; no delegation, no sub-agents. Return ONLY a JSON object of the form {\"findings\":[{\"path\":\"...\",\"line\":<int>,\"title\":\"...\",\"why\":\"...\",\"evidence\":\"...\",\"fix\":\"...\"}]} — list independent root causes, merge duplicate symptoms, empty array if nothing. No markdown fences, no prose outside the JSON.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "child_id": "01a1067f-11ba-7b73-b472-2cfe2037a607",
+          "sender_thread_id": "01a1067e-2aca-77d0-8719-651a3d02824e",
+          "spawn_call_id": "call_00_ET_i8ioAcpGe6Red6Z182Vd3358",
+          "spawn_start_seconds": 60.0,
+          "spawn_completed_seconds": 60.046999999991385,
+          "active_seconds": 60.046999999991385,
+          "idle_seconds": 105.21899999999732,
+          "wait_completed_seconds": 105.23399999999674,
+          "closed_seconds": 108.23399999999674,
+          "request_ids": [
+            14
+          ],
+          "first_request_input_types": [
+            "message",
+            "message",
+            "message"
+          ],
+          "first_request_has_prior_tool_results": false,
+          "first_request_has_assistant_history": false,
+          "last_user_input_equals_spawn_message": true,
+          "fork_context": false,
+          "spawn_prompt": "You are specialist 3: tests, counterexamples and missed boundary cases reviewer. Scope: review the frozen packet in your common instructions (dev02 candidate diff plus store.py, workflow.py, report.py, contracts.py and the diagnostic fixture). Focus on constructing concrete counterexample traces that the candidate code would accept but the four business rules forbid (and vice versa): stale/mismatched plan_hash approval, resume after process death inside execute (fixture 017/018), incomplete/duplicate/foreign (policy,seed) receipts, game_fingerprint mismatch, re-claim/re-charge idempotency, repeated complete() calls, and any boundary the other reviewers may miss (e.g. error-message vs condition mismatch, result_json integrity check in get(), approved=None handling in workflow.authorize, whether show()-time validation can still leave a corrupt completed ledger). Cite packet file lines for each counterexample and only claim defects actually reachable from the shown code. Read-only: do not edit files, do not run commands, do not use any tool other than returning your answer; no delegation, no sub-agents. Return ONLY a JSON object of the form {\"findings\":[{\"path\":\"...\",\"line\":<int>,\"title\":\"...\",\"why\":\"...\",\"evidence\":\"...\",\"fix\":\"...\"}]} — independent root causes only, merge duplicates, empty array if nothing. No markdown fences, no prose outside the JSON.",
+          "model_set": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "actual_child_overlap": [],
+      "schedule_observed_as_requested": true,
+      "child_contexts_independent_at_spawn": true,
+      "serial_no_result_leakage_verified": null,
+      "leakage_audit_note": "Later spawn messages contain task-specific hypotheses and line references, including stale-checkpoint replay/recharge and corrupt-completed-ledger cases. They do not quote an earlier answer or attribute a finding to a previous child. Because the parent generated these messages after seeing prior child results, no semantic-leakage absence claim is made.",
+      "scope": "Protocol, scheduling and context only; no business-finding quality scoring.",
+      "serial_manual_review": {
+        "source": "events.json completed spawnAgent prompts; no hidden oracle or quality scoring",
+        "reviewed_spawn_call_ids": [
+          "call_00_S8r5YjNMYPvR4LxhGZJY2433",
+          "call_00_ET_gJ6uairHx2QiU9bCUWc79473",
+          "call_00_ET_i8ioAcpGe6Red6Z182Vd3358"
+        ],
+        "no_direct_prior_result_reference_observed": true,
+        "literal_prior_json_forwarding_observed": false,
+        "later_prompts_contain_task_specific_hypotheses": true,
+        "examples": [
+          "Role 2 explicitly requests stale completed-ledger/checkpoint re-entry and double-charging scenarios.",
+          "Role 3 explicitly lists stale approvals, process-death fixture lines, duplicate/foreign receipts, repeated complete calls and show-time validation of a corrupt ledger."
+        ],
+        "causal_origin_of_hypotheses": "not determined; parent had both original packet and earlier child results",
+        "strict_no_semantic_result_leakage_verified": null,
+        "strict_schedule_only_control_verified": false,
+        "no_business_finding_quality_score_assigned": true
+      }
+    }
+  ]
+}

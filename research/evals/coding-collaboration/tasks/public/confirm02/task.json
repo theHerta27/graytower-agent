@@ -1,0 +1,27 @@
+{
+  "output_schema": {
+    "findings": [
+      {
+        "evidence": "string",
+        "fix": "string",
+        "line": "integer",
+        "path": "string",
+        "title": "string",
+        "why": "string"
+      }
+    ]
+  },
+  "packet_characters": 16207,
+  "packet_path": "tasks/public/confirm02/packet.md",
+  "packet_sha256": "2cb9c1ceefae33042c45e39bafc798a4d57dace6ea8e5f7c4fa075c9d6779bca",
+  "schema_version": 1,
+  "source_paths": [
+    "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/contracts.py",
+    "mihoyo-agent-project/src/agent_workbench/verification/store.py"
+  ],
+  "split": "confirmation",
+  "task_id": "confirm02",
+  "title": "配对报告和源码冻结评审"
+}

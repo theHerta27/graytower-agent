@@ -1,5 +1,11 @@
 # 米哈游 Agent 项目群
 
+新机器安装与 GitHub 操作见 [GitHub 使用手册](GitHub使用手册.md)；玩家演示步骤见 [使用手册](使用手册.md)。源码配套游戏仓库为 https://github.com/theHerta27/graytower-game 。
+
+## Agent 源码入口
+
+四项能力位于 `src/agent_workbench/`。中文模块说明：[Coding](src/agent_workbench/coding/README.md)、[Config](src/agent_workbench/config/README.md)、[Verification](src/agent_workbench/verification/README.md)、[NPC](src/agent_workbench/npc/README.md)。Verification 工作台主入口现位于 `verification/agent.py`；`qa.py` 保留旧导入兼容。共享领域、工具、模型和协议实现位于相邻模块，游戏规则与 Unity 位于同级 `graytower-game` 仓库。
+
 ## 2026-10-05：可直接演示的营地闭环
 
 按用户“优先快速闭环，不扩复杂严谨度”的最新要求，本轮交付本机演示：React营地→真实LangGraph离线对话/玩家选择→世界支援→Unity实际按键→同规则结算→分享战报→角色记忆隔离。入口 http://127.0.0.1:8780/camp ，双击 `开始剧情演示.cmd`；中文步骤见[使用手册](使用手册.md)。研发真实历史结果仍在8767。当前演示NPC是明确标注的离线台词，0新增模型调用，不冒充真实DeepSeek自由对话。

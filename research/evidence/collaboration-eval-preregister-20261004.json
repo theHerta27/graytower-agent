@@ -1,0 +1,53 @@
+{
+  "experiment_id": "coding-collaboration-20261004",
+  "scope": "Frozen real-repository change review/investigation, with explicitly marked injected candidates; not full coding delivery or Unity performance",
+  "phase": "preregistered-before-model-quality-results",
+  "model": "deepseek-flash",
+  "provider": "https://api.deepseek.com/responses",
+  "runtime": "Codex 0.159.0-alpha.12.1 + official Python SDK source; native V1 lifecycle via narrow Responses tool-name mapping",
+  "conditions": {
+    "single": "One capable agent with complete public packet and normal self-check",
+    "single_plus": "Same agent/thread gets explicit additional investigation and revision rounds, no extra agents",
+    "team_parallel": "One coordinator + three native read-only investigators: rules, contracts/state, counterexamples/tests; same full packet; native parallel dispatch",
+    "team_serial": "Same roles, packet and synthesis as team_parallel; wait for each before next spawn; no passing earlier child results to later child"
+  },
+  "sampling": {
+    "development_tasks": 2,
+    "development_repeats": 2,
+    "confirmation_tasks_planned": 4,
+    "confirmation_repeats_planned": 3,
+    "confirmation_condition_selection": "Freeze after development; run single/single_plus/team if technically valid; serial timing subset selected before confirmation outcomes",
+    "independent_unit": "task; repeats measure stability, not new independent samples"
+  },
+  "criteria": {
+    "primary": "Correct actionable issues/critical misses and evidence-complete task delivery; judged against frozen oracle and reproducible code",
+    "false_positives": "Unsupported claimed defects counted separately, duplicate findings do not inflate TP",
+    "no_preselected_positive_result": true,
+    "resource_question": "A vs team for absolute incremental quality/cost; A+ vs team for extra reasoning vs organization",
+    "time_question": "Only same decomposition serial vs parallel supports parallel speed claim; include full run and synthesis",
+    "failures": "Keep protocol/timeout/truncation/noncompliance and all assigned runs; do not silently drop or best-of"
+  },
+  "budget": {
+    "max_usd_conservative": 3.0,
+    "max_requests_total": 600,
+    "max_output_tokens_total": 1000000,
+    "initial_smoke_max_requests": 8,
+    "initial_smoke_max_output_tokens": 16000,
+    "reserve": "Use conservative peak prices for request reservation; unknown outcomes retain reserved cost; actual usage reported separately",
+    "authorization": "User explicitly requested live validation and comparisons; bounded small research budget set autonomously, no new broad benchmark spend"
+  },
+  "price_snapshot": {
+    "source": "https://api-docs.deepseek.com/quick_start/pricing/?tab=case-studies",
+    "accessed_date": "2026-10-04",
+    "offpeak_usd_per_million": {"input_cache_miss": 0.15, "input_cache_hit": 0.003, "output": 0.6},
+    "peak_multiplier": 2,
+    "billing_claim": "estimate from usage, not account invoice"
+  },
+  "data_rules": [
+    "Tasks and oracle freeze before confirmation outputs; hashes saved",
+    "All modes see same full public source packet and instructions; oracle never sent to model",
+    "Only registered lifecycle and read-only evidence allowed; no generated shell or code writes",
+    "No fallback provider; API key in memory only; fresh CODEX_HOME",
+    "Protocol success is not quality improvement; this stage does not certify full product cancellation/resume"
+  ]
+}

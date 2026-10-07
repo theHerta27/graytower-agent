@@ -1,0 +1,165 @@
+{
+  "batch_id": "development-20261004-v2",
+  "frozen_before_quality_outputs": true,
+  "outdir": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-development-20261004-v2",
+  "stop_on_failure": true,
+  "common_config": {
+    "live": true,
+    "fixture": false,
+    "specialists": 3,
+    "single_plus_turns": 4,
+    "per_request_output_tokens": 4000,
+    "wall_seconds": 240,
+    "ledger_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-live-global-budget-20261004.json"
+  },
+  "profiles": {
+    "single": {
+      "max_model_calls": 1,
+      "max_output_tokens": 4000
+    },
+    "single_plus": {
+      "max_model_calls": 4,
+      "max_output_tokens": 16000
+    },
+    "team_parallel": {
+      "max_model_calls": 24,
+      "max_output_tokens": 32000
+    },
+    "team_serial": {
+      "max_model_calls": 24,
+      "max_output_tokens": 32000
+    }
+  },
+  "assignments": [
+    {
+      "run_id": "dev01-single-r1-v2",
+      "task_id": "dev01",
+      "mode": "single",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-team_parallel-r1-v2",
+      "task_id": "dev01",
+      "mode": "team_parallel",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-single_plus-r1-v2",
+      "task_id": "dev01",
+      "mode": "single_plus",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-team_serial-r1-v2",
+      "task_id": "dev01",
+      "mode": "team_serial",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev02-team_parallel-r1-v2",
+      "task_id": "dev02",
+      "mode": "team_parallel",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-single_plus-r1-v2",
+      "task_id": "dev02",
+      "mode": "single_plus",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-team_serial-r1-v2",
+      "task_id": "dev02",
+      "mode": "team_serial",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-single-r1-v2",
+      "task_id": "dev02",
+      "mode": "single",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev01-team_parallel-r2-v2",
+      "task_id": "dev01",
+      "mode": "team_parallel",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-single_plus-r2-v2",
+      "task_id": "dev01",
+      "mode": "single_plus",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-team_serial-r2-v2",
+      "task_id": "dev01",
+      "mode": "team_serial",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev01-single-r2-v2",
+      "task_id": "dev01",
+      "mode": "single",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    },
+    {
+      "run_id": "dev02-single_plus-r2-v2",
+      "task_id": "dev02",
+      "mode": "single_plus",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-team_serial-r2-v2",
+      "task_id": "dev02",
+      "mode": "team_serial",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-single-r2-v2",
+      "task_id": "dev02",
+      "mode": "single",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    },
+    {
+      "run_id": "dev02-team_parallel-r2-v2",
+      "task_id": "dev02",
+      "mode": "team_parallel",
+      "repeat": 2,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev02\\packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876"
+    }
+  ],
+  "reason_for_new_manifest": "v1 first request hit PermissionError under sandbox; no quality output. Retry same frozen task/conditions under network-authorized execution; retain v1 attempted failure separately, 15 unstarted cells superseded.",
+  "runner_sha256": "5f1d08ed16d44379af81a3306bb8b91aface48e94e2a640ae1154f33509c4c4c"
+}

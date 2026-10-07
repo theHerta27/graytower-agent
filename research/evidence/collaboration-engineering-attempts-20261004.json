@@ -1,0 +1,43 @@
+{
+  "scope": "engineering calibration before final comparative profile; every record retained, none proves multi-agent quality gain",
+  "records": [
+    {
+      "path": "collaboration-live-smoke-20261004-1",
+      "kind": "real_provider_native_single_child_smoke",
+      "quality_sample": false
+    },
+    {
+      "path": "collaboration-development-20261004-v1",
+      "kind": "sandbox_network_denied",
+      "started": 1,
+      "not_started_superseded": 15
+    },
+    {
+      "path": "collaboration-development-20261004-v2",
+      "kind": "real_provider_response_incomplete_4000_reasoning_tokens",
+      "started": 1,
+      "not_started_superseded": 15
+    },
+    {
+      "path": "collaboration-calibration-20261004-v3",
+      "kind": "same_development_task_output_cap_calibration",
+      "started": 1
+    },
+    {
+      "path": "collaboration-development-20261004-v4",
+      "kind": "native_valid_wait_120000_rejected_by_adapter_60000_guard; repair_necessary",
+      "started": 2,
+      "not_started_superseded": 14
+    },
+    {
+      "path": "collaboration-fixed-profile-smoke-20261004",
+      "kind": "real_provider_native_three_fixed_specialists",
+      "quality_sample": false,
+      "requests": 9,
+      "runtime_seconds": 40.469,
+      "offpeak_estimated_usd": 0.010506822
+    }
+  ],
+  "data_authorization": "User explicitly authorized six frozen public packets and model analyses to https://api.deepseek.com/responses, cumulative USD3 cap, after auto-review rejected initial escalation. No requests bypassed rejection.",
+  "development_batch_note": "v5 first10 plus v6 six previously unstarted cells =16 comparisons; one A+ truncation retained, not retried. Final combined source in collaboration-development-final."
+}

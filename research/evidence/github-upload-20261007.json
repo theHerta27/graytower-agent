@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-07",
+  "repositories": [
+    "https://github.com/theHerta27/mihoyo-agent-project",
+    "https://github.com/theHerta27/graytower-game"
+  ],
+  "privacy": "private",
+  "historical_scan": {
+    "workbench_blobs": 257,
+    "game_blobs": 360,
+    "provider_pattern_hits": "reviewed synthetic test fixtures only",
+    "large_blobs_over_20MiB": 0,
+    "tracked_env_databases_executables": 0
+  },
+  "new_files_scan": {
+    "files": 161,
+    "bytes": 3061294,
+    "provider_or_private_key_pattern_hits": 0
+  },
+  "validation": {
+    "unittest_total": 203,
+    "skipped": 2,
+    "failures": 0,
+    "candidate_domain_after_final_change": {
+      "tests": 8,
+      "skipped": 1,
+      "failures": 0
+    },
+    "restored_baseline_describe_and_candidate": "passed",
+    "baseline_revision": "fdb9e8387af696482bf2b57d1543484f8b08495c",
+    "old_vs_archive": "same rule content; some CRLF/LF differences, byte hashes not claimed equal"
+  },
+  "not_uploaded": [
+    "virtual environments",
+    "SDK/Runtime binaries",
+    "Unity builds/caches/installers",
+    "local-data",
+    "personal editor settings",
+    "bulk raw research execution folders"
+  ],
+  "limits": [
+    "Not a new model or Unity acceptance",
+    "No new paid model calls",
+    "Historical raw evidence remains local; curated source/methods/summaries uploaded",
+    "Frozen evaluation packet whitespace retained intentionally"
+  ]
+}

@@ -9,7 +9,12 @@ from pathlib import Path
 import re
 import tempfile
 
-TRUSTED_GAME_ROOT = Path("D:/Desktop/combat-foundation")
+# Existing local evidence keeps its old checkout. Fresh clones reconstruct the
+# same frozen commit from the sibling game repository, rather than use new rules.
+_LEGACY_GAME_ROOT = Path("D:/Desktop/combat-foundation")
+_PORTABLE_BASELINE = Path(__file__).resolve().parents[4] / "graytower-game/local-data/verification-baseline"
+TRUSTED_GAME_ROOT = Path(os.environ["AGENT_WORKBENCH_GAME_ROOT"]) if os.environ.get("AGENT_WORKBENCH_GAME_ROOT") else (
+    _LEGACY_GAME_ROOT if _LEGACY_GAME_ROOT.is_dir() else _PORTABLE_BASELINE)
 PROFILE = "trusted-combat-numeric-v1"
 FIELD = "skills.breaker_skill.multiplier"
 SCOPE = {FIELD: {"minimum": 1.4, "maximum": 1.7}}

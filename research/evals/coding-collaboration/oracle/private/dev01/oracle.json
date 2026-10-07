@@ -1,0 +1,105 @@
+{
+  "candidate_hashes": {
+    "combat-foundation/game-core/combat_core/v2/effects.py": "ff08efa60ec05ce2af96b379a20c887ab49dbb4a6af6131bb5ee1cf6be940a89",
+    "combat-foundation/game-core/combat_core/v2/simulation.py": "2f55f78ab60461ebd585e2b45481ca7d6c7796da93df548b600fb0784b71a2ea",
+    "combat-foundation/game-core/combat_core/v2/state.py": "afa5f682a54e5cc18cea66e6c5cc7ea15ccd08d4c9d39eba62c48ccfbf26c620",
+    "combat-foundation/game-core/combat_core/v2/trace.py": "a875d6abdfd42b6caa41a901958c580b737727c6a1d453dea4462c402b658d4e",
+    "combat-foundation/game-unity/Assets/Runtime/CombatStateV2.cs": "52fc148d5c615eea6f1c62bacbe0f6fcbe2baebca222d2327ce9049e327f1ea3",
+    "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs": "eb332d25d73c1d4ff42a6ade8f51b9e382a1c4c5aba7d53f3a171aa6c1cfbb2d"
+  },
+  "exhaustive_within_scope": true,
+  "ground_truth_kind": "benchmark_injected",
+  "issues": [
+    {
+      "aliases": [
+        "事件污染",
+        "历史快照别名"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 119,
+          "path": "combat-foundation/game-core/combat_core/v2/trace.py",
+          "start_line": 114
+        }
+      ],
+      "fix": "恢复深复制，或使用等价的完整不可变快照。",
+      "issue_id": "D01-HISTORY",
+      "required_evidence": [
+        "EventRecorder.emit使用deep=False仅复制外层模型。",
+        "BattleState.units及UnitState的可变对象仍共享，后续修改污染旧state_after；不是只有显示缓存问题。"
+      ],
+      "root_cause": "浅复制BattleState共享units及其中UnitState，后续结算会改写已记录事件。",
+      "severity": "P1",
+      "trigger": "发出battle_started或任一伤害前事件后，再修改同一单位hp/shields。",
+      "verification_ids": [
+        "D01-HISTORY"
+      ]
+    },
+    {
+      "aliases": [
+        "自施护盾少一回合"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 124,
+          "path": "combat-foundation/game-core/combat_core/v2/effects.py",
+          "start_line": 119
+        }
+      ],
+      "fix": "在护盾到期循环恢复fresh_turn判断。",
+      "issue_id": "D01-DURATION",
+      "required_evidence": [
+        "apply_skill_effects会记录fresh_turn。",
+        "同回合end_statuses不再跳过，remaining=1立即消失或remaining=3降为2。"
+      ],
+      "root_cause": "移除fresh_turn跳过规则，使当前回合新授予自己的护盾提前消耗一次持续期。",
+      "severity": "P2",
+      "trigger": "持有者回合中施放护盾，fresh_turn等于normal_turn_count；同回合end_statuses。",
+      "verification_ids": [
+        "D01-DURATION"
+      ]
+    },
+    {
+      "aliases": [
+        "叠盾显示错误"
+      ],
+      "allowed_locations": [
+        {
+          "end_line": 17,
+          "path": "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs",
+          "start_line": 12
+        }
+      ],
+      "fix": "保留Sum，或明确用全部有效护盾求和。",
+      "issue_id": "D01-DISPLAY",
+      "required_evidence": [
+        "UnitSnapshotV2.shields是多层护盾列表。",
+        "Max显示120，规则总值应200；空列表已DefaultIfEmpty处理，不能误报空列表异常。"
+      ],
+      "root_cause": "显示由所有护盾求和改为最大单层，叠加护盾被低估。",
+      "severity": "P2",
+      "trigger": "同一单位有两个有效来源护盾，例如120和80。",
+      "verification_ids": [
+        "D01-DISPLAY"
+      ]
+    }
+  ],
+  "non_issues": [
+    "DefaultIfEmpty(0)已处理空护盾列表；不能报告Max空集合异常。",
+    "不要求Unity自行扣护盾或推进回合。"
+  ],
+  "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+  "schema_version": 1,
+  "scope": "我们想减少战斗Trace的快照分配，并简化Unity护盾展示和回合末维护。请审查冻结候选，判断是否仍满足护盾持续期、事件历史不可变和回放显示要求。只报候选新增的可行动问题，不把建议重构当缺陷。",
+  "source_hashes": {
+    "combat-foundation/game-core/combat_core/v2/effects.py": "afa556490c51666714edaa3fe83a0f570e71abc71daf64934412b7b4c487bad6",
+    "combat-foundation/game-core/combat_core/v2/simulation.py": "69ef0558b02a7c39d9459d6e0fb0d670608fce1417043915adeee42b3b3b8379",
+    "combat-foundation/game-core/combat_core/v2/state.py": "17a00fb56541d70f4c781d25220df334cec761b7bc6c840aafb29c5af3e0a117",
+    "combat-foundation/game-core/combat_core/v2/trace.py": "1d00d1a68bc8acf5bea52190fe8892597e909dac80c42365cdac02981c04eb9f",
+    "combat-foundation/game-unity/Assets/Runtime/CombatStateV2.cs": "52fc148d5c615eea6f1c62bacbe0f6fcbe2baebca222d2327ce9049e327f1ea3",
+    "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs": "0462a59a957377aa1ceacb6172b5a92a8975f1773c1f25a2007909e2db3be5ea"
+  },
+  "split": "development",
+  "task_id": "dev01",
+  "verification": "oracle/private/verify_oracles.py; actual Python functions + source-verifiable C# projection; no Unity claim"
+}

@@ -1,0 +1,35 @@
+{
+  "recorded_utc": "2026-10-04T11:18:43.880896+00:00",
+  "kind": "record of observed command results, not another test run",
+  "checks": [
+    {
+      "command": "research/.venv-framework/Scripts/python.exe -B -m unittest discover -s research/probes -p test_collaboration_*.py -v",
+      "passed": 22,
+      "failed": 0
+    },
+    {
+      "command": "research/.venv-framework/Scripts/python.exe -B -m unittest discover -s research/evals/coding-collaboration -p test_evaluate.py -v",
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "command": "PYTHONPATH=src PYTHONUTF8=1 research/.venv-framework/Scripts/python.exe -B -m unittest discover -s tests -v",
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "command": "D:/Desktop/combat-foundation/.venv/Scripts/python.exe -B research/evals/coding-collaboration/oracle/private/verify_oracles.py",
+      "passed_checks": 14,
+      "injected_roots": 13,
+      "clean_control": 1
+    }
+  ],
+  "earlier_invocation_issue": "Verification test discovery without documented PYTHONPATH=src failed before tests with ModuleNotFoundError; same tests passed after setting documented environment. No product code changed.",
+  "source_sha256": {
+    "research/probes/collaboration_live_runner.py": "360109c34b2a3613c1fe019437c7deb8666a04914b6bcfe377c682c73d2f3b19",
+    "research/probes/collaboration_profile_runner.py": "f4528c0a22a6def099b77c6db41459ed5fabd56f86f587fb3776d55a7729a61c",
+    "research/probes/collaboration_batch.py": "c41e37013ab5a9a5e1f9ee795e48ba3392941f2fb4d40402bb1e6206962f7e6b",
+    "research/evals/coding-collaboration/evaluate.py": "69af822c9407f4618ae8699731d52393020dda2cfe6899bd3da6e84e771831b3"
+  },
+  "boundary": "Unit tests and frozen-source counterexamples; not Unity, full-product or model quality acceptance."
+}

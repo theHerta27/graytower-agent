@@ -21,7 +21,8 @@ class CandidateRepository:
         # Do not inherit model credentials, proxies, PYTHONPATH or tracing settings.
         env = {key: value for key, value in os.environ.items()
                if key.upper() in {"SYSTEMROOT", "WINDIR", "TEMP", "TMP"}}
-        env.update(PYTHONUTF8="1", LANGSMITH_TRACING="false", LANGCHAIN_TRACING_V2="false")
+        env.update(PYTHONUTF8="1", LANGSMITH_TRACING="false", LANGCHAIN_TRACING_V2="false",
+                   AGENT_WORKBENCH_GAME_ROOT=str(self.game_root))
         process = subprocess.run(
             [str(self.game_python), "-I", "-B", "-X", "utf8", str(Path(__file__).with_name("worker.py")), operation,
              "--game-root", str(self.game_root), "--artifacts", str(self.artifacts.root)],

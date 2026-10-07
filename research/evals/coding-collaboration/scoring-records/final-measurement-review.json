@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-04 11:33:34 UTC",
+  "status": "passed",
+  "reviewer": "collaboration_benchmark subagent",
+  "scope": "Recompute mode/resource/timing/status-only projections, four scheduling pairs, global ledger arithmetic, and report measurement paragraphs. No quality or adoption judgment.",
+  "sources": [
+    {
+      "path": "research/evidence/collaboration-confirmation-final/runs.json",
+      "sha256": "261f2f70286239a8703a53f3dfd6c600f98f9ae7e3b9b21d01257423c1f1654a"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-final/measurements.json",
+      "sha256": "966011f19976ff37e749ef5778629e00c86bcc5b93567598bdfebcd45075e03f"
+    },
+    {
+      "path": "research/evidence/collaboration-confirmation-final/global-budget-snapshot.json",
+      "sha256": "3eb985a2fca35aa94acadd082fbf3f955502fb91d8e8aed2db82f7d664d8b00f"
+    }
+  ],
+  "report_section": {
+    "path": "research/evidence/collaboration-evaluation-20261004.md",
+    "lines_at_review": [
+      106,
+      133
+    ],
+    "excerpt_sha256": "a7123584559e088a0e4f6c8054a53264be0ec9815252e2533da9d013483434ca",
+    "matches_measurements": true,
+    "note": "Only measurement paragraphs inspected; full report quality sections were not reviewed."
+  },
+  "validation": {
+    "numeric_assertions_passed": 454,
+    "tolerance": "math.isclose rel_tol=1e-10, abs_tol=1e-10",
+    "source_runs_hash_matches_measurements": true,
+    "all_28_assignments_present": true,
+    "resource_rows_completed_and_usage_complete": 28,
+    "method": "Fresh recomputation from whitelisted run fields and disjoint ledger status groups; recomputed every settled-row price and unknown reservation."
+  },
+  "mode_summary_check": {
+    "runs": {
+      "single": 8,
+      "single_plus": 8,
+      "team_parallel": 8,
+      "team_serial": 4
+    },
+    "verified_fields": [
+      "independent task counts",
+      "request sums",
+      "input/output/cache token sums",
+      "mean and total cost",
+      "mean and median runtime"
+    ],
+    "result": "All match measurements.json and the rounded report table."
+  },
+  "paired_timing": {
+    "independent_tasks": 2,
+    "paired_repeats": 4,
+    "serial_total_seconds": 433.6570000000065,
+    "parallel_total_seconds": 230.32800000002317,
+    "total_seconds_saved": 203.32899999998335,
+    "mean_pair_seconds_saved": 50.83224999999584,
+    "ratio_of_totals_fraction_saved": 0.4688705589901242,
+    "mean_of_individual_pair_fractions": 0.4652332844008835,
+    "report_rounding": {
+      "mean_pair_seconds_saved": "50.83",
+      "ratio_of_totals_percent_saved": "46.9%"
+    },
+    "interpretation": "The report correctly associates 46.9% with the total 433.657 to 230.328 seconds comparison. It is not the unweighted mean pair-percent reduction (46.52%). All four individual time differences and rounded rows match."
+  },
+  "paired_cost": {
+    "serial_sum_usd": 0.059738436,
+    "parallel_sum_usd": 0.063284484,
+    "parallel_increase_fraction": 0.05935957211869436,
+    "report_rounding": "+5.9%",
+    "comparison_scope": "The same two tasks and four task/repeat pairs, not serial two-task means against parallel four-task means."
+  },
+  "cross_mode_rounded_claims": {
+    "parallel_vs_single_mean_cost_ratio": 4.140460380995729,
+    "parallel_vs_single_mean_runtime_ratio": 2.0780061608083704,
+    "parallel_vs_single_plus_mean_cost_reduction_fraction": 0.18966608153426956,
+    "parallel_vs_single_plus_mean_runtime_reduction_fraction": 0.5935659680089636,
+    "report_values": [
+      "4.14x cost",
+      "2.08x runtime",
+      "about 19% less cost than A+",
+      "about 59% less runtime than A+"
+    ],
+    "all_correct": true
+  },
+  "global_budget": {
+    "reservations": 352,
+    "known_settled_usage_entries": 350,
+    "unknown_reserved_entries": 2,
+    "known_input_tokens": 4413928,
+    "known_output_tokens": 666150,
+    "known_offpeak_estimated_usd": 0.4871197439999997,
+    "unknown_peak_reserved_usd": 0.0481524,
+    "unknown_output_reserved": 20384,
+    "known_peak_plus_unknown_peak_reserved_usd": 1.0223918879999994,
+    "actual_plus_reserved_output_tokens": 686534,
+    "limits": {
+      "usd": 3.0,
+      "requests": 600,
+      "output_tokens": 1000000
+    },
+    "within_limits": true,
+    "no_double_counting": "350 settled and 2 reserved entries form a disjoint exhaustive partition. Known cost uses actual_peak_estimate_usd once per settled entry; unknown entries contribute reserved_usd once. The conservative total equals 2 * known offpeak estimate + unknown peak reserve. Unknown usage/cost is not treated as zero."
+  },
+  "confirmation_subset": {
+    "runs": 28,
+    "requests": 201,
+    "estimated_usd": 0.28025060399999996,
+    "report_rounding": "USD 0.280251",
+    "interpretation": "This is included in the full-study known total, not an additional amount to add to USD 0.487120. The report says \"其中\" and does not double count it."
+  },
+  "remaining_actionable_findings": [],
+  "limits": [
+    "Fees are arithmetic estimates under the recorded tariff, not an invoice or independent verification of provider billing.",
+    "Timing is the disclosed Runtime wall-clock boundary; this review does not reinterpret it as full verified-delivery time.",
+    "No findings, adjudications or quality scores were used, and no adoption conclusion was evaluated."
+  ],
+  "model_calls": 0,
+  "quality_scores_read": false,
+  "model_findings_read": false,
+  "frozen_code_modified": false
+}

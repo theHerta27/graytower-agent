@@ -207,7 +207,7 @@ class Workbench:
             async with local_verifier(self.root, completed) as endpoint:
                 return await delegate(endpoint, **payload)
         from .game_tools import connect_tools
-        from .qa import VerificationAgent
+        from .verification.agent import VerificationAgent
         async with connect_tools(self.root) as tools:
             model = self.model if self.model is not None and 'verify' in self.model_actions else NoModelCalls()
             agent = VerificationAgent(self.root, model, tools)

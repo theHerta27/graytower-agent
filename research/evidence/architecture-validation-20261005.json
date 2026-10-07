@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-05",
+  "scope": "parent independent tests and sealed evidence integrity, not production readiness",
+  "new_model_calls": 0,
+  "new_real_battles": 4,
+  "frozen_boundary_tests": 6,
+  "protocol_tests": 4,
+  "protocol_functional_assertions": 37,
+  "protocol_parent_run": "research/evidence/a2a-mcp-test-20261005-si27ylda",
+  "protocol_result_sha256": "f837cc9692178d4d9e6e9729d30cac4d4b61b59d7f607fb02ba4a39b8c5c16b4",
+  "protocol_probe_sha256": "1cbf90240cec8ee53c2c289f92b368e4a0260e547c689fb847a6562df0db90c0",
+  "protocol_standard_methods": [
+    "CancelTask",
+    "GetTask",
+    "ListTasks",
+    "SendMessage",
+    "SendStreamingMessage",
+    "SubscribeToTask"
+  ],
+  "protocol_lifecycle_ready": false,
+  "terminal_replay_pending_dispatchers": 2,
+  "frozen_manifest_sha256": "a8da5e95ca4ce120aeee4a3e0d2620f8c633e5e2711ed00b51f066254873091b",
+  "frozen_files_verified": 9,
+  "game_source_files_verified": 40,
+  "current_src_files_verified": 8,
+  "checks": {
+    "all_artifact_hashes_match": true,
+    "all_probe_hashes_match": true,
+    "old_game_and_current_src_unchanged": true,
+    "functional_protocol_passes": true,
+    "known_lifecycle_gap_reproduced": true
+  }
+}

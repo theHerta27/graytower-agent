@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "type": "offline_scoring_tool_validation",
+  "evaluated_at": "2026-10-04T18:22:46.3439590+08:00",
+  "evaluator_version": "causal-adjudication-v1",
+  "evaluator_sha256": "69af822c9407f4618ae8699731d52393020dda2cfe6899bd3da6e84e771831b3",
+  "test_sha256": "8aa8dda3c9ff3839a6f6f85de1810694c3fb8a9ca63b950a07cd04b244b9c124",
+  "interpreter": "D:/Desktop/mihoyo-agent-project/research/.venv-framework/Scripts/python.exe",
+  "evaluator_tests": {
+    "failed": 0,
+    "log": "evaluator-assignment-tests.log",
+    "passed": 16
+  },
+  "project_tests": {
+    "failed": 0,
+    "log": "project-assignment-tests.log",
+    "passed": 16
+  },
+  "amendment": "Parent requested separate assigned/actually_started/not_started denominator before blind outcome review; offpeak usage estimate separate from peak conservative reserve.",
+  "paid_model_calls": 0,
+  "secret_reads": 0,
+  "real_quality_outputs_reviewed": 0
+}

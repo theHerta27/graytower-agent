@@ -1,0 +1,22 @@
+{
+  "documents": 38,
+  "local_links_checked": 702,
+  "game_junit": {
+    "tests": 181,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "coding_log_totals_verified": true,
+  "protocol_and_sdk_evidence_verified": true,
+  "framework_and_statistics_evidence_verified": true,
+  "current_slice_sources_tests_and_evidence_verified": true,
+  "deepseek_and_retrieval_calibration_evidence_verified": true,
+  "native_cooperation_offline_evidence_verified": true,
+  "real_collaboration_sources_native_traces_and_blind_seals_verified": true,
+  "frozen_candidate_artifacts_and_probe_sources_verified": true,
+  "a2a_mcp_functional_evidence_and_known_lifecycle_gap_verified": true,
+  "independent_parent_boundary_validation_verified": true,
+  "errors": [],
+  "result": "PASS"
+}

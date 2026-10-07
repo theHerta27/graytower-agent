@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "tasks": [
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 21762,
+      "packet_path": "tasks/public/dev01/packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa",
+      "schema_version": 1,
+      "source_paths": [
+        "combat-foundation/game-core/combat_core/v2/effects.py",
+        "combat-foundation/game-core/combat_core/v2/state.py",
+        "combat-foundation/game-core/combat_core/v2/trace.py",
+        "combat-foundation/game-core/combat_core/v2/simulation.py",
+        "combat-foundation/game-unity/Assets/Runtime/CombatUnitView.cs",
+        "combat-foundation/game-unity/Assets/Runtime/CombatStateV2.cs"
+      ],
+      "split": "development",
+      "task_id": "dev01",
+      "title": "护盾与战斗快照跨层评审"
+    },
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 19079,
+      "packet_path": "tasks/public/dev02/packet.md",
+      "packet_sha256": "b7fde9f70012a6dc595f125fb4658940e5dcd68c4e834d94c61cf4d9587bb876",
+      "schema_version": 1,
+      "source_paths": [
+        "mihoyo-agent-project/src/agent_workbench/verification/store.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/workflow.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/contracts.py"
+      ],
+      "split": "development",
+      "task_id": "dev02",
+      "title": "实验恢复与账本对账调查"
+    },
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 23382,
+      "packet_path": "tasks/public/confirm01/packet.md",
+      "packet_sha256": "466c83fa329de7e37715861db4c4d320cc601fc62268391eabfb5efd15dc0011",
+      "schema_version": 1,
+      "source_paths": [
+        "combat-foundation/game-core/combat_core/v2/effects.py",
+        "combat-foundation/game-core/combat_core/v2/state.py",
+        "combat-foundation/game-core/combat_core/v2/boss.py",
+        "combat-foundation/game-core/combat_core/v2/bots.py",
+        "combat-foundation/game-core/combat_core/v2/simulation.py"
+      ],
+      "split": "confirmation",
+      "task_id": "confirm01",
+      "title": "行动窗口和Boss蓄力轮转评审"
+    },
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 16207,
+      "packet_path": "tasks/public/confirm02/packet.md",
+      "packet_sha256": "2cb9c1ceefae33042c45e39bafc798a4d57dace6ea8e5f7c4fa075c9d6779bca",
+      "schema_version": 1,
+      "source_paths": [
+        "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/contracts.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/store.py"
+      ],
+      "split": "confirmation",
+      "task_id": "confirm02",
+      "title": "配对报告和源码冻结评审"
+    },
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 17016,
+      "packet_path": "tasks/public/confirm03/packet.md",
+      "packet_sha256": "0213e5f7a7615f7ef31ea94bd8c6677d2be6ed4320b9acf5381a5cfdddfe0649",
+      "schema_version": 1,
+      "source_paths": [
+        "herta-agent-coding/backend/herta_agent/service/events.py",
+        "herta-agent-coding/backend/herta_agent/service/runs.py",
+        "herta-agent-coding/backend/herta_agent/service/sse.py"
+      ],
+      "split": "confirmation",
+      "task_id": "confirm03",
+      "title": "SSE背压及取消清理评审"
+    },
+    {
+      "output_schema": {
+        "findings": [
+          {
+            "evidence": "string",
+            "fix": "string",
+            "line": "integer",
+            "path": "string",
+            "title": "string",
+            "why": "string"
+          }
+        ]
+      },
+      "packet_characters": 15094,
+      "packet_path": "tasks/public/confirm04/packet.md",
+      "packet_sha256": "c6084aa74e18eaf3b3cd92f9794614f81a75c99424f87e23beedfe629bc1f67f",
+      "schema_version": 1,
+      "source_paths": [
+        "mihoyo-agent-project/src/agent_workbench/verification/report.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/contracts.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/combat_worker.py",
+        "mihoyo-agent-project/src/agent_workbench/verification/store.py"
+      ],
+      "split": "confirmation",
+      "task_id": "confirm04",
+      "title": "配对清单不可变集合整理"
+    }
+  ],
+  "version": "coding-collaboration-tasks-v1"
+}

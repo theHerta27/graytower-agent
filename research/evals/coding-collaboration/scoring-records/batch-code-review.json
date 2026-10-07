@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-04 10:26:55 UTC",
+  "reviewer": "collaboration_benchmark subagent, independent read-only follow-up review",
+  "scope": "Batch accounting retention, assignment denominator, native activity normalization and the five regression tests; no model quality adjudication.",
+  "status": "passed_for_reviewed_fixes",
+  "reviewed_files": [
+    {
+      "path": "research/probes/collaboration_batch.py",
+      "sha256": "fb51dc4878b870a378c3f80625024448d8c6c9eb5b6ad406c80c78b644aea42f"
+    },
+    {
+      "path": "research/probes/test_collaboration_batch.py",
+      "sha256": "ed1e0309564e9937548d9d287e923e4b425ed20a4500fc4fc0415fd7b8d6e90e"
+    }
+  ],
+  "verified_fixes": [
+    "Every assignment exists before execution; current assignment is durably marked started before entering runner.run_case.",
+    "Raw runner output is saved before normalization. Normalization exceptions become audit_failure while retaining raw usage, elapsed time and evidence location; later assignments remain not_started in the same denominator.",
+    "Corrupt event JSON is recorded as an audit error without discarding independently complete request usage and estimated cost. Missing request terminal usage does not become a free request.",
+    "Repeated child activations retain all activity_spans. This single-activation profile deliberately omits start/end for multi-span children instead of selecting the first interval or inventing an envelope.",
+    "verified now requires the expected child count, complete single spans, full-packet evidence and observed spawn/wait/close tool names; missing boundaries remain unknown. Identity/packet verification is separate."
+  ],
+  "validation": [
+    {
+      "command": "D:/Desktop/combat-foundation/.venv/Scripts/python.exe -B D:/Desktop/mihoyo-agent-project/research/probes/test_collaboration_batch.py",
+      "passed": true,
+      "tests": 5,
+      "output": "Ran 5 tests in 0.008s; OK"
+    },
+    {
+      "method": "AST-loaded batch functions with a synthetic two-assignment manifest, mocked runner and normalization failure; no real runner request",
+      "passed": true,
+      "assertions": [
+        "Mock runner observes persisted statuses [started, not_started].",
+        "Mock normalize observes batch-raw-result.json exactly equal to returned raw result before it raises.",
+        "After failure, statuses are [audit_failure, not_started], known raw usage is retained, unknown cost remains null, and batch stops with exit code 1."
+      ]
+    }
+  ],
+  "remaining_actionable_findings": [],
+  "limits": [
+    "Reviewed the administrative code and synthetic tests only; did not verify actual provider invoices, live child activity or model task quality.",
+    "Complete aggregate usage and wall_seconds remain dependent on the upstream runner's definitions. This review does not independently certify those upstream measurements.",
+    "The native timing review applies to the documented single-activation profile and normal runtime event schema; multi-activation timing correctly remains unverified."
+  ],
+  "model_api_calls": 0,
+  "real_model_quality_outputs_read": false,
+  "real_events_or_wire_files_read": false,
+  "code_modified": false,
+  "confirmation_tasks_modified": false
+}

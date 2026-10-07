@@ -1,0 +1,45 @@
+{
+  "batch_id": "fixed-profile-development-smoke-20261004",
+  "frozen_before_quality_outputs": true,
+  "outdir": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-fixed-profile-smoke-20261004",
+  "stop_on_failure": true,
+  "common_config": {
+    "live": true,
+    "fixture": false,
+    "specialists": 3,
+    "single_plus_turns": 5,
+    "per_request_output_tokens": 32768,
+    "wall_seconds": 360,
+    "ledger_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-live-global-budget-20261004.json"
+  },
+  "profiles": {
+    "single": {
+      "max_model_calls": 1,
+      "max_output_tokens": 32768
+    },
+    "single_plus": {
+      "max_model_calls": 5,
+      "max_output_tokens": 131072
+    },
+    "team_parallel": {
+      "max_model_calls": 24,
+      "max_output_tokens": 131072
+    },
+    "team_serial": {
+      "max_model_calls": 24,
+      "max_output_tokens": 131072
+    }
+  },
+  "assignments": [
+    {
+      "run_id": "dev01-fixed-team-parallel-smoke",
+      "task_id": "dev01",
+      "mode": "team_parallel",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    }
+  ],
+  "reason_for_new_manifest": "One development-only fixed-role technical validation before confirmation; no private oracle sent; public task untouched.",
+  "runner_sha256": "d5de73b10c3de693ed9e29240e14d81a4b11504c74c3068503610c181ddbe212"
+}

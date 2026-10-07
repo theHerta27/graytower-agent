@@ -28,7 +28,7 @@ async def verify(root, request_id, manifest_hash, goal, max_battles, url=None):
         result = await delegate(url, request_id, manifest_hash, goal, max_battles)
     else:
         from .game_tools import connect_tools
-        from .qa import VerificationAgent
+        from .verification.agent import VerificationAgent
         async with connect_tools(root) as tools:
             agent = VerificationAgent(root, gateway(root), tools)
             async with local_verifier(root, agent.run) as endpoint:
@@ -40,7 +40,7 @@ async def verify(root, request_id, manifest_hash, goal, max_battles, url=None):
 async def serve(root, port):
     from .game_tools import connect_tools
     from .protocol import local_verifier
-    from .qa import VerificationAgent
+    from .verification.agent import VerificationAgent
     async with connect_tools(root) as tools:
         agent = VerificationAgent(root, gateway(root), tools)
         async with local_verifier(root, agent.run, port=port) as endpoint:

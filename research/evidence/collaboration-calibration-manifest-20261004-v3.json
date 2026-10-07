@@ -1,0 +1,45 @@
+{
+  "batch_id": "calibration-20261004-v3",
+  "frozen_before_quality_outputs": true,
+  "outdir": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-calibration-20261004-v3",
+  "stop_on_failure": true,
+  "common_config": {
+    "live": true,
+    "fixture": false,
+    "specialists": 3,
+    "single_plus_turns": 4,
+    "per_request_output_tokens": 16384,
+    "wall_seconds": 240,
+    "ledger_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evidence\\collaboration-live-global-budget-20261004.json"
+  },
+  "profiles": {
+    "single": {
+      "max_model_calls": 1,
+      "max_output_tokens": 16384
+    },
+    "single_plus": {
+      "max_model_calls": 4,
+      "max_output_tokens": 16000
+    },
+    "team_parallel": {
+      "max_model_calls": 24,
+      "max_output_tokens": 32000
+    },
+    "team_serial": {
+      "max_model_calls": 24,
+      "max_output_tokens": 32000
+    }
+  },
+  "assignments": [
+    {
+      "run_id": "dev01-single-calibration-v3",
+      "task_id": "dev01",
+      "mode": "single",
+      "repeat": 1,
+      "packet_path": "D:\\Desktop\\mihoyo-agent-project\\research\\evals\\coding-collaboration\\tasks\\public\\dev01\\packet.md",
+      "packet_sha256": "90975612daac0caf49eeb4952e3300a443a7da67fc08ac6b70d47e06b8b430fa"
+    }
+  ],
+  "reason_for_new_manifest": "All 4000 output tokens in v2 were reasoning; response.incomplete max_output_tokens. One engineering cap calibration, not comparative quality sample.",
+  "runner_sha256": "5f1d08ed16d44379af81a3306bb8b91aface48e94e2a640ae1154f33509c4c4c"
+}
