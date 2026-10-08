@@ -29,6 +29,7 @@ beforeEach(() => {
     calls.push({ url, method });
     let body: unknown;
     if (url === '/api/status') body = { model: { enabled: false, remaining_calls: 0, reason: '本批模型调用额度已用尽。' }, profile: 'test-only' };
+    else if (url === '/api/tasks') body = { tasks: [] };
     else if (url === '/api/candidates') body = { candidates: [candidate] };
     else if (url === '/api/candidates/inspect') body = candidate;
     else if (url.endsWith('/confirm')) body = { ...candidate, confirmed: true };
@@ -42,6 +43,11 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
 describe('workbench public workflow', () => {
+  it('opens the task center from the shared navigation', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: /任务中心/ }));
+    expect(await screen.findByLabelText('研发需求')).toBeTruthy();
+  });
   it('retries a lost submission with the same ID and frozen payload after reload', async () => {
     const pending = { id: 'draft_lost', kind: 'draft', payload: { request: '改为1.6' } };
     sessionStorage.setItem('graytower.pending-operation', JSON.stringify(pending));
@@ -95,9 +101,9 @@ describe('workbench public workflow', () => {
     render(<App />);
     await screen.findByText('把击破手战技倍率改为1.6。');
     expect(calls.some(call => call.url.endsWith('/confirm'))).toBe(false);
-    fireEvent.click(screen.getByLabelText('我已核对以上变更，确认此候选'));
-    fireEvent.click(screen.getByRole('button', { name: '确认此候选' }));
-    await screen.findByText('候选已确认，可以交给独立验证。');
+    fireEvent.click(screen.getByLabelText('我已核对以上变更，批准进入测试'));
+    fireEvent.click(screen.getByRole('button', { name: '批准进入测试' }));
+    await screen.findByText('已批准进入测试，可以交给独立验证。');
     expect(calls.filter(call => call.url.endsWith('/confirm'))).toEqual([{ url: `/api/candidates/${manifest}/confirm`, method: 'POST' }]);
   });
 

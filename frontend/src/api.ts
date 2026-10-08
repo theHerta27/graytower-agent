@@ -21,7 +21,14 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
   return payload as T;
 }
 const part = encodeURIComponent;
+import type { TaskRecord } from './types';
 export const api = {
+  taskList: () => request<{ tasks: TaskRecord[] }>('/tasks'),
+  taskCreate: (body: { task_id: string; kind: string; request: string; candidate_id: string | null }) => request<TaskRecord>('/tasks', body),
+  taskGenerate: (id: string) => request<Operation>(`/tasks/${part(id)}/generate`, {}),
+  taskApprove: (id: string) => request<TaskRecord>(`/tasks/${part(id)}/approve-test`, {}),
+  taskHistory: (id: string, request_id: string) => request<TaskRecord>(`/tasks/${part(id)}/history`, { request_id }),
+  taskVerify: (id: string, goal: string, budget: number) => request<Operation>(`/tasks/${part(id)}/verify`, { goal, max_battles: budget }),
   status: () => request<Status>('/status'),
   codingRuns: () => request<{ runs: CodingRun[] }>('/coding/runs'),
   codingRun: (id: string) => request<{ run: CodingRun }>(`/coding/runs/${part(id)}`),

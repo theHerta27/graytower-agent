@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, ValidationError
 from starlette.applications import Starlette
 from starlette.exceptions import HTTPException
-from starlette.responses import JSONResponse, PlainTextResponse
+from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, Response
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
@@ -162,9 +162,11 @@ class Workbench:
             return db.execute('SELECT 1 FROM confirmations WHERE manifest=?', (manifest_hash,)).fetchone() is not None
 
     def candidate(self, manifest_hash):
-        candidate = self.repo.get(valid_hash(manifest_hash))
+        from .artifact_views import candidate_view
+        candidate = candidate_view(self.repo, valid_hash(manifest_hash))
         return {key: candidate[key] for key in ('manifest_hash', 'diff', 'validation')} | {
-            'request': candidate['manifest']['request'], 'confirmed': self.confirmed(manifest_hash)}
+            'request': candidate['manifest']['request'], 'confirmed': self.confirmed(manifest_hash),
+            'execution_compatible': candidate['execution_compatible'], 'compatibility_note': candidate['compatibility_note']}
 
     def candidate_list(self):
         hashes = set(self.operations.candidates())
@@ -371,6 +373,8 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
             raise APIError('invalid_input', '确认操作不接受附加字段。')
         manifest_hash = valid_hash(request.path_params['manifest_hash'])
         candidate = await asyncio.to_thread(workbench.candidate, manifest_hash)
+        if not candidate['execution_compatible']:
+            raise APIError('historical_only', candidate['compatibility_note'], 409)
         workbench.jobs.confirm(manifest_hash)
         workbench.operations.remember_candidate(manifest_hash)
         return JSONResponse({**candidate, 'confirmed': True})
@@ -424,7 +428,60 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
     async def missing_frontend(request):
         return PlainTextResponse('前端尚未构建。请在 frontend 目录运行 npm run build，再启动工作台。', status_code=503)
 
-    routes = [Route('/api/status', status), Route('/api/candidates', candidates),
+    from .tasks import TaskService, TaskInput, TaskVerificationInput, TaskHistoryInput
+    task_service = TaskService(workbench)
+
+    async def tasks(request):
+        if request.method == 'POST':
+            return JSONResponse(await asyncio.to_thread(task_service.create, await body(request, TaskInput)), status_code=201)
+        return JSONResponse({'tasks': await asyncio.to_thread(lambda: [task_service.get(i) for i in task_service.store.ids()])})
+
+    async def task_detail(request):
+        return JSONResponse(await asyncio.to_thread(task_service.get, request.path_params['task_id']))
+
+    async def task_generate(request):
+        if (await request.body()).strip() not in (b'', b'{}'):
+            raise APIError('invalid_input', '使用任务已保存的需求，不接受新的调用参数。')
+        return JSONResponse(await task_service.generate(request.path_params['task_id']), status_code=202)
+
+    async def task_approve(request):
+        if (await request.body()).strip() not in (b'', b'{}'):
+            raise APIError('invalid_input', '批准只绑定当前冻结候选。')
+        return JSONResponse(await asyncio.to_thread(task_service.approve, request.path_params['task_id']))
+
+    async def task_verify(request):
+        return JSONResponse(await task_service.verify(request.path_params['task_id'], await body(request, TaskVerificationInput)), status_code=202)
+
+    async def task_history(request):
+        value = await body(request, TaskHistoryInput)
+        return JSONResponse(await asyncio.to_thread(task_service.link_history, request.path_params['task_id'], value.request_id))
+
+    async def task_export(request):
+        from .exports import bundle_for_task, workbook_for_task
+        row = await asyncio.to_thread(task_service.get, request.path_params['task_id'])
+        if not row['candidate_id']:
+            raise APIError('candidate_not_ready', '请先生成候选。', 409)
+        kind = request.path_params['kind']
+        if kind == 'json':
+            _, bundle = await asyncio.to_thread(bundle_for_task, workbench, row)
+            import json
+            content = json.dumps(bundle, ensure_ascii=False, indent=2).encode('utf-8')
+            media = 'application/json'
+        elif kind == 'xlsx':
+            content = await asyncio.to_thread(workbook_for_task, workbench, row)
+            media = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        else:
+            raise APIError('invalid_format', '仅支持 JSON 和 Excel。')
+        return Response(content, media_type=media, headers={'Content-Disposition': f'attachment; filename="{row["task_id"]}.{kind}"'})
+
+    routes = [Route('/api/tasks', tasks, methods=['GET', 'POST']),
+        Route('/api/tasks/{task_id}', task_detail),
+        Route('/api/tasks/{task_id}/generate', task_generate, methods=['POST']),
+        Route('/api/tasks/{task_id}/approve-test', task_approve, methods=['POST']),
+        Route('/api/tasks/{task_id}/verify', task_verify, methods=['POST']),
+        Route('/api/tasks/{task_id}/history', task_history, methods=['POST']),
+        Route('/api/tasks/{task_id}/export/{kind}', task_export),
+        Route('/api/status', status), Route('/api/candidates', candidates),
         Route('/api/coding/runs', coding_runs, methods=['GET', 'POST']),
         Route('/api/coding/runs/{operation_id}', coding_detail),
         Route('/api/coding/runs/{operation_id}/resume', coding_recover, methods=['POST']),
@@ -437,6 +494,10 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
         Route('/api/verifications/{request_id}/resume', resume, methods=['POST']),
         Route('/api/operations/{operation_id}', operation)]
     dist = Path(frontend_dist) if frontend_dist is not None else Path(__file__).resolve().parents[2] / 'frontend' / 'dist'
+    if (dist / 'index.html').is_file():
+        async def task_page(request):
+            return FileResponse(dist / 'index.html')
+        routes.append(Route('/tasks', task_page))
     routes.append(Mount('/', app=StaticFiles(directory=dist, html=True)) if (dist / 'index.html').is_file()
                   else Route('/', missing_frontend))
     app = Starlette(routes=routes, lifespan=lifespan, exception_handlers={

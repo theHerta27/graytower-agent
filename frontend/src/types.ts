@@ -1,5 +1,7 @@
 export interface Diff { path: string; before: unknown; after: unknown }
 export interface Candidate {
+  execution_compatible?: boolean;
+  compatibility_note?: string;
   manifest_hash: string; request: string; diff: Diff[]; confirmed: boolean;
   validation: { passed?: boolean; errors?: string[]; layers?: Record<string, { passed?: boolean; errors?: string[]; status?: string }> };
 }
@@ -44,4 +46,11 @@ export interface Trace {
   selection?: { selected_events?: number; total_events?: number; limit?: string; [key: string]: unknown };
   reference?: { variant?: string; seed?: number; policy?: string; [key: string]: unknown };
   [key: string]: unknown;
+}
+
+export interface TaskRecord {
+ task_id: string; kind: string; request: string; status: string; origin: string;
+ candidate_id: string | null; candidate: Candidate | null; applied: boolean;
+ report: RequestDetail | null; author_result?: { message?: string; proposal_message?: string } | null;
+ events: { kind: string; time: string; detail: Record<string, unknown> }[];
 }
