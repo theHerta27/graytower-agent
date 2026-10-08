@@ -13,7 +13,7 @@ it('reads a real-record shape without triggering models and states the exact tes
   }));
   render(<CodeRepair/>);
   await screen.findByText('将生命扣减改为剩余伤害。');
-  expect(screen.getByText(/尚未接入统一代码 QA Agent/)).toBeTruthy();
+  expect(screen.getByText(/独立 QA、重新检查、采纳和回退请在任务中心操作/)).toBeTruthy();
   expect(screen.getByText(/没有自主委派子任务/)).toBeTruthy();
   expect(calls).toEqual(['/api/code-demo']);
 });

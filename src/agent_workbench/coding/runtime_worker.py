@@ -37,7 +37,7 @@ def run(request):
         home, workspace, Path(request['data']), Path(request['tools_python']), request['endpoint'], request['mode'],
         request['preparation']), encoding='utf-8')
     os.environ['CODEX_HOME'] = str(home)
-    if profile == 'shield-damage-python-v1':
+    if profile in ('shield-damage-python-v1','skill-points-python-v1'):
         from ..code_candidates import runtime_workspace, TARGET
         candidate_workspace = runtime_workspace(request['data'], workspace, request['preparation'])
         files = FileTools(workspace, control / 'file-control', editable_file=TARGET)

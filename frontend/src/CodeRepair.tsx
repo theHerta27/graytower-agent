@@ -19,7 +19,7 @@ export default function CodeRepair(){
         <table><thead><tr><th>检查</th><th>原始故障版</th><th>候选版</th></tr></thead><tbody>
           {demo.baseline_tests.map((t,i)=><tr key={t.name}><td>{['完全吸收：生命不变','部分吸收：只扣剩余伤害','无护盾：原行为不变','致死溢出与事件字段'][i]||t.name}</td><td>{t.status==='PASS'?'通过':t.status==='FAIL'?'失败':t.status}</td><td>{demo.candidate_tests[i]?.status==='PASS'?'通过':demo.candidate_tests[i]?.status||'缺失'}</td></tr>)}
         </tbody></table>
-        <p className="notice">尚未接入统一代码 QA Agent 与采纳回退入口。这些是实际容器测试结果，不能当作全游戏回归通过。</p>
+        <p className="notice">此页保留 Coding 原始运行证据。独立 QA、重新检查、采纳和回退请在任务中心操作；这里只覆盖约定的护盾检查。</p>
         <h2>3. Coding Agent 的说明</h2><div className="coding-prose">{demo.summary}</div>
         <details><summary>原生 Review 意见（不替代测试）</summary><div className="coding-prose">{demo.review}</div></details>
         <h2>4. 调用与协作</h2><p>{demo.calls} 次调用，峰价估算 {demo.cost_usd} 美元；本批剩余额度已关闭。</p>

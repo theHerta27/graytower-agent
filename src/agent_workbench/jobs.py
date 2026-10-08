@@ -123,7 +123,8 @@ class JobStore:
         request = self.get(request_id)
         if (report.get('manifest_hash') != request['manifest_hash']
                 or report.get('request_id', request_id) != request_id
-                or report.get('verdict') not in ('FAIL', 'INCONCLUSIVE')):
+                or report.get('verdict') not in ('FAIL', 'INCONCLUSIVE', 'PASS')
+                or report.get('verdict') == 'PASS' and report.get('kind') != 'code'):
             raise ValueError('report identity or verdict mismatch')
         with closing(self.connect()) as db, db:
             db.execute('BEGIN IMMEDIATE')
@@ -132,6 +133,29 @@ class JobStore:
                 raise ValueError('completed report is immutable')
             db.execute("UPDATE requests SET status='completed',report=?,report_hash=? WHERE id=?",
                        (canonical(report), digest(report), request_id))
+
+    def reconcile_completed(self, request_id, args, units, result):
+        """Internal adapter: attach a hash-checked physical receipt to its claim.
+
+        No new work or budget; callers must independently verify the completed
+        execution receipt before using this method. Unknown work stays blocked.
+        """
+        request = self.get(request_id)
+        job_id = digest({'request': request_id, 'manifest': request['manifest_hash'], 'args': args})
+        self._check_result(result, request['manifest_hash'], units)
+        with closing(self.connect()) as db, db:
+            db.execute('BEGIN IMMEDIATE')
+            row = db.execute('SELECT * FROM jobs WHERE id=?', (job_id,)).fetchone()
+            if row is None or row['args'] != canonical(args) or row['units'] != units:
+                return False
+            if row['state'] == 'completed':
+                self._checked_receipt(row, request)
+                return True
+            receipt = dict(job_id=job_id, request_id=request_id, manifest_hash=request['manifest_hash'],
+                           args=args, units=units, result=result)
+            db.execute("UPDATE jobs SET state='completed',receipt=?,receipt_hash=? WHERE id=?",
+                       (canonical(receipt), digest(receipt), job_id))
+        return True
 
     def receipts(self, request_id: str):
         request = self.get(request_id)

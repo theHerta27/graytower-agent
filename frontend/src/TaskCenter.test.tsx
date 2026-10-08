@@ -2,7 +2,34 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import TaskCenter from './TaskCenter';
 
-afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+afterEach(() => { localStorage.clear();vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+
+it('uses the code-specific QA goal and reuses replay and rollback IDs after a lost response',async()=>{
+  const candidate={manifest_hash:'c'.repeat(64),kind:'code',profile:'shield-damage-python-v1',request:'修复护盾',confirmed:true,diff:[],validation:{passed:true},verification_goal:'独立复核护盾与事件'};
+  const task={task_id:'code1',kind:'verification',request:'修复护盾',status:'verification_completed',candidate,origin:'existing_candidate',events:[],applied:false,
+    report:{request:{report:{kind:'code',verdict:'PASS',jobs:[],test_labels:[],limitations:[]}}}};
+  const attempts:Record<string,unknown[]>={replay:[],rollback:[]};
+  vi.stubGlobal('fetch',vi.fn(async (input:RequestInfo|URL,init?:RequestInit)=>{
+    const url=String(input);
+    if(url==='/api/tasks')return new Response(JSON.stringify({tasks:[task]}));
+    if(url==='/api/candidates')return new Response(JSON.stringify({candidates:[candidate]}));
+    if(url==='/api/releases')return new Response(JSON.stringify({code:{active_release:'local_a'}}));
+    const action=url.endsWith('/replay')?'replay':url.endsWith('/rollback')?'rollback':null;
+    if(action){attempts[action].push(JSON.parse(String(init?.body)));if(attempts[action].length===1)throw new Error('response lost');return new Response(JSON.stringify({task_id:'code1'}));}
+    return new Response('{}');
+  }));
+  render(<TaskCenter status={{profile:'code',model:{enabled:false,remaining_calls:0,reason:'关闭'}}}/>);
+  fireEvent.click(await screen.findByRole('button',{name:/修复护盾.*验证已结束/}));
+  await waitFor(()=>expect((screen.getByLabelText('验证目标') as HTMLTextAreaElement).value).toBe('独立复核护盾与事件'));
+  const replay=screen.getByRole('button',{name:'重新测试这份改动（不调用模型）'});
+  fireEvent.click(replay);await screen.findByRole('alert');await waitFor(()=>expect(replay.hasAttribute('disabled')).toBe(false));fireEvent.click(replay);
+  await waitFor(()=>expect(attempts.replay.length).toBe(2));expect(attempts.replay[0]).toEqual(attempts.replay[1]);
+  const rollback=screen.getByRole('button',{name:'切回上一代码测试版本'});
+  await waitFor(()=>expect(rollback.hasAttribute('disabled')).toBe(false));fireEvent.click(rollback);await screen.findByRole('alert');
+  const retryRollback=await screen.findByRole('button',{name:'查询刚才的代码回退结果'});
+  await waitFor(()=>expect(retryRollback.hasAttribute('disabled')).toBe(false));fireEvent.click(retryRollback);
+  await waitFor(()=>expect(attempts.rollback.length).toBe(2));expect(attempts.rollback[0]).toEqual(attempts.rollback[1]);
+});
 
 it('links a selected candidate without copying hashes and distinguishes test approval from application', async () => {
   const hash = 'a'.repeat(64);

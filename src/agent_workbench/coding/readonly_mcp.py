@@ -14,7 +14,7 @@ from ..domain import CandidateRepository
 
 def serve(workspace: Path, data: Path, preparation: dict):
     profile = preparation.get('profile')
-    if profile == 'shield-damage-python-v1':
+    if profile in ('shield-damage-python-v1','skill-points-python-v1'):
         from ..code_candidates import runtime_workspace
         candidate = runtime_workspace(data, workspace, preparation)
         reader = candidate

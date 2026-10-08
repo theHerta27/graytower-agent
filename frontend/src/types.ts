@@ -1,5 +1,6 @@
 export interface Diff { path: string; before: unknown; after: unknown }
 export interface Candidate {
+  kind?:string; profile?:string; patch?:string; test_labels?:string[]; verification_goal?:string;
   execution_compatible?: boolean;
   compatibility_note?: string;
   manifest_hash: string; request: string; diff: Diff[]; confirmed: boolean;

@@ -44,6 +44,13 @@ class CodingAuthorization:
         if value.get('schema') != 'coding-service-grant-v1' or not value.get('tasks'):
             raise ValueError('invalid Coding authorization scope')
         self.tasks = {key: _payload({'operation_id': key, **task}) for key, task in value['tasks'].items()}
+        from ..code_candidates import PROFILES
+        self.case_profiles = value.get('case_profiles',{})
+        if set(self.case_profiles)-set(self.tasks) or any(p not in PROFILES for p in self.case_profiles.values()):
+            raise ValueError('unsupported Coding case profile')
+        self.case_preparations = value.get('case_preparations',{})
+        if set(self.case_preparations)-set(self.case_profiles):
+            raise ValueError('invalid prepared Coding cases')
         self.grant = dict(value['coding_grant'], authorization_sha256=expected_sha256)
         self.budget = CallBudget(self.ledger_root, self.grant)
 
@@ -104,6 +111,7 @@ class CodingService:
             raise ValueError('Coding execution is not authorized')
         self.authorization.require(payload)
         details = {'payload': payload, 'authorization_sha256': self.authorization.expected_sha256,
+                   'profile': self.authorization.case_profiles.get(payload['operation_id']),
                    'preparation': None, 'source_label': self.source_label, 'stage': 'preparing',
                    'manifest_hash': None, 'runtime_receipt': None, 'seconds': None, 'budget': None}
         return self.store.start_coding(payload['operation_id'], payload, details)
@@ -138,7 +146,17 @@ class CodingService:
         try:
             self.authorization.require(details['payload'])
             workspace_path, control = self._paths(operation_id)
-            workspace = CodingWorkspace.prepare(workspace_path, self.repo)
+            profile = details.get('profile')
+            data = self.root
+            if profile:
+                from ..code_candidates import prepare_python_case, runtime_workspace
+                data = workspace_path.parent/'python-data'
+                supplied = self.authorization.case_preparations.get(operation_id)
+                workspace = runtime_workspace(data,workspace_path,supplied) if supplied else prepare_python_case(data/'control',workspace_path,profile)
+                if workspace.inspect_changes()['changed_files']:
+                    raise ValueError('prepared Python workspace changed before execution')
+            else:
+                workspace = CodingWorkspace.prepare(workspace_path, self.repo)
             details.update(preparation=workspace.preparation, stage='runtime_running')
             self.store.save_coding_details(operation_id, details)
 
@@ -148,7 +166,7 @@ class CodingService:
 
             with responses_endpoint(self.authorization.ledger_root, self.authorization.grant, authorized_sender) as (endpoint, budget):
                 receipt = self.runner(runtime_python=self.runtime_python, tools_python=self.tools_python,
-                    workspace=workspace.root, data=self.root, control=control, preparation=workspace.preparation,
+                    workspace=workspace.path if profile else workspace.root, data=data, control=control, preparation=workspace.preparation,
                     endpoint=endpoint, mode=details['payload']['mode'], prompt=details['payload']['request'])
                 saved = json.loads((control / 'result.json').read_text(encoding='utf-8'))
                 if saved != receipt:
@@ -186,6 +204,17 @@ class CodingService:
         if receipt.get('schema') != 'coding-runtime-run-v1' or receipt.get('mode') != details['payload']['mode']:
             raise ValueError('Runtime receipt does not match the Coding task')
         validate_runtime_receipt(receipt, workspace.inspect_changes())
+        if details.get('profile'):
+            from ..code_tools import CodeCatalog
+            ref = workspace.artifacts.put(receipt,'coding-runtime-receipt-v1')
+            frozen = workspace.freeze(details['payload']['request'],provenance={
+                'source':details['source_label'],'mode':details['payload']['mode'],'runtime_receipt':ref})
+            if frozen['manifest']['candidate_tree']['sha256'] != receipt['review_tree_hash']:
+                raise ValueError('frozen Python candidate differs from the reviewed tree')
+            CodeCatalog(self.root).register(workspace,frozen['candidate_id'])
+            candidate = {'manifest_hash':frozen['candidate_id'],'manifest':frozen['manifest'],'diff':[],
+                         'validation':{'passed':True}}
+            return self._complete(operation_id,details,candidate,ref,receipt)
         ref = self.repo.artifacts.put(receipt, 'coding-runtime-receipt-v1')
         candidate = workspace.import_candidate(details['payload']['request'], {
             'source': details['source_label'], 'mode': details['payload']['mode'], 'runtime_receipt': ref})
@@ -225,7 +254,11 @@ class CodingService:
         try:
             workspace_path, control = self._paths(operation_id)
             receipt = json.loads((control / 'result.json').read_text(encoding='utf-8'))
-            workspace = CodingWorkspace(workspace_path, self.repo, details['preparation'])
+            if details.get('profile'):
+                from ..code_candidates import runtime_workspace
+                workspace = runtime_workspace(workspace_path.parent/'python-data',workspace_path,details['preparation'])
+            else:
+                workspace = CodingWorkspace(workspace_path, self.repo, details['preparation'])
             return self._finalize(operation_id, details, receipt, workspace)
         except Exception as exc:
             self._fail(operation_id, details, exc)

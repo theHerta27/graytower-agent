@@ -1,6 +1,6 @@
 """Trusted single-operator localhost A2A; no OAuth, tenant isolation or SDK patch.
 
-Only complete numeric-config requests are supported. Each send creates a new
+Frozen numeric-config and bounded Python-code requests are supported. Each send creates a new
 protocol Task; durable business receipts deduplicate request_id. Continuation
 and cancellation are deliberately unsupported in this V1 product interface.
 """
@@ -51,8 +51,9 @@ def _payload(message) -> dict:
     fields = {'request_id', 'manifest_hash', 'goal', 'max_battles', 'kind', 'profile'}
     if not isinstance(value, dict) or set(value) != fields:
         raise InvalidParamsError('Invalid verification request fields')
-    if value['kind'] != 'numeric_config' or value['profile'] != PROFILE:
-        raise UnsupportedOperationError('Only numeric_config / trusted-combat-numeric-v1 is supported')
+    from .code_candidates import PROFILES
+    if (value['kind'], value['profile']) not in [('numeric_config', PROFILE), *[('code', p) for p in PROFILES]]:
+        raise UnsupportedOperationError('Unsupported candidate kind/profile')
     if any(not isinstance(value[key], str) for key in ('request_id', 'manifest_hash', 'goal')):
         raise InvalidParamsError('Request id, manifest hash and goal must be strings')
     # Protobuf Value carries all JSON numbers as double. Reject booleans,
@@ -78,11 +79,16 @@ class _AdmissionContext(SimpleRequestContextBuilder):
         value = _payload(params.message)
         try:
             manifest = self.artifacts.read(valid_hash(value['manifest_hash']))
-            if (manifest.get('schema_version') != 'candidate-manifest-v1'
+            if value['kind'] == 'code':
+                from .code_tools import CodeCatalog
+                manifest = CodeCatalog(self.store.root).workspace(value['manifest_hash']).inspect(value['manifest_hash'])['manifest']
+                if manifest['profile'] != value['profile']:
+                    raise UnsupportedOperationError('Code candidate profile mismatch')
+            elif (manifest.get('schema_version') != 'candidate-manifest-v1'
                     or manifest.get('kind') != 'numeric_config' or manifest.get('profile') != PROFILE
                     or manifest.get('author') not in ('config', 'coding')):
                 raise UnsupportedOperationError('Unsupported candidate manifest kind/profile/author')
-            if manifest['author'] == 'coding':
+            if manifest.get('author') == 'coding':
                 source = self.artifacts.read_ref(manifest.get('coding_source'), 'coding-source-v1')
                 if source.get('schema_version') != 'coding-source-v1':
                     raise ValueError('Malformed coding source artifact')
@@ -160,12 +166,12 @@ async def local_verifier(root: Path, verify_callback: Callable[[str], Awaitable[
         base = f'http://127.0.0.1:{sock.getsockname()[1]}'
         card = AgentCard(
             name='Local Verification', version='local-v1',
-            description='Trusted localhost operator only; Config/Coding numeric candidates; no OAuth or tenant isolation.',
+            description='Local Config/Coding verification: numeric simulation and approved Python test profiles.',
             capabilities=AgentCapabilities(streaming=False, push_notifications=False),
             default_input_modes=['application/json'], default_output_modes=['application/json'],
             skills=[AgentSkill(id='verify_candidate', name='Verify candidate',
-                               description='Deliver evidence report for numeric_config / trusted-combat-numeric-v1.',
-                               tags=['verification', 'numeric_config'])],
+                               description='Deliver frozen-candidate evidence for numeric_config and bounded code profiles.',
+                               tags=['verification', 'numeric_config', 'code'])],
             supported_interfaces=[AgentInterface(protocol_binding='JSONRPC', protocol_version='1.0', url=base + '/a2a/jsonrpc')])
         handler = _LocalHandler(agent_executor=_VerificationExecutor(store, verify_callback),
                                 task_store=task_store, agent_card=card,
@@ -204,13 +210,13 @@ async def local_verifier(root: Path, verify_callback: Callable[[str], Awaitable[
                 await engine.dispose()
 
 
-async def delegate(base_url: str, request_id: str, manifest_hash: str, goal: str, max_battles: int) -> dict:
+async def delegate(base_url: str, request_id: str, manifest_hash: str, goal: str, max_battles: int, *, kind='numeric_config', profile=PROFILE) -> dict:
     """New Task send followed by GetTask. Never append or implicitly retry."""
     url = urlsplit(base_url)
     if url.scheme != 'http' or url.hostname != '127.0.0.1' or url.username or url.password or url.query or url.fragment:
         raise ValueError('Only an explicit http://127.0.0.1 localhost verifier is supported')
     payload = dict(request_id=request_id, manifest_hash=manifest_hash, goal=goal,
-                   max_battles=max_battles, kind='numeric_config', profile=PROFILE)
+                   max_battles=max_battles, kind=kind, profile=profile)
     # No implicit HTTP/provider retries. A timeout has an unknown outcome and
     # must be reconciled from the durable request, not a fresh business id.
     async with httpx.AsyncClient(trust_env=False, timeout=300, follow_redirects=False) as http:
@@ -248,7 +254,8 @@ async def delegate(base_url: str, request_id: str, manifest_hash: str, goal: str
                for part in artifact.parts if part.HasField('data')]
     if (len(reports) != 1 or not isinstance(reports[0], dict)
             or reports[0].get('request_id') != request_id or reports[0].get('manifest_hash') != manifest_hash
-            or reports[0].get('verdict') not in ('FAIL', 'INCONCLUSIVE')):
+            or reports[0].get('verdict') not in ('FAIL', 'INCONCLUSIVE', 'PASS')
+            or reports[0].get('verdict') == 'PASS' and kind != 'code'):
         raise RuntimeError('Verification report missing or inconsistent with the request')
     return {'task_id': task.id, 'task_state': state, 'report': reports[0],
             'events': [MessageToDict(event) for event in events]}

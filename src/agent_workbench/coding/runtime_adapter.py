@@ -35,6 +35,8 @@ def instructions(profile=None):
         return INSTRUCTIONS
     if profile == 'shield-damage-python-v1':
         return PYTHON_INSTRUCTIONS
+    if profile == 'skill-points-python-v1':
+        return PYTHON_INSTRUCTIONS.replace('护盾与生命扣减故障','技能点获取、上限与花费故障')
     raise ValueError('unsupported Runtime business profile')
 
 

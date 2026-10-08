@@ -24,7 +24,11 @@ const part = encodeURIComponent;
 import type { TaskRecord } from './types';
 export const api = {
   taskList: () => request<{ tasks: TaskRecord[] }>('/tasks'),
-  taskCreate: (body: { task_id: string; kind: string; request: string; candidate_id: string | null }) => request<TaskRecord>('/tasks', body),
+  taskCreate: (body: { task_id: string; kind: string; request: string; candidate_id: string | null; coding_operation_id?:string|null }) => request<TaskRecord>('/tasks', body),
+  taskReplay:(id:string,task_id:string)=>request<TaskRecord>(`/tasks/${part(id)}/replay`,{task_id}),
+  taskAdopt:(id:string,operation_id:string,accept_sample:boolean)=>request(`/tasks/${part(id)}/adopt`,{operation_id,accept_sample}),
+  releaseRollback:(kind:string,operation_id:string)=>request(`/releases/${part(kind)}/rollback`,{operation_id}),
+  releases:()=>request<Record<string,{active_release:string;version?:{candidate_id:string;release_id:string}|null}>>('/releases'),
   taskGenerate: (id: string) => request<Operation>(`/tasks/${part(id)}/generate`, {}),
   taskResume: (id: string) => request<Operation>(`/tasks/${part(id)}/resume`, {}),
   taskApprove: (id: string) => request<TaskRecord>(`/tasks/${part(id)}/approve-test`, {}),

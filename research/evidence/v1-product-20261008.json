@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-08",
+  "scope": "本机可演示V1，普通启动关闭模型",
+  "entry": "http://127.0.0.1:18784/tasks",
+  "config": {
+    "candidate": "13b70cbb722fa225d3de26722d773ccf7bb7b82a75224816991cdeddefd3d7e6",
+    "change": "战技倍率1.4→1.6",
+    "structural_verdict": "PASS",
+    "overall_verdict": "INCONCLUSIVE",
+    "paired_samples": 2,
+    "actual_ui": [
+      "Excel下载",
+      "采纳配置",
+      "执行真实战技",
+      "回退配置",
+      "旧战斗读回1.6",
+      "按原计划零模型重新测试"
+    ],
+    "limits": "同种子重测不增加统计n，不承诺总体胜率或平衡"
+  },
+  "shield": {
+    "candidate": "4eb6928f055347afff8d32627af8aed5a94bab9795d10fbd63386ba02db94cf1",
+    "real_model_qa_task": "task_a9bc738c2566409ba0af1fdc364bd6ed",
+    "verdict": "PASS",
+    "baseline_checks": {
+      "pass": 2,
+      "fail": 2
+    },
+    "candidate_checks": {
+      "pass": 4,
+      "fail": 0
+    },
+    "actual_ui": [
+      "独立A2A/LangGraph/MCP/Docker检查",
+      "保存独立源码版本",
+      "回退"
+    ],
+    "limits": "不自动替换原游戏或Unity"
+  },
+  "skill_points": {
+    "candidate": "ad0287674007ceb113b364d346d8e628c876a99b185ce36572aea80b72217649",
+    "coding_task": "task_5993fca92edc439492c9f251e4b1822d",
+    "verdict": "FAIL",
+    "baseline_checks": {
+      "pass": 2,
+      "fail": 2
+    },
+    "candidate_checks": {
+      "pass": 0,
+      "fail": 4
+    },
+    "reason": "候选改变skill_points调用接口，冻结的原接口检查出现TypeError",
+    "adoption_blocked": true,
+    "revision": "用户选择先交付亲测，追加修订未授权且0调用"
+  },
+  "closed_real_batch": {
+    "name": "v1-close-demo-v1",
+    "scope_sha256": "3580b7f48dab2f902eff5bb37decf769e1ccf0d4e03f9d75677c3a26ffe6938b",
+    "responses_completed": 17,
+    "chat_completed": 2,
+    "unknown": 0,
+    "peak_estimated_cost_usd": "0.030888576",
+    "new_simulated_battles": 0,
+    "native_autonomous_spawn": 0,
+    "collaboration_quality_gain_claimed": false
+  },
+  "review": {
+    "critical": 0,
+    "important_fixed": [
+      "代码QA目标准入与实际计费状态",
+      "A→B→A激活后回退B",
+      "重放/回退丢响应沿原业务ID恢复"
+    ],
+    "minor_fixed": [
+      "实际模型模式提示"
+    ],
+    "deferred": [
+      "V1游戏解释器固定依赖主graytower-game环境",
+      "通用恶意代码防篡改/强杀登记",
+      "Electron/分页/轮询优化"
+    ]
+  },
+  "regression": {
+    "python_total": 230,
+    "python_pass": 226,
+    "python_existing_skip": 4,
+    "frontend_pass": 15,
+    "typescript_vite_build": "PASS",
+    "game_pass": 153
+  },
+  "sandbox_probe": {
+    "non_root_uid": 10001,
+    "root_read_only": true,
+    "network_none": true,
+    "no_host_mounts": true,
+    "memory_oom_observed": true,
+    "timeout_cleanup_observed": true,
+    "limits": "受控案例执行边界，非通用沙箱安全证明"
+  },
+  "raw_evidence": [
+    "local-data/v1-close-demo-v1",
+    "local-data/python-coding-d01-v1",
+    "local-data/task-center-p1-v1",
+    "local-data/worktrees/rd-p1/local-data/v1-product/final-review.md",
+    "local-data/worktrees/rd-p1/local-data/v1-product/sandbox-limits.json",
+    "local-data/worktrees/rd-p1/local-data/v1-suite-final.log",
+    "local-data/worktrees/rd-p1/local-data/delivery-ui.log"
+  ],
+  "delivery_limitations": [
+    "普通启动不开放任意新收费任务",
+    "NPC为既有离线剧情，真实世界/记忆逻辑运行",
+    "未证明动态协作质量收益",
+    "未建设通用代码/build及Unity自动发布平台"
+  ]
+}

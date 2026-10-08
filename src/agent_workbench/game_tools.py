@@ -205,14 +205,16 @@ class ToolClient:
 
 
 @asynccontextmanager
-async def connect_tools(root):
+async def connect_tools(root, *, module='agent_workbench.game_tools'):
     from mcp import Client
     from mcp.client.stdio import StdioServerParameters, stdio_client
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items() if k.upper() in ('SYSTEMROOT', 'WINDIR', 'TEMP', 'TMP', 'PATH')}
     env.update(PYTHONUTF8='1', PYTHONPATH=str(Path(__file__).resolve().parents[1]), LANGCHAIN_TRACING_V2='false', LANGSMITH_TRACING='false')
-    params = StdioServerParameters(command=sys.executable, args=['-X', 'utf8', '-m', 'agent_workbench.game_tools', '--data', str(root)], env=env)
+    if module not in ('agent_workbench.game_tools','agent_workbench.code_tools'):
+        raise ValueError('unsupported local tool service')
+    params = StdioServerParameters(command=sys.executable, args=['-X', 'utf8', '-m', module, '--data', str(root)], env=env)
     with (root / 'mcp-stderr.log').open('a', encoding='utf-8') as errors:
         async with Client(stdio_client(params, errlog=errors), cache=None) as client:
             yield ToolClient(client)

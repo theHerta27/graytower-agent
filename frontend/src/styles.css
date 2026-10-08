@@ -1,4 +1,14 @@
 @charset "UTF-8";
+.planner-guide {border-left:4px solid var(--cyan);background:#EDF5F6;padding:18px 22px;margin-bottom:24px;border-radius:0 8px 8px 0;font-size:15px;}
+.planner-guide p {margin:8px 0;color:#4C6375;font-size:14px;}
+.planner-guide a {color:#28747F;font-size:13px;}
+.next-actions {margin-top:24px;padding:22px;background:#F0F7F7;border:1px solid #C9E1E2;border-radius:8px;}
+.next-actions .button {margin:8px 8px 8px 0;}
+.rule-play {max-width:1080px;margin:36px auto;padding:0 24px;}
+.rule-play .unit-cards {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0;}
+.rule-play .unit-card {padding:20px;background:white;border:1px solid var(--line);border-radius:8px;}
+.task-center .field-hint, .task-center .disabled-reason {font-size:13px;line-height:1.8;}
+.task-center .candidate-panel>h3 {margin-top:26px;}
 .coding-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; align-items: start; }
 .coding-detail { min-width: 0; }
 .coding-prose { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.9; color: #314761; margin-bottom: 24px; }

@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { api, errorMessage } from './api';
 import type { RequestDetail, Trace } from './types';
+import CodeReport from './CodeReport';
 
 export const policyName = (name: string) => ({ balanced: '均衡策略', survival: '生存策略', basic_only: '仅普通攻击' })[name] || name;
 const outcomeName = (name: string) => ({ win: '胜利', loss: '失败', timeout: '超时' })[name] || name;
 const eventName = (name: string) => ({ decision: '行动决策', direct_damage: '直接伤害', break_damage: '击破伤害', dot_damage: '持续伤害', battle_finished: '战斗结束', unit_died: '单位退场', phase_changed: '阶段切换' })[name] || name;
 export const verdictLabel = (value?: string | null) => ({ INCONCLUSIVE: '尚不足以判断总体效果', FAIL: '发现失败证据', PASS: '验证通过' })[value || ''] || '等待报告';
+const roundedAV=(value:string)=>{
+  const [n,d]=value.split('/').map(Number);const number=d===undefined?n:n/d;
+  return Number.isFinite(number)?number.toLocaleString('zh-CN',{maximumFractionDigits:2}):value;
+};
 
 function TraceView({ trace }: { trace: Trace }) {
   let events: Record<string, unknown>[] = [];
@@ -26,6 +31,7 @@ export default function ReportView({ detail }: { detail: RequestDetail }) {
   const { request, facts } = detail;
   const report = request.report;
   if (!report) return <section className="empty-state"><span className="empty-mark">…</span><h3>验证尚未交付</h3><p>已计入 {request.charged_battles} / {request.max_battles} 场预算。报告完成后会显示在这里。</p><p className="subtle">中断任务会保留原请求与已用预算，可在下方尝试恢复。</p></section>;
+  if (report.kind==='code') return <CodeReport report={report}/>;
   const rows = Array.from(new Map((report.jobs || []).flatMap(job => job.result.rows || []).map(row => [`${row.policy}:${row.seed}`, row])).values());
   async function openTrace(hash: string) {
     setTraceError(''); setLoadingTrace(hash); setTrace(null);
@@ -34,8 +40,8 @@ export default function ReportView({ detail }: { detail: RequestDetail }) {
   }
   return <div className="report-content">
     <section className={`verdict-banner ${report.verdict === 'FAIL' ? 'failed' : ''}`}>
-      <div><span className="eyebrow">总体结论 · {report.verdict}</span><h2>{verdictLabel(report.verdict)}</h2><p>{report.summary || '请结合程序事实与证据范围阅读本次结论。'}</p></div>
-      <div className="structure-result"><span className={`status-dot ${report.structural_verdict === 'PASS' ? 'ready' : ''}`} />{report.structural_verdict === 'PASS' ? '结构检查通过' : report.structural_verdict === 'FAIL' ? '结构检查失败' : '结构检查未完成'}<small>{report.structural_verdict || '待检查'}</small></div>
+      <div><span className="eyebrow">这次检查的结论</span><h2>{verdictLabel(report.verdict)}</h2><p>{report.summary || '请结合程序事实与证据范围阅读本次结论。'}</p></div>
+      <div className="structure-result"><span className={`status-dot ${report.structural_verdict === 'PASS' ? 'ready' : ''}`} />{report.structural_verdict === 'PASS' ? '配置格式与字段合法' : report.structural_verdict === 'FAIL' ? '配置检查失败' : '配置检查未完成'}</div>
     </section>
     {report.stop_reason === 'model_budget_exhausted' && <p className="notice warning">模型调用额度已用尽，调查已停止；已有证据和运行错误保留。</p>}
     <section className="report-section">
@@ -43,7 +49,8 @@ export default function ReportView({ detail }: { detail: RequestDetail }) {
       {!facts ? <p className="notice warning">暂时没有可读取的程序事实，请查看原始报告。</p> : <>
         <div className="outcome-grid">{Object.entries(facts.transitions).map(([key, count]) => { const [policy, transition] = key.split(':'); const [before, after] = transition.split('->'); return <div className={`outcome-item ${before === 'win' && after !== 'win' ? 'regression' : ''}`} key={key}><span>{policyName(policy)}</span><strong>{outcomeName(before)} → {outcomeName(after)}</strong><b>{count}<small> 对</small></b></div>; })}</div>
         <p className="subtle">{facts.meaning}</p>
-        {facts.comparisons.length > 0 ? <div className="table-scroll"><table className="comparison-table"><thead><tr><th>共同获胜样本</th><th>原配置 AV</th><th>候选 AV</th><th>变化（候选 − 原配置）</th></tr></thead><tbody>{facts.comparisons.map(pair => <tr key={`${pair.policy}:${pair.seed}`}><td><strong>样本 {pair.seed}</strong><small>{policyName(pair.policy)}</small></td><td className="mono">{pair.baseline_av}</td><td className="mono">{pair.candidate_av}</td><td><strong className="mono">{pair.delta_av}</strong><small>{pair.direction}</small></td></tr>)}</tbody></table></div> : <p>没有双方都获胜的配对，无法比较共同胜利样本的行动值。</p>}
+        {facts.comparisons.length > 0 ? <div className="table-scroll"><table className="comparison-table"><thead><tr><th>两版都胜利的样本</th><th>改动前行动值</th><th>改动后行动值</th><th>变化（改动后 − 改动前）</th></tr></thead><tbody>{facts.comparisons.map(pair => <tr key={`${pair.policy}:${pair.seed}`}><td><strong>样本 {pair.seed}</strong><small>{policyName(pair.policy)}</small></td><td className="mono">{roundedAV(pair.baseline_av)}</td><td className="mono">{roundedAV(pair.candidate_av)}</td><td><strong className="mono">{roundedAV(pair.delta_av)}</strong><small>{pair.direction}</small></td></tr>)}</tbody></table></div> : <p>没有双方都获胜的配对，无法比较共同胜利样本的行动值。</p>}
+        <p className="field-hint">页面数值保留两位小数方便阅读；精确分数与原始判定保留在下方技术详情。</p>
         <p className="footnote">{facts.basis}</p><p className="notice">{facts.limit}</p>
       </>}
     </section>

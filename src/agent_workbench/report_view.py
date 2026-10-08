@@ -4,6 +4,13 @@ from fractions import Fraction
 
 
 def facts_for_report(report):
+    if report.get('kind') == 'code':
+        return {'verdict':report['verdict'],'distinct_pairs':0,'comparisons':[],'transitions':{},
+                'original_error_count':len(report.get('errors',[])),
+                'basis':'由冻结候选的实际隔离测试结果生成；重复读取不增加执行次数。',
+                'meaning':'对照故障版和修复版的规则检查，不是胜率或平衡实验。',
+                'limit':'只覆盖报告列出的检查，不代表全游戏测试通过。',
+                'model_text_status':'QA意见不替代真实测试结果。'}
     rows = {}
     for job in report.get('jobs', []):
         for row in job['result'].get('rows', []):
@@ -33,6 +40,8 @@ def facts_for_report(report):
 
 
 def render_report(report):
+    if report.get('kind') == 'code':
+        return report['summary']+'\n'+'\n'.join(report.get('limitations',[]))
     facts = facts_for_report(report)
     label = '尚不足以判断总体效果' if facts['verdict'] == 'INCONCLUSIVE' else '发现失败证据'
     lines = [f'验证结果：{label}（{facts["verdict"]}）',

@@ -60,6 +60,13 @@ class TaskTests(unittest.TestCase):
             self.assertEqual(c.post('/api/tasks/task1/generate', json={}).status_code, 403)
             self.assertIsNone(c.get('/api/tasks/task1').json()['candidate_id'])
 
+    def test_unlisted_coding_operation_is_a_clear_authorization_error(self):
+        with self.client() as c:
+            c.post('/api/tasks',json=self.body(kind='coding',coding_operation_id='not_authorized'))
+            result=c.post('/api/tasks/task1/generate',json={})
+            self.assertEqual(result.status_code,403)
+            self.assertEqual(result.json()['error']['code'],'coding_not_authorized')
+
     def test_graph_candidate_export_test_approval_and_qa_are_one_task(self):
         model = Model()
         with self.client(model) as c:

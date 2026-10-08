@@ -205,9 +205,12 @@ class TaskService:
                 pass
         historical_runs = [r for r in self.workbench.request_list()
                            if r['manifest_hash'] == row['candidate_id'] and r['verdict'] is not None]
+        from .releases import ReleaseService
+        releases=ReleaseService(self.workbench.root,self.workbench.repo).status()
+        applied=any(r['version'] and r['version']['candidate_id']==row['candidate_id'] for r in releases.values())
         return self.store.get(task_id) | {'status': status, 'candidate': candidate, 'historical_runs': historical_runs,
                                           'author_result': author_result, 'report': report,
-                                          'applied': False}
+                                          'applied': applied}
 
     def link_history(self, task_id, request_id):
         row = self.store.get(task_id)
@@ -218,7 +221,7 @@ class TaskService:
         return self.get(task_id)
 
     async def generate(self, task_id):
-        from .workbench import DraftInput, CodingInput
+        from .workbench import DraftInput, CodingInput, APIError
         value = self.store.get(task_id)
         if value['origin'] == 'existing_candidate' or value['kind'] == 'verification':
             raise ValueError('existing candidate does not need author generation')
@@ -228,10 +231,12 @@ class TaskService:
             return await self.workbench.draft(DraftInput(operation_id=operation_id, request=value['request']))
         operation_id = value['coding_operation_id']
         if not operation_id:
-            from .workbench import APIError
             raise APIError('coding_scope_pending', '当前代码任务仍需受测代码候选与执行范围；不会冒充已支持。', 403)
         self.store.link(task_id, author_op=operation_id)
-        return await self.workbench.start_coding(CodingInput(operation_id=operation_id, request=value['request'], mode='single'))
+        authorized = next((t for t in self.workbench.coding.status().get('tasks',[]) if t['operation_id']==operation_id),None)
+        if authorized is None:
+            raise APIError('coding_not_authorized','没有与此需求匹配的已授权模型尝试。',403)
+        return await self.workbench.start_coding(CodingInput(operation_id=operation_id, request=value['request'], mode=authorized['mode']))
 
     def approve(self, task_id):
         from .workbench import APIError
@@ -266,4 +271,8 @@ class TaskService:
         saved = self.workbench.jobs.get(row['request_id'])
         # Resume exactly the original admitted input, with its original budget.
         value = VerificationInput(**{key: saved[key] for key in ('request_id', 'manifest_hash', 'goal', 'max_battles')})
+        operation=self.workbench.operations.get(row['verification_operation_id'])
+        if operation['kind']=='replay':
+            event=next(e for e in row['events'] if e['kind']=='frozen_replay_requested')
+            return await self.workbench.start_replay(value,event['detail']['plans'],resume=True)
         return await self.workbench.verify(value, resume=True)

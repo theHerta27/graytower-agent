@@ -13,6 +13,7 @@ GAME = Path('D:/Desktop/graytower-game')
 GAME_COMMIT = '5c5ec50'
 TARGET = 'game-core/combat_core/v2/effects.py'
 PROFILE = 'shield-damage-python-v1'
+PROFILES = (PROFILE, 'skill-points-python-v1')
 
 
 def git(root, *args):
@@ -103,18 +104,20 @@ class CodeWorkspace:
             raise ValueError('empty code patch')
         manifest = {'schema_version': 'code-candidate-v1', 'kind': 'code', 'profile': PROFILE,
                     'request': request, 'game_commit': self.preparation['game_commit'],
-                    'baseline_commit': self.preparation['baseline_commit'], 'case': 'D-01-controlled-fault',
+                    'baseline_commit': self.preparation['baseline_commit'], 'case': self.preparation.get('case', 'D-01-controlled-fault'),
                     'baseline_tree': self.preparation['baseline_tree'],
                     'candidate_tree': self.artifacts.put(after, 'code-tree-v1'),
                     'patch': self.artifacts.put({'text': patch}, 'code-patch-v1'),
                     'changed_files': changed, 'added_files': [], 'deleted_files': [],
                     'provenance': provenance or {'source': 'local engineering fixture, not a model run'}}
+        manifest['profile'] = self.preparation['profile']
         ref = self.artifacts.put(manifest, 'code-candidate-v1')
         return self.inspect(ref['sha256'])
 
     def inspect(self, candidate_id):
         manifest = self.artifacts.read(valid_hash(candidate_id))
-        if manifest.get('schema_version') != 'code-candidate-v1' or manifest.get('profile') != PROFILE:
+        if (manifest.get('schema_version') != 'code-candidate-v1' or manifest.get('kind') != 'code'
+                or manifest.get('profile') not in PROFILES or manifest['profile'] != self.preparation['profile']):
             raise ValueError('unsupported code candidate')
         if any(manifest.get(key) != self.preparation[key] for key in ('game_commit', 'baseline_commit', 'baseline_tree')):
             raise ValueError('code baseline does not match trusted case preparation')
@@ -160,6 +163,12 @@ class CodeWorkspace:
 
 
 def prepare_shield_case(control, path):
+    return prepare_python_case(control, path, PROFILE)
+
+
+def prepare_python_case(control, path, profile):
+    if profile not in PROFILES:
+        raise ValueError('unsupported bounded Python case')
     control, path = Path(control).resolve(), Path(path).resolve()
     if path.exists() or control.exists() or path == GAME.resolve() or control.is_relative_to(path):
         raise ValueError('case needs new separate workspace/control paths')
@@ -168,17 +177,18 @@ def prepare_shield_case(control, path):
     control.mkdir(parents=True)
     target = path / TARGET
     raw = target.read_bytes()
-    old = b'hp_loss=min(u.hp,left)'
+    old, fault_text, case = (b'hp_loss=min(u.hp,left)', b'hp_loss=min(u.hp,amount)', 'D-01-controlled-fault') if profile == PROFILE else (
+        b'state.skill_points=min(5,before+gained-spent)', b'state.skill_points=min(4,before+gained-spent)', 'D-02-controlled-fault')
     if raw.count(old) != 1:
-        raise ValueError('expected shield implementation changed')
-    target.write_bytes(raw.replace(old, b'hp_loss=min(u.hp,amount)', 1))
+        raise ValueError('expected case implementation changed')
+    target.write_bytes(raw.replace(old, fault_text, 1))
     git(path, 'add', TARGET)
     git(path, '-c', 'user.name=graytower-demo', '-c', 'user.email=local@localhost', '-c', 'commit.gpgsign=false',
-        'commit', '-m', 'test-case: controlled shield HP fault D-01')
+        'commit', '-m', 'test-case: '+case)
     fault = git(path, 'rev-parse', 'HEAD')
     git(GAME, 'update-ref', 'refs/demo-cases/shield-'+uuid.uuid4().hex, fault)
     artifacts = Artifacts(control / 'artifacts')
-    preparation = {'case': 'D-01-controlled-fault', 'profile': PROFILE, 'game_commit': commit,
+    preparation = {'case': case, 'profile': profile, 'game_commit': commit,
                    'baseline_commit': fault, 'editable_files': [TARGET],
                    'baseline_tree': artifacts.put(snapshot(path), 'code-tree-v1')}
     (control / 'preparation.json').write_bytes(encoded(preparation))
@@ -188,6 +198,6 @@ def prepare_shield_case(control, path):
 def runtime_workspace(data, path, preparation):
     control = Path(data).resolve() / 'control'
     saved = json.loads((control / 'preparation.json').read_text(encoding='utf-8'))
-    if encoded(saved) != encoded(preparation) or saved.get('profile') != PROFILE:
+    if encoded(saved) != encoded(preparation) or saved.get('profile') not in PROFILES:
         raise ValueError('Python Runtime preparation does not match its trusted record')
     return CodeWorkspace(control, path, saved)

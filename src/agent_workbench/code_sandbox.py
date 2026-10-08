@@ -58,12 +58,47 @@ except Exception as error: result['event_error']=type(error).__name__
 print(json.dumps(result))
 '''
 
+SP_ORACLE = '''import json
+from pathlib import Path
+import pytest
+from combat_core.v2.config import load_bundle,load_scenario
+from combat_core.v2.state import initial_state
+from combat_core.v2.trace import EventRecorder
+from combat_core.v2.effects import skill_points
 
-def payload_archive(tree):
+@pytest.mark.parametrize("before,gained,spent,after,overflow",[(3,1,0,4,0),(5,1,0,5,1),(3,0,1,2,0),(5,1,1,5,0)])
+def test_skill_points_and_events(before,gained,spent,after,overflow):
+    root=Path('/candidate')
+    bundle=load_bundle(root/'configs/combat/v2/baseline.json')
+    state=initial_state(bundle,load_scenario(root/'configs/combat/v2/scenario.json'))
+    state.skill_points=before
+    rec=EventRecorder()
+    skill_points(state,gained,spent,rec,'striker_01','qa_resource')
+    event=next(e for e in rec.events if e.kind=='resource_changed')
+    record={'before':before,'gained':gained,'spent':spent,'after':state.skill_points,'event':event.model_dump(mode='json')}
+    with open('/tmp/game-events.jsonl','a') as out:out.write(json.dumps(record)+'\\n')
+    assert state.skill_points==after
+    assert event.payload.before==before
+    assert event.payload.after==after
+    assert event.payload.gained==gained
+    assert event.payload.spent==spent
+    assert event.payload.overflow==overflow
+'''
+
+
+def oracle_for(profile):
+    if profile == PROFILE:
+        return ORACLE
+    if profile == 'skill-points-python-v1':
+        return SP_ORACLE
+    raise ValueError('unsupported isolated test profile')
+
+
+def payload_archive(tree, profile=PROFILE):
     data = BytesIO()
     with tarfile.open(fileobj=data, mode='w') as tar:
         import base64
-        files = { 'oracle/test_shield.py': ORACLE.encode(), 'oracle/runner.py': RUNNER.encode() }
+        files = { 'oracle/test_shield.py': oracle_for(profile).encode(), 'oracle/runner.py': RUNNER.encode() }
         for name, item in tree['files'].items():
             if '\\' in name or '..' in Path(name).parts or name.startswith('/') or ':' in name:
                 raise ValueError('invalid container source path')
@@ -86,7 +121,7 @@ def command(*args, input=None, timeout=90):
     return p.stdout
 
 
-def execute_tree(tree):
+def execute_tree(tree, profile=PROFILE):
     actual = command('image', 'inspect', '--format', '{{.Id}}', IMAGE).decode().strip()
     if actual != IMAGE:
         raise ValueError('sandbox image identity mismatch')
@@ -95,19 +130,17 @@ def execute_tree(tree):
     # Docker cannot cp into a read-only rootfs. Candidate execution starts only
     # in the separate restricted container created from this ephemeral image.
     seed = command('create', '--network', 'none', IMAGE).decode().strip()
-    image = None
+    image = container = result = None
     try:
-        command('cp', '-', seed+':/', input=payload_archive(tree))
+        command('cp', '-', seed+':/', input=payload_archive(tree, profile))
         image = command('commit', seed).decode().strip()
-    finally:
         command('rm', '-f', seed, timeout=15)
-    container = command('create', '--name', name, '--network', 'none', '--read-only',
+        seed = None
+        container = command('create', '--name', name, '--network', 'none', '--read-only',
                         '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pids-limit', '64',
                         '--memory', '256m', '--cpus', '1', '--user', '10001:10001',
                         '--tmpfs', '/tmp:rw,noexec,nosuid,size=32m', '--workdir', '/tmp',
                         image, 'python', '-I', '-B', '/oracle/runner.py').decode().strip()
-    result = None
-    try:
         config = json.loads(command('inspect', container))[0]
         output = command('start', '-a', container, timeout=65)
         if len(output) > 100000:
@@ -117,7 +150,7 @@ def execute_tree(tree):
         result['image'] = actual
         result['execution_image'] = image
         result['input_container_never_started'] = True
-        result['oracle_hash'] = hashlib.sha256(ORACLE.encode()).hexdigest()
+        result['oracle_hash'] = hashlib.sha256(oracle_for(profile).encode()).hexdigest()
         result['runner_hash'] = hashlib.sha256(RUNNER.encode()).hexdigest()
         result['restrictions'] = {key:config['HostConfig'][key] for key in
             ('NetworkMode','ReadonlyRootfs','CapDrop','SecurityOpt','PidsLimit','Memory','NanoCpus','Binds')}
@@ -129,8 +162,15 @@ def execute_tree(tree):
         else:
             result['verdict'] = 'INCONCLUSIVE'
     finally:
-        command('rm', '-f', container, timeout=15)
-        command('image', 'rm', image, timeout=15)
+        errors = []
+        for resource, arguments in [(seed,('rm','-f',seed)),(container,('rm','-f',container)),(image,('image','rm',image))]:
+            if resource:
+                try:
+                    command(*arguments,timeout=15)
+                except Exception as exc:
+                    errors.append(type(exc).__name__)
+        if errors:
+            raise RuntimeError('Sandbox cleanup incomplete; retain unknown job for inspection: '+','.join(errors))
         if result is not None:
             result['container_removed'] = True
             result['execution_image_removed'] = True
@@ -139,6 +179,7 @@ def execute_tree(tree):
 
 class CodeTestJobs:
     def __init__(self, root):
+        Path(root).mkdir(parents=True, exist_ok=True)
         self.path = Path(root) / 'code-jobs.sqlite'
         with closing(self.connect()) as db, db:
             db.execute('CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,input TEXT NOT NULL,state TEXT NOT NULL,receipt TEXT,receipt_hash TEXT)')
@@ -146,13 +187,45 @@ class CodeTestJobs:
     def connect(self):
         return sqlite3.connect(self.path, timeout=10)
 
-    def run(self, workspace, candidate_id, variant):
+    def input(self, workspace, candidate_id, variant, run_id=None):
+        manifest = workspace.inspect(candidate_id)['manifest']
         value = {'candidate_id': candidate_id, 'variant': variant, 'profile': PROFILE,
                  'image': IMAGE, 'oracle_hash': hashlib.sha256(ORACLE.encode()).hexdigest(),
                  'runner_hash': hashlib.sha256(RUNNER.encode()).hexdigest()}
+        if run_id is not None:
+            import re
+            if not isinstance(run_id, str) or not re.fullmatch('[a-zA-Z0-9_-]{1,80}', run_id):
+                raise ValueError('invalid code run id')
+            value['run_id'] = run_id
+        value['profile'] = manifest['profile']
+        value['oracle_hash'] = hashlib.sha256(oracle_for(manifest['profile']).encode()).hexdigest()
         if variant not in ('baseline','candidate'):
             raise ValueError('unsupported test variant')
+        return value
+
+    def receipt(self, workspace, candidate_id, variant, run_id=None):
+        value = self.input(workspace, candidate_id, variant, run_id)
+        with closing(self.connect()) as db:
+            row = db.execute('SELECT input,state,receipt,receipt_hash FROM jobs WHERE id=?', (digest(value),)).fetchone()
+        if row is None:
+            return None
+        if row[0] != canonical(value):
+            raise ValueError('code job identity changed')
+        if row[1] != 'completed':
+            raise RecoveryRequired('代码测试已启动，但还没有可靠结果；不会自动重跑。')
+        result = json.loads(row[2])
+        if (digest(result) != row[3] or any(result.get(k) != v for k,v in value.items())
+                or result.get('job_id') != digest(value)
+                or result.get('tree_hash') != workspace.inspect(candidate_id)['manifest'][variant+'_tree']['sha256']):
+            raise ValueError('code receipt integrity or identity failure')
+        return result
+
+    def run(self, workspace, candidate_id, variant, *, run_id=None):
+        value = self.input(workspace, candidate_id, variant, run_id)
         manifest = workspace.inspect(candidate_id)['manifest']
+        existing = self.receipt(workspace, candidate_id, variant, run_id)
+        if existing is not None:
+            return existing
         with tempfile.TemporaryDirectory(prefix='graytower-replay-') as temporary:
             restored = workspace.restore(Path(temporary) / 'source', candidate_id, variant=variant)
             tree = snapshot(restored)
@@ -170,7 +243,8 @@ class CodeTestJobs:
                     raise ValueError('code receipt integrity failure')
                 return result
             db.execute('INSERT INTO jobs VALUES (?,?,?,NULL,NULL)', (job, canonical(value), 'running'))
-        result = execute_tree(tree) | {'job_id':job, **value, 'tree_hash':manifest[variant+'_tree']['sha256']}
+        execution = execute_tree(tree) if value['profile']==PROFILE else execute_tree(tree,value['profile'])
+        result = execution | {'job_id':job, **value, 'tree_hash':manifest[variant+'_tree']['sha256']}
         with closing(self.connect()) as db, db:
             db.execute('UPDATE jobs SET state=?,receipt=?,receipt_hash=? WHERE id=?', ('completed',canonical(result),digest(result),job))
         return result

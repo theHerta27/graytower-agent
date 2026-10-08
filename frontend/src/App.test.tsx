@@ -111,10 +111,10 @@ describe('workbench public workflow', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: '独立验证' }));
     await screen.findByRole('heading', { name: '尚不足以判断总体效果' });
-    expect(screen.getByText('结构检查通过')).toBeTruthy();
+    expect(screen.getByText('配置格式与字段合法')).toBeTruthy();
     expect(screen.getByText('胜利 → 失败')).toBeTruthy();
     expect(screen.getByText('行动值减少')).toBeTruthy();
-    expect(screen.getByText('-600/7')).toBeTruthy();
+    expect(screen.getByText('-85.71')).toBeTruthy();
     expect(screen.getByText('ValueError: invalid policy')).toBeTruthy();
     expect(screen.getByText('模型意见 · 未核验')).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: '查看候选记录 · 样本7' }));
