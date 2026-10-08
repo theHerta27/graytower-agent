@@ -2,6 +2,8 @@
 
 ## 2026-10-08 实施进度（最新）
 
+**P2 后续实际进展：** 用户授权 scope d054c1a5...d0d72 后，真实 Codex Runtime/DeepSeek 已定位并修复 D-01 护盾扣血故障，只有 effects.py 一处表达式变化；原始故障 2FAIL/2PASS，候选4PASS；重复读取同一收据不新执行，原生 Review 绑定冻结文件。7调用/0未知，峰价估USD0.013317168，未用11次关闭。`/code-repair` 提供只读实际补丁/测试/Review/费用页面。50项Coding＋4项代码领域定向回归，以及single/auto真实Runtime脚本夹具和旧numeric Runtime夹具通过；夹具不是模型质量成绩。证据见 `research/evidence/python-coding-d01-20261008.json`。P2/P3继续完成正式代码任务的准入/恢复/统一Task与独立QA接入，随后D-02与P4；尚未宣布完整计划完成。
+
 用户批准《计划文档.md》后，P0/P1 已交付统一任务中心、冻结 JSON/Excel、批准测试、独立 QA 和真实时间线。C-01 合法修改、C-02 越界拒绝、C-03 歧义澄清已完成真实 DeepSeek 演示：7 次调用、4 场战斗、0 未知调用，峰价估 USD0.007370832；余下 3 次额度关闭。入口 `打开任务中心.cmd` / http://127.0.0.1:18783/tasks ，默认关闭新模型调用。QA 结构 PASS、样本总体 INCONCLUSIVE，不宣称总体平衡改善。
 
 P2 已推进工程预验证：固定游戏 Commit 的真实 Git worktree、冻结补丁重建、Docker 非 root/无网络/只读执行；受控护盾故障失败，人工参考修复 4 项通过，重复读取同一 Job receipt。尚非 Coding Agent 自主解题，也非代码 QA 产品完成。下一步接 Codex 受限 Python 编辑、Verification 代码工具及统一报告，完成 D-01 真实纵向演示；随后做 D-02，再推进 P4 本地采纳/回退。容器异常清理、恶意候选/资源负例须在扩大执行范围前补齐，暂不开放任意代码。详细证据见 `research/evidence/task-center-p1-20261008.json`；实施裁决见 `research/evidence/task-center-p1-rulings.md`。

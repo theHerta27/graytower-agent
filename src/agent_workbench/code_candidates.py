@@ -63,9 +63,33 @@ class CodeWorkspace:
         self.artifacts = Artifacts(self.control / 'artifacts')
         self.preparation = preparation
 
+    def inspect_changes(self):
+        before = self.artifacts.read_ref(self.preparation['baseline_tree'], 'code-tree-v1')
+        after = snapshot(self.path)
+        status = git(self.path, 'status', '--porcelain', '--untracked-files=all').splitlines()
+        changed = sorted(k for k in set(before['files']) | set(after['files']) if before['files'].get(k) != after['files'].get(k))
+        if (set(before['files']) != set(after['files']) or any(k != TARGET for k in changed)
+                or any(line[3:] != TARGET for line in status)
+                or git(self.path, 'rev-parse', 'HEAD') != self.preparation['baseline_commit']):
+            raise ValueError('workspace changed outside the prepared Python scope')
+        return {'before_tree_hash': self.preparation['baseline_tree']['sha256'], 'after_tree_hash': digest(after),
+                'after_hash': after['files'][TARGET]['sha256'], 'changed_files': changed,
+                'scope_check': 'PASS', 'tests_run': False}
+
+    def read_file(self, name):
+        before = self.artifacts.read_ref(self.preparation['baseline_tree'], 'code-tree-v1')
+        if name not in before['files']:
+            raise ValueError('file outside the prepared source catalog')
+        self.inspect_changes()
+        # snapshot checks link types and byte bounds before returning content.
+        item = snapshot(self.path)['files'][name]
+        return {'path': name, 'sha256': item['sha256'],
+                'text': base64.b64decode(item['content']).decode('utf-8')}
+
     def freeze(self, request, *, provenance=None):
         if not isinstance(request, str) or not request.strip() or len(request) > 4000:
             raise ValueError('invalid code request')
+        self.inspect_changes()
         status = git(self.path, 'status', '--porcelain', '--untracked-files=all').splitlines()
         if any(line[3:] != TARGET for line in status) or not status:
             raise ValueError('scope requires only the allowed Python file to change')
@@ -159,3 +183,11 @@ def prepare_shield_case(control, path):
                    'baseline_tree': artifacts.put(snapshot(path), 'code-tree-v1')}
     (control / 'preparation.json').write_bytes(encoded(preparation))
     return CodeWorkspace(control, path, preparation)
+
+
+def runtime_workspace(data, path, preparation):
+    control = Path(data).resolve() / 'control'
+    saved = json.loads((control / 'preparation.json').read_text(encoding='utf-8'))
+    if encoded(saved) != encoded(preparation) or saved.get('profile') != PROFILE:
+        raise ValueError('Python Runtime preparation does not match its trusted record')
+    return CodeWorkspace(control, path, saved)

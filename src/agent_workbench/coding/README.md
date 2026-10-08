@@ -20,3 +20,8 @@
 ## 如何使用
 
 双击仓库根目录 `打开研发工作台.cmd`，进入 Coding 页面。默认关闭新模型调用，可查看已有运行记录。真实任务需配置模型与明确的调用预算；游戏规则与候选领域实现位于共享模块及游戏仓库。
+## 2026-10-08 Python 修复切片
+
+保留同一官方 SDK/Runtime 0.160.0 与 Responses 预算接入，新增 `shield-damage-python-v1` profile：只读 MCP 读取固定游戏代码目录；主线程 `edit_text` 仅写 effects.py；原生 Review 后绑定树与文件 Hash；CodeWorkspace 冻结实际 Git diff；CodeTestJobs 在独立 Docker 中重建并测试候选。
+
+`scripts/run_python_coding_demo.py` 提供 prepare/run（run 需要本次scope hash、独立授权记录及本机密钥）。真实 D-01 已执行7调用，候选四项测试通过，批次已关闭；不得重置目录续用额度。`/code-repair` 是只读证据页面，统一代码Task/QA委托与新尝试入口还在开发。此前numeric配置任务仍使用原profile，不把worktree当进程沙箱，也不复刻Runtime循环。

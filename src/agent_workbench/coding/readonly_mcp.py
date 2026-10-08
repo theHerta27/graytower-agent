@@ -13,14 +13,22 @@ from ..domain import CandidateRepository
 
 
 def serve(workspace: Path, data: Path, preparation: dict):
-    candidate = CodingWorkspace(workspace, CandidateRepository(data), preparation)
-    reader = FileTools(workspace, data / 'coding-read-control')
+    profile = preparation.get('profile')
+    if profile == 'shield-damage-python-v1':
+        from ..code_candidates import runtime_workspace
+        candidate = runtime_workspace(data, workspace, preparation)
+        reader = candidate
+        files = sorted(candidate.artifacts.read_ref(preparation['baseline_tree'], 'code-tree-v1')['files'])
+    else:
+        candidate = CodingWorkspace(workspace, CandidateRepository(data), preparation)
+        reader = FileTools(workspace, data / 'coding-read-control')
+        files = [FILE]
     server = MCPServer('coding-readonly', version='v1', log_level='WARNING')
 
     @server.tool(structured_output=True, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
     def list_workspace() -> dict[str, Any]:
         """List the files in this prepared, bounded Coding workspace."""
-        return {'files': [FILE], 'writable_by_child': False, 'scope': 'trusted-combat-numeric-v1'}
+        return {'files': files, 'writable_by_child': False, 'scope': profile or 'trusted-combat-numeric-v1'}
 
     @server.tool(structured_output=True, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
     def read_file(path: str) -> dict[str, Any]:

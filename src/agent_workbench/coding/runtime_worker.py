@@ -29,15 +29,21 @@ def run(request):
     if version('openai-codex') != VERSION or version('openai-codex-cli-bin') != VERSION:
         raise ValueError('Coding requires the tested SDK and its exact default Runtime pair')
     control, workspace = Path(request['control']), Path(request['workspace'])
+    profile = request['preparation'].get('profile')
     home = control / 'codex-home'
     home.mkdir()
-    (home / 'models.json').write_text(json.dumps(model_catalog(), ensure_ascii=False), encoding='utf-8')
+    (home / 'models.json').write_text(json.dumps(model_catalog(profile=profile), ensure_ascii=False), encoding='utf-8')
     (home / 'config.toml').write_text(runtime_config(
         home, workspace, Path(request['data']), Path(request['tools_python']), request['endpoint'], request['mode'],
         request['preparation']), encoding='utf-8')
     os.environ['CODEX_HOME'] = str(home)
-    files = FileTools(workspace, control / 'file-control')
-    candidate_workspace = CodingWorkspace(workspace, CandidateRepository(Path(request['data'])), request['preparation'])
+    if profile == 'shield-damage-python-v1':
+        from ..code_candidates import runtime_workspace, TARGET
+        candidate_workspace = runtime_workspace(request['data'], workspace, request['preparation'])
+        files = FileTools(workspace, control / 'file-control', editable_file=TARGET)
+    else:
+        files = FileTools(workspace, control / 'file-control')
+        candidate_workspace = CodingWorkspace(workspace, CandidateRepository(Path(request['data'])), request['preparation'])
     initial_inspection = candidate_workspace.inspect_changes()
     before_tree = initial_inspection['after_tree_hash']
     original = files.read_file()
@@ -78,7 +84,7 @@ def run(request):
         client.start()
         timer.start()
         client.initialize()
-        started = client.thread_start(thread_params(workspace, request['mode']))
+        started = client.thread_start(thread_params(workspace, request['mode'], profile=profile))
         thread_id = started.thread.id
         result['thread_id'] = thread_id
         result['mcp_status'] = client.request('mcpServerStatus/list', {'threadId': thread_id, 'serverName': 'coding_readonly'},
@@ -96,7 +102,7 @@ def run(request):
         edited = files.read_file()
         review_tree = candidate_workspace.inspect_changes()['after_tree_hash']
         editing = False
-        review_instructions = ('Review only this bounded configuration edit. Do not edit files. '
+        review_instructions = ('Review only this bounded game file edit. Do not edit files or run code. '
                                'Check the requested change and accidental other changes. Return findings supported by the file diff.\n'
                                + json.dumps({'request': request['prompt'], 'before': original, 'after': edited}, ensure_ascii=False))
         review = client.request('review/start', {'threadId': thread_id, 'delivery': 'inline',

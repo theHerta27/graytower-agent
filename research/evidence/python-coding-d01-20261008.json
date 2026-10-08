@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-08",
+  "case": "D-01-controlled-fault",
+  "source": "real DeepSeek through official Codex Runtime",
+  "scope_sha256": "d054c1a5e7f35103e13d8f9c9cf21ff438f0d59dc671a2a10406f8234a4d0d72",
+  "candidate_id": "4eb6928f055347afff8d32627af8aed5a94bab9795d10fbd63386ba02db94cf1",
+  "game_commit": "5c5ec5034d3a959b1bd4aec432e7043721d367d5",
+  "baseline_commit": "69e616f575feacd5b366a236b1e6544eed0bea76",
+  "changed_files": [
+    "game-core/combat_core/v2/effects.py"
+  ],
+  "patch_sha256": "b40ed9f089fc603b9b55ad4f2c4913a8f2a2f2869c9d0a755db5ba1ed03f287a",
+  "runtime_identity": {
+    "sdk": "0.160.0",
+    "runtime": "0.160.0",
+    "binary_sha256": "fdda5fa3cf3fb3d000b876720742857676293e4315e4b045fae6f8bd7e866d1d"
+  },
+  "review_bound_to_current_tree": true,
+  "mode": "auto",
+  "autonomous_spawn_events": 0,
+  "budget": {
+    "reserved": 7,
+    "completed": 7,
+    "failed": 0,
+    "unknown": 0,
+    "known_cost_usd": "0.013317168",
+    "unknown_cost_reserved_usd": "0.000000",
+    "max_calls": 18,
+    "cost_cap_usd": "0.85"
+  },
+  "unused_calls_closed": 11,
+  "baseline_tests": [
+    {
+      "name": "test_shield_hp_and_events[100-40-100-60]",
+      "status": "FAIL"
+    },
+    {
+      "name": "test_shield_hp_and_events[20-40-80-0]",
+      "status": "FAIL"
+    },
+    {
+      "name": "test_shield_hp_and_events[0-40-60-0]",
+      "status": "PASS"
+    },
+    {
+      "name": "test_shield_hp_and_events[20-200-0-0]",
+      "status": "PASS"
+    }
+  ],
+  "candidate_tests": [
+    {
+      "name": "test_shield_hp_and_events[100-40-100-60]",
+      "status": "PASS"
+    },
+    {
+      "name": "test_shield_hp_and_events[20-40-80-0]",
+      "status": "PASS"
+    },
+    {
+      "name": "test_shield_hp_and_events[0-40-60-0]",
+      "status": "PASS"
+    },
+    {
+      "name": "test_shield_hp_and_events[20-200-0-0]",
+      "status": "PASS"
+    }
+  ],
+  "same_receipts_after_repeat": true,
+  "candidate_container_removed": true,
+  "candidate_execution_image_removed": true,
+  "raw_files": [
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\outbound-scope.json",
+      "sha256": "d054c1a5e7f35103e13d8f9c9cf21ff438f0d59dc671a2a10406f8234a4d0d72"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\authorization.json",
+      "sha256": "2531a9630f171fd394463b0c67d2105c5ad2786b0f426bbe1125e13488fb8817"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\outbound-preview.json",
+      "sha256": "720eeeaf20e22b449778a9101bd1382398dcd2395f647048ce117df6366f3e61"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\result.json",
+      "sha256": "eb968b6eab6696b332f4ebc4cda04f7d18ea6fa030c435f8527cb763a7a2e1d1"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\closed.json",
+      "sha256": "2cf697493234ac4da572f2a498bd731872d4592a8103d5b964a5f3fc9c538ee0"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\runtime-control\\result.json",
+      "sha256": "ba6870cad820162fa483cc436dfc0094ab7597a362271e8505d3943213beff4a"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\python-coding-d01-v1\\coding-calls\\responses-ledger.sqlite",
+      "sha256": "4078acd09d03f3283ba1d8a5307423f5e0777db0ce0ccfef76255d0a37283acc"
+    }
+  ],
+  "limits": [
+    "8 total test cases in a controlled fault; not all game regression tests.",
+    "No QA model call; direct trusted container tests, code QA product integration pending.",
+    "No applying candidate, no battle, no collaboration quality/performance claim."
+  ]
+}

@@ -326,7 +326,7 @@ async def body(request, schema):
 
 
 def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, frontend_dist=None,
-               model_actions=('draft', 'verify'), coding_service=None):
+               model_actions=('draft', 'verify'), coding_service=None, code_demo_root=None):
     """Startup authority cannot be set by HTTP. model_factory is an offline test seam."""
     workbench = Workbench(root, call_cap=call_cap, audit_path=audit_path,
                           model_factory=model_factory, model_actions=model_actions, coding_service=coding_service)
@@ -479,7 +479,11 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
             raise APIError('invalid_format', '仅支持 JSON 和 Excel。')
         return Response(content, media_type=media, headers={'Content-Disposition': f'attachment; filename="{row["task_id"]}.{kind}"'})
 
-    routes = [Route('/api/tasks', tasks, methods=['GET', 'POST']),
+    async def code_demo(request):
+        from .code_demo_view import load_code_demo
+        return JSONResponse(await asyncio.to_thread(load_code_demo, code_demo_root))
+
+    routes = [Route('/api/code-demo', code_demo), Route('/api/tasks', tasks, methods=['GET', 'POST']),
         Route('/api/tasks/{task_id}', task_detail),
         Route('/api/tasks/{task_id}/generate', task_generate, methods=['POST']),
         Route('/api/tasks/{task_id}/approve-test', task_approve, methods=['POST']),
@@ -504,6 +508,7 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
         async def task_page(request):
             return FileResponse(dist / 'index.html')
         routes.append(Route('/tasks', task_page))
+        routes.append(Route('/code-repair', task_page))
     routes.append(Mount('/', app=StaticFiles(directory=dist, html=True)) if (dist / 'index.html').is_file()
                   else Route('/', missing_frontend))
     app = Starlette(routes=routes, lifespan=lifespan, exception_handlers={
@@ -513,9 +518,9 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
     return app
 
 
-def serve(root, *, port=8765, call_cap=0, audit_path=None, model_actions=('draft', 'verify')):
+def serve(root, *, port=8765, call_cap=0, audit_path=None, model_actions=('draft', 'verify'), code_demo_root=None):
     import uvicorn
     if type(port) is not int or not 1 <= port <= 65535:
         raise ValueError('port must be in 1..65535')
-    app = create_app(root, call_cap=call_cap, audit_path=audit_path, model_actions=model_actions)
+    app = create_app(root, call_cap=call_cap, audit_path=audit_path, model_actions=model_actions, code_demo_root=code_demo_root)
     uvicorn.run(app, host='127.0.0.1', port=port, access_log=False, log_level='warning')

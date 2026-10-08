@@ -77,6 +77,7 @@ def main(argv=None):
     sub.add_argument('--port', type=int, default=8765)
     sub.add_argument('--call-cap', type=int, default=0)
     sub.add_argument('--audit-path', type=Path)
+    sub.add_argument('--code-demo-root', type=Path, help='只读展示已关闭的 Python 代码修复演示；不授予模型调用')
     sub.add_argument('--qa-only', action='store_true', help='本次启动仅允许 Verification 消耗模型额度')
     args = parser.parse_args(argv)
     root = args.data.resolve()
@@ -84,7 +85,7 @@ def main(argv=None):
     if args.command == 'web':
         from .workbench import serve as serve_workbench
         serve_workbench(root, port=args.port, call_cap=args.call_cap, audit_path=args.audit_path,
-                        model_actions=('verify',) if args.qa_only else ('draft', 'verify'))
+                        model_actions=('verify',) if args.qa_only else ('draft', 'verify'), code_demo_root=args.code_demo_root)
         return
     if args.command in ('coding-runs', 'coding-show'):
         from .coding.service import CodingService

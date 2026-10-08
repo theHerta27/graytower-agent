@@ -22,6 +22,21 @@ INSTRUCTIONS = '''你是游戏研发 Coding Agent。阅读当前隔离工作区�
 子 Agent 只有工作区只读工具，主线程独占 edit_text。不能通过提示词要求其他工具写入。
 不要确认、应用或发布候选，不要声称总体统计收益。最终说明改动、已做检查与仍待 QA 的部分。'''
 
+PYTHON_INSTRUCTIONS = '''你是游戏 Python 逻辑修复 Coding Agent。阅读工作区源码和业务需求，定位护盾与生命扣减故障。
+这是自有游戏的受控故障案例。只能通过 edit_text 修改 game-core/combat_core/v2/effects.py；其余源码只读。
+不能调用 shell、执行候选代码、访问外部网络、修改评测规则或读取工作区外文件。
+check_workspace 只核对编辑范围和文件身份，不是运行测试。实际隔离测试由独立 Verification 负责。
+可以按价值使用原生子 Agent 只读调查；主线程独占编辑，禁止通过其他工具写入。
+保持无关机制不变。修复后提交清楚的修改说明和仍待 QA 的部分；不能自称已通过测试。'''
+
+
+def instructions(profile=None):
+    if profile is None or profile == 'trusted-combat-numeric-v1':
+        return INSTRUCTIONS
+    if profile == 'shield-damage-python-v1':
+        return PYTHON_INSTRUCTIONS
+    raise ValueError('unsupported Runtime business profile')
+
 
 def safe_environment(source, source_root: Path):
     env = {key: value for key, value in source.items() if key.upper() in {
@@ -71,7 +86,7 @@ def runtime_config(home: Path, workspace: Path, data: Path, tools_python: Path, 
     ]) + '\n'
 
 
-def model_catalog():
+def model_catalog(*, profile=None):
     return {'models': [{
         'slug': MODEL, 'display_name': 'DeepSeek Flash', 'description': 'Bounded Coding V1',
         'default_reasoning_level': 'low', 'supported_reasoning_levels': [{'effort': 'low', 'description': 'low'}],
@@ -81,16 +96,16 @@ def model_catalog():
         'truncation_policy': {'mode': 'tokens', 'limit': 10000}, 'context_window': 1048576,
         'experimental_supported_tools': [], 'input_modalities': ['text'], 'tool_mode': 'direct',
         'multi_agent_version': 'v1', 'auto_review_model_override': MODEL,
-        'model_messages': {'instructions_template': INSTRUCTIONS},
+        'model_messages': {'instructions_template': instructions(profile)},
         'supports_reasoning_summary_parameter': False,
     }]}
 
 
-def thread_params(workspace: Path, mode: str):
+def thread_params(workspace: Path, mode: str, *, profile=None):
     _mode(mode)
     return {'cwd': str(workspace), 'model': MODEL, 'modelProvider': 'deepseek_local',
             'allowProviderModelFallback': False, 'approvalPolicy': 'never', 'approvalsReviewer': 'user',
-            'sandbox': 'read-only', 'developerInstructions': INSTRUCTIONS,
+            'sandbox': 'read-only', 'developerInstructions': instructions(profile),
             'dynamicTools': [EDIT_TOOL], 'ephemeral': False}
 
 

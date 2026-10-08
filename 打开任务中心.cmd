@@ -24,6 +24,8 @@ if not exist "frontend\dist\index.html" (
 )
 echo 请保持此窗口打开；结束服务按 Ctrl+C。
 start "" "http://127.0.0.1:18783/tasks"
-".venv\Scripts\python.exe" -u -X utf8 -B -m agent_workbench.cli --data local-data/task-center-p1-v1/data web --port 18783
+set "CODE_DEMO_ARGS="
+if exist "local-data\python-coding-d01-v1\result.json" set "CODE_DEMO_ARGS=--code-demo-root local-data/python-coding-d01-v1"
+".venv\Scripts\python.exe" -u -X utf8 -B -m agent_workbench.cli --data local-data/task-center-p1-v1/data web --port 18783 %CODE_DEMO_ARGS%
 echo 服务已结束；出现错误时请保留上方信息。
 pause

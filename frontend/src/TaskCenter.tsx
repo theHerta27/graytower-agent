@@ -54,6 +54,7 @@ export default function TaskCenter({ status }: { status: Status | null }) {
   const verifyAllowed = status?.model.enabled && status.model.actions?.includes('verify');
   const running = task?.status === 'running';
   return <div className="task-center">
+    <p><a className="button secondary" href="/code-repair">查看真实护盾代码修复 →</a></p>
     {error && <div className="notice error" role="alert">{error}</div>}
     <div className="workspace-grid">
       <aside className="input-panel">

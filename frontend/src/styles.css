@@ -241,3 +241,10 @@ td > small { display: block; margin-top: 4px; color: var(--muted); font-size: 10
 .task-timeline time { display: block; font-size: .8rem; color: #6d7974; margin-top: .3rem; }
 .task-timeline pre { font-size: .8rem; white-space: pre-wrap; overflow-wrap: anywhere; }
 .task-center a.button { text-decoration: none; }
+/* Closed Python repair records share the workbench's visual language. */
+.code-repair-page {max-width:1100px;margin:32px auto;padding:0 24px;}
+.code-repair-page>.candidate-panel {margin-top:20px;}
+.code-repair-page pre,.code-repair-page .coding-prose {white-space:pre-wrap;overflow-wrap:anywhere;}
+.code-repair-page table {width:100%;border-collapse:collapse;margin:20px 0;}
+.code-repair-page th,.code-repair-page td {padding:12px;text-align:left;border-bottom:1px solid #dce4eb;}
+.code-repair-page h2 {margin-top:32px;}

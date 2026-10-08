@@ -36,15 +36,23 @@ def tool_value(output):
     return value
 
 
-def main(out: Path, runtime_python: Path, mode: str, relay: bool):
+def main(out: Path, runtime_python: Path, mode: str, relay: bool, profile='numeric'):
     out.mkdir(parents=True, exist_ok=False)
     data = out / 'data'
-    repo = CandidateRepository(data)
-    workspace = CodingWorkspace.prepare(out / 'workspace', repo)
-    file = workspace.root / 'configs/combat/v2/baseline.json'
+    if profile == 'shield':
+        from agent_workbench.code_candidates import prepare_shield_case, TARGET
+        workspace = prepare_shield_case(data / 'control', out / 'workspace')
+        workspace_path = workspace.path
+        target_path, old_fragment, new_fragment = TARGET, 'hp_loss=min(u.hp,amount)', 'hp_loss=min(u.hp,left)'
+    else:
+        repo = CandidateRepository(data)
+        workspace = CodingWorkspace.prepare(out / 'workspace', repo)
+        workspace_path = workspace.root
+        target_path, old_fragment, new_fragment = 'configs/combat/v2/baseline.json', '"multiplier": 1.4,', '"multiplier": 1.58,'
+    file = workspace_path / target_path
     original = file.read_bytes()
     old = original.decode('utf-8')
-    assert old.count('"multiplier": 1.4,') == 1
+    assert old.count(old_fragment) == 1
     requests, errors = [], []
 
     class Fixture(BaseHTTPRequestHandler):
@@ -73,13 +81,13 @@ def main(out: Path, runtime_python: Path, mode: str, relay: bool):
                 users = [entry for entry in body.get('input', []) if entry.get('role') == 'user']
                 latest = json.dumps(users[-1], ensure_ascii=False) if users else ''
                 operation = None
-                review_phase = 'Review only this bounded configuration edit' in latest
+                review_phase = 'Review only this bounded' in latest
                 child = 'CHILD_BOUNDARY_FIXTURE_1' in latest and not review_phase
                 if child:
                     if 'child_read' not in outputs:
-                        operation = ('read_file', {'path': 'configs/combat/v2/baseline.json'}, 'child_read')
+                        operation = ('read_file', {'path': target_path}, 'child_read')
                     else:
-                        assert '1.4' in str(outputs['child_read'])
+                        assert old_fragment in str(outputs['child_read'])
                 elif not review_phase:
                     if mode == 'auto' and 'spawn' not in outputs:
                         operation = ('spawn_agent', {'message': 'CHILD_BOUNDARY_FIXTURE_1: Read the file and report the unchanged SP cost and toughness reduction; do not edit.',
@@ -91,11 +99,11 @@ def main(out: Path, runtime_python: Path, mode: str, relay: bool):
                         agent_id = json.loads(outputs['spawn'])['agent_id']
                         operation = ('close_agent', {'target': agent_id}, 'close')
                     elif 'read' not in outputs:
-                        operation = ('read_file', {'path': 'configs/combat/v2/baseline.json'}, 'read')
+                        operation = ('read_file', {'path': target_path}, 'read')
                     elif 'edit' not in outputs:
-                        operation = ('edit_text', {'path': 'configs/combat/v2/baseline.json',
+                        operation = ('edit_text', {'path': target_path,
                                                   'expected_sha256': hashlib.sha256(original).hexdigest(),
-                                                  'old_text': '"multiplier": 1.4,', 'new_text': '"multiplier": 1.58,'}, 'edit')
+                                                  'old_text': old_fragment, 'new_text': new_fragment}, 'edit')
                     elif 'check' not in outputs:
                         operation = ('check_workspace', {}, 'check')
                 if operation:
@@ -143,25 +151,30 @@ def main(out: Path, runtime_python: Path, mode: str, relay: bool):
         context = responses_endpoint(out / 'fixture-transport', grant, sender) if relay else nullcontext((fixture_url, None))
         with context as (endpoint, budget):
             result = run_runtime(runtime_python=runtime_python, tools_python=Path(sys.executable),
-                                 workspace=workspace.root, data=data, control=out / 'control', preparation=workspace.preparation,
+                                 workspace=workspace_path, data=data, control=out / 'runtime-control', preparation=workspace.preparation,
                                  endpoint=endpoint, mode=mode,
-                                 prompt='将击破手战技倍率从 1.4 改为 1.58，其他内容不变，检查后交付。', timeout_seconds=90)
+                                 prompt=('修复护盾抵消伤害后仍扣生命的故障，保持其他机制不变，检查后交付。' if profile == 'shield' else
+                                         '将击破手战技倍率从 1.4 改为 1.58，其他内容不变，检查后交付。'), timeout_seconds=90)
         budget_summary = budget.summary() if budget else None
         assert result['status'] == 'completed', result
         assert not errors, errors
         assert len(requests) == (5 if mode == 'single' else 10), len(requests)
         inspected = workspace.inspect_changes()
-        assert inspected['diff'][0]['after'] == 1.58
+        assert inspected['changed_files'] == [target_path] if profile == 'shield' else inspected['diff'][0]['after'] == 1.58
         validate_runtime_receipt(result, inspected)
-        receipt = repo.artifacts.put(result, 'coding-runtime-receipt-v1')
-        candidate = workspace.import_candidate('将击破手战技倍率从 1.4 改为 1.58，其他内容不变。',
-                                              {'source': 'scripted_fixture', 'runtime_receipt': receipt})
+        if profile == 'shield':
+            receipt = workspace.artifacts.put(result, 'coding-runtime-receipt-v1')
+            candidate = workspace.freeze('护盾故障协议 fixture，不是模型解题', provenance={'source':'scripted_fixture','runtime_receipt':receipt})
+        else:
+            receipt = repo.artifacts.put(result, 'coding-runtime-receipt-v1')
+            candidate = workspace.import_candidate('将击破手战技倍率从 1.4 改为 1.58，其他内容不变。',
+                                                  {'source': 'scripted_fixture', 'runtime_receipt': receipt})
         result = {'source': 'scripted fixture, NOT real model or model review', 'mode': mode, 'external_calls': 0,
                   'namespace_transport': relay, 'fixture_budget': budget_summary,
                   'battle_count': 0, 'request_count': len(requests), 'runtime_status': result['status'],
                   'candidate': candidate, 'inspection': inspected}
         (out / 'summary.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-        print(json.dumps({'passed': True, 'manifest_hash': candidate['manifest_hash'], 'out': str(out)}))
+        print(json.dumps({'passed': True, 'candidate_id': candidate.get('manifest_hash',candidate.get('candidate_id')), 'out': str(out)}))
     finally:
         server.shutdown()
         server.server_close()
@@ -174,5 +187,6 @@ if __name__ == '__main__':
     parser.add_argument('--runtime-python', default=Path('research/.venv-coding/Scripts/python.exe'), type=Path)
     parser.add_argument('--mode', choices=['single', 'auto'], default='single')
     parser.add_argument('--relay', action='store_true')
+    parser.add_argument('--profile', choices=['numeric','shield'], default='numeric')
     args = parser.parse_args()
-    main(args.out.resolve(), args.runtime_python.resolve(), args.mode, args.relay)
+    main(args.out.resolve(), args.runtime_python.resolve(), args.mode, args.relay, args.profile)

@@ -25,7 +25,10 @@ def _sha(raw):
 
 
 class FileTools:
-    def __init__(self, workspace: Path, control: Path):
+    def __init__(self, workspace: Path, control: Path, *, editable_file=FILE):
+        if editable_file not in (FILE, 'game-core/combat_core/v2/effects.py'):
+            raise ValueError('unsupported editable file profile')
+        self.file = editable_file
         self.workspace = Path(os.path.abspath(workspace))
         self.control = Path(control).resolve()
         if self.control.is_relative_to(self.workspace) or self.workspace.is_relative_to(self.control):
@@ -51,9 +54,9 @@ class FileTools:
             conn.close()
 
     def _path(self, path):
-        if path != FILE:
+        if path != self.file:
             raise ValueError('path outside the bounded Coding workspace capability')
-        result = self.workspace / FILE
+        result = self.workspace / self.file
         # Reject junctions/symlinks at every component, including workspace ancestors.
         for item in (result, *result.parents):
             info = item.lstat()
@@ -64,11 +67,12 @@ class FileTools:
             raise ValueError('require one bounded regular file, without hardlinks')
         return result
 
-    def read_file(self, path=FILE):
+    def read_file(self, path=None):
+        path = self.file if path is None else path
         raw = self._path(path).read_bytes()
         if len(raw) > MAX_BYTES:
             raise ValueError('file exceeds read limit')
-        return {'path': FILE, 'sha256': _sha(raw), 'text': raw.decode('utf-8')}
+        return {'path': self.file, 'sha256': _sha(raw), 'text': raw.decode('utf-8')}
 
     def replace_text(self, operation_id, *, path, expected_sha256, old_text, new_text, _after_write=None):
         if not isinstance(operation_id, str) or not operation_id or len(operation_id) > 200:
@@ -120,12 +124,12 @@ class FileTools:
             else:
                 raise ValueError('workspace changed since the recorded edit; do not replay')
             conn.execute("UPDATE edits SET status='completed' WHERE id=?", (operation_id,))
-            return {'operation_id': operation_id, 'path': FILE, 'before_sha256': previous['before_hash'],
+            return {'operation_id': operation_id, 'path': self.file, 'before_sha256': previous['before_hash'],
                     'after_sha256': previous['after_hash'], 'status': 'completed'}
 
 
 EDIT_TOOL = {'type': 'function', 'name': 'edit_text',
-             'description': 'Replace one exact text occurrence in the prepared game configuration. Primary thread only; read its current sha256 first.',
+             'description': 'Replace one exact text occurrence in the prepared game file. Primary thread only; read its current sha256 first.',
              'inputSchema': {'type': 'object', 'additionalProperties': False,
                              'required': ['path', 'expected_sha256', 'old_text', 'new_text'],
                              'properties': {key: {'type': 'string'} for key in
