@@ -1,5 +1,22 @@
 # 当前上下文
 
+## 2026-10-08：P0/P1 任务中心实际交付，P2 预验证
+
+《计划文档.md》已获用户批准实施。工作树 feature/task-center-p1（基线1a80359）实现与一次独立审查已结束，34a0df0/cbf0eaf快进合入当前 v1-business-acceptance；保留此前启动器/上下文修改与未跟踪研究原始包。尚未推送本轮提交。
+
+新入口 `打开任务中心.cmd` / http://127.0.0.1:18783/tasks ，默认关闭新模型调用；统一 Task 关联 Config operation、冻结候选、批准测试、QA request、Job receipt 和历史报告，下载同源 JSON/Excel。旧8767 Coding历史入口及玩家营地不改。历史报告明确标记零新执行；中断 QA 显式沿原参数恢复，未知 Job 不重跑。审查五项重要问题均已复现修复，裁决/延后项见 research/evidence/task-center-p1-rulings.md。
+
+用户明确授权 scope 133d9145...bf95 后，C-01倍率1.4→1.6/C-02拒绝Boss血量/C-03冲突值澄清在真实页面完成；合法候选交独立 QA 实际4场，两个配对都两版获胜，AV差值-300/11、-600/7，结构PASS、总体INC。7已知调用/0未知，输入30704（缓存9472）、输出787，峰价估USD0.007370832；未用3次关闭。账本/授权/首调用前harness参数修正amendment在 local-data/task-center-p1-v1，原scope未改。不扩大旧批次，不宣称总体改善或协作质量增益。
+
+DockerDesktop/WSL已启动；P2工程预验证真实Git worktree/冻结Python补丁/独立重建/非root无网络只读容器完成：受控护盾故障FAIL，人工参考修复四项PASS，重复取同一Job receipt，0模型。镜像固定sha256:224fc522...a9。原readonly容器docker cp失败及unknown Job保留，新v2结果在工作树 local-data/code-sandbox-preflight-v2。不算Coding Agent自主修复或代码Verification完成。异常清理/恶意候选与资源负例/可移植安装待补，不开放任意代码。
+
+本轮Python214项（210通过、4既有跳过）、前端11项与TypeScript/Vite构建通过；新增真实模型调用仅上述7次，战斗仅4场。中文使用手册第七节已补任务中心步骤。下一步P2/P3接真实Codex Python修复→代码QA纵向D-01，再D-02和P4本地采纳回退；完整计划未完成。
+
+## 2026-10-08：研发工作台启动提示修复
+
+复现原 CMD 命令无输出但 HTTP / 与 /api/status 均200，原因是脚本缺提示/浏览器入口，Uvicorn正常日志关闭。当前本机打开研发工作台.cmd 显示中文地址、模型默认关闭和启动提示，检查解释器/前端；检测已运行的同profile工作台时直接打开浏览器，避免重复启动。实际执行 CMD 已验证复用分支和中文输出，页面/状态200；未新增模型或战斗。修改当前仅本机，尚未提交/推送GitHub。
+
+
 ## 2026-10-07：GitHub 私密仓库交付
 
 用户已明确授权上传两仓库并要求中文连接手册。GitHub 登录账号 theHerta27；沙箱最初误报无效，正常权限核实可用，已创建两个 Private 仓库。源码导航整理与精选研究源码/方法/摘要纳入提交，原始批量运行目录仍本地。旧游戏 origin 改名 local-baseline，GitHub 为新 origin。固定验证基线通过游戏历史 fdb9e838 还原到 local-data/verification-baseline，明确源文件换行可导致新字节身份，旧证据不复用；本机旧 checkout 不变，新机器不必克隆第三仓库。demo_v1 不再读取旧项目 .env，改用本机环境变量。203 tests（2 skip）与最终候选模块8 tests（1 skip）通过，独立基线 describe/create 通过。GitHub使用手册.md 记录安装与同步操作；两个仓库已成功 push main，GitHub API确认均Private；实际从GitHub clone后还原/安装固定基线，使用克隆源码完成describe/create与CLI help。克隆验收复用工作台既有解释器，未重新构建Unity/运行LLM，不冒充全新机器完整产品验收。详见research/evidence/github-upload-20261007.json。

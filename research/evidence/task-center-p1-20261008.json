@@ -103,5 +103,14 @@
     "No population balance claim or multi-agent performance claim.",
     "P2/P3/P4 pending. No general untrusted-code security claim.",
     "Raw scopes, failures and closed budgets remain local; no credentials in this summary."
-  ]
+  ],
+  "verification": {
+    "python_total": 214,
+    "python_pass": 210,
+    "python_skip": 4,
+    "frontend_pass": 11,
+    "build": "TypeScript and Vite passed",
+    "service_restart": "3 original tasks and original QA report, model disabled",
+    "launcher": "actual cmd reuse path passed after CRLF repair"
+  }
 }

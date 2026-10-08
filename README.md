@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群
 
+2026-10-08 新版入口：[任务中心](http://127.0.0.1:18783/tasks)（双击 `打开任务中心.cmd`）。已实际完成 Config→独立 QA→JSON/Excel，默认关闭新增模型调用；中文操作见《使用手册》第七节。Python 代码修复目前只有工作树/补丁/容器工程预验证，真实 Coding→代码 QA 与采纳回退继续按《计划文档.md》推进。
+
 新机器安装与 GitHub 操作见 [GitHub 使用手册](GitHub使用手册.md)；玩家演示步骤见 [使用手册](使用手册.md)。源码配套游戏仓库为 https://github.com/theHerta27/graytower-game 。
 
 ## Agent 源码入口
