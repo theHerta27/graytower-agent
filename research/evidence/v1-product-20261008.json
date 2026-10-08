@@ -14,7 +14,8 @@
       "执行真实战技",
       "回退配置",
       "旧战斗读回1.6",
-      "按原计划零模型重新测试"
+      "按原计划零模型重新测试",
+      "主目录回退后新开战斗实际读取1.4，0模型调用"
     ],
     "limits": "同种子重测不增加统计n，不承诺总体胜率或平衡"
   },
@@ -111,5 +112,20 @@
     "NPC为既有离线剧情，真实世界/记忆逻辑运行",
     "未证明动态协作质量收益",
     "未建设通用代码/build及Unity自动发布平台"
-  ]
+  ],
+  "local_delivery": {
+    "workbench_branch": "v1-business-acceptance",
+    "implementation_commit": "e73d09b",
+    "game_branch": "m1-playable-session",
+    "game_commit": "5508730",
+    "normal_service": "18784",
+    "models_enabled": false,
+    "coding_enabled": false,
+    "launcher_actual_cmd_exit": 0,
+    "saved_tasks_after_integration": 7,
+    "initial_config_release": "baseline",
+    "initial_code_release": "baseline",
+    "github_pushed_this_round": false,
+    "screenshot": "local-data/v1-product/任务中心.png"
+  }
 }
