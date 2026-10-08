@@ -26,6 +26,7 @@ export const api = {
   taskList: () => request<{ tasks: TaskRecord[] }>('/tasks'),
   taskCreate: (body: { task_id: string; kind: string; request: string; candidate_id: string | null }) => request<TaskRecord>('/tasks', body),
   taskGenerate: (id: string) => request<Operation>(`/tasks/${part(id)}/generate`, {}),
+  taskResume: (id: string) => request<Operation>(`/tasks/${part(id)}/resume`, {}),
   taskApprove: (id: string) => request<TaskRecord>(`/tasks/${part(id)}/approve-test`, {}),
   taskHistory: (id: string, request_id: string) => request<TaskRecord>(`/tasks/${part(id)}/history`, { request_id }),
   taskVerify: (id: string, goal: string, budget: number) => request<Operation>(`/tasks/${part(id)}/verify`, { goal, max_battles: budget }),

@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-08",
+  "milestone": "P0/P1 business demo; P2 engineering preflight only",
+  "entry": "http://127.0.0.1:18783/tasks",
+  "default_new_model_calls": false,
+  "live": {
+    "calls": 7,
+    "known_calls": 7,
+    "unknown_calls": 0,
+    "input_tokens": 30704,
+    "cached_input_tokens": 9472,
+    "output_tokens": 787,
+    "peak_estimated_usd": "0.007370832",
+    "charged_battles": 4,
+    "applied": false
+  },
+  "scope_sha256": "133d9145bf87da54ad52045ea32631ad01dc9eb099a2069b900212fba9b5bf95",
+  "tasks": [
+    {
+      "task_id": "task_8868e3290b7a4cfb8da159bd95005604",
+      "request": "把击破手战技倍率同时改成1.5和1.6，请先给我候选。",
+      "status": "needs_input",
+      "candidate_id": null
+    },
+    {
+      "task_id": "task_ffd946dd5adc4470be2e8e05a5f8274f",
+      "request": "把首领的生命值改成10000，其他不变。",
+      "status": "rejected",
+      "candidate_id": null
+    },
+    {
+      "task_id": "task_98b518beecd34ad0871cf232b3bae784",
+      "request": "将击破手战技倍率从1.4调整为1.6，其他字段全部保持不变。",
+      "status": "verification_completed",
+      "candidate_id": "13b70cbb722fa225d3de26722d773ccf7bb7b82a75224816991cdeddefd3d7e6"
+    }
+  ],
+  "qa": {
+    "structural": "PASS",
+    "overall": "INCONCLUSIVE",
+    "paired_samples": 2,
+    "seeds": [
+      7,
+      11
+    ],
+    "policy": "balanced",
+    "baseline_to_candidate_action_value_delta": [
+      "-300/11",
+      "-600/7"
+    ],
+    "both_win_in_each_pair": true
+  },
+  "preflight": {
+    "candidate_id": "42d3da9abd899716f534d3324d3b2467e755253ba6532370c99f8a6863a3760d",
+    "new_model_calls": 0,
+    "baseline_verdict": "FAIL",
+    "candidate_verdict": "PASS",
+    "repeat_receipt_same": true,
+    "image": "sha256:224fc522b610454feb8de92e4745a984ff28acde851c68d0a75d7256b05434a9",
+    "source": "manual reference fix; not Agent solving or product QA acceptance",
+    "boundaries": {
+      "uid": 10001,
+      "credential_names": [],
+      "root_write": "DENIED",
+      "external_connection_result": 101
+    }
+  },
+  "raw_files": [
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\outbound-scope.json",
+      "sha256": "133d9145bf87da54ad52045ea32631ad01dc9eb099a2069b900212fba9b5bf95"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\authorization.json",
+      "sha256": "e312f3e9de5d74cb3e65476a5858fdd8737a2afd4238503c21d1b2e05f3d7fad"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\execution-code-amendment.json",
+      "sha256": "0dc5bf528b4c166c6f04d78e8a4373bc2badabed439d08317abd24260911c9da"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\acceptance-result.json",
+      "sha256": "b42a6f3bbe5df1e477c269281df34c80c4b5e1a749dc24b3c9fa81e101aaf7ac"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\model-calls.jsonl",
+      "sha256": "9a6f40d54442509eec41867206b9211de983e19163b96109a704cb100b77563d"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\task-center-p1-v1\\closed.json",
+      "sha256": "c6c6af9d2ba969eaee93efa07890645f3f9b9a3fd623a8ce67adeac3e7d00cc7"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\worktrees\\rd-p1\\local-data\\code-sandbox-preflight-v2\\result.json",
+      "sha256": "da5fac80c5fc1d38cf3fb7315731662c6ddca21aa642cf00301d774a56f2ff69"
+    },
+    {
+      "path": "D:\\Desktop\\mihoyo-agent-project\\local-data\\worktrees\\rd-p1\\local-data\\code-sandbox-preflight-v2\\boundaries.json",
+      "sha256": "7b1965417107b8ccb428fa2a6e6b391007a60f7ecf5c0977a46cbd4d7123143e"
+    }
+  ],
+  "limits": [
+    "No population balance claim or multi-agent performance claim.",
+    "P2/P3/P4 pending. No general untrusted-code security claim.",
+    "Raw scopes, failures and closed budgets remain local; no credentials in this summary."
+  ]
+}

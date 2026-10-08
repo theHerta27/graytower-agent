@@ -456,6 +456,11 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
         value = await body(request, TaskHistoryInput)
         return JSONResponse(await asyncio.to_thread(task_service.link_history, request.path_params['task_id'], value.request_id))
 
+    async def task_resume(request):
+        if (await request.body()).strip() not in (b'', b'{}'):
+            raise APIError('invalid_input', '恢复使用原已准入参数，不接受新的需求或预算。')
+        return JSONResponse(await task_service.resume(request.path_params['task_id']), status_code=202)
+
     async def task_export(request):
         from .exports import bundle_for_task, workbook_for_task
         row = await asyncio.to_thread(task_service.get, request.path_params['task_id'])
@@ -479,6 +484,7 @@ def create_app(root, *, call_cap=0, audit_path=None, model_factory=None, fronten
         Route('/api/tasks/{task_id}/generate', task_generate, methods=['POST']),
         Route('/api/tasks/{task_id}/approve-test', task_approve, methods=['POST']),
         Route('/api/tasks/{task_id}/verify', task_verify, methods=['POST']),
+        Route('/api/tasks/{task_id}/resume', task_resume, methods=['POST']),
         Route('/api/tasks/{task_id}/history', task_history, methods=['POST']),
         Route('/api/tasks/{task_id}/export/{kind}', task_export),
         Route('/api/status', status), Route('/api/candidates', candidates),

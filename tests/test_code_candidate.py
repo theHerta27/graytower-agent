@@ -33,6 +33,12 @@ class CodeCandidateTests(unittest.TestCase):
             foreign = workspace.artifacts.put(manifest, 'code-candidate-v1')
             with self.assertRaisesRegex(ValueError, 'scope'):
                 workspace.inspect(foreign['sha256'])
+            baseline = workspace.artifacts.read_ref(frozen['manifest']['baseline_tree'], 'code-tree-v1')
+            baseline['files']['game-core/combat_core/v2/boss.py'] = tree['files']['game-core/combat_core/v2/boss.py']
+            manifest['baseline_tree'] = workspace.artifacts.put(baseline, 'code-tree-v1')
+            foreign = workspace.artifacts.put(manifest, 'code-candidate-v1')
+            with self.assertRaisesRegex(ValueError, 'baseline'):
+                workspace.inspect(foreign['sha256'])
             (workspace.path / 'game-core/combat_core/v2/boss.py').write_text('# unauthorized', encoding='utf-8')
             with self.assertRaisesRegex(ValueError, 'scope'):
                 workspace.freeze('超范围修改')

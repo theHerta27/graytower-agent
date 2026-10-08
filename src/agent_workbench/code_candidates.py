@@ -92,6 +92,8 @@ class CodeWorkspace:
         manifest = self.artifacts.read(valid_hash(candidate_id))
         if manifest.get('schema_version') != 'code-candidate-v1' or manifest.get('profile') != PROFILE:
             raise ValueError('unsupported code candidate')
+        if any(manifest.get(key) != self.preparation[key] for key in ('game_commit', 'baseline_commit', 'baseline_tree')):
+            raise ValueError('code baseline does not match trusted case preparation')
         for name, schema in (('baseline_tree', 'code-tree-v1'), ('candidate_tree', 'code-tree-v1'), ('patch', 'code-patch-v1')):
             self.artifacts.read_ref(manifest[name], schema)
         before = self.artifacts.read_ref(manifest['baseline_tree'], 'code-tree-v1')['files']

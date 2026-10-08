@@ -1,5 +1,5 @@
 """Hash-checked historical views; these never grant permission to execute."""
-from .domain._shared import PROFILE, valid_hash
+from .domain._shared import PROFILE, valid_hash, coding_diff, encoded, validate_coding_source
 
 
 def frozen_candidate(repo, manifest_hash):
@@ -11,8 +11,14 @@ def frozen_candidate(repo, manifest_hash):
                'scenario': 'combat-scenario-v2', 'sources': 'game-sources-v1',
                'schema': 'game-schema-v1', 'rules': 'game-rules-v1',
                'environment': 'worker-environment-v1'}
-    for name, schema in schemas.items():
-        repo.artifacts.read_ref(manifest[name], schema)
+    contents = {name: repo.artifacts.read_ref(manifest[name], schema) for name, schema in schemas.items()}
+    diff = coding_diff(encoded(contents['baseline']), encoded(contents['candidate']))
+    if (encoded(diff) != encoded(manifest['diff'])
+            or encoded(diff) != encoded(manifest['validation']['diff'])):
+        raise ValueError('historical candidate diff does not match frozen data')
+    if manifest.get('author') == 'coding':
+        validate_coding_source(repo.artifacts, manifest['coding_source'],
+                               contents['sources']['files']['configs/combat/v2/baseline.json'], diff)
     return {'manifest_hash': manifest_hash, 'manifest': manifest,
             'diff': manifest['diff'], 'validation': manifest['validation']}
 
@@ -23,7 +29,7 @@ def candidate_view(repo, manifest_hash):
     except ValueError as exc:
         # Only environment/source/version drift permits an archive view. Missing
         # or corrupt artifacts must still fail, rather than masquerade as history.
-        if 'fingerprint/content drift' not in str(exc):
+        if 'environment fingerprint/content drift' not in str(exc):
             raise
         return frozen_candidate(repo, manifest_hash) | {'execution_compatible': False,
             'compatibility_note': '仅历史回看：当前执行环境与冻结版本不同；新验证需建立新候选，旧报告不变。'}

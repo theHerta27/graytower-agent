@@ -11,6 +11,9 @@ from starlette.testclient import TestClient
 
 from agent_workbench.domain import CandidateRepository
 from agent_workbench.workbench import create_app
+from agent_workbench.workbench_store import WorkbenchStore
+from agent_workbench.tasks import TaskStore
+from agent_workbench.jobs import JobStore
 
 
 class Model:
@@ -87,6 +90,9 @@ class TaskTests(unittest.TestCase):
             self.assertEqual(model.calls, calls)
             self.assertEqual(c.post('/api/tasks/history1/verify', json={'goal': '检查', 'max_battles': 4}).status_code, 409)
             self.assertEqual(c.post('/api/tasks/history1/history', json={'request_id': 'missing'}).status_code, 404)
+            c.post('/api/tasks', json=self.body(task_id='history_crash', candidate_id=manifest))
+            TaskStore(self.root).link('history_crash', request_id='task1_qa')
+            self.assertEqual(c.get('/api/tasks/history_crash').json()['status'], 'history_view')
 
     def test_export_request_formula_is_text_and_existing_candidate_is_marked_historical(self):
         candidate = self.repo.create('合法倍率', [{'path': 'skills.breaker_skill.multiplier', 'value': 1.6}])
@@ -128,3 +134,39 @@ class TaskTests(unittest.TestCase):
             self.assertFalse(r.json()['candidate']['execution_compatible'])
             self.assertEqual(c.get('/api/tasks/task1/export/json').json()['skills']['breaker_skill']['multiplier'], 1.6)
             self.assertEqual(c.post('/api/tasks/task1/approve-test', json={}).status_code, 409)
+            manifest = dict(candidate['manifest'])
+            manifest['diff'] = [{'path': 'skills.breaker_skill.multiplier', 'before': 1.4, 'after': 999}]
+            forged = self.repo.artifacts.put(manifest, 'candidate-manifest-v1')['sha256']
+            self.assertEqual(c.post('/api/tasks', json=self.body(task_id='forged', candidate_id=forged)).status_code, 422)
+
+    def test_repeated_failure_observations_do_not_break_task_reads(self):
+        with self.client() as c:
+            c.post('/api/tasks', json=self.body())
+            operations = WorkbenchStore(self.root)
+            operations.start('author1', 'draft', {'request': '测试'})
+            TaskStore(self.root).link('task1', author_op='author1')
+            operations.finish('author1', error='first error')
+            self.assertEqual(c.get('/api/tasks/task1').json()['status'], 'failed')
+            operations.resume('author1')
+            operations.finish('author1', error='different error')
+            task = c.get('/api/tasks/task1').json()
+            self.assertEqual(task['status'], 'failed')
+            self.assertEqual(len([e for e in task['events'] if e['kind']=='author_operation']), 2)
+            self.assertEqual(c.get('/api/tasks').status_code, 200)
+
+    def test_task_can_resume_interrupted_admitted_qa_without_new_model_grant(self):
+        candidate = self.repo.create('合法倍率', [{'path': 'skills.breaker_skill.multiplier', 'value': 1.6}])
+        with self.client() as c:
+            c.post('/api/tasks', json=self.body(candidate_id=candidate['manifest_hash']))
+            c.post('/api/tasks/task1/approve-test', json={})
+            payload = {'request_id': 'task1_qa', 'manifest_hash': candidate['manifest_hash'], 'goal': '检查', 'max_battles': 4}
+            JobStore(self.root).admit(**payload)
+            operations = WorkbenchStore(self.root)
+            operations.start('verify_task1_qa', 'verify', payload)
+            operations.interrupt_running()
+            TaskStore(self.root).link('task1', verification_op='verify_task1_qa', request_id='task1_qa')
+            task = c.get('/api/tasks/task1').json()
+            self.assertIsNone(task['report']['request']['report'])
+            self.assertEqual(c.post('/api/tasks/task1/resume', json={}).status_code, 202)
+            task = self.wait(c, 'status', 'verification_completed')
+            self.assertEqual(task['report']['request']['charged_battles'], 0)

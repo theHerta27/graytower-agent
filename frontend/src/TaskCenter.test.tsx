@@ -30,3 +30,21 @@ it('links a selected candidate without copying hashes and distinguishes test app
   expect(screen.getByRole('link', { name: '下载 Excel' }).getAttribute('href')).toContain('/export/xlsx');
   expect(screen.getByText(/尚未应用到游戏/)).toBeTruthy();
 });
+
+it('offers receipt/checkpoint recovery for admitted interrupted QA with no new model grant', async () => {
+  const task = { task_id: 'recover1', kind: 'verification', request: '恢复任务', status: 'interrupted',
+    origin: 'existing_candidate', candidate: null, applied: false, events: [],
+    report: { request: { request_id: 'qa1', report: null } } };
+  let resumed = false;
+  vi.stubGlobal('fetch', vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url=String(input);
+    if(url==='/api/tasks') return new Response(JSON.stringify({tasks:[task]}));
+    if(url==='/api/candidates') return new Response(JSON.stringify({candidates:[]}));
+    if(url==='/api/tasks/recover1/resume' && init?.method==='POST') resumed=true;
+    return new Response('{}');
+  }));
+  render(<TaskCenter status={{profile:'test',model:{enabled:false,remaining_calls:0,reason:'关闭'}}}/>);
+  fireEvent.click(await screen.findByRole('button',{name:/恢复任务.*等待人工恢复/}));
+  fireEvent.click(await screen.findByRole('button',{name:'恢复已准入验证'}));
+  await waitFor(()=>expect(resumed).toBe(true));
+});

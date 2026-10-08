@@ -76,6 +76,36 @@ class TaskStore:
             self.event(value.task_id, 'import', 'existing_candidate_linked', {'candidate_id': value.candidate_id})
         return self.get(value.task_id)
 
+    def observe_operation(self, task_id, kind, detail):
+        """Append changed observations, rather than reuse a mutable status key."""
+        value = {'kind': kind, 'detail': detail}
+        with closing(self.connect()) as db, db:
+            db.execute('BEGIN IMMEDIATE')
+            previous = db.execute('''SELECT payload FROM task_events
+                WHERE task_id=? AND json_extract(payload,'$.kind')=?
+                AND json_extract(payload,'$.detail.operation_id')=? ORDER BY rowid DESC LIMIT 1''',
+                (task_id, kind, detail['operation_id'])).fetchone()
+            if previous and previous['payload'] == canonical(value):
+                return
+            sequence = db.execute('SELECT COALESCE(MAX(rowid),0)+1 FROM task_events').fetchone()[0]
+            db.execute('INSERT INTO task_events VALUES (?,?,?,?,?)',
+                (task_id, 'observation:'+str(sequence), canonical(value), digest(value),
+                 datetime.now(timezone.utc).isoformat()))
+
+    def link_history(self, task_id, request_id):
+        value = {'kind': 'historical_report_linked',
+                 'detail': {'request_id': request_id, 'new_model_calls': 0, 'new_battles': 0}}
+        with closing(self.connect()) as db, db:
+            db.execute('BEGIN IMMEDIATE')
+            row = db.execute('SELECT request_id,verification_op FROM tasks WHERE id=?', (task_id,)).fetchone()
+            if row is None:
+                raise KeyError(task_id)
+            if row['verification_op'] or row['request_id'] not in (None, request_id):
+                raise OperationConflict('history link conflicts with existing QA')
+            db.execute('UPDATE tasks SET request_id=? WHERE id=?', (request_id, task_id))
+            db.execute('INSERT OR IGNORE INTO task_events VALUES (?,?,?,?,?)',
+                (task_id, 'history', canonical(value), digest(value), datetime.now(timezone.utc).isoformat()))
+
     def link(self, task_id, **fields):
         if not fields or set(fields) - {'candidate', 'author_op', 'verification_op', 'request_id'}:
             raise ValueError('invalid task link')
@@ -136,8 +166,8 @@ class TaskService:
                     op = self.workbench.operations.get(row[field])
                 except KeyError:
                     continue  # Grant rejection did not create an operation.
-                self.store.event(task_id, row[field]+':'+op['status'], field.removesuffix('_id'),
-                                 {'operation_id': row[field], 'status': op['status'], 'error': op['error']})
+                self.store.observe_operation(task_id, field.removesuffix('_id'),
+                                             {'operation_id': row[field], 'status': op['status'], 'error': op['error']})
                 status = op['status']
                 if field == 'verification_operation_id':
                     has_verification_operation = True
@@ -166,7 +196,9 @@ class TaskService:
                     self.store.event(task_id, 'job:'+receipt['job_id'], 'job_receipt',
                                      {'job_id': receipt['job_id'], 'args': receipt['args']})
                 if report['request']['report'] is not None:
-                    status = 'history_view' if any(e['kind'] == 'historical_report_linked' for e in row['events']) else 'verification_completed'
+                    # A historical link has no owned QA operation. This also
+                    # recovers old links committed before their history event.
+                    status = 'history_view' if not row['verification_operation_id'] else 'verification_completed'
                     self.store.event(task_id, 'report', 'verification_report',
                                      {'request_id': row['request_id'], 'verdict': report['request']['report']['verdict']})
             except KeyError:
@@ -182,9 +214,7 @@ class TaskService:
         report = self.workbench.request_detail(request_id)['request']
         if row['verification_operation_id'] or report['manifest_hash'] != row['candidate_id'] or report['report'] is None:
             raise OperationConflict('historical report must be completed and match this candidate; no active QA replacement')
-        self.store.link(task_id, request_id=request_id)
-        self.store.event(task_id, 'history', 'historical_report_linked',
-                         {'request_id': request_id, 'new_model_calls': 0, 'new_battles': 0})
+        self.store.link_history(task_id, request_id)
         return self.get(task_id)
 
     async def generate(self, task_id):
@@ -227,3 +257,13 @@ class TaskService:
         self.store.link(task_id, request_id=request_id, verification_op='verify_'+request_id)
         return await self.workbench.verify(VerificationInput(request_id=request_id,
             manifest_hash=row['candidate_id'], **value.model_dump()))
+
+    async def resume(self, task_id):
+        from .workbench import APIError, VerificationInput
+        row = self.get(task_id)
+        if not row['verification_operation_id'] or not row['request_id']:
+            raise APIError('recovery_required', '此任务没有已准入的独立验证，不能恢复历史报告。', 409)
+        saved = self.workbench.jobs.get(row['request_id'])
+        # Resume exactly the original admitted input, with its original budget.
+        value = VerificationInput(**{key: saved[key] for key in ('request_id', 'manifest_hash', 'goal', 'max_battles')})
+        return await self.workbench.verify(value, resume=True)

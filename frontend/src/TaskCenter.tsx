@@ -95,9 +95,13 @@ export default function TaskCenter({ status }: { status: Status | null }) {
             <p className="field-hint">批准测试只允许后续验证此候选，不表示已采纳或发布。Excel 与 JSON 来自同一份冻结数据。</p>
             <label htmlFor="task-goal">验证目标</label><textarea id="task-goal" value={goal} onChange={e => setGoal(e.target.value)} />
             <label htmlFor="task-budget">战斗预算</label><select id="task-budget" value={budget} onChange={e => setBudget(Number(e.target.value))}><option value={2}>2 场 · 1 对样本</option><option value={4}>4 场 · 2 对样本</option></select>
-            <button className="button secondary" disabled={busy || running || task.candidate.execution_compatible === false || !task.candidate.confirmed || !verifyAllowed || !!task.report || !goal.trim()} onClick={() => void perform(() => api.taskVerify(task.task_id, goal, budget))}>发起独立验证</button>
+            <button className="button secondary" disabled={busy || running || ['interrupted', 'failed'].includes(task.status) || task.candidate.execution_compatible === false || !task.candidate.confirmed || !verifyAllowed || !!task.report?.request.report || !goal.trim()} onClick={() => void perform(() => api.taskVerify(task.task_id, goal, budget))}>发起独立验证</button>
             {!verifyAllowed && <p className="disabled-reason">模型额度未开放；不会自动发起收费验证。</p>}
             {!task.report && task.historical_runs?.map(r => <button className="button secondary" disabled={busy} key={r.request_id} onClick={() => void perform(() => api.taskHistory(task.task_id, r.request_id))}>查看已有验证报告 · {r.request_id}</button>)}
+          </>}
+          {['interrupted', 'failed'].includes(task.status) && task.report && !task.report.request.report && <>
+            <button className="button secondary" disabled={busy} onClick={() => void perform(() => api.taskResume(task.task_id))}>恢复已准入验证</button>
+            <p className="field-hint">沿用原任务、预算和作业收据。未开放模型时可零推理恢复；未知作业不会自动重跑。</p>
           </>}
           {task.status === 'history_view' && <p className="notice">正在读取过去保存的报告；本次没有新模型调用、没有重新运行战斗。</p>}
           {task.report?.request.report && <ReportView detail={task.report} />}
