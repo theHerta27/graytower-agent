@@ -1,5 +1,15 @@
 # 当前上下文
 
+## 2026-10-08：真实 Python 护盾修复与结果页面
+
+收到用户明确授权scope d054c1a5e7f35103e13d8f9c9cf21ff438f0d59dc671a2a10406f8234a4d0d72后，执行一次D-01受控故障真实修复：官方SDK/CLI0.160.0、DeepSeek Flash、auto许可、只读源码MCP、主线程独占effects.py编辑、原生Review，冻结候选4eb6928f055347afff8d32627af8aed5a94bab9795d10fbd63386ba02db94cf1。原始2FAIL/2PASS、候选4PASS，重复读取相同收据，游戏主文件未变，容器/临时执行镜像已回收。7已知调用/0未知、峰价估USD0.013317168，未用11次关闭；0新战斗/0QA模型调用/不应用。实际自主spawn0；Review另记，不作协作质量结论。
+
+新增profile复用同一Runtime worker，未另写Agent循环；single/auto真实Runtime脚本夹具、旧numeric Runtime夹具通过（零外部调用）。最新Python216项（212pass/4既有skip）、React12及TS/Vite构建通过。分支feature/code-runtime-p2的dad2f5d已快进合入本机v1-business-acceptance；未推送本轮GitHub提交。P1旧报告、封存费用与旧启动器修改保留。
+
+本机任务中心18783新增 `/code-repair` 页面，按冻结Hash/原生Review/独立SQLite测试receipt核对后只读展示真实补丁、测试、Agent说明与费用；启动器自动配置已完成case路径。中文手册第八节说明体验。原始材料与46份当时实现源码snapshot在 local-data/python-coding-d01-v1；摘要 research/evidence/python-coding-d01-20261008.json。
+
+这是首次真实Python修复切片，不是完整P2/P3关闭：统一代码Task准入/恢复、代码类型独立Verification委托、第二个独立Bug及本地采纳/回退仍待实现。当前容器只用于受控自有故障；异常清理/恶意候选与耗尽负例待补，不作通用安全认证。
+
 ## 2026-10-08：P0/P1 任务中心实际交付，P2 预验证
 
 《计划文档.md》已获用户批准实施。工作树 feature/task-center-p1（基线1a80359）实现与一次独立审查已结束，34a0df0/cbf0eaf快进合入当前 v1-business-acceptance；保留此前启动器/上下文修改与未跟踪研究原始包。尚未推送本轮提交。

@@ -6,7 +6,7 @@
 
 用户批准《计划文档.md》后，P0/P1 已交付统一任务中心、冻结 JSON/Excel、批准测试、独立 QA 和真实时间线。C-01 合法修改、C-02 越界拒绝、C-03 歧义澄清已完成真实 DeepSeek 演示：7 次调用、4 场战斗、0 未知调用，峰价估 USD0.007370832；余下 3 次额度关闭。入口 `打开任务中心.cmd` / http://127.0.0.1:18783/tasks ，默认关闭新模型调用。QA 结构 PASS、样本总体 INCONCLUSIVE，不宣称总体平衡改善。
 
-P2 已推进工程预验证：固定游戏 Commit 的真实 Git worktree、冻结补丁重建、Docker 非 root/无网络/只读执行；受控护盾故障失败，人工参考修复 4 项通过，重复读取同一 Job receipt。尚非 Coding Agent 自主解题，也非代码 QA 产品完成。下一步接 Codex 受限 Python 编辑、Verification 代码工具及统一报告，完成 D-01 真实纵向演示；随后做 D-02，再推进 P4 本地采纳/回退。容器异常清理、恶意候选/资源负例须在扩大执行范围前补齐，暂不开放任意代码。详细证据见 `research/evidence/task-center-p1-20261008.json`；实施裁决见 `research/evidence/task-center-p1-rulings.md`。
+P2 最初先做工程预验证：固定游戏 Commit 的真实 Git worktree、冻结补丁重建、Docker 非 root/无网络/只读执行；受控护盾故障失败，人工参考修复 4 项通过，重复读取同一 Job receipt。这一步不计为 Agent 成绩；随后的真实修复见本节首段。下一步把代码任务接入统一 Task 与独立 Verification，再做 D-02 和 P4 本地采纳/回退。容器异常清理、恶意候选/资源负例须在扩大执行范围前补齐，暂不开放任意代码。最初预验证证据见 `research/evidence/task-center-p1-20261008.json`；实施裁决见 `research/evidence/task-center-p1-rulings.md`。
 
 > 2026-10-05最新推进口径：用户要求优先尽快完成可演示闭环。当前营地/战斗/战报/记忆离线演示已实跑，见[中文使用手册](使用手册.md)。本轮不以全量故障矩阵、Electron或大型新评测阻塞演示交付；原长期门槛保留为后续工作，未测不算通过。NPC真实模型未运行。
 

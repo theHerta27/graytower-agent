@@ -102,5 +102,18 @@
     "8 total test cases in a controlled fault; not all game regression tests.",
     "No QA model call; direct trusted container tests, code QA product integration pending.",
     "No applying candidate, no battle, no collaboration quality/performance claim."
-  ]
+  ],
+  "delivery": {
+    "python_tests": 216,
+    "python_pass": 212,
+    "python_skip": 4,
+    "frontend_tests": 12,
+    "build": "TypeScript/Vite passed",
+    "main_integration_commit": "dad2f5d",
+    "read_only_ui": "http://127.0.0.1:18783/code-repair",
+    "sealed_implementation_files_archived": 46,
+    "actual_browser_verified": true,
+    "new_calls_on_read": 0,
+    "image": "local-data/python-coding-d01-v1/code-tests-delivery.jpg"
+  }
 }

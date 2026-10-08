@@ -1,6 +1,6 @@
 # 米哈游 Agent 项目群总体技术方案
 
-> 2026-10-08 实施收敛：以用户批准的《计划文档.md》为本轮执行依据。Task Service 是确定性业务层，复用 Config 的 LangGraph、Codex Runtime 和独立 Verification，不增加总控模型。统一任务中心与同源 JSON/Excel 已交付；代码候选采用固定基线 Git worktree、不可变补丁/源码与独立 Docker 执行，当前仅人工参考补丁预验证通过，待接真实 Coding→QA。部署保持单机/本地/SQLite，NPC 玩家入口保留。当前入口和边界见《使用手册》第七节及《实施路线》顶部。
+> 2026-10-08 实施收敛：以用户批准的《计划文档.md》为本轮执行依据。Task Service 是确定性业务层，复用 Config 的 LangGraph、Codex Runtime 和独立 Verification，不增加总控模型。统一任务中心与同源 JSON/Excel 已交付；代码候选采用固定基线 Git worktree、不可变补丁/源码与独立 Docker 执行，已完成真实护盾修复与四项容器测试，统一代码QA委托待接。部署保持单机/本地/SQLite，NPC 玩家入口保留。当前入口和边界见《使用手册》第七、八节及《实施路线》顶部。
 
 > 2026-10-05演示落地：保留本机SQLite方案，新增真实NPC图与React营地→Unity战斗→战报分享链。NPC当前使用明确标识的离线台词；世界/选择/记忆/战斗为真实实现。用户最新优先快速闭环，生产级保障与扩大评测不进入本轮。操作见[使用手册](使用手册.md)。
 
