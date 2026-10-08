@@ -24,5 +24,3 @@ class LocalTestGame:
     def start(self,session_id):return self._call('start',{'session_id':session_id})
     def observe(self,session_id):return self._call('observe',{'session_id':session_id})
     def command(self,session_id,command):return self._call('command',{'session_id':session_id,'command':command})
-
-
