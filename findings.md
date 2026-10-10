@@ -1,5 +1,22 @@
 # 调研发现
 
+## 2026-10-10 产品改造审计
+
+### 三项只读审计的共同结论
+
+- 当前TaskInput没有project/baseline身份，页面围绕历史演示/授权ID；真实patch藏在纯文本折叠，缺逐文件Diff与版本一贯标识。
+- Coding固定游戏目录/旧Commit，创建工作树后注入故障、只准effects.py；其原生SDK/Runtime/Review与受控编辑回执可复用，但通用文件范围、检索、增删改和执行能力需要新adapter。
+- code QA图先固定双版本四项Oracle检查，模型只读事件/结束；不能将该路径包装成通用自主QA。重设计应让检查目录与目标决定工具空间，必要检查由程序保证，Agent动态调查。
+- 现有code release只保存版本/切指针，local_game只应用配置且加载可信主游戏代码；“代码预览”必须加载冻结候选代码的隔离Host，不能只更新标签。
+- 模型能力固定服务启动批次，没有普通设置/项目准入/任务金额预算/业务取消API。Runtime interrupt协议能力不等于物理Job取消，应有独立进程/容器清理和未知结果对账。
+- 主项目应用尚未实现：需要冻结主仓状态、操作ID、预写应用计划、漂移检测与恢复，不能靠git reset --hard或stash隐式覆盖用户工作。
+
+- 最新用户目标从案例演示转向Windows个人开发者日常工作台；直接配置/AI配置完整独立，QA可选，采用到项目与隔离测试分开。
+- 当前Config是固定图的结构化生成与预检，不应为了名称把所有配置编辑称为自主Agent。源码SYSTEM明确拒绝未授权字段/自动搜索；后端CandidateRepository固定可信目录和解释器，需要项目适配层而非仅改页面。
+- 两仓库已跟踪源码无未提交修改，HEAD工作台27a4b09、游戏5508730。current_context顶部“尚未推送”是历史记录，已被后续实际推送覆盖。
+- 初查config/service.py与游戏content.py/validation.py不存在；将用rg --files追踪真实模块，不据猜测路径做结论。
+- 三个独立只读审计并行进行：Coding/工作区、产品UI/模型入口、QA/游戏适配。本轮未运行模型/新增战斗。
+
 ## 2026-10-05 实施中的新证据
 
 - SDK缺陷应和产品路径分别证明：官方固定Hello World可复现A2A终态再输入队列问题；本机V1按公开准入限制完整新Task，不需要大fork也不声称上游已修。
@@ -97,3 +114,9 @@
 - 截取Trace前6000字符会被大state_after快照占满，读到技能决策不等于验证伤害/倍率因果。压缩视图需保留事件引用、明确省略范围；模型解释仍单独验收。
 - 图状态保存请求快照不能代表当前剩余额度；决策前查业务/模型账本，程序守预算且保留最后真实决定。额度耗尽不是provider错误。
 - 开发首轮5/6→同题回归6/6是已知案例修复结果，不能作为独立质量或多Agent增益。
+
+### 2026-10-10 确认配置边界与编辑器参考
+
+_shared.py FIELD/SCOPE把字段和1.4–1.7范围写死；worker.load_game还要求baseline倍率1.4，数值工具默认读旧combat-foundation。graytower实际CombatBundle已定义角色Stats、技能/状态/首领阶段、引用及条件校验，Rules若干Literal是游戏机制常量，不能简单解锁为自由数值。配置表单应从真实Schema+字段说明生成，按对象分组、提供类型/范围/引用选择，直接编辑与AI提案共用校验和候选管道。content-catalog既有说明包含旧数值，显示文字必须由当前字段格式化而不是照搬。
+
+官方编辑器参考：Godot stable Inspector列出并编辑对象/resource/node属性；导出属性支持分组和类型提示。Unity ScriptableObject用于持久数据资产及Inspector编辑。只借鉴数据可视化与编辑模式，当前JSON仍为权威，不改成Unity资产存储。来源 https://docs.godotengine.org/en/stable/tutorials/editor/inspector_dock.html ; https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_exports.html ; https://docs.unity.com/en-us/engine/6000.6/manual/scripting/get-started/fundamental-unity-types/class-scriptable-object 。
