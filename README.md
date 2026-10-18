@@ -1,18 +1,23 @@
-# 米哈游 Agent 项目群
+# 灰塔 AI 游戏研发工作台
+
+**求职项目定位与技术方案：** 请先读[项目说明](项目说明.md)，包含最新主线、技术取舍、实施思路和目标版简历。下方说明书与演示入口描述现有V1，不代表新方案已经实现。
 
 ## 当前演示入口（2026-10-08）
 
-本机双击 **打开任务中心.cmd**，浏览器打开 **http://127.0.0.1:18784/tasks**。先点“① 体验数值调整”和“② 看护盾代码修复”，按页面查看改动、独立报告、采纳到本地测试版本和回退。普通启动关闭模型，查看结果和重新检查不产生模型费用。完整步骤见[中文使用手册](使用手册.md)。
+本机双击 **打开任务中心.cmd**，浏览器打开 **http://127.0.0.1:18784/tasks**。先点“① 体验数值调整”和“② 看护盾代码修复”，按页面查看改动、独立报告、采纳到本地测试版本和回退。普通启动关闭模型，查看结果和重新检查不产生模型费用。
+
+**第一次使用：本机双击 [项目说明书.html](项目说明书.html)，阅读带目录和步骤导航的浏览版。** 也可以直接看 [中文使用手册](使用手册.md)，或查阅 [安装与 GitHub 操作](GitHub使用手册.md)。说明书包含启动、两条体验流程、按钮含义、试玩回退、玩家营地和常见问题。
 
 本轮已实际演示 Config→独立 QA→配置采纳→真实规则试玩→回退，以及真实 Coding 护盾修复→独立代码 QA→独立源码版本采纳→回退。第二个战技点修复首次 QA 失败，已禁止采纳；追加修订由用户留待亲测，未执行。代码采纳不自动替换 Unity。原始结果和封存账本保留；实现与验证摘要见[交付记录](research/evidence/v1-product-20261008.json)。下文早期端口及进度作为历史记录保留，以本段及手册为当前入口。
-
-2026-10-08 新版入口：[任务中心](http://127.0.0.1:18783/tasks)（双击 `打开任务中心.cmd`）。已实际完成 Config→独立 QA→JSON/Excel，以及 [真实 Python 护盾修复案例](http://127.0.0.1:18783/code-repair)。默认关闭新增模型调用；中文操作见《使用手册》第七、八节。统一代码 QA 委托与采纳回退继续按《计划文档.md》推进。
 
 新机器安装与 GitHub 操作见 [GitHub 使用手册](GitHub使用手册.md)；玩家演示步骤见 [使用手册](使用手册.md)。源码配套游戏仓库为 https://github.com/theHerta27/graytower-game 。
 
 ## Agent 源码入口
 
 四项能力位于 `src/agent_workbench/`。中文模块说明：[Coding](src/agent_workbench/coding/README.md)、[Config](src/agent_workbench/config/README.md)、[Verification](src/agent_workbench/verification/README.md)、[NPC](src/agent_workbench/npc/README.md)。Verification 工作台主入口现位于 `verification/agent.py`；`qa.py` 保留旧导入兼容。共享领域、工具、模型和协议实现位于相邻模块，游戏规则与 Unity 位于同级 `graytower-game` 仓库。
+
+<details>
+<summary>历史开发记录（含旧端口与阶段状态，仅供追溯）</summary>
 
 ## 2026-10-05：可直接演示的营地闭环
 
@@ -159,3 +164,5 @@ $verifyPython = '.\research\.venv-framework\Scripts\python.exe'
 ```
 
 真实重放可调用profile runner的`--live --packet <公开packet.md> --mode <模式> --outdir <新的输出目录>`；完整已用参数保存在[确认manifest](research/evidence/collaboration-confirmation-manifest-20261004-fixed-v1.json)。必须显式给相应的模型请求数、总输出、单请求输出和wall上限，并继续共用`research/evidence/collaboration-live-global-budget-20261004.json`。当前授权限这六份公开包及分析外发、累计USD3；不自动重跑冻结batch、重置账本或扩大发送资料。重放旧题是演示，不增加独立确认样本。密钥只由受限后端读取，不能写入命令、前端或证据。
+
+</details>

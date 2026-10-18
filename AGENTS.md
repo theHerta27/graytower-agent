@@ -1,5 +1,7 @@
 # 项目群协作约定
 
+- 2026-10-18用户确认的新主线优先于下方历史四能力/强制A2A等约束：求职项目围绕自研游戏环境中AI修改的可靠交付，先做能力完整的单Agent与可信执行工具、回归验证和人工采用；NPC停止后续主线开发但保留旧成果。多Agent不是必选架构，独立验证Agent先做实际对照，有可重复业务质量收益再决定进入产品；A2A不作为新默认运行链路依赖。Coding继续复用Runtime/官方SDK，不叠加重复的主循环。项目说明.md给出当前讨论方案和目标简历，具体新增能力尚未实施；既有收费授权保持关闭。
+
 - 2026-10-05 最新实施约束优先：V1 只部署单机、本地服务、SQLite；候选身份、幂等、Job receipt 和基本崩溃恢复必需。多实例/HA/OAuth/公网 SSRF/多节点 lease-fencing/生产级 outbox 暂不实现。每个里程碑必须结束于真实可运行业务演示；接口、文档、测试数不能替代链路。A2A 队列问题先官方最小复现及上游核对，不改安装包或维护大 fork；必要修复限隔离、可替换的最小补丁。
 
 - 先读current_context.md、PROJECT_BRIEF.md；当前架构以2026-10-05的TECHNICAL_PROPOSAL.md、FRAMEWORK_ORCHESTRATION_DESIGN.md和IMPLEMENTATION_ROADMAP.md为准。最新用户附件优先于历史三产品/固定协作计划。
