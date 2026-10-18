@@ -1,0 +1,55 @@
+{
+  "schema": "development-engineering-delivery-v1",
+  "date": "2026-10-18",
+  "branch": "feature/reliable-game-agent",
+  "product": "灰塔研发助手：真实Git候选、Runtime工具反馈、可信检查、人工采用与恢复",
+  "deployment": "Windows本机、127.0.0.1、SQLite、Docker；单用户",
+  "external_model_calls": 0,
+  "external_model_cost_usd": 0,
+  "real_model_quality": "未验收，留给用户亲测；未执行single-agent-resource-v1",
+  "game_baseline": "5508730ebbb1410f17697d7ad2a3804f3e062818",
+  "game_original_tracked_clean": true,
+  "game_regression": {
+    "passed": 99,
+    "total": 99,
+    "python": "3.11.9",
+    "image": "sha256:3638ba362caffc0ab7325321fa7a0c804ab49c35940df7038bcbd1d366872625",
+    "source_tests_or_goldens_changed": false,
+    "local_receipt": "local-data/full-game-compatible-20261018.json"
+  },
+  "browser_roundtrip": {
+    "project": "临时游戏clone，未采用至真实原游戏",
+    "edit_method": "通过页面手工添加说明注释，不改变规则行为",
+    "steps": ["创建真实候选", "保存编辑", "99项真实Docker检查", "人工确认采用", "恢复原字节"],
+    "restored": true,
+    "local_receipt": "local-data/delivery-browser-20261018/result.json",
+    "model_quality_experiment": false
+  },
+  "backend_regression": {
+    "total": 286,
+    "passed": 282,
+    "existing_skipped": 4,
+    "seconds": 221.581,
+    "command_record": "089",
+    "note": "全量后有一处旧前置错误残留显示修复；其后重跑全部新模块57项通过，不声称再次运行全量287项"
+  },
+  "final_development_module_regression": {"passed": 57, "seconds": 46.813, "command_record": "095"},
+  "frontend": {"passed": 18, "typescript_and_vite_build": "PASS", "command_record": "090"},
+  "startup": {
+    "windows_powershell": "5.1.19041.6456",
+    "script_parse_errors": 0,
+    "first_start": "PASS",
+    "reuse_existing_service": "PASS",
+    "key_or_credentials_printed": false,
+    "model_started": false,
+    "records": ["090", "092", "093", "096"]
+  },
+  "review": {
+    "critical": 0,
+    "important_fixed": ["PS5中文脚本编码", "前置失败可见性", "批次时序与活动run关联", "采用中断及新候选状态"],
+    "scope": "独立只读收尾审查；不是成品多Agent效果证据"
+  },
+  "limits": ["仅灰塔Python规则与配置", "新链路真实模型质量尚未确认", "运行中模型会话不承诺跨进程恢复", "无Unity/C#发布", "无默认多Agent或A2A", "非通用恶意代码安全平台"],
+  "process_record": "开发记录.md",
+  "raw_terminal_record_directory": "D:/Desktop/mihoyo-agent-project/local-data/development-logs/20261018"
+}

@@ -59,7 +59,14 @@ class Adoption:
     def status(self):
         with closing(self.connect()) as db:
             row=db.execute('SELECT * FROM changes ORDER BY rowid DESC LIMIT 1').fetchone()
-        return self._public(row)
+        value=self._public(row)
+        if value:
+            value['matches_current_candidate']=value['tree_hash']==self.workspace.inspect()['tree_hash']
+            if value['state']=='prepared':value['note']='采用中断：原项目可能已部分写入，请继续采用或恢复。'
+            elif value['state']=='restoring':value['note']='恢复中断：原项目可能仍有部分修改，请继续恢复。'
+            elif value['state']=='applied' and not value['matches_current_candidate']:
+                value['note']='之前版本已采用，当前候选另有修改；请先恢复，再检查并采用新候选。'
+        return value
 
     def _advance(self,db,row,direction,after_write):
         plan=json.loads(row['plan'])

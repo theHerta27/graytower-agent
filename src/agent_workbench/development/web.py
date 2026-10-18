@@ -30,7 +30,7 @@ class Workbench:
         self.root=Path(root).resolve();(self.root/'tasks').mkdir(parents=True,exist_ok=True)
         self.api_key=api_key;self.runtime_python=Path(runtime_python or sys.executable)
         self.dist=Path(dist) if dist else Path(__file__).resolve().parents[3]/'frontend/dist'
-        self.default_project=default_project;self.active=set();self.lock=threading.RLock();self.cache={}
+        self.default_project=default_project;self.active={};self.lock=threading.RLock();self.cache={}
 
     def task(self,task_id):
         if not isinstance(task_id,str) or not re.fullmatch('[a-f0-9]{32}',task_id):raise HTTPException(404)
@@ -40,13 +40,24 @@ class Workbench:
 
     def detail(self,task_id):
         task=self.task(task_id);view=task.summary();runs=[];events=[];explanation=''
-        for folder in sorted((task.root/'runs').glob('*')) if (task.root/'runs').exists() else []:
-            if not (folder/'outbound-scope.json').exists():continue
-            scope=json.loads((folder/'outbound-scope.json').read_text(encoding='utf-8'))
+        folders=[]
+        for folder in (task.root/'runs').glob('*') if (task.root/'runs').exists() else []:
+            scope_path=folder/'outbound-scope.json'
+            if not scope_path.exists():continue
+            scope=json.loads(scope_path.read_text(encoding='utf-8'))
+            folders.append((scope.get('created_at_ns',scope_path.stat().st_mtime_ns),folder))
+        folders.sort(key=lambda item:(item[0],item[1].name))
+        selected_run=self.active.get(task_id) or (folders[-1][1].name if folders else None)
+        for created,folder in folders:
             result=json.loads((folder/'run-result.json').read_text(encoding='utf-8')) if (folder/'run-result.json').exists() else None
-            state=result['state'] if result else 'running' if task_id in self.active else 'interrupted' if (folder/'claimed').exists() else 'prepared'
+            error=json.loads((folder/'worker-error.json').read_text(encoding='utf-8')) if (folder/'worker-error.json').exists() else {}
+            if self.active.get(task_id)==folder.name or (result and not result.get('error_type')):error={}
+            claimed=(folder/'claimed').exists()
+            state=result['state'] if result else 'running' if self.active.get(task_id)==folder.name else 'interrupted' if claimed else 'not_started' if error else 'prepared'
             runs.append({'run_id':folder.name,'state':state,'budget':result.get('budget') if result else None,
-                         'error_type':result.get('error_type') if result else None})
+                         'created_at_ns':created,'error_type':error.get('error_type') or (result or {}).get('error_type'),
+                         'error_message':error.get('message') or ('运行未正常结束，请查看保留的执行记录。' if (result or {}).get('error_type') else None)})
+            if folder.name!=selected_run:continue
             path=folder/'runtime/events.jsonl'
             if path.exists():
                 with path.open('rb') as stream:
@@ -62,8 +73,9 @@ class Workbench:
                     if item.get('type')=='agentMessage' and isinstance(item.get('text'),str):explanation=item['text']
         state='discarded' if (task.root/'discarded.json').exists() else 'candidate'
         return {**view,'task_id':task_id,'project_name':Path(view['project']).name,'short_version':view['baseline_commit'][:8],
-                'workflow_state':state,'adoption':Adoption(task.workspace).status(),'runs':runs,
-                'model_state':runs[-1]['state'] if runs else 'not_started','busy':task_id in self.active,
+                'workflow_state':state,'runs':runs,'active_run_id':self.active.get(task_id),
+                'model_state':next((r['state'] for r in runs if r['run_id']==selected_run),'not_started'),'busy':task_id in self.active,
+                'model_error':next((r['error_message'] for r in runs if r['run_id']==selected_run),None),
                 'tool_events':events[-24:],'model_summary':explanation}
 
     def writable(self,task_id):
@@ -79,13 +91,18 @@ class Workbench:
         if (folder/'claimed').exists():return self.detail(task_id)
         if not self.api_key:raise ValueError('本机尚未配置DEEPSEEK_API_KEY，请配置后重新启动。')
         if not self.runtime_python.is_file():raise ValueError('未找到官方SDK解释器，请先运行环境安装。')
-        self.active.add(task_id)
+        self.active[task_id]=run_id
         def work():
             try:task.execute(run_id,scope_hash,self.runtime_python,Path(sys.executable),sender=deepseek_sender(self.api_key))
             except Exception as exc:
-                (folder/'worker-error.json').write_bytes(encoded({'error_type':type(exc).__name__}))
+                # Never copy transport errors, request headers or credentials to the UI.
+                stale=isinstance(exc,ValueError) and 'authorization scope or current candidate changed' in str(exc)
+                message=('材料或候选已变化，本批尚未开始。请重新准备材料并确认。' if stale else
+                         '本批尚未开始，请检查SDK和本机环境后重新查看材料。' if not (folder/'claimed').exists() else
+                         '运行未正常结束，已保留记录；结果未知时不要重复开始这批任务。')
+                (folder/'worker-error.json').write_bytes(encoded({'error_type':type(exc).__name__,'message':message}))
             finally:
-                with self.lock:self.active.discard(task_id)
+                with self.lock:self.active.pop(task_id,None)
         threading.Thread(target=work,daemon=True).start()
         return self.detail(task_id)
 

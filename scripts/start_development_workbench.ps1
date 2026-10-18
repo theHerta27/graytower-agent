@@ -1,4 +1,4 @@
-param([int]$Port=18790,[switch]$NoBrowser,[switch]$NoModel)
+﻿param([int]$Port=18790,[switch]$NoBrowser,[switch]$NoModel)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=[Text.UTF8Encoding]::new($false)
 $taskRoot=Split-Path -Parent $PSScriptRoot

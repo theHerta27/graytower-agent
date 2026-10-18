@@ -67,4 +67,19 @@ class AdoptionTests(unittest.TestCase):
         self.assertFalse((self.root/'source'/new).exists())
         self.assertEqual((self.root/'source'/self.name).read_bytes(),b'VALUE = 1\n')
 
+    def test_interrupted_adoption_and_restore_report_possible_source_changes(self):
+        def crash():raise RuntimeError('lost reply')
+        with self.assertRaises(RuntimeError):self.adoption.apply(self.approve(),_after_write=crash)
+        status=self.adoption.status()
+        self.assertIn('可能已部分写入',status['note'])
+        with self.assertRaises(RuntimeError):self.adoption.restore(status['operation_id'],_after_write=crash)
+        self.assertIn('恢复中断',self.adoption.status()['note'])
+
+    def test_adopted_version_is_distinct_from_later_candidate(self):
+        self.adoption.apply(self.approve())
+        self.workspace.write_file('later',self.name,self.workspace.read_file(self.name)['sha256'],'VALUE = 3\n')
+        status=self.adoption.status()
+        self.assertFalse(status['matches_current_candidate'])
+        self.assertIn('当前候选另有修改',status['note'])
+
 if __name__=='__main__':unittest.main()

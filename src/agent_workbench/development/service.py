@@ -3,12 +3,14 @@ import base64
 import json
 from pathlib import Path
 import re
+import time
 from ..coding.responses_transport import CallBudget, responses_endpoint
 from .workspace import ProjectWorkspace, digest, encoded
 from .checks import CheckJobs
 from .runtime import run_runtime, INSTRUCTIONS
 from .tools import TOOL_SPECS
 from .sandbox import IMAGE, runner_hash
+from .adoption import Adoption
 
 
 class DevelopmentTask:
@@ -36,7 +38,9 @@ class DevelopmentTask:
         elif any(j['result']['verdict']=='PASS' for j in current):validation='指定检查已通过，尚未完成完整规则回归'
         elif current:validation='检查未形成确定结论'
         else:validation='尚未验证'
-        return {**view,'request':self.request,'candidate_state':'仅候选，未写入原项目',
+        adoption=Adoption(self.workspace).status()
+        return {**view,'request':self.request,'adoption':adoption,
+                'candidate_state':adoption['note'] if adoption else '原项目尚未改动',
                 'validation':validation,'checks':checks}
 
     def _batch(self,run_id):
@@ -50,7 +54,7 @@ class DevelopmentTask:
         preview={'request':self.request,'instructions':INSTRUCTIONS,'tools':TOOL_SPECS,
                  'files':[{'path':name,'text':base64.b64decode(v['content']).decode('utf-8')}
                           for name,v in tree['files'].items() if not name.endswith('.gz')]}
-        scope={'schema':'development-outbound-v1','endpoint':'https://api.deepseek.com/responses','model':'deepseek-flash',
+        scope={'schema':'development-outbound-v1','created_at_ns':time.time_ns(),'endpoint':'https://api.deepseek.com/responses','model':'deepseek-flash',
             'baseline_commit':self.workspace.metadata['baseline_commit'],'candidate_tree_hash':digest(tree),
             'request_hash':digest(self.request),'preview_hash':digest(preview),'capability_hash':digest({'instructions':INSTRUCTIONS,'tools':TOOL_SPECS}),
             'image':IMAGE,'runner_hash':runner_hash(),'grant':grant,

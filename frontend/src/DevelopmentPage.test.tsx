@@ -6,13 +6,13 @@ afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 const task={task_id:'a'.repeat(32),request:'修复我刚发现的问题',project:'D:/my-game',project_name:'my-game',short_version:'abc12345',
   changed_files:[],files:[],patch:'',checks:[],validation:'尚未验证',model_state:'not_started',workflow_state:'candidate',busy:false,
   adoption:null,runs:[],tool_events:[],model_summary:'',tree_hash:'b'.repeat(64)};
-function mock(){
+function mock(current:unknown=task){
   const fetcher=vi.fn(async(input:RequestInfo|URL,init?:RequestInit)=>{
     const url=String(input);
     if(url.endsWith('/status'))return new Response(JSON.stringify({default_project:'D:/my-game',key_configured:true,runtime_available:true,checks:[{value:'effects',label:'伤害、护盾与边界'}]}));
     if(url.endsWith('/tasks')&&!init?.method)return new Response(JSON.stringify({tasks:[]}));
     if(url.endsWith('/prepare'))return new Response(JSON.stringify({run_id:'user-1',scope_sha256:'c'.repeat(64),file_count:49,grant:{max_calls:18,cost_cap_usd:'0.95'}}));
-    return new Response(JSON.stringify(task));
+    return new Response(JSON.stringify(current));
   });vi.stubGlobal('fetch',fetcher);return fetcher;
 }
 
@@ -24,6 +24,18 @@ it('creates a fresh request and clearly labels candidate and real model not star
   await screen.findByText('原项目尚未改动');
   expect(screen.getByText('尚未调用真实模型')).toBeTruthy();
   expect(fetcher.mock.calls.some(([,init])=>init?.method==='POST'&&String(init.body).includes(task.request))).toBe(true);
+});
+
+it('shows interrupted source changes and visible model preflight failure',async()=>{
+  mock({...task,candidate_state:'采用中断：原项目可能已部分写入，请继续采用或恢复。',
+    adoption:{operation_id:'op',state:'prepared',note:'采用中断：原项目可能已部分写入，请继续采用或恢复。'},
+    runs:[{run_id:'x',state:'not_started',budget:null,error_message:'材料已变化，请重新准备。'}]});
+  render(<DevelopmentPage/>);await screen.findByDisplayValue('D:/my-game');
+  fireEvent.change(screen.getByLabelText('这次想解决什么问题？'),{target:{value:task.request}});
+  fireEvent.click(screen.getByRole('button',{name:'创建隔离候选'}));
+  await screen.findByText(/原项目可能已部分写入/);
+  expect(screen.queryByText('原项目尚未改动')).toBeNull();
+  expect(screen.getByText('材料已变化，请重新准备。')).toBeTruthy();
 });
 
 it('previews model scope but requires both human confirmations before sending',async()=>{
