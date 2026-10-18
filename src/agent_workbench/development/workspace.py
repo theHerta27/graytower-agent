@@ -47,7 +47,8 @@ def clean_name(name):
 
 
 def readable(name):
-    return (name in ('README.md', 'pyproject.toml') or name.startswith(READ_ROOTS)) and PurePosixPath(name).suffix in ('.py', '.json', '.md', '.toml', '.gz')
+    return (name in ('README.md', 'pyproject.toml', 'scripts/accept_combat_v2.py',
+                     'configs/combat/baseline.json') or name.startswith(READ_ROOTS)) and PurePosixPath(name).suffix in ('.py', '.json', '.md', '.toml', '.gz')
 
 
 def editable(name):

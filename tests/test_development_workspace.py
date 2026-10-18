@@ -139,6 +139,17 @@ class ProjectWorkspaceTests(unittest.TestCase):
                 w.write_file('over-tree', name, before['sha256'], before['text'] + '# too much\n')
         self.assertEqual(w.read_file(name), before)
 
+    def test_regression_dependencies_are_materialized_but_readonly(self):
+        names = ('scripts/accept_combat_v2.py', 'configs/combat/baseline.json')
+        for name in names:
+            target=self.project/name;target.parent.mkdir(parents=True,exist_ok=True)
+            target.write_bytes(b'{}\n' if name.endswith('.json') else b'# acceptance helper\n')
+        self.git('add','.');self.git('commit','-qm','regression dependencies')
+        w=self.create()
+        for name in names:
+            before=w.read_file(name)
+            with self.assertRaises(ValueError):w.write_file('bad-dependency',name,before['sha256'],'changed')
+
 
 if __name__ == '__main__':
     unittest.main()
