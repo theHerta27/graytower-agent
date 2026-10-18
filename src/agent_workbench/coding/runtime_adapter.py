@@ -55,7 +55,7 @@ def _mode(mode):
 
 
 def runtime_config(home: Path, workspace: Path, data: Path, tools_python: Path, endpoint: str, mode: str,
-                   preparation: dict | None = None):
+                   preparation: dict | None = None, *, include_legacy_mcp=True):
     _mode(mode)
     parsed = urlsplit(endpoint)
     if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1' or not parsed.port
@@ -63,7 +63,7 @@ def runtime_config(home: Path, workspace: Path, data: Path, tools_python: Path, 
         raise ValueError('Runtime requires the separately authorized local Responses endpoint')
     quote = lambda value: json.dumps(str(value), ensure_ascii=False)
     enabled = 'true' if mode == 'auto' else 'false'
-    return '\n'.join([
+    lines = [
         f'model = "{MODEL}"', f'review_model = "{MODEL}"', 'model_provider = "deepseek_local"',
         'approval_policy = "never"', 'approvals_reviewer = "user"', 'sandbox_mode = "read-only"',
         'web_search = "disabled"', 'model_reasoning_effort = "low"', 'model_reasoning_summary = "none"',
@@ -77,6 +77,9 @@ def runtime_config(home: Path, workspace: Path, data: Path, tools_python: Path, 
         '[model_providers.deepseek_local]', 'name = "DeepSeek authorized local endpoint"',
         'base_url = ' + quote(endpoint), 'wire_api = "responses"', 'requires_openai_auth = false',
         'supports_websockets = false', 'request_max_retries = 0', 'stream_max_retries = 0',
+    ]
+    if include_legacy_mcp:
+        lines.extend([
         '[mcp_servers.coding_readonly]', 'command = ' + quote(tools_python),
         'args = ' + json.dumps(['-B', '-m', 'agent_workbench.coding.readonly_mcp',
                                '--workspace', str(workspace), '--data', str(data),
@@ -85,7 +88,8 @@ def runtime_config(home: Path, workspace: Path, data: Path, tools_python: Path, 
         '[mcp_servers.coding_readonly.env]',
         'PYTHONPATH = ' + quote(Path(__file__).resolve().parents[2]), 'PYTHONUTF8 = "1"',
         'PYTHONDONTWRITEBYTECODE = "1"', 'LANGSMITH_TRACING = "false"', 'LANGCHAIN_TRACING_V2 = "false"',
-    ]) + '\n'
+        ])
+    return '\n'.join(lines) + '\n'
 
 
 def model_catalog(*, profile=None):
