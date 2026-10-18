@@ -29,7 +29,8 @@ class DevelopmentTask:
 
     def summary(self):
         view=self.workspace.inspect();checks=self.jobs.list(self.workspace)
-        current=[j for j in checks if j['matches_current_candidate'] and j['status']=='completed' and j['check_set']!='diagnostic']
+        current=[j for j in checks if j['matches_current_candidate'] and j['matches_current_definition']
+                 and j['status']=='completed' and j['check_set']!='diagnostic']
         if any(j['result']['verdict']=='FAIL' for j in current):validation='检查发现问题'
         elif any(j['check_set']=='rules' and j['result']['verdict']=='PASS' for j in current):validation='已通过完整规则回归'
         elif any(j['result']['verdict']=='PASS' for j in current):validation='指定检查已通过，尚未完成完整规则回归'

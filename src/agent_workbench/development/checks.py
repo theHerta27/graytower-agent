@@ -38,18 +38,23 @@ class CheckJobs:
             raise ValueError('check controls must be outside candidate')
         tree = workspace.snapshot()
         identity = {'tree_hash': digest(tree), 'check_set': check_set, 'image': IMAGE,
-                    'runner_hash': runner_hash(), 'diagnostic_hash': digest(diagnostic)}
+                    'runner_hash': runner_hash(), 'targets':list(CHECK_SETS.get(check_set,[])), 'diagnostic_hash': digest(diagnostic)}
         job_id = digest(identity)
         payload = {'identity': identity, 'tree': tree, 'diagnostic': diagnostic}
         with closing(self.connect()) as db, db:
             db.execute('BEGIN IMMEDIATE')
-            prior = db.execute('SELECT id FROM jobs WHERE id=?', (job_id,)).fetchone()
-            if prior:
+            prior = db.execute('SELECT id,status FROM jobs WHERE id=?', (job_id,)).fetchone()
+            if prior and prior['status']!='not_started':
                 return self.read(job_id, workspace)
-            folder = self.root / job_id; folder.mkdir()
-            (folder / 'input.json').write_bytes(encoded(payload))
-            db.execute('INSERT INTO jobs VALUES (?,?,?,?,?,?,?)',
-                (job_id, encoded(identity).decode(), digest(payload), 'running', None, None, None))
+            folder = self.root / job_id
+            if prior:
+                self.payload(job_id)
+                db.execute("UPDATE jobs SET status='running',error=NULL WHERE id=?",(job_id,))
+            else:
+                folder.mkdir()
+                (folder / 'input.json').write_bytes(encoded(payload))
+                db.execute('INSERT INTO jobs VALUES (?,?,?,?,?,?,?)',
+                    (job_id, encoded(identity).decode(), digest(payload), 'running', None, None, None))
         request = {'root': str(self.root), 'job_id': job_id, 'input_path': str(folder / 'input.json')}
         try:
             if self.launcher is not None:
@@ -57,7 +62,7 @@ class CheckJobs:
             else:
                 source = Path(__file__).resolve().parents[2]
                 env = safe_environment(os.environ, source)
-                with (folder / 'worker.log').open('wb') as log:
+                with (folder / 'worker.log').open('ab') as log:
                     self.active[job_id] = subprocess.Popen([self.python, '-B', '-m',
                         'agent_workbench.development.check_worker', str(self.root), job_id],
                         cwd=folder, env=env, stdout=log, stderr=log)
@@ -94,7 +99,11 @@ class CheckJobs:
             raise ValueError('check receipt damaged')
         return {'job_id': job_id, **identity, 'status': status, 'result': result,
                 'matches_current_candidate': None if workspace is None else digest(workspace.snapshot()) == identity['tree_hash'],
-                'note': '结果未知，不自动重跑；等待或核对原作业。' if status == 'unknown' else ''}
+                'matches_current_definition':identity.get('image')==IMAGE and identity.get('runner_hash')==runner_hash()
+                    and identity.get('targets')==CHECK_SETS.get(identity['check_set'],[]),
+                'error':row['error'],'retry_safe':status=='not_started',
+                'note': '结果未知，不自动重跑；等待或核对原作业。' if status == 'unknown' else
+                    '确认尚未执行候选；修复Docker或镜像后可再次开始同一检查。' if status=='not_started' else ''}
 
     def complete(self, job_id, outcome):
         identity = json.loads(self._row(job_id)['identity'])
@@ -124,6 +133,11 @@ class CheckJobs:
     def mark_unknown(self, job_id, error):
         with closing(self.connect()) as db, db:
             db.execute("UPDATE jobs SET status='unknown',error=? WHERE id=? AND receipt IS NULL", (str(error)[:300], job_id))
+
+    def mark_not_started(self,job_id,error):
+        self._row(job_id)
+        with closing(self.connect()) as db,db:
+            db.execute("UPDATE jobs SET status='not_started',error=? WHERE id=? AND receipt IS NULL",(str(error)[:300],job_id))
 
     def list(self, workspace=None):
         with closing(self.connect()) as db:

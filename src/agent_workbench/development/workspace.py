@@ -164,8 +164,10 @@ class ProjectWorkspace:
         for name in changed:
             old = base64.b64decode(before[name]['content']).decode('utf-8') if name in before else ''
             new = base64.b64decode(after[name]['content']).decode('utf-8') if name in after else ''
-            patch.extend(difflib.unified_diff(old.splitlines(keepends=True), new.splitlines(keepends=True),
-                fromfile='a/'+name if name in before else '/dev/null', tofile='b/'+name if name in after else '/dev/null'))
+            for line in difflib.unified_diff(old.splitlines(keepends=True),new.splitlines(keepends=True),
+                fromfile='a/'+name if name in before else '/dev/null',tofile='b/'+name if name in after else '/dev/null'):
+                if line.endswith('\n'):patch.append(line)
+                else:patch.append(line+'\n\\ No newline at end of file\n')
         return {**self.metadata, 'tree_hash': digest(tree), 'changed_files': changed,
             'added_files': sorted(set(after)-set(before)), 'deleted_files': sorted(set(before)-set(after)),
             'patch': ''.join(patch), 'files': [{'path': n, 'sha256': v['sha256'], 'editable': editable(n)} for n, v in after.items()],

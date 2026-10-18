@@ -104,6 +104,41 @@ class DevelopmentCheckTests(unittest.TestCase):
         self.assertIn('negative',oracle)
         self.assertIn('state.skill_points == before',oracle)
 
+    def test_check_target_definition_changes_job_identity(self):
+        from agent_workbench.development.sandbox import CHECK_SETS
+        from unittest.mock import patch
+        first=self.jobs.start(self.workspace,'rules')
+        with patch.dict(CHECK_SETS,{'rules':['game-core/tests/v2/test_effects.py']}):
+            second=self.jobs.start(self.workspace,'rules')
+        self.assertNotEqual(first['job_id'],second['job_id'])
+
+    def test_frozen_execution_definition_drift_rejected_before_docker(self):
+        from agent_workbench.development import sandbox
+        from unittest.mock import patch
+        first=self.jobs.start(self.workspace,'rules');payload=self.jobs.payload(first['job_id'])
+        with patch.object(sandbox,'RUNNER',sandbox.RUNNER+'\n# different runner'),patch.object(sandbox,'command') as command:
+            with self.assertRaises(ValueError):sandbox.execute(payload,lambda value:None)
+            command.assert_not_called()
+
+    def test_known_not_started_reports_reason_and_explicit_start_can_retry(self):
+        first=self.jobs.start(self.workspace,'rules')
+        self.jobs.mark_not_started(first['job_id'],'Docker engine unavailable')
+        saved=self.jobs.read(first['job_id'])
+        self.assertEqual(saved['status'],'not_started')
+        self.assertIn('Docker',saved['error'])
+        self.assertTrue(saved['retry_safe'])
+        again=self.jobs.start(self.workspace,'rules')
+        self.assertEqual(again['job_id'],first['job_id'])
+        self.assertEqual(len(self.launched),2)
+
+    def test_preflight_failure_is_confirmed_not_started(self):
+        from agent_workbench.development import sandbox
+        from unittest.mock import patch
+        first=self.jobs.start(self.workspace,'rules');payload=self.jobs.payload(first['job_id']);record=[]
+        with patch.object(sandbox,'command',side_effect=RuntimeError('Docker engine unavailable')):
+            with self.assertRaises(sandbox.CheckNotStarted):sandbox.execute(payload,record.append)
+        self.assertEqual(record,[])
+
 
 if __name__=='__main__':
     unittest.main()

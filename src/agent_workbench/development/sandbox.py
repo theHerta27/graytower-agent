@@ -3,10 +3,11 @@ import base64
 import hashlib
 from io import BytesIO
 import json
+import subprocess
 import tarfile
 import uuid
 from ..code_sandbox import IMAGE, command
-from .workspace import clean_name, readable
+from .workspace import clean_name, readable, digest
 
 CHECK_SETS = {
     'rules': ['game-core/tests/v2'],
@@ -81,10 +82,24 @@ print(json.dumps(result))
 
 
 def runner_hash():
-    return hashlib.sha256((RUNNER + AUDIT + DIAGNOSTIC + RESOURCE_ORACLE).encode()).hexdigest()
+    return digest({'runner':RUNNER,'audit':AUDIT,'diagnostic':DIAGNOSTIC,
+                   'resource_oracle':RESOURCE_ORACLE,'check_sets':CHECK_SETS})
+
+
+def validate_definition(payload):
+    identity=payload['identity'];kind=identity['check_set']
+    if (kind not in (*CHECK_SETS,'diagnostic') or identity.get('image')!=IMAGE
+        or identity.get('runner_hash')!=runner_hash() or identity.get('targets')!=CHECK_SETS.get(kind,[])
+        or identity.get('tree_hash')!=digest(payload['tree'])):
+        raise ValueError('frozen check definition changed; admit a new check instead of executing different materials')
+
+
+class CheckNotStarted(RuntimeError):
+    """Preflight proved candidate execution has not started; safe to retry later."""
 
 
 def archive(payload):
+    validate_definition(payload)
     kind = payload['identity']['check_set']
     plan = {'kind': kind, 'targets': CHECK_SETS.get(kind, [])}
     files = {'runner/check.py': RUNNER.encode(), 'runner/plan.json': json.dumps(plan).encode(),
@@ -109,8 +124,12 @@ def archive(payload):
 
 
 def execute(payload, resource_record):
-    if command('image', 'inspect', '--format', '{{.Id}}', IMAGE).decode().strip() != IMAGE:
-        raise ValueError('execution image identity changed')
+    validate_definition(payload)
+    try:
+        if command('image','inspect','--format','{{.Id}}',IMAGE,timeout=15).decode().strip()!=IMAGE:
+            raise RuntimeError('image identity mismatch')
+    except (RuntimeError,OSError,subprocess.TimeoutExpired) as exc:
+        raise CheckNotStarted('Docker或固定测试镜像不可用，尚未启动候选执行；检查引擎和镜像后可再次开始检查。'+type(exc).__name__) from exc
     seed = image = container = None
     result = None
     try:

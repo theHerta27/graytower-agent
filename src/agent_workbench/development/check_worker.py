@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys
 from .checks import CheckJobs
-from .sandbox import execute
+from .sandbox import execute, CheckNotStarted
 from .workspace import encoded
 
 
@@ -13,6 +13,9 @@ def run(root, job_id):
         payload = jobs.payload(job_id)
         outcome = execute(payload, lambda value: record.write_bytes(encoded(value)))
         jobs.complete(job_id, outcome)
+    except CheckNotStarted as exc:
+        jobs.mark_not_started(job_id,str(exc))
+        raise
     except Exception as exc:
         jobs.mark_unknown(job_id, type(exc).__name__)
         raise

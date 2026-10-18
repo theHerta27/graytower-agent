@@ -150,6 +150,23 @@ class ProjectWorkspaceTests(unittest.TestCase):
             before=w.read_file(name)
             with self.assertRaises(ValueError):w.write_file('bad-dependency',name,before['sha256'],'changed')
 
+    def test_patch_without_final_newline_is_valid_for_modify_add_and_delete(self):
+        w=self.create();name='game-core/combat_core/v2/state.py'
+        w.write_file('no-eol',name,w.read_file(name)['sha256'],'HP = 200')
+        w.write_file('new-no-eol','game-core/combat_core/v2/new.py',None,'VALUE = 1')
+        patch_text=w.inspect()['patch']
+        checked=subprocess.run(['git','-C',str(self.project),'apply','--check','-'],input=patch_text.encode(),capture_output=True)
+        self.assertEqual(checked.returncode,0,checked.stderr.decode())
+        self.assertIn('\\ No newline at end of file',patch_text)
+
+    def test_patch_preserves_old_no_newline_on_delete(self):
+        name='game-core/combat_core/v2/state.py'
+        (self.project/name).write_bytes(b'HP = 100')
+        self.git('add','.');self.git('commit','-qm','old without newline')
+        w=self.create();w.write_file('delete-no-eol',name,w.read_file(name)['sha256'],None)
+        checked=subprocess.run(['git','-C',str(self.project),'apply','--check','-'],input=w.inspect()['patch'].encode(),capture_output=True)
+        self.assertEqual(checked.returncode,0,checked.stderr.decode())
+
 
 if __name__ == '__main__':
     unittest.main()
