@@ -112,10 +112,10 @@ def payload_archive(tree, profile=PROFILE):
     return data.getvalue()
 
 
-def command(*args, input=None, timeout=90):
+def command(*args, input=None, timeout=90, docker=None):
     env = {k:v for k,v in os.environ.items() if k.upper() in
            {'SYSTEMROOT','WINDIR','PATH','TEMP','TMP','USERPROFILE','LOCALAPPDATA'}}
-    p = subprocess.run([str(DOCKER), *args], input=input, capture_output=True, timeout=timeout, env=env)
+    p = subprocess.run([str(docker or DOCKER), *args], input=input, capture_output=True, timeout=timeout, env=env)
     if p.returncode:
         raise RuntimeError('Docker operation failed: '+p.stderr.decode(errors='replace')[-1000:])
     return p.stdout

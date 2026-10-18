@@ -3,11 +3,38 @@ import base64
 import hashlib
 from io import BytesIO
 import json
+from pathlib import Path
+import re
+import os
+import shutil
 import subprocess
 import tarfile
 import uuid
-from ..code_sandbox import IMAGE, command
+from ..code_sandbox import command as legacy_command
 from .workspace import clean_name, readable, digest
+
+DEFAULT_IMAGE='sha256:3638ba362caffc0ab7325321fa7a0c804ab49c35940df7038bcbd1d366872625'
+
+def configured_image(path=None):
+    path=Path(path) if path is not None else Path(__file__).resolve().parents[3]/'local-data/development-image.json'
+    value=json.loads(path.read_text(encoding='utf-8'))['image'] if path.exists() else DEFAULT_IMAGE
+    if not isinstance(value,str) or not re.fullmatch('sha256:[a-f0-9]{64}',value):
+        raise ValueError('检查镜像配置必须是已安装镜像的不可变SHA256；请重新运行环境安装。')
+    return value
+
+IMAGE=configured_image()
+
+def docker_binary():
+    installed=shutil.which('docker')
+    if installed:return Path(installed)
+    local=Path(os.environ.get('LOCALAPPDATA',str(Path.home()/'AppData/Local')))
+    choices=[local/'Programs/DockerDesktop/resources/bin/docker.exe',Path('C:/Program Files/Docker/Docker/resources/bin/docker.exe')]
+    for path in choices:
+        if path.is_file():return path
+    raise FileNotFoundError('未找到Docker命令，请安装并启动Docker Desktop。')
+
+def command(*args,**kwargs):
+    return legacy_command(*args,docker=docker_binary(),**kwargs)
 
 CHECK_SETS = {
     'rules': ['game-core/tests/v2'],

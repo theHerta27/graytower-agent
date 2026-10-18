@@ -139,6 +139,22 @@ class DevelopmentCheckTests(unittest.TestCase):
             with self.assertRaises(sandbox.CheckNotStarted):sandbox.execute(payload,record.append)
         self.assertEqual(record,[])
 
+    def test_image_selection_requires_installed_immutable_image(self):
+        from agent_workbench.development.sandbox import configured_image
+        import json
+        path=self.root/'image.json'
+        self.assertRegex(configured_image(path),r'^sha256:[a-f0-9]{64}$')
+        path.write_text(json.dumps({'image':'latest'}))
+        with self.assertRaises(ValueError):configured_image(path)
+        expected='sha256:'+'a'*64;path.write_text(json.dumps({'image':expected}))
+        self.assertEqual(configured_image(path),expected)
+
+    def test_docker_binary_uses_machine_install_instead_of_fixed_username(self):
+        from agent_workbench.development.sandbox import docker_binary
+        from unittest.mock import patch
+        with patch('shutil.which',return_value='D:/Docker/bin/docker.exe'):
+            self.assertEqual(str(docker_binary()).replace('\\','/'),'D:/Docker/bin/docker.exe')
+
 
 if __name__=='__main__':
     unittest.main()
