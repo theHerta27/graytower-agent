@@ -68,7 +68,7 @@ class ProjectWorkspace:
         self.baseline = json.loads((self.control / 'baseline.json').read_text(encoding='utf-8'))
         if digest(self.baseline) != self.metadata['baseline_tree_hash']:
             raise ValueError('baseline snapshot damaged')
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
     @classmethod
     def create(cls, project, control, ref='HEAD'):
@@ -196,7 +196,30 @@ class ProjectWorkspace:
         path = self._path(name)
         return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
 
-    def write_file(self, operation_id, path, expected_sha256, content, *, _after_write=None):
+    def replace_text(self, operation_id, path, expected_sha256, old_text, new_text, *, _after_write=None):
+        if (not isinstance(old_text,str) or not old_text or not isinstance(new_text,str)
+                or len(old_text)>24000 or len(new_text)>24000):
+            raise ValueError('require bounded nonempty old text and replacement')
+        clean_name(path)
+        if not editable(path):raise ValueError('file is not editable game source')
+        request=encoded({'kind':'replace_text','path':path,'expected_sha256':expected_sha256,
+                         'old_text':old_text,'new_text':new_text}).decode()
+        with self._lock:
+            with closing(sqlite3.connect(self.control/'edits.sqlite',timeout=10)) as db:
+                db.row_factory=sqlite3.Row
+                row=db.execute('SELECT input,content FROM edits WHERE id=?',(operation_id,)).fetchone()
+            if row is not None:
+                if row['input']!=request:raise ValueError('operation id reused with different input')
+                content=row['content']
+            else:
+                before=self.read_file(path)
+                if before['sha256']!=expected_sha256:raise ValueError('file changed; read the current SHA first')
+                if before['text'].count(old_text)!=1:raise ValueError('old text must match exactly once')
+                content=before['text'].replace(old_text,new_text,1)
+            return self.write_file(operation_id,path,expected_sha256,content,
+                                   _after_write=_after_write,_request=request)
+
+    def write_file(self, operation_id, path, expected_sha256, content, *, _after_write=None, _request=None):
         if (not isinstance(operation_id, str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,120}', operation_id)
                 or (expected_sha256 is not None and not re.fullmatch(r'[a-f0-9]{64}', str(expected_sha256)))
                 or (content is not None and not isinstance(content, str))):
@@ -207,7 +230,7 @@ class ProjectWorkspace:
         if content is not None and len(content.encode('utf-8')) > MAX_FILE:
             raise ValueError('edit exceeds file limit')
         desired = hashlib.sha256(content.encode('utf-8')).hexdigest() if content is not None else None
-        value = encoded({'path': path, 'expected_sha256': expected_sha256, 'content': content}).decode()
+        value = _request if _request is not None else encoded({'path': path, 'expected_sha256': expected_sha256, 'content': content}).decode()
         with self._lock, closing(sqlite3.connect(self.control / 'edits.sqlite', timeout=10)) as db, db:
             db.row_factory = sqlite3.Row
             db.execute('BEGIN IMMEDIATE')

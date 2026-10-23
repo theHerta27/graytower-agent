@@ -20,6 +20,10 @@ TOOL_SPECS=[
     tool('write_file','仅修改隔离候选源码/配置。先读取SHA；新增用null SHA，删除用null content。可信回归与原项目不可修改。',
          {'path':TEXT,'expected_sha256':{'type':['string','null'],'pattern':'^[a-f0-9]{64}$'},
           'content':{'type':['string','null'],'maxLength':500000}},['path','expected_sha256','content']),
+    tool('replace_text','在当前SHA对应文件中精确替换一处文本；old_text必须恰好匹配一次。优先用此工具做局部修复，避免重写整个文件。',
+         {'path':TEXT,'expected_sha256':{'type':'string','pattern':'^[a-f0-9]{64}$'},
+          'old_text':{'type':'string','minLength':1,'maxLength':24000},
+          'new_text':{'type':'string','maxLength':24000}},['path','expected_sha256','old_text','new_text']),
     tool('start_check','开始可信回归并立即返回Job。稍后read_check读取结果；修改后应重新检查，旧结果不能证明新候选。',
          {'check_set':{'type':'string','enum':list(CHECK_SETS)}},['check_set']),
     tool('read_check','读取已有Job的真实结果。running请稍后再读；unknown不自动重跑；不得把模型判断当测试结果。',
@@ -66,6 +70,7 @@ class DevelopmentTools:
                     'truncated':start>1 or start-1+count<len(lines) or len(selected)>24000}
         if name=='search_code':return self.workspace.search(args['query'])
         if name=='write_file':return self.workspace.write_file(operation,**args)
+        if name=='replace_text':return self.workspace.replace_text(operation,**args)
         if name=='start_check':return self.jobs.start(self.workspace,args['check_set'])
         if name=='read_check':return self.jobs.read(args['job_id'],self.workspace)
         if name=='start_diagnostic':return self.jobs.start(self.workspace,'diagnostic',diagnostic=args['python'])

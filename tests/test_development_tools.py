@@ -21,7 +21,7 @@ class DevelopmentToolTests(unittest.TestCase):
 
     def test_tools_offer_narrow_files_checks_and_diagnostic_not_shell(self):
         names={t['name'] for t in TOOL_SPECS}
-        self.assertEqual(names,{'project_status','read_file','search_code','write_file','start_check','read_check','start_diagnostic'})
+        self.assertEqual(names,{'project_status','read_file','search_code','write_file','replace_text','start_check','read_check','start_diagnostic'})
         for t in TOOL_SPECS:self.assertFalse(t['inputSchema']['additionalProperties'])
 
     def test_read_search_and_real_edit_then_stale_check(self):
