@@ -14,6 +14,7 @@ def main():
     create=commands.add_parser('create',help='从真实Git版本创建新需求')
     create.add_argument('--project',type=Path,required=True);create.add_argument('--task',type=Path,required=True)
     create.add_argument('--request',required=True);create.add_argument('--ref',default='HEAD')
+    create.add_argument('--tool-profile',choices=['standard','game'],default='standard')
     serve=commands.add_parser('serve',help='打开本机研发工作台')
     serve.add_argument('--data',type=Path,required=True);serve.add_argument('--port',type=int,default=18790)
     serve.add_argument('--runtime-python',type=Path,required=True);serve.add_argument('--project',default='D:/Desktop/graytower-game')
@@ -51,7 +52,7 @@ def main():
             print('灰塔研发助手已准备启动：'+url+'/development',flush=True)
             uvicorn.run(app,host='127.0.0.1',port=args.port)
             return 0
-        if args.action=='create':task=DevelopmentTask.create(args.project,args.task,args.request,args.ref);value=task.summary()
+        if args.action=='create':task=DevelopmentTask.create(args.project,args.task,args.request,args.ref,tool_profile=args.tool_profile);value=task.summary()
         else:
             task=DevelopmentTask(args.task)
             if args.action=='status':value=task.summary()

@@ -7,13 +7,14 @@ from pathlib import Path
 import sys
 import threading
 from ..coding.runtime_adapter import VERSION, model_catalog, safe_environment
-from .runtime import INSTRUCTIONS, build_config, parameters
+from .runtime import instructions, build_config, parameters
 from .workspace import ProjectWorkspace, encoded
 from .checks import CheckJobs
 from .tools import DevelopmentTools
 
 
 def run(request):
+    profile=request.get('tool_profile','standard');base_instructions=instructions(profile)
     clean=safe_environment(os.environ,Path(__file__).resolve().parents[2])
     os.environ.clear();os.environ.update(clean)
     from codex_cli_bin import bundled_codex_path
@@ -24,12 +25,12 @@ def run(request):
     workspace=ProjectWorkspace.open(request['workspace_control'])
     home=control/'codex-home';home.mkdir()
     catalog=model_catalog()
-    catalog['models'][0]['model_messages']['instructions_template']=INSTRUCTIONS
+    catalog['models'][0]['model_messages']['instructions_template']=base_instructions
     (home/'models.json').write_bytes(encoded(catalog))
     (home/'config.toml').write_text(build_config(home,workspace.path,request['endpoint']),encoding='utf-8')
     os.environ['CODEX_HOME']=str(home)
     jobs=CheckJobs(workspace.control/'checks',python=request['tools_python'])
-    tools=DevelopmentTools(workspace,jobs)
+    tools=DevelopmentTools(workspace,jobs,profile)
     thread_id='';lock=threading.Lock()
     def record(value):
         with lock:
@@ -41,12 +42,12 @@ def run(request):
         return result
     client=CodexClient(CodexConfig(cwd=str(workspace.path)),approval_handler=callback)
     timer=threading.Timer(request['timeout_seconds'],client.close);timer.daemon=True
-    result={'schema':'development-runtime-v1','status':'failed','mode':'single','sdk':VERSION,'runtime':VERSION,
+    result={'schema':'development-runtime-v1','status':'failed','mode':'single','tool_profile':profile,'sdk':VERSION,'runtime':VERSION,
             'runtime_sha256':hashlib.sha256(bundled_codex_path().read_bytes()).hexdigest(),
             'before_tree_hash':workspace.inspect()['tree_hash']}
     try:
         client.start();timer.start();client.initialize()
-        thread_id=client.thread_start(parameters(workspace.path)).thread.id
+        thread_id=client.thread_start(parameters(workspace.path,profile)).thread.id
         result['thread_id']=thread_id
         task=client.turn_start(thread_id,request['prompt'])
         while True:

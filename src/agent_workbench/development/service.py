@@ -7,8 +7,8 @@ import time
 from ..coding.responses_transport import CallBudget, responses_endpoint
 from .workspace import ProjectWorkspace, digest, encoded
 from .checks import CheckJobs
-from .runtime import run_runtime, INSTRUCTIONS
-from .tools import TOOL_SPECS
+from .runtime import run_runtime, instructions
+from .tools import tool_specs
 from .sandbox import IMAGE, runner_hash
 from .adoption import Adoption
 
@@ -17,16 +17,19 @@ class DevelopmentTask:
     def __init__(self,control):
         self.workspace=ProjectWorkspace.open(control)
         self.root=self.workspace.control
-        self.request=json.loads((self.root/'request.json').read_text(encoding='utf-8'))['request']
+        request=json.loads((self.root/'request.json').read_text(encoding='utf-8'))
+        self.request=request['request'];self.tool_profile=request.get('tool_profile','standard')
+        tool_specs(self.tool_profile)
         if not isinstance(self.request,str) or not self.request.strip() or len(self.request)>8000:
             raise ValueError('invalid development request')
         self.jobs=CheckJobs(self.root/'checks')
 
     @classmethod
-    def create(cls,project,control,request,ref='HEAD'):
+    def create(cls,project,control,request,ref='HEAD',*,tool_profile='standard'):
+        tool_specs(tool_profile)
         if not isinstance(request,str) or not request.strip() or len(request)>8000:raise ValueError('require a clear bounded request')
         workspace=ProjectWorkspace.create(project,control,ref)
-        (workspace.control/'request.json').write_bytes(encoded({'request':request}))
+        (workspace.control/'request.json').write_bytes(encoded({'request':request,'tool_profile':tool_profile}))
         return cls(control)
 
     def summary(self):
@@ -39,7 +42,7 @@ class DevelopmentTask:
         elif current:validation='检查未形成确定结论'
         else:validation='尚未验证'
         adoption=Adoption(self.workspace).status()
-        return {**view,'request':self.request,'adoption':adoption,
+        return {**view,'request':self.request,'tool_profile':self.tool_profile,'adoption':adoption,
                 'candidate_state':adoption['note'] if adoption else '原项目尚未改动',
                 'validation':validation,'checks':checks}
 
@@ -51,12 +54,13 @@ class DevelopmentTask:
         folder=self._batch(run_id)
         folder.mkdir(parents=True,exist_ok=False)
         tree=self.workspace.snapshot()
-        preview={'request':self.request,'instructions':INSTRUCTIONS,'tools':TOOL_SPECS,
+        capability={'instructions':instructions(self.tool_profile),'tools':tool_specs(self.tool_profile),'tool_profile':self.tool_profile}
+        preview={'request':self.request,**capability,
                  'files':[{'path':name,'text':base64.b64decode(v['content']).decode('utf-8')}
                           for name,v in tree['files'].items() if not name.endswith('.gz')]}
         scope={'schema':'development-outbound-v1','created_at_ns':time.time_ns(),'endpoint':'https://api.deepseek.com/responses','model':'deepseek-flash',
             'baseline_commit':self.workspace.metadata['baseline_commit'],'candidate_tree_hash':digest(tree),
-            'request_hash':digest(self.request),'preview_hash':digest(preview),'capability_hash':digest({'instructions':INSTRUCTIONS,'tools':TOOL_SPECS}),
+            'request_hash':digest(self.request),'preview_hash':digest(preview),'capability_hash':digest(capability),'tool_profile':self.tool_profile,
             'image':IMAGE,'runner_hash':runner_hash(),'grant':grant,
             'material':'需求、允许范围内源码/配置/可信回归文本、工具结果、候选Diff和Agent分析；不发送凭据、整个仓库或无关文件。',
             'actions':'只修改隔离候选，可运行受限回归/诊断；不修改原游戏、不运行Unity、不发布。'}
@@ -74,7 +78,7 @@ class DevelopmentTask:
         preview=json.loads((folder/'outbound-preview.json').read_text(encoding='utf-8'))
         if (scope_hash!=authorized_scope_hash or digest(scope)!=scope_hash or digest(preview)!=scope['preview_hash']
             or digest(self.workspace.snapshot())!=scope['candidate_tree_hash'] or digest(self.request)!=scope['request_hash']
-            or digest({'instructions':INSTRUCTIONS,'tools':TOOL_SPECS})!=scope['capability_hash']
+            or digest({'instructions':instructions(self.tool_profile),'tools':tool_specs(self.tool_profile),'tool_profile':self.tool_profile})!=scope['capability_hash']
             or IMAGE!=scope['image'] or runner_hash()!=scope['runner_hash']):
             raise ValueError('authorization scope or current candidate changed; prepare a new batch')
         try:(folder/'claimed').mkdir()
@@ -84,7 +88,7 @@ class DevelopmentTask:
             with responses_endpoint(folder/'gateway',scope['grant'],sender) as (endpoint,budget):
                 try:
                     result['runtime']=run_runtime(runtime_python=runtime_python,tools_python=tools_python,
-                        workspace_control=self.root,control=folder/'runtime',endpoint=endpoint,prompt=self.request)
+                        workspace_control=self.root,control=folder/'runtime',endpoint=endpoint,prompt=self.request,tool_profile=self.tool_profile)
                     result['state']=result['runtime']['status']
                 finally:result['budget']=budget.summary()
             return result

@@ -3,6 +3,7 @@ import json
 import re
 from .workspace import digest
 from .sandbox import CHECK_SETS
+from .scenario import scenario_script
 
 
 def tool(name, description, properties, required=()):
@@ -33,6 +34,17 @@ TOOL_SPECS=[
 ]
 SCHEMAS={t['name']:t['inputSchema'] for t in TOOL_SPECS}
 
+SCENARIO_TOOL=tool('run_scenario',
+    '在真实候选中观察小段规则行动的前后状态、事件和异常，返回后台Job，随后read_check读取。仅OBSERVATION，不是验收。'
+    'scenario_json对象可含initial_skill_points(0..9)、skill_points_max(1..9)、最多4个shields({target_id,value,duration})和最多8个actions。'
+    'actions为{kind:resource,gained:int,spent:int}、{kind:skill,actor_id,skill_id,target_ids:[id]}或{kind:tick_status,actor_id}。ID先读当前配置。',
+    {'scenario_json':{'type':'string','minLength':2,'maxLength':6000}},['scenario_json'])
+
+
+def tool_specs(profile='standard'):
+    if profile not in ('standard','game'):raise ValueError('unsupported tool profile')
+    return [*TOOL_SPECS,*([SCENARIO_TOOL] if profile=='game' else [])]
+
 
 def validate_arguments(args,schema):
     """Validate this fixed, flat tool catalog without expanding the SDK environment."""
@@ -52,8 +64,9 @@ def validate_arguments(args,schema):
 
 
 class DevelopmentTools:
-    def __init__(self,workspace,jobs):
+    def __init__(self,workspace,jobs,profile='standard'):
         self.workspace=workspace;self.jobs=jobs
+        self.schemas={t['name']:t['inputSchema'] for t in tool_specs(profile)}
 
     def dispatch(self,name,args,operation):
         if name=='project_status':
@@ -74,6 +87,7 @@ class DevelopmentTools:
         if name=='start_check':return self.jobs.start(self.workspace,args['check_set'])
         if name=='read_check':return self.jobs.read(args['job_id'],self.workspace)
         if name=='start_diagnostic':return self.jobs.start(self.workspace,'diagnostic',diagnostic=args['python'])
+        if name=='run_scenario':return self.jobs.start(self.workspace,'diagnostic',diagnostic=scenario_script(args['scenario_json']))
         raise ValueError('unknown tool')
 
     def handle(self,method,params,primary_thread):
@@ -84,8 +98,8 @@ class DevelopmentTools:
             if not primary_thread or params.get('threadId')!=primary_thread:
                 raise ValueError('only the primary task thread may use project tools')
             name=params.get('tool');args=params.get('arguments')
-            if name not in SCHEMAS:raise ValueError('unknown tool')
-            validate_arguments(args,SCHEMAS[name])
+            if name not in self.schemas:raise ValueError('unknown tool')
+            validate_arguments(args,self.schemas[name])
             call_id=params.get('callId')
             if not isinstance(call_id,str) or not call_id:raise ValueError('missing tool call identity')
             value=self.dispatch(name,args,digest({'thread':primary_thread,'call':call_id}))

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "resource-atomicity",
+    "kind": "natural_bug",
+    "request": "请调查并修复战技点接口的一个真实问题：向skill_points传入负数gained或spent时，报错前可能已改变状态。负数必须在任何状态或事件副作用之前以ValueError拒绝。保持原有六参数调用接口、合法增减、上限与事件含义兼容，不改可信测试，不修改原项目。请通过实际执行核对并说明改动和限制。"
+  },
+  {
+    "id": "configurable-cap",
+    "kind": "new_requirement",
+    "request": "希望把固定为5的战技点上限改为可配置。沿用已有rules.skill_points_max字段，允许严格整数1到9，默认仍为5。当前战斗通过BattleState.skill_points_max保存该上限，skill_points保留原六参数接口；资源增长、overflow、状态不变量、开场战技点补给都遵循当前上限。Scenario允许0到9的初始点数，但超过所选上限应在initial_state拒绝；满池补给仍拒绝。旧配置、默认5的既有轨迹和其他玩法保持兼容。只改候选的规则/配置，不改可信测试；请阅读关联实现后完成并实际检查。"
+  },
+  {
+    "id": "shield-toughness-review",
+    "kind": "correct_behavior_review",
+    "request": "策划发现攻击伤害被Boss护盾完全吸收时，命中弱点仍然会削减韧性，怀疑这是Bug。请依据现有实现、规则和可信测试核对，不要直接按猜测改代码。若这是既有正确行为，应说明依据并保持候选源码和配置不变。请实际核对生命、护盾和韧性/击破事件之间的关系，给出中文结论；无法确定的地方明确说明。"
+  }
+]
