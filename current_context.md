@@ -1,5 +1,9 @@
 # 当前上下文
 
+## 2026-10-25：用户要求上传GitHub，已同步
+
+已核对theHerta27/mihoyo-agent-project仍为Private，框架改造提交e04d058已推送至feature/reliable-game-agent，远端与本机提交逐字核对一致；main未合并。本节优先于下方改造阶段“本轮不推送”的历史状态。后续同步说明文档沿同一分支提交；以Git日志及远端分支为准。
+
 ## 2026-10-25框架主线实施（以本节优先）
 
 用户已批准同一灰塔项目使用LangGraph＋LangChain＋轻量项目记忆，撤回development固定Codex Runtime前提。已实现agent.py单Agent图、ChatDeepSeek工具消息适配、有限上下文、稳定模型决策落账、澄清/检查暂停与恢复、SQLite记忆及页面CRUD；候选、真实Docker Job、人工采用恢复继续复用。默认启动不要求SDK，旧Runtime/旧V1/Herta和封存结果保持原状。
