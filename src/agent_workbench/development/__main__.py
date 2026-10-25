@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 import sys
 from .service import DevelopmentTask
-from ..coding.responses_transport import deepseek_sender
 
 
 def main():
@@ -17,18 +16,20 @@ def main():
     create.add_argument('--tool-profile',choices=['standard','game'],default='standard')
     serve=commands.add_parser('serve',help='打开本机研发工作台')
     serve.add_argument('--data',type=Path,required=True);serve.add_argument('--port',type=int,default=18790)
-    serve.add_argument('--runtime-python',type=Path,required=True);serve.add_argument('--project',default='D:/Desktop/graytower-game')
+    serve.add_argument('--runtime-python',type=Path,help=argparse.SUPPRESS);serve.add_argument('--project',default='D:/Desktop/graytower-game')
     serve.add_argument('--open-browser',action='store_true');serve.add_argument('--no-model',action='store_true')
     for name,help_text in [('status','查看候选与实际检查'),('check','开始受限可信回归'),('receipt','读取已有作业'),
-                           ('prepare','准备模型材料和预算，不发起调用'),('run','按明确授权的批次调用模型'),('export','导出真实Diff供人工审阅')]:
+                           ('prepare','准备模型材料和预算，不发起调用'),('run','按明确授权的批次调用模型'),
+                           ('resume','按原额度继续已暂停任务'),('export','导出真实Diff供人工审阅')]:
         sub=commands.add_parser(name,help=help_text);sub.add_argument('--task',type=Path,required=True)
         if name=='check':sub.add_argument('--set',default='rules')
         if name=='receipt':sub.add_argument('--job',required=True)
-        if name in ('prepare','run'):sub.add_argument('--run-id',required=True)
+        if name in ('prepare','run','resume'):sub.add_argument('--run-id',required=True)
         if name=='prepare':sub.add_argument('--grant',type=Path,required=True)
-        if name=='run':
+        if name in ('run','resume'):
             sub.add_argument('--authorize-scope-sha256',required=True)
-            sub.add_argument('--runtime-python',type=Path,required=True)
+            sub.add_argument('--runtime-python',type=Path,help=argparse.SUPPRESS)
+        if name=='resume':sub.add_argument('--answer')
     args=parser.parse_args()
     try:
         if args.action=='serve':
@@ -59,8 +60,8 @@ def main():
             elif args.action=='check':value=task.jobs.start(task.workspace,args.set)
             elif args.action=='receipt':value=task.jobs.read(args.job,task.workspace)
             elif args.action=='prepare':value=task.prepare(args.run_id,json.loads(args.grant.read_text(encoding='utf-8-sig')))
-            elif args.action=='run':value=task.execute(args.run_id,args.authorize_scope_sha256,args.runtime_python,Path(sys.executable),
-                sender=deepseek_sender(os.environ.get('DEEPSEEK_API_KEY','')))
+            elif args.action in ('run','resume'):value=task.execute(args.run_id,args.authorize_scope_sha256,
+                api_key=os.environ.get('DEEPSEEK_API_KEY',''),resume=args.action=='resume',answer=getattr(args,'answer',None))
             else:value=task.export()
         print(json.dumps(value,ensure_ascii=False,indent=2))
     except (ValueError,OSError,RuntimeError) as exc:

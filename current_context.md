@@ -1,5 +1,25 @@
 # 当前上下文
 
+## 2026-10-25框架主线实施（以本节优先）
+
+用户已批准同一灰塔项目使用LangGraph＋LangChain＋轻量项目记忆，撤回development固定Codex Runtime前提。已实现agent.py单Agent图、ChatDeepSeek工具消息适配、有限上下文、稳定模型决策落账、澄清/检查暂停与恢复、SQLite记忆及页面CRUD；候选、真实Docker Job、人工采用恢复继续复用。默认启动不要求SDK，旧Runtime/旧V1/Herta和封存结果保持原状。
+
+本轮无新外部模型调用。新图已用明确标注脚本模型，在临时游戏clone完成资源6项FAIL→修订6项PASS、完整规则99项PASS、待确认记忆提案、采用/恢复；原游戏tracked clean。初次Docker因本机访问权限被判not_started，后续显式同Job恢复；Git跨账户safe.directory问题以单命令配置解决，原失败日志保留。
+
+独立审查发现3项Important（所选run的scope混用、checkpoint有问题但结果未发布时丢失问题/非法resume、后准备的预览遮住待继续任务），已由失败复现覆盖并修复，同时统一畸形澄清和CLI放弃状态；32项图/服务/API回归通过。最终完整341项（337通过、4既有skip，250.418秒）、前端23项/构建通过，Windows PowerShell解析与启动复用通过；记录于local-data/framework-migration-20261025/final-after-review.log。已确认记忆在第二任务材料中召回，浏览器实际创建新候选与新增记忆通过。
+
+当前方案见项目说明.md、开始使用.md和docs/superpowers/plans/2026-10-25-graytower-framework.md；过程与证据在开发记录.md。新scope为development-langgraph-v1、官方chat/completions，旧Responses批次不续用。新框架真实DeepSeek任务质量仍待用户页面确认新材料/预算后体验；不宣称多Agent、框架质量提升或通用游戏适配。本轮不自动推送GitHub。
+
+## 2026-10-25最新：学习主线讨论与首次真实结果
+
+三题已按原scope各尝试一次：34次已知DeepSeek调用、0未知，按封存峰价估0.038383104美元，未用14次关闭。资源候选一行修复，独立7/7和规则99/99通过，但16次额度耗尽、Runtime失败；可配置上限无修改、5/9未实现，11次后本地网关拒绝；护盾核对无修改、1/1和99通过，7次后网关拒绝、无完整解释。后两题仅有ValueError/通用400，末次请求接近128k限制，精确原因未定位，不把推测写成事实。原游戏未改，三题均无完整Agent交付；候选验收与流程状态分开。
+
+用户明确项目用于学习、向面试官证明对Agent的理解，不再要求优于通用Agent；希望任务清楚、目标明确、结果直观，适合时尽量使用LangGraph/LangChain。当前在讨论整体方案，暂停继续编码与新增模型调用。现有development主线仍为Codex Runtime/官方SDK；旧verification已有LangGraph，models.py已有LangChain ChatDeepSeek，但尚未接入新development主路径。不要把待讨论方案当已实现，不重新启动旧收费批次。
+
+## 2026-10-25：三题真实模型批次获准恢复
+
+用户明确允许真实模型，恢复同一封存范围9a5a2bb28b6036f62ff8aa6075d378c4a85c0862a893abbf768131bb2b7989e9；三题standard各一次，16／24／8次、总48次/USD2.15，只改候选、不应用。保留昨日暂缓与零用量原件，新增authorization-approved-20261025.json；不创建替代目录或重置旧额度。代码6fb8935未变，准备先核对范围、账本与Docker，再一次执行；运行结果随后追加，不预设成功。
+
 ## 2026-10-24：优先真实任务，模型暂缓
 
 用户面试临近，范围收缩为三题standard单Agent各一次，暂停领域工具对照与其他扩展。三题与独立验收已准备；真实Docker原游戏结果分别为资源4/7、可配置上限5/9、护盾正确行为1/1，原99项规则通过。已补精确片段替换并验证，SDK/Docker反馈冒烟通过但为脚本响应。

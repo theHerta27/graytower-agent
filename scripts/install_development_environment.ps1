@@ -6,10 +6,9 @@ Write-Host '[1/4] 创建本机Python环境（不包含任何模型调用）'
 if (!(Test-Path '.venv/Scripts/python.exe')) { & py -3.11 -m venv .venv; if ($LASTEXITCODE -ne 0) { throw '请先安装Python 3.11。' } }
 & ./.venv/Scripts/python.exe -m pip install -r requirements-v1.lock.txt
 if ($LASTEXITCODE -ne 0) { throw 'Python依赖安装失败，请检查网络后重试。' }
-Write-Host '[2/4] 安装官方SDK及配对Runtime'
-if (!(Test-Path '.venv-coding/Scripts/python.exe')) { & py -3.11 -m venv .venv-coding }
-& ./.venv-coding/Scripts/python.exe -m pip install -r requirements-coding.lock.txt
-if ($LASTEXITCODE -ne 0) { throw '官方SDK依赖安装失败。' }
+Write-Host '[2/4] 检查LangGraph与LangChain环境（新主线无需Codex SDK）'
+& ./.venv/Scripts/python.exe -c 'from langgraph.graph import StateGraph; from langchain_deepseek import ChatDeepSeek; from langgraph.checkpoint.sqlite import SqliteSaver; print("Agent framework ready")'
+if ($LASTEXITCODE -ne 0) { throw 'Agent框架依赖检查失败。' }
 Write-Host '[3/4] 构建浏览器页面'
 Push-Location frontend
 try { & npm.cmd ci --ignore-scripts; if ($LASTEXITCODE -ne 0) { throw '前端依赖安装失败。' }; & npm.cmd run build; if ($LASTEXITCODE -ne 0) { throw '页面构建失败。' } } finally { Pop-Location }
@@ -23,4 +22,4 @@ $taskImage=(& $taskDockerPath image inspect graytower-development-runner:py3119 
 if ($taskImage -notmatch '^sha256:[a-f0-9]{64}$') { throw '无法确认镜像身份。' }
 New-Item -ItemType Directory -Path local-data -Force | Out-Null
 [IO.File]::WriteAllText((Join-Path $taskRoot 'local-data/development-image.json'),(@{image=$taskImage;python='3.11.9'} | ConvertTo-Json),[Text.UTF8Encoding]::new($false))
-Write-Host '安装完成。请双击“打开灰塔研发助手.cmd”。不会把SDK、Runtime或密钥上传GitHub。'
+Write-Host '安装完成。请双击“打开灰塔研发助手.cmd”。新默认路径使用LangGraph和LangChain，密钥只保存在本机。'

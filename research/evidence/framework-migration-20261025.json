@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-25",
+  "project": "Graytower development workbench",
+  "engine": "LangGraph StateGraph single Agent",
+  "model_components": "LangChain Core, ChatDeepSeek",
+  "default_endpoint": "https://api.deepseek.com/chat/completions",
+  "codex_sdk_required_for_default_path": false,
+  "external_model_calls_this_migration": 0,
+  "real_model_quality_confirmed": false,
+  "python_tests": {"total": 341, "passed": 337, "existing_skips": 4, "elapsed_seconds": 250.418},
+  "frontend_tests": {"passed": 23, "production_build": "PASS"},
+  "powershell_parse_and_launcher_reuse": "PASS",
+  "review": {"critical": 0, "important_found": 3, "important_fixed_with_red_green": 3, "related_regression_tests_passed": 32},
+  "engineering_probe": {
+    "model": "explicit scripted model, not DeepSeek",
+    "real_git_and_docker": true,
+    "initial_resource_checks": {"verdict": "FAIL", "total": 6},
+    "revised_resource_checks": {"verdict": "PASS", "total": 6},
+    "full_rules": {"verdict": "PASS", "total": 99},
+    "docker_resources_removed": true,
+    "temporary_clone_adoption_and_restore": "PASS",
+    "pending_memory_then_confirmed_cross_task_preview": "PASS",
+    "original_game_modified": false
+  },
+  "browser": {"fresh_candidate_created": true, "memory_saved": true, "new_model_calls_enabled": false},
+  "local_raw_evidence": "D:/Desktop/mihoyo-agent-project-next/local-data/framework-migration-20261025",
+  "limits": [
+    "Only the current Graytower Python rules and v2 configs are supported.",
+    "No new DeepSeek quality, success-rate or speedup claim.",
+    "Scripted engineering probe is not autonomous model performance.",
+    "Single-machine SQLite recovery; unknown external calls and jobs are not automatically retried.",
+    "Historical Codex, A2A and NPC code remains as reference, outside the new default path.",
+    "Changes are local; no GitHub push was performed."
+  ]
+}

@@ -42,7 +42,7 @@ class DevelopmentWebTests(unittest.TestCase):
     def test_model_preview_is_free_and_run_needs_explicit_both_consents(self):
         from unittest.mock import patch
         task=self.create();prefix='/api/development/tasks/'+task['task_id']
-        with patch('agent_workbench.development.web.deepseek_sender') as sender:
+        with patch('agent_workbench.development.service.ToolModel') as sender:
             prepared=self.client.post(prefix+'/prepare',json={})
             self.assertEqual(prepared.status_code,200,prepared.text)
             scope=prepared.json()
@@ -104,12 +104,78 @@ class DevelopmentWebTests(unittest.TestCase):
         class InlineThread:
             def __init__(self,target,**kwargs):self.target=target
             def start(self):self.target()
-        with patch('agent_workbench.development.web.threading.Thread',InlineThread),patch('agent_workbench.development.web.deepseek_sender') as sender:
+        with patch('agent_workbench.development.web.threading.Thread',InlineThread),patch('agent_workbench.development.service.ToolModel') as sender:
             detail=bench.start(view['task_id'],'old-scope',scope['scope_sha256'])
             sender.return_value.assert_not_called()
         self.assertFalse((task._batch('old-scope')/'claimed').exists())
         self.assertEqual(detail['runs'][-1]['state'],'not_started')
         self.assertIn('重新准备',detail['runs'][-1]['error_message'])
         self.assertNotIn('never-expose',json.dumps(detail))
+
+    def test_new_default_reports_langgraph_without_sdk_and_memory_crud_is_project_bound(self):
+        status=self.client.get('/api/development/status').json()
+        self.assertEqual(status['engine'],'langgraph')
+        self.assertTrue(status['runtime_available'])
+        task=self.create();prefix='/api/development/tasks/'+task['task_id']
+        saved=self.client.post(prefix+'/memories',json={'action':'add','content':'资源参数非法时必须先拒绝。','kind':'constraint','version':'*'})
+        self.assertEqual(saved.status_code,200,saved.text)
+        listed=self.client.get(prefix+'/memories').json()
+        self.assertEqual(len(listed['memories']),1)
+        item=listed['memories'][0];self.assertEqual(item['status'],'confirmed')
+        self.assertEqual(self.client.post(prefix+'/memories',json={'action':'update','id':item['id'],'content':'资源参数非法不能改变状态。'}).status_code,200)
+        self.assertEqual(self.client.post(prefix+'/memories',json={'action':'delete','id':item['id']}).status_code,200)
+        self.assertEqual(self.client.get(prefix+'/memories').json()['memories'],[])
+        invalid=self.client.post(prefix+'/memories',json={'action':'add','version':'*'})
+        self.assertEqual(invalid.status_code,422,invalid.text)
+
+    def test_web_pause_and_resume_use_saved_run_and_do_not_call_sdk(self):
+        from test_development_agent import ScriptModel,call
+        from langchain_core.messages import AIMessage
+        task=self.create();prefix='/api/development/tasks/'+task['task_id']
+        scope=self.client.post(prefix+'/prepare',json={}).json()
+        model=ScriptModel([call('ask_user',{'question':'应改为多少？'},'ask'),AIMessage(content='收到，目标7。')])
+        class InlineThread:
+            def __init__(self,target,**kwargs):self.target=target
+            def start(self):self.target()
+        with patch.object(self.app.state.workbench,'launch',side_effect=lambda work:work()),patch('agent_workbench.development.service.ToolModel',return_value=model):
+            started=self.client.post(prefix+'/run',json={'run_id':scope['run_id'],'scope_sha256':scope['scope_sha256'],'accept_data':True,'accept_cost':True})
+            self.assertEqual(started.status_code,200,started.text)
+            self.assertEqual(started.json()['model_state'],'waiting_user',started.json()['runs'])
+            self.assertEqual(started.json()['resumable_run']['question'],'应改为多少？')
+            result=self.client.post(prefix+'/resume',json={'run_id':scope['run_id'],'scope_sha256':scope['scope_sha256'],'answer':'目标7'})
+            self.assertEqual(result.status_code,200,result.text)
+            self.assertEqual(result.json()['model_state'],'completed')
+            self.assertEqual(result.json()['model_summary'],'收到，目标7。')
+            self.assertEqual(len(model.saved),2)
+
+    def test_scope_identity_belongs_to_selected_run_not_directory_enumeration(self):
+        view=self.create();bench=self.app.state.workbench;task=bench.task(view['task_id'])
+        for name,stamp in [('aaa-new',200),('zzz-old',100)]:
+            folder=task._batch(name);folder.mkdir(parents=True)
+            (folder/'claimed').mkdir()
+            (folder/'outbound-scope.json').write_text(json.dumps({'schema':'development-langgraph-v1','created_at_ns':stamp,'scope_sha256':'scope-'+name}))
+            (folder/'run-result.json').write_text(json.dumps({'state':'waiting_user','closed':False,'agent':{'question':name}}))
+        value=bench.detail(view['task_id'])
+        self.assertEqual(value['resumable_run']['scope_sha256'],'scope-aaa-new')
+
+    def test_later_preview_cannot_hide_or_bypass_unfinished_original_run(self):
+        from test_development_agent import ScriptModel,call
+        view=self.create();bench=self.app.state.workbench;task=bench.task(view['task_id'])
+        a=task.prepare('original',DEFAULT_GRANT);b=task.prepare('later-preview',DEFAULT_GRANT)
+        model=ScriptModel([call('ask_user',{'question':'目标是多少？'},'ask')])
+        task.execute('original',a['scope_sha256'],model=model)
+        self.assertEqual(bench.detail(view['task_id'])['resumable_run']['run_id'],'original')
+        with self.assertRaises(ValueError):task.execute('later-preview',b['scope_sha256'],model=model)
+        self.assertFalse((task._batch('later-preview')/'claimed').exists())
+
+    def test_question_is_visible_from_checkpoint_when_result_publication_was_lost(self):
+        from test_development_agent import ScriptModel,call
+        view=self.create();bench=self.app.state.workbench;task=bench.task(view['task_id'])
+        a=task.prepare('original',DEFAULT_GRANT)
+        task.execute('original',a['scope_sha256'],model=ScriptModel([call('ask_user',{'question':'需要多少？'},'ask')]))
+        (task._batch('original')/'run-result.json').unlink()
+        detail=bench.detail(view['task_id'])
+        self.assertEqual(detail['resumable_run']['question'],'需要多少？')
+        self.assertEqual(detail['resumable_run']['status'],'waiting_user')
 
 if __name__=='__main__':unittest.main()

@@ -1,5 +1,11 @@
 # 给简历撰写AI的项目资料
 
+> **2026-10-25当前主线优先说明：** 已在同一next工作树实施LangGraph＋LangChain单研发Agent，替换新默认路径的Codex Runtime，新增有限上下文、基本恢复和SQLite项目记忆。当前事实与简历建议请先读[项目说明](项目说明.md)。下方10月23日资料中的Runtime路线、无记忆和不支持模型任务恢复表述属于历史，不能再作为新默认架构介绍。
+>
+> 路径仍为 `D:\Desktop\mihoyo-agent-project-next`，游戏为 `D:\Desktop\graytower-game`；GitHub仍为私密仓库 https://github.com/theHerta27/mihoyo-agent-project ，分支 `feature/reliable-game-agent`。**此次改造尚未推送；远端不代表本机最新树。** 主入口agent.py/model.py/context.py/memory.py位于src/agent_workbench/development，候选/检查/采用领域模块继续复用。
+>
+> 新框架已完成脚本模型＋真实Docker工程链路，不把它写成DeepSeek成功率。此前34次真实Runtime调用及失败保留，新框架仍待真实模型任务确认。不写多Agent/A2A为当前主线，不要求优于通用Agent，不虚构商业用户或提升比例。
+
 整理日期：2026年10月23日。用于读取本地材料、核对事实并撰写Agent开发岗简历。**重点是简单、具体、能解释清楚，不堆技术名词，不把目标当成成果。**
 
 **10月24日补充：** 已准备三项真实任务并在原游戏中确认待修问题/正确行为，补了精确片段替换；用户随后选择暂不调用模型，因此仍无新链路真实模型修复成绩。原游戏99项通过不能写成99个修复任务；可选领域诊断和对照已暂停，不增列为当前卖点。

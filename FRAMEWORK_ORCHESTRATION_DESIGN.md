@@ -1,5 +1,7 @@
 # 四能力编排、A2A边界与恢复协议
 
+> **2026-10-25主线调整：** 当前development以一个LangGraph研发Agent替代Codex主循环，LangChain提供ChatDeepSeek/消息/工具组件。checkpoint负责流程位置，模型决策、编辑、Job receipt与采用各有领域记录；跨任务记忆独立存SQLite，按项目/版本/确认状态检索。具体见[项目说明](项目说明.md)与development/agent.py。下方跨产品协议设计保留作历史参考；本轮不实施分布式恢复或默认A2A。
+
 **2026-10-05 Coding实现边界：** 官方SDK/CLI0.160.0独占主循环/子调度，真实DeepSeek文件修改和原生Review后绑定最终树冻结候选，同A2A独立QA已跑通。工作台持久operation先于执行；同ID重提读原结果，完整Runtime收据可零模型收尾，缺失/未知不重启模型。关闭授权不能因重开网页或新目录续用。源数据导入崩溃后按原候选/receipt核对收尾。尚无任意Runtime续聊/全取消或code/build支持，见[真实证据](research/evidence/coding-live-workbench-20261005.md)。
 
 日期：2026-10-05。当前设计按Coding/Config/Verification/NPC划分；本文件替代旧Verifier生成候选/自行优化的图。与[总体方案](TECHNICAL_PROPOSAL.md)、[实施路线](IMPLEMENTATION_ROADMAP.md)共同构成实现基线。第7、8节明确保留历史已实现子集；目标图、协议与生产保障不因写入本文件而算已交付。

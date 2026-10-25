@@ -2,7 +2,17 @@
 
 **当前新入口：** 双击 **打开灰塔研发助手.cmd**，打开 http://127.0.0.1:18790/development 。第一次使用请读[开始使用](开始使用.md)；业务定位、技术取舍与求职表述见[项目说明](项目说明.md)。
 
-## 新主线进度（2026-10-18）
+## 当前主线（2026-10-25）
+
+新研发入口采用 **LangGraph＋LangChain 的单 Agent**：动态决定调查、修改、检查和修订。Codex Runtime/SDK退出新默认路径，历史实现和实验保留；Herta不改。
+
+主要实现位于 [`development/agent.py`](src/agent_workbench/development/agent.py)（图与恢复）、[`model.py`](src/agent_workbench/development/model.py)（ChatDeepSeek工具调用与预算）、[`context.py`](src/agent_workbench/development/context.py)（有限上下文）、[`memory.py`](src/agent_workbench/development/memory.py)（有来源和版本的项目记忆）。候选、Docker检查和人工采用仍复用原领域模块。
+
+页面支持新需求、真实源码Diff、检查、澄清回复、原任务继续、项目记忆管理、人工采用和恢复。新默认安装无需Codex SDK；仍只处理当前灰塔Python规则与配置，不把图节点、检查程序叫作多个Agent。
+
+新图已在临时游戏副本完成真实Docker的“资源检查失败→脚本决定修订→资源6项及规则99项通过→人工采用→恢复”，并验证待确认记忆提案。**模型决定来自明确标注的脚本，0次外部调用；这是工程链路证据，不是真实DeepSeek修复成绩。** 当前真实模型质量仍待新框架下实际任务确认，旧封存实验不可续用。操作见[开始使用](开始使用.md)，原理与求职定位见[项目说明](项目说明.md)。
+
+<details><summary>2026-10-18的Runtime阶段记录（历史）</summary>
 
 新代码位于 [`src/agent_workbench/development`](src/agent_workbench/development)。它从真实灰塔Git提交创建隔离候选，让单个Codex Runtime通过检索、读取、编辑和真实检查反馈继续修订，不按旧演示题号分支。
 
@@ -11,6 +21,8 @@
 已验证真实Runtime＋Docker能够在同一线程完成“检查失败→修订→通过”，其中模型响应为本地脚本，不能当真实模型质量成绩。匹配Python3.11.9环境后，完整游戏规则99项全部通过；页面在临时游戏副本走通创建、手工候选修改、真实99项检查、采用、恢复，真实原游戏未改。本轮0外部模型调用，真实模型自主修复留给用户亲测。新资源参数检查在原游戏发现2项失败，作为真实待修问题保留。
 
 想了解这轮具体怎么开发，读[开发记录](开发记录.md)：保留失败、修正、命令原始记录位置和每阶段提交。
+
+</details>
 
 ## 旧V1演示入口（2026-10-08，保留参考）
 

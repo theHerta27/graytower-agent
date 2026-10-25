@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群总体技术方案
 
+> **2026-10-25当前方案：** 用户已批准同一灰塔项目迁移为LangGraph＋LangChain单研发Agent，SQLite项目记忆与基本恢复，复用候选、Docker检查和人工采用；Herta不改，NPC退出主线，A2A/多Agent不进入默认链路。当前设计、源码职责和证据边界以[项目说明](项目说明.md)及[本轮实施计划](docs/superpowers/plans/2026-10-25-graytower-framework.md)为准。下方四能力/固定Runtime路线保留作历史，不再约束新主线。
+
 > 2026-10-08最终收尾（本段优先于早期状态）：正式CodingService已接代码候选，同一独立A2A Verification服务以LangGraph编排、MCP读取冻结材料并调用受限Docker执行固定检查。Task Service负责需求/候选/批准/报告关联，SQLite保存物理receipt与本地版本激活历史；不新增总控模型。Config采纳影响新开的真实规则试玩，代码采纳保存并选择独立复检源码版本，不自动替换Unity。护盾链路真实通过，战技点候选接口不兼容首次检查失败且禁止采纳；用户选择先交付亲测，追加修订未执行。普通入口18784关闭模型，操作以新版[中文使用手册](使用手册.md)为准。保留单机边界、已有NPC剧情和诚实的统计/协作证据，不宣布通用代码平台或协作质量增益。
 
 > 2026-10-08 实施收敛：以用户批准的《计划文档.md》为本轮执行依据。Task Service 是确定性业务层，复用 Config 的 LangGraph、Codex Runtime 和独立 Verification，不增加总控模型。统一任务中心与同源 JSON/Excel 已交付；代码候选采用固定基线 Git worktree、不可变补丁/源码与独立 Docker 执行，已完成真实护盾修复与四项容器测试，统一代码QA委托待接。部署保持单机/本地/SQLite，NPC 玩家入口保留。当前入口和边界见《使用手册》第七、八节及《实施路线》顶部。
