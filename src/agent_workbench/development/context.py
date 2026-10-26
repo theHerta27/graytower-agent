@@ -28,6 +28,25 @@ def tool_text(value, byte_limit=6000):
     return clipped(json.dumps(value, ensure_ascii=False, sort_keys=True), byte_limit)
 
 
+def knowledge_text(value):
+    """Keep valid JSON and source IDs; full prose is available in bounded pages."""
+    def source(hit):
+        return {key:hit[key] for key in ('id','version','start_line','end_line')} | {
+            'path':clipped(hit['path'],1000),'heading':clipped(hit['heading'],600)}
+    if isinstance(value,list):
+        results=[source(hit)|{'excerpt':hit['text'][:180]} for hit in value]
+        output={'results':results,'matched':len(value),'note':'用read_knowledge读取正文，按next_char继续；出处全文保留在任务证据。'}
+        while results and len(json.dumps(output,ensure_ascii=False).encode('utf-8'))>5500:
+            results.pop()
+        output['returned']=len(results)
+    else:
+        output=source(value)|{key:value[key] for key in ('text','start_char','next_char','total_chars')}
+    text=json.dumps(output,ensure_ascii=False,sort_keys=True)
+    if len(text.encode('utf-8'))>5500:
+        raise ValueError('knowledge context page exceeds allowance')
+    return text
+
+
 def bounded_messages(messages, *, instructions, memories, max_bytes):
     """Keep complete tool-call groups; discard old bodies rather than orphan tools."""
     if max_bytes < 4000:

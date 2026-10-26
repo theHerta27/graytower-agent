@@ -1,5 +1,9 @@
 # 项目群协作约定
 
+- 2026-10-27本轮已完成：资料/图/页面、本地词法评测及真实三题LangGraph基线。用户明确授权scope685e5428419df9a3e34d0b10a095e960cfb66d9050a35a853b2fa2c7586293d5后实际51/52次、峰价估USD0.094583772、0未知/请求失败，余1关闭。资源修复7/7及99/99通过；可配置上限未实现；护盾核查无有效结论（原树PASS不能当任务完成）。独立AI语义复核1题通过/2题未完成，非盲测或总体成功率。原游戏未改、候选不采用；不追加收费、不自动push。原始结果/DSML失败文本均保留于local-data/knowledge-rag-20261027；摘要research/evidence/knowledge-rag-20261027.md。优先收敛调查与最终工具文本处理，再做有/无资料的模型对照，不将检索命中冒称修复收益。
+
+- 2026-10-27用户认可并要求推进：沿用LangGraph＋LangChain，接入研发资料检索和小规模评测，先完成现有主线真实模型基线。当前SQLite FTS5/BM25＋中文词元，暂不增加LlamaIndex/Embedding/重排；资料按Git基线和章节导入，pending经人工确认后才进入任务冻结范围，模型不拥有导入确认/删除权限。旧任务缺省off，新任务lexical；真实开发基线显式off。新收费材料/cap仍需具体授权，不复用旧批次；本轮不自动推送。实施计划docs/superpowers/plans/2026-10-27-knowledge-rag.md，日志local-data/knowledge-rag-20261027。
+
 - 2026-10-25框架主线已获用户明确“可以，开始做吧”：在当前next工作树以LangGraph＋LangChain替换development的Codex Runtime主循环，单研发Agent动态调查、编辑、检查、修订；保留候选/可信Job/人工采用恢复。新增轻量SQLite项目记忆，区分任务checkpoint与跨任务知识，来源/版本/确认状态可管理。此决定优先于下方固定Runtime和四Agent/A2A历史要求；Herta不改，NPC退出主线，不强加多Agent。实施见docs/superpowers/plans/2026-10-25-graytower-framework.md。旧Runtime与实验保留；旧48次批次已关闭，不沿用余额。本轮先本地实现和离线/真实Docker验证，新模型材料与接口需另行具体授权。
 
 - 2026-10-25：用户明确“继续完善，允许调用真实模型”，撤回对同一三题批次的暂缓。仅恢复real-agent-tasks-20261024-v1已封存范围9a5a2bb28b6036f62ff8aa6075d378c4a85c0862a893abbf768131bb2b7989e9，DeepSeek官方Responses/deepseek-flash，16／24／8次总48次、USD2.15。保留旧暂缓记录和账本，不新增对照或应用原游戏，不选择性重跑。授权记录在同目录authorization-approved-20261025.json，实际结果以回执为准。

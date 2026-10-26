@@ -1,5 +1,17 @@
 # 当前上下文
 
+## 2026-10-27：研发资料检索与真实模型基线已完成
+
+本批最终51/52次、峰价估USD0.094583772，0请求失败/未知，余1关闭。资源题独立7/7及规则99/99通过、单文件修复完成；上限题未修改/未实现，独立5/9；护盾题原树通过但无有效结论。独立AI语义复核1题通过、2题未完成，原始completed状态与DSML文本不改；semantic-review.md/json单独记录。不是总体成功率，也不是RAG对照。最终Python393项（389通过/4既有skip）、前端34项及构建通过；原游戏未改，未采用/未推送。接下来先修有限预算调查未收敛与工具文本收尾，再决定新的资料对照任务与授权。
+
+当前单研发Agent仍由LangGraph管理循环/暂停/恢复，LangChain提供模型/消息/工具组件；没有默认多Agent或A2A。本轮增加knowledge.py、图/服务/API/CLI与研发资料页签，SQLite FTS5/BM25按中文双字及英文标识符检索。资料从当前游戏Git blob的README/docs按章节或整文件导入；先pending，经用户确认，只有同项目同基线版本进入冻结快照。新任务默认lexical，历史缺省off；模型只能检索/读取，不能导入确认或删除。初次执行核对范围变化，恢复沿用冻结副本。
+
+12条本地查询中11条相关，10条首项命中；dev相关6/6、留出相关4/5，另1条无关问题0误召回。英文同义表达漏召回保留，不改题或追加同义词。这是小样本检索证据，不是端到端修复提升。固定6个章节/12查询和8项业务任务清单位于research/evals/knowledge-rag-v1；仅旧3题有可执行独立grader，其余5项仍待人工证据验收。
+
+独立审查发现中文长片段裁剪、整文件null展示和未审语义即task_success三项Important，均先失败复现后修复：知识正文按500字符/next_char续读；UI兼容整文件和无标题；候选通过/交付完成/语义待审分开，task_success暂为null。修复后真实Git/LangGraph/知识工具/Docker scheduler3项通过，原游戏干净、0编辑/采用，容器和临时镜像清理。模型为明确标注脚本，不能当DeepSeek能力。v1脚本首报计数0/0错误原样保留并纠正，v2从test_counts正确报3/3。
+
+新assessment.py及CLI准备3公开开发题的LangGraph真实基线，显式off、零记忆，官方Chat接口/deepseek-flash非思考，18/24/10合52次、USD1.90上限；完整scope在local-data/knowledge-rag-20261027/langgraph-baseline-v1，指纹685e5428419df9a3e34d0b10a095e960cfb66d9050a35a853b2fa2c7586293d5。用户已明确“授权本批，按范围与上限执行”，授权记录同目录authorization-approved-20261027.json；仅运行此封存批次，不续用旧授权。本轮最终结果见开发记录末段及该目录results.json；当前不自动push。
+
 ## 2026-10-25：用户要求上传GitHub，已同步
 
 已核对theHerta27/mihoyo-agent-project仍为Private，框架改造提交e04d058已推送至feature/reliable-game-agent，远端与本机提交逐字核对一致；main未合并。本节优先于下方改造阶段“本轮不推送”的历史状态。后续同步说明文档沿同一分支提交；以Git日志及远端分支为准。

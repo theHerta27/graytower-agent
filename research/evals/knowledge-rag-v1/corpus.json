@@ -1,0 +1,77 @@
+{
+  "schema": "knowledge-retrieval-corpus-v1",
+  "project": "D:/Desktop/graytower-game",
+  "game_head": "5508730ebbb1410f17697d7ad2a3804f3e062818",
+  "confirmation": "audit_fixture_only",
+  "audited_on": "2026-10-27",
+  "scope": "只导入六个完整已审叶章节；不截取改写来源，不包含历史状态、3.2旧Unity范围、实现计划、验收答案或模型结论。这里的自动确认仅用于隔离检索fixture。",
+  "hash_basis": "sha256与section_sha256均取不可变Git blob的原始UTF-8字节；完整章节包含heading及结尾空行，不采用Windows工作区CRLF文件hash。",
+  "sources": [
+    {
+      "id": "action-distance",
+      "path": "docs/COMBAT_MODEL_V1_DESIGN.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_DESIGN.md",
+      "heading": "4.4 速度与行动值",
+      "sha256": "213edb31496398c9c0fccc45de26fe695dfd3469fb504959c62edd824f20056e",
+      "section_sha256": "13a5b3377e632624d4766abc806da556029432db59e0320f1b386cafe983d2b8",
+      "start_line": 149,
+      "end_line": 158,
+      "applies_to": "Contract/Trace2.0；当前v2行动距离、变速和并列排序规则。"
+    },
+    {
+      "id": "weakness-matching",
+      "path": "docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "heading": "3.1 Weakness配置与削韧判定",
+      "sha256": "6dcef04a210fd268185ea6940b2c6a4cb06378e414d7d414b9d3b8b52c2efbce",
+      "section_sha256": "f013d7fe570b8a1d222aac4cb701290f60dae6bc1176af21ef7d4f8c750efc9a",
+      "start_line": 70,
+      "end_line": 77,
+      "applies_to": "弱点来源、属性匹配与全盾吸收仍削韧；基准阶段弱点只描述本版本默认基准。"
+    },
+    {
+      "id": "bot-policy",
+      "path": "docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "heading": "4.1 固定策略集合",
+      "sha256": "6dcef04a210fd268185ea6940b2c6a4cb06378e414d7d414b9d3b8b52c2efbce",
+      "section_sha256": "da83cdafa4f5da9750b07baaed94ddbb09db43a779d838a8c2afc54a3c618b2b",
+      "start_line": 92,
+      "end_line": 105,
+      "applies_to": "BotPolicy1.0固定策略；不代表研发Agent策略或真实玩家策略。"
+    },
+    {
+      "id": "simultaneous-passives",
+      "path": "docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "heading": "5.1 时间、被动与同刻行动",
+      "sha256": "6dcef04a210fd268185ea6940b2c6a4cb06378e414d7d414b9d3b8b52c2efbce",
+      "section_sha256": "a99be91d1b7006a51a8c98bdd2ac7ecccfc7c7447589bef46385a9e3d7659106",
+      "start_line": 117,
+      "end_line": 122,
+      "applies_to": "同刻排序、距离保留、生命变动后条件被动和DOT快照。"
+    },
+    {
+      "id": "atomic-status-order",
+      "path": "docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "heading": "5.2 原子动作与状态次序",
+      "sha256": "6dcef04a210fd268185ea6940b2c6a4cb06378e414d7d414b9d3b8b52c2efbce",
+      "section_sha256": "5f636b170538fad4c8f279c3442894258cd3026548ac0d35d2f4baeac4b2d957",
+      "start_line": 123,
+      "end_line": 134,
+      "applies_to": "动作校验、受击回能、DOT/控制/状态持续、净化护盾与随机抽样；阶段免疫配置仍需代码工具核对。"
+    },
+    {
+      "id": "trace-report",
+      "path": "docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "source_path": "D:/Desktop/graytower-game/docs/COMBAT_MODEL_V1_IMPLEMENTATION_SPEC.md",
+      "heading": "6. Combat Trace与报告",
+      "sha256": "6dcef04a210fd268185ea6940b2c6a4cb06378e414d7d414b9d3b8b52c2efbce",
+      "section_sha256": "ce9d87cf782c947d9f6e544fbacf81251c2df912bfad666f0c25d2ed49c2db48",
+      "start_line": 145,
+      "end_line": 156,
+      "applies_to": "Trace2.0和报告计算定义；不说明本轮已运行、已获胜或统计显著。"
+    }
+  ]
+}

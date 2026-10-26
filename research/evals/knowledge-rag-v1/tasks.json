@@ -1,0 +1,82 @@
+{
+  "schema": "knowledge-business-task-list-v1",
+  "game_head": "5508730ebbb1410f17697d7ad2a3804f3e062818",
+  "scope": "8项代表性业务任务清单，不是8题自动修复基准。既有3题是已开发题；新增5题为当前规则核查，未配独立可执行grader。",
+  "tasks": [
+    {
+      "id": "resource-atomicity", "type": "development_baseline_bugfix",
+      "goal": "修复skill_points接收负数gained/spent时在ValueError前产生状态或事件副作用的问题；保持六参数接口与合法调用语义。",
+      "public_request_source": "research/evals/game-agent-pilot-v1/public/tasks.json#resource-atomicity",
+      "knowledge_need": ["atomic-status-order"],
+      "acceptance_method": "existing_independent_local_grader_after_frozen_candidate",
+      "acceptance_requirements": "沿用既有独立验收与完整规则检查，冻结候选后本地执行；不改可信测试，不回流grader内容。",
+      "verification_status": "existing_development_baseline_current_graph_run_pending",
+      "limitation": "已开发且已有历史模型结果，不能声称独立新题。此次检索评测不执行修复或grader。"
+    },
+    {
+      "id": "configurable-cap", "type": "development_baseline_feature",
+      "goal": "将战技点上限沿用rules.skill_points_max配置为严格整数1到9、默认5，并保持资源增长、overflow、状态不变量、开场补给与旧轨迹兼容。",
+      "public_request_source": "research/evals/game-agent-pilot-v1/public/tasks.json#configurable-cap",
+      "knowledge_need": ["atomic-status-order"],
+      "acceptance_method": "existing_independent_local_grader_after_frozen_candidate",
+      "acceptance_requirements": "执行既有跨模块独立验收与完整规则检查；Scenario可0到9，initial_state拒绝超过当前上限，满池补给拒绝；不改可信测试。",
+      "verification_status": "existing_development_baseline_current_graph_run_pending",
+      "limitation": "现行资料描述默认5，允许1到9是本任务新增要求；知识不能覆盖用户明确变更目标。"
+    },
+    {
+      "id": "shield-toughness-review", "type": "development_baseline_review",
+      "goal": "核查命中弱点而直接伤害被Boss护盾完全吸收时仍削韧是否为正确规则；证据支持时保持候选源码配置不变。",
+      "public_request_source": "research/evals/game-agent-pilot-v1/public/tasks.json#shield-toughness-review",
+      "knowledge_need": ["weakness-matching", "atomic-status-order"],
+      "acceptance_method": "existing_independent_local_grader_plus_human_explanation_review",
+      "acceptance_requirements": "核对护盾、HP、韧性/击破事件与代码/可信测试，独立检查候选无修改；中文解释必须引用支持结论的证据。",
+      "verification_status": "existing_development_baseline_current_graph_run_pending",
+      "limitation": "合理不修改是任务成功行为，不能按代码改动量评分。"
+    },
+    {
+      "id": "speed-distance-review", "type": "rule_review",
+      "goal": "核查速度100等待90AV后变110时是否保留剩余1000距离，说明下次到期的精确AV。",
+      "knowledge_need": ["action-distance", "simultaneous-passives"],
+      "acceptance_method": "manual_with_evidence",
+      "acceptance_requirements": "引用当前版本完整章节、scheduler与当前状态证据；用Fraction演算并在获准的隔离检查中观察距离/AV，不修改原游戏。",
+      "verification_status": "pending",
+      "limitation": "尚无独立可执行grader，不计入自动修复通过率。"
+    },
+    {
+      "id": "simultaneous-order-review", "type": "rule_review",
+      "goal": "核查同刻到期单位如何按玩家/槽位/ID排序，并说明先行动者击破与单纯变速对后行动者的不同影响。",
+      "knowledge_need": ["action-distance", "simultaneous-passives"],
+      "acceptance_method": "manual_with_evidence",
+      "acceptance_requirements": "列出冻结单位状态和确定性排序依据，提供区分击破增加距离与变速保持零距离的事件证据；不只引用结论。",
+      "verification_status": "pending",
+      "limitation": "尚无独立可执行grader；可做review，不强求代码改动。"
+    },
+    {
+      "id": "status-dot-order-review", "type": "rule_review",
+      "goal": "核查DOT批次、死亡清理、条件被动、控制检查和状态持续减时的先后边界。",
+      "knowledge_need": ["simultaneous-passives", "atomic-status-order"],
+      "acceptance_method": "manual_with_evidence",
+      "acceptance_requirements": "引用规则与当前effects/session实现；冻结可辨别顺序的起始状态，提供DOT致死/控制跳过/刷新当回合免减时的事件定位，不把fixture当自然胜率。",
+      "verification_status": "pending",
+      "limitation": "尚无独立可执行grader；人工复核须检查事件与状态，而非只看文字。"
+    },
+    {
+      "id": "control-immunity-review", "type": "rule_review",
+      "goal": "核查首领控制免疫是否同时屏蔽DOT、属性减益或弱点击破，并核对免疫时是否抽样。",
+      "knowledge_need": ["weakness-matching", "atomic-status-order"],
+      "acceptance_method": "manual_with_evidence",
+      "acceptance_requirements": "资料仅覆盖部分免疫/抽样语义，必须用代码工具核对当前阶段配置、apply_status与boss状态转换；分别提供控制、DOT和击破证据，缺少证据不得外推。",
+      "verification_status": "pending",
+      "limitation": "首批资料没有完整阶段免疫章节；检索覆盖不完整必须明说。尚无独立可执行grader。"
+    },
+    {
+      "id": "zero-victory-av-review", "type": "report_review",
+      "goal": "核查零胜利、未进入/未完成阶段和双方都获胜的配对AV差值应如何报告，防止把更快失败当改善。",
+      "knowledge_need": ["trace-report"],
+      "acceptance_method": "manual_with_evidence",
+      "acceptance_requirements": "引用报告定义与当前report.py，保留每seed原始结果；核对零胜利p50/p90为null、未进入阶段为null、配对AV仅用双方获胜样本，不作显著性宣称。",
+      "verification_status": "pending",
+      "limitation": "尚无独立可执行grader，不把人工规则核查冒称模型任务质量提升。"
+    }
+  ]
+}

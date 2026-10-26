@@ -1,0 +1,19 @@
+{
+  "schema": "knowledge-retrieval-queries-v1",
+  "label_unit": "corpus source/section ID；每个heading独立导入，按结果chunk.document_id映射。",
+  "annotation": "2026-10-27人工依据完整已审章节标注，预先固定dev与holdout；不从检索结果或模型自评分生成答案。",
+  "queries": [
+    {"id": "dev-distance", "split": "dev", "query": "速度变化后 remaining_distance 剩余行动距离是否重置？", "expected": ["action-distance", "simultaneous-passives"], "note": "两个章节都直接说明距离保留；用多相关源核对Recall计算。"},
+    {"id": "dev-weakness", "split": "dev", "query": "weaknesses damage_type 属性匹配，护盾完全吸收时是否仍削韧？", "expected": ["weakness-matching"]},
+    {"id": "dev-bot-policy", "split": "dev", "query": "balanced survival 支援治疗阈值与保留战技点规则", "expected": ["bot-policy"]},
+    {"id": "dev-hit-energy", "split": "dev", "query": "受击回能在全盾吸收、零直接伤害和群攻时如何处理？", "expected": ["atomic-status-order"]},
+    {"id": "dev-cleanse-shield", "split": "dev", "query": "dispelable 净化与护盾同来源刷新吸收顺序", "expected": ["atomic-status-order"]},
+    {"id": "dev-final-state", "split": "dev", "query": "final_state state_after 完整Trace与报告是否重新模拟？", "expected": ["trace-report"]},
+    {"id": "holdout-simultaneous", "split": "holdout", "query": "时间并列同刻行动，玩家优先还是槽位ID优先？", "expected": ["action-distance", "simultaneous-passives"]},
+    {"id": "holdout-passive-dot", "split": "holdout", "query": "死亡清理后何时重算条件被动，DOT攻击是否采用施加快照？", "expected": ["simultaneous-passives"]},
+    {"id": "holdout-control-dot", "split": "holdout", "query": "控制检查与回合开始DOT批次的先后次序，跳过时状态时长是否减少？", "expected": ["atomic-status-order"]},
+    {"id": "holdout-zero-wins", "split": "holdout", "query": "零胜利时胜利AV p50 p90 nearest-rank 返回什么？", "expected": ["trace-report"]},
+    {"id": "holdout-lexical-gap", "split": "holdout", "query": "haste gauge carryover", "expected": ["action-distance"], "note": "加速后进度保留的英文同义表述未出现在原文，预期暴露词法漏召回；保留失败，不追加同义词或改题。"},
+    {"id": "holdout-unrelated", "split": "holdout", "query": "烹饪配方 苹果派 烤箱温度", "expected": [], "note": "本库没有烹饪资料；任何返回结果均计误召回，不算Hit。"}
+  ]
+}

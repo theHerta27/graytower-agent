@@ -16,6 +16,7 @@ from ..workbench import LocalOriginMiddleware
 from .service import DevelopmentTask
 from .memory import ProjectMemory
 from .agent import saved_agent_state
+from .knowledge import KnowledgeBase,search_knowledge
 from .workspace import encoded,editable
 from .adoption import Adoption
 from .sandbox import CHECK_SETS,IMAGE
@@ -33,12 +34,13 @@ class Workbench:
         self.dist=Path(dist) if dist else Path(__file__).resolve().parents[3]/'frontend/dist'
         self.default_project=default_project;self.active={};self.lock=threading.RLock();self.cache={}
         self.memory=ProjectMemory(self.root/'project-memory.sqlite')
+        self.knowledge=KnowledgeBase(self.root/'project-knowledge.sqlite')
         self.launch=launcher or (lambda work:threading.Thread(target=work,daemon=True).start())
 
     def task(self,task_id):
         if not isinstance(task_id,str) or not re.fullmatch('[a-f0-9]{32}',task_id):raise HTTPException(404)
         if not (self.root/'tasks'/task_id/'project.json').is_file():raise HTTPException(404)
-        if task_id not in self.cache:self.cache[task_id]=DevelopmentTask(self.root/'tasks'/task_id,memory=self.memory)
+        if task_id not in self.cache:self.cache[task_id]=DevelopmentTask(self.root/'tasks'/task_id,memory=self.memory,knowledge=self.knowledge)
         return self.cache[task_id]
 
     def detail(self,task_id):
@@ -77,7 +79,7 @@ class Workbench:
                     for line in path.read_text(encoding='utf-8').splitlines()[-200:]:
                         try:event=json.loads(line)
                         except ValueError:continue
-                        if event.get('type')=='tool':events.append({'tool':event['tool'],'success':event['success']})
+                        if event.get('type')=='tool':events.append({'tool':event['tool'],'success':event['success'],'sources':event.get('sources',[])})
                 continue
             path=folder/'runtime/events.jsonl'
             if path.exists():
@@ -159,15 +161,24 @@ def create_app(root,**options):
                     t=workbench.task(folder.name)
                     values.append({'task_id':folder.name,'request':t.request,'project':t.workspace.metadata['project']})
             return JSONResponse({'tasks':values})
-        args=await body(request,['project','request'])
+        args=await body(request,['project','request'],['knowledge_mode'])
         if not isinstance(args['project'],str):raise ValueError('请填写本机游戏Git项目目录。')
         task_id=uuid.uuid4().hex
-        await asyncio.to_thread(DevelopmentTask.create,Path(args['project']),workbench.root/'tasks'/task_id,args['request'],memory=workbench.memory)
+        await asyncio.to_thread(DevelopmentTask.create,Path(args['project']),workbench.root/'tasks'/task_id,args['request'],memory=workbench.memory,
+                                knowledge=workbench.knowledge,knowledge_mode=args.get('knowledge_mode','lexical'))
         return JSONResponse(workbench.detail(task_id))
 
     async def task_action(request):
         task_id=request.path_params['task_id'];action=request.path_params.get('action','')
         if request.method=='GET':
+            if action=='knowledge':
+                task=workbench.task(task_id)
+                return JSONResponse({'documents':workbench.knowledge.list(task.workspace.metadata['project']),
+                    'version':task.workspace.metadata['baseline_commit'],'mode':task.knowledge_mode})
+            if action=='knowledge-sources':
+                return JSONResponse({'sources':workbench.knowledge.sources(workbench.task(task_id).workspace)})
+            if action=='knowledge-source':
+                return JSONResponse(workbench.knowledge.preview_file(workbench.task(task_id).workspace,request.query_params.get('path','')))
             if action=='memories':
                 task=workbench.task(task_id)
                 return JSONResponse({'memories':workbench.memory.list(task.workspace.metadata['project']),
@@ -181,6 +192,25 @@ def create_app(root,**options):
                 task=workbench.task(task_id);folder=task._batch(request.query_params.get('run_id',''))
                 return FileResponse(folder/'outbound-preview.json',filename='模型材料预览.json')
             return JSONResponse(workbench.detail(task_id))
+        if action=='knowledge-search':
+            args=await body(request,['query'])
+            task=workbench.task(task_id)
+            return JSONResponse({'results':search_knowledge(task.knowledge_snapshot(),args['query'])})
+        if action=='knowledge':
+            args=await body(request,['action'],['path','headings','id','status'])
+            with workbench.lock:
+                task=workbench.writable(task_id);project=task.workspace.metadata['project'];operation=args.pop('action')
+                if operation=='import':
+                    if set(args)-{'path','headings'} or 'path' not in args:raise ValueError('请选择当前版本的资料和章节。')
+                    value=workbench.knowledge.import_file(task.workspace,**args)
+                elif operation=='status':
+                    if set(args)!={'id','status'}:raise ValueError('请指定资料及确认状态。')
+                    value=workbench.knowledge.set_status(project,args['id'],args['status'])
+                elif operation=='delete':
+                    if set(args)!={'id'}:raise ValueError('删除只需要资料编号。')
+                    value=workbench.knowledge.delete(project,args['id'])
+                else:raise ValueError('不支持的资料操作。')
+                return JSONResponse(value)
         if action=='memories':
             args=await body(request,['action'],['id','content','kind','version','status'])
             with workbench.lock:
@@ -216,7 +246,9 @@ def create_app(root,**options):
             elif action=='prepare':
                 run_id='user-'+uuid.uuid4().hex
                 scope=task.prepare(run_id,DEFAULT_GRANT)
-                return JSONResponse({**scope,'run_id':run_id,'file_count':len(json.loads((task._batch(run_id)/'outbound-preview.json').read_text(encoding='utf-8'))['files'])})
+                preview=json.loads((task._batch(run_id)/'outbound-preview.json').read_text(encoding='utf-8'))
+                return JSONResponse({**scope,'run_id':run_id,'file_count':len(preview['files']),
+                                     'knowledge_document_count':len(preview.get('knowledge',{}).get('documents',[]))})
             elif action=='run':
                 if args['accept_data'] is not True or args['accept_cost'] is not True:
                     raise ValueError('请明确确认外发材料和本批费用上限。')
