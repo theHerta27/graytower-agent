@@ -1,5 +1,7 @@
 # 米哈游 Agent 项目群总体技术方案
 
+> **2026-10-27后续结果：** 修复了源码分页、JSON安全压缩、历史来源索引和DSML错误交付判定。同三题真实开发回归45次/峰价估USD0.124739，仍1题完成、2题未完成；两份异常交付现明确partial。框架和RAG不替代任务决策质量，下一步先研究调查到实施的收敛；原始失败与费用保留，见[真实记录](research/evidence/knowledge-rag-20261027.md)。
+
 > **2026-10-27增量：** 在现有单研发Agent内接入版本化研发资料检索，不改变主循环。SQLite FTS5/BM25完成Git Markdown章节词法检索，人工确认后冻结资料，Agent按需取得原文及引用；项目记忆仍独立管理。暂不引入LlamaIndex/Embedding或新Agent。本地检索有同义漏召回，尚无RAG端到端质量增益结论；当前LangGraph真实三题基线已获本批具体授权。职责、框架成本与原理见[项目说明](项目说明.md)，评测口径见[固定清单](research/evals/knowledge-rag-v1/README.md)。
 
 > **2026-10-25当前方案：** 用户已批准同一灰塔项目迁移为LangGraph＋LangChain单研发Agent，SQLite项目记忆与基本恢复，复用候选、Docker检查和人工采用；Herta不改，NPC退出主线，A2A/多Agent不进入默认链路。当前设计、源码职责和证据边界以[项目说明](项目说明.md)及[本轮实施计划](docs/superpowers/plans/2026-10-25-graytower-framework.md)为准。下方四能力/固定Runtime路线保留作历史，不再约束新主线。

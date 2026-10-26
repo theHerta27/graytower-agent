@@ -103,6 +103,22 @@ class DevelopmentAgentTests(unittest.TestCase):
         self.assertTrue(model.inputs[0][1])
         self.assertIn('未修改', result['summary'])
 
+    def test_raw_tool_envelope_is_partial_and_never_dispatched(self):
+        model=ScriptModel([AIMessage(content='<｜｜DSML｜｜ calls>\n<｜｜DSML｜｜ invoke name="write_file">\n</｜｜DSML｜｜ calls>')],limit=1)
+        result=self.run_graph(model)
+        self.assertEqual(result['status'],'partial')
+        self.assertEqual(result['reason'],'model_protocol')
+        self.assertNotIn('<｜｜DSML',result['summary'])
+        self.assertFalse(self.workspace.inspect()['patch'])
+        self.assertEqual(len(model.saved),1)
+
+    def test_each_decision_receives_remaining_allowance_without_forcing_an_edit(self):
+        model=ScriptModel([call('read_file',{'path':'game-core/combat_core/v2/effects.py'},'read'),AIMessage(content='完成只读核查，不需要修改。')],limit=4)
+        result=self.run_graph(model)
+        self.assertEqual(result['status'],'completed')
+        self.assertIn('剩余可用调用：4',model.inputs[0][0][0].content)
+        self.assertIn('剩余可用调用：3',model.inputs[1][0][0].content)
+
     def test_crash_after_edit_before_checkpoint_reuses_edit_receipt(self):
         path = 'game-core/combat_core/v2/effects.py'
         before = self.workspace.read_file(path)

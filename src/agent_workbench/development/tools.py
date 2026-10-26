@@ -14,8 +14,8 @@ def tool(name, description, properties, required=()):
 TEXT={'type':'string','minLength':1,'maxLength':250}
 TOOL_SPECS=[
     tool('project_status','查看当前项目版本、候选文件、真实Diff与已有检查。范围校验不等于测试通过。',{}),
-    tool('read_file','只读候选内源码或规则。返回完整文件身份，可按行分段读取。',
-         {'path':TEXT,'start_line':{'type':'integer','minimum':1},'max_lines':{'type':'integer','minimum':1,'maximum':400}},['path']),
+    tool('read_file','只读候选源码或规则，正文按字节分页。返回文件SHA与实际行段，按next_line/next_column继续；长行的start_column从0计。',
+         {'path':TEXT,'start_line':{'type':'integer','minimum':1},'start_column':{'type':'integer','minimum':0},'max_lines':{'type':'integer','minimum':1,'maximum':400}},['path']),
     tool('search_code','在允许的游戏材料内做不区分大小写的文字检索，返回文件与行号。',
          {'query':{'type':'string','minLength':1,'maxLength':200}},['query']),
     tool('write_file','仅修改隔离候选源码/配置。先读取SHA；新增用null SHA，删除用null content。可信回归与原项目不可修改。',
@@ -77,10 +77,36 @@ class DevelopmentTools:
         if name=='read_file':
             value=self.workspace.read_file(args['path'])
             lines=value.pop('text').splitlines(keepends=True)
-            start=args.get('start_line',1);count=args.get('max_lines',200)
-            selected=''.join(lines[start-1:start-1+count])
-            return {**value,'text':selected[:24000],'start_line':start,'total_lines':len(lines),
-                    'truncated':start>1 or start-1+count<len(lines) or len(selected)>24000}
+            start=args.get('start_line',1);column=args.get('start_column',0);count=args.get('max_lines',200)
+            if (start<1 or column<0 or count<1 or start>max(1,len(lines)) or
+                    (lines and column>=len(lines[start-1])) or (not lines and column)):
+                raise ValueError('source cursor is outside the file')
+            result={**value,'text':'','start_line':start,'start_column':column,'end_line':0,'end_column':0,
+                    'total_lines':len(lines),'next_line':None,'next_column':None,'truncated':False}
+            # Budget serialized text (newlines, quotes and Unicode included),
+            # leaving headroom for metadata. Never split a Unicode character.
+            budget=4900-len(json.dumps(result,ensure_ascii=False).encode('utf-8'))
+            pieces=[];next_line=start;next_column=column
+            for index in range(start-1,min(len(lines),start-1+count)):
+                offset=column if index==start-1 else 0;fragment=lines[index][offset:]
+                length=len(json.dumps(fragment,ensure_ascii=False).encode('utf-8'))-2
+                if length>budget:
+                    low,high=0,len(fragment)
+                    while low<high:
+                        middle=(low+high+1)//2
+                        if len(json.dumps(fragment[:middle],ensure_ascii=False).encode('utf-8'))-2<=budget:low=middle
+                        else:high=middle-1
+                    fragment=fragment[:low];length=len(json.dumps(fragment,ensure_ascii=False).encode('utf-8'))-2
+                if not fragment:break
+                pieces.append(fragment);budget-=length
+                end_column=offset+len(fragment)
+                result.update(end_line=index+1,end_column=end_column)
+                next_line,next_column=(index+2,0) if end_column==len(lines[index]) else (index+1,end_column)
+                if next_column or budget<=0:break
+            result['text']=''.join(pieces)
+            if lines and next_line<=len(lines):
+                result.update(next_line=next_line,next_column=next_column,truncated=True)
+            return result
         if name=='search_code':return self.workspace.search(args['query'])
         if name=='write_file':return self.workspace.write_file(operation,**args)
         if name=='replace_text':return self.workspace.replace_text(operation,**args)

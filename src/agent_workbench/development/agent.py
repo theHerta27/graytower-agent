@@ -17,10 +17,13 @@ from .context import bounded_messages, tool_text, knowledge_text
 from .tools import DevelopmentTools, tool_specs, tool, validate_arguments
 from .workspace import digest, encoded
 from .knowledge import search_knowledge, read_knowledge
+from .model import response_issue
 
 INSTRUCTIONS = '''你是灰塔游戏研发助手，是一个可以调查、修改、验证并修订的研发Agent。
 根据用户的新需求决定下一步：按需搜索和分段读源码，修改隔离候选，运行适当检查，依据真实反馈继续修订或交付。
 先了解项目现状，局部修改优先使用replace_text，遵守当前接口兼容；不编辑可信测试、原项目、凭据，不发布。
+源码返回实际页，按next_line/next_column续读；不把请求行数当已读范围。历史工具索引只提供位置，不代替正文。
+围绕需求获取必要证据，足够后推进修改、检查或不改的结论；不必巡读整个项目。剩余调用包括最终交付，请合理安排。
 需求不明确时调用ask_user，问题要具体，不擅自猜测；ask_user必须单独调用。
 工具失败要分析原因，避免重复无效调用。开始检查后由程序等待真实结果，不需要付费轮询。
 诊断只算观察，完整规则回归和局部检查要区分；旧候选的检查不能证明新候选。
@@ -121,7 +124,7 @@ def run_agent(*, workspace, jobs, control, model, request, profile='standard', m
             messages = messages_from_dict(frozen['messages']); final_only = frozen['final_only']
         else:
             final_only = remaining == 1
-            instruction = agent_instructions(knowledge is not None) + ('\n这是最后一次调用。不要调用工具，请据已有证据交付阶段结果，明确未完成内容。' if final_only else '')
+            instruction = agent_instructions(knowledge is not None) + f'\n剩余可用调用：{remaining}（包含本次与最终交付）。' + ('\n这是最后一次调用。不要调用工具，请据已有证据交付阶段结果，明确未完成内容。' if final_only else '')
             grant = getattr(getattr(model, 'budget', None), 'grant', {})
             allowance = min(48000, max(4000, grant.get('max_input_bytes', 100000)-18000))
             messages = bounded_messages(state['messages'], instructions=instruction, memories=memories, max_bytes=allowance)
@@ -129,13 +132,22 @@ def run_agent(*, workspace, jobs, control, model, request, profile='standard', m
         try:
             response = model.complete(messages, f'decision-{step}', final_only=final_only)
         except RuntimeError as exc:
-            if type(exc).__name__ not in ('ModelLimitError', 'ModelUnknownError'):
+            if type(exc).__name__ not in ('ModelLimitError', 'ModelUnknownError','ModelProtocolError'):
                 raise
+            if type(exc).__name__=='ModelProtocolError':
+                event('control',status='partial',reason='model_protocol')
+                return {'status':'partial','reason':'model_protocol','summary':'模型返回了不受支持的工具调用格式，已保留原始响应和用量，本次未完成交付；这些文本没有被执行。'}
             reason = 'model_limit' if type(exc).__name__ == 'ModelLimitError' else 'model_unknown'
             event('control', status='partial', reason=reason)
             return {'status': 'partial', 'reason': reason, 'summary': '模型调用未能继续，已保留候选和检查证据；未自动重试未知或失败调用。'}
         if not isinstance(response, AIMessage) or response.invalid_tool_calls:
             raise ValueError('model returned invalid tool calls')
+        issue=response_issue(response,final_only)
+        if issue:
+            event('control',status='partial',reason='model_protocol',protocol_code=issue)
+            return {'messages':[response.model_copy(update={'id':f'decision-{step}'})],'step':step+1,
+                    'status':'partial','reason':'model_protocol','tree_hash':workspace.inspect()['tree_hash'],
+                    'summary':'模型返回了不受支持的工具调用格式，原始响应已保留；本次未完成交付，这些文本没有被执行。'}
         if len(response.tool_calls) > 8 or len({c['id'] for c in response.tool_calls}) != len(response.tool_calls):
             raise ValueError('invalid tool call batch')
         if final_only and response.tool_calls:

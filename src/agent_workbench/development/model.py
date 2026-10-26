@@ -25,6 +25,23 @@ class ModelUnknownError(RuntimeError):
     """A decision cannot safely be executed or automatically repeated."""
 
 
+class ModelProtocolError(ModelUnknownError):
+    """A paid response arrived, but it is not a supported model decision."""
+
+
+def response_issue(message, final_only=False):
+    if final_only and (message.tool_calls or message.invalid_tool_calls):
+        return 'unexpected_final_tool_call'
+    if message.invalid_tool_calls:
+        return 'invalid_tool_call'
+    content=message.content
+    if isinstance(content,list):
+        content='\n'.join(part if isinstance(part,str) else part.get('text','') for part in content if isinstance(part,(str,dict)))
+    if not message.tool_calls and isinstance(content,str) and content.lstrip().startswith(('<｜｜DSML｜｜ calls>','<|DSML|calls>')):
+        return 'unstructured_tool_output'
+    return None
+
+
 def _error(kind, code):
     return kind(json.dumps({'code': code}, sort_keys=True))
 
@@ -52,6 +69,7 @@ class ToolModel:
             'parameters': spec['inputSchema'],
         }} for spec in specs]
         self._tools = self._chat.bind_tools(schemas, parallel_tool_calls=False) if schemas else self._chat
+        self._final = self._tools.bind(tool_choice='none')
         with self.budget._db() as conn:
             conn.execute('CREATE TABLE IF NOT EXISTS model_decisions ('
                          'decision_id TEXT PRIMARY KEY, request_hash TEXT NOT NULL, '
@@ -103,7 +121,7 @@ class ToolModel:
             raise _error(ModelUnknownError, 'invalid_model_usage') from None
         self._save(decision_id, 'failed' if code else 'completed', response=stored, error_code=code)
         if code:
-            raise _error(ModelUnknownError, code)
+            raise _error(ModelProtocolError, code)
         return message
 
     def complete(self, messages: list[BaseMessage], decision_id: str, final_only=False) -> AIMessage:
@@ -113,7 +131,7 @@ class ToolModel:
             raise _error(ModelUnknownError, 'invalid_decision_id')
         if not isinstance(messages, list) or not messages or any(not isinstance(m, BaseMessage) for m in messages):
             raise _error(ModelUnknownError, 'invalid_model_messages')
-        bound = self._chat if final_only else self._tools
+        bound = self._final if final_only else self._tools
         kwargs = getattr(bound, 'kwargs', {})
         try:
             payload = self._chat._get_request_payload(messages, **kwargs)
@@ -133,6 +151,8 @@ class ToolModel:
                     return messages_from_dict([json.loads(row['response'])])[0]
                 if row['state'] != 'received':
                     error_type = ModelLimitError if row['state'] == 'rejected' else ModelUnknownError
+                    if row['error_code'] in ('unexpected_final_tool_call','invalid_tool_call','unstructured_tool_output'):
+                        error_type=ModelProtocolError
                     raise _error(error_type, row['error_code'] or 'model_call_unknown')
             else:
                 if len(raw) > self.budget.grant['max_input_bytes']:
@@ -167,7 +187,6 @@ class ToolModel:
         # the graph. Metadata and tool arguments participate in credential redaction.
         stored = self._redact(message_to_dict(message))
         message = messages_from_dict([stored])[0]
-        code = ('unexpected_final_tool_call' if final_only and (message.tool_calls or message.invalid_tool_calls)
-                else 'invalid_tool_call' if message.invalid_tool_calls else None)
+        code = response_issue(message,final_only)
         self._save(decision_id, 'received', response=stored, error_code=code)
         return self._settle(decision_id, call_id, stored, code)

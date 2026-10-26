@@ -147,15 +147,38 @@ class ToolModelTests(unittest.TestCase):
         assert resumed.summary()['unknown'] == 0
 
 
-    def test_final_call_omits_tools_and_forbids_provider_tool_requests(self):
+    def test_final_call_keeps_schemas_explicitly_disables_tools_and_rejects_provider_requests(self):
         tmp_path = self.root
         requests = []
         instance = model(tmp_path, lambda req: (requests.append(json.loads(req.content))
                          or httpx.Response(200, json=response(tool=True))))
         with self.assertRaisesRegex(ModelUnknownError, 'unexpected_final_tool_call'):
             instance.complete([HumanMessage(content='summarize')], 'final', final_only=True)
-        assert 'tools' not in requests[0]
+        assert requests[0].get('tool_choice') == 'none'
+        assert requests[0]['tools']
+        assert requests[0]['parallel_tool_calls'] is False
         assert instance.summary()['failed'] == 1
+
+    def test_dsml_text_is_a_known_protocol_failure_not_a_successful_handoff(self):
+        text='<｜｜DSML｜｜ calls>\n<｜｜DSML｜｜ invoke name="read_file">\n</｜｜DSML｜｜ invoke>\n</｜｜DSML｜｜ calls>'
+        requests=[]
+        handler=lambda req: (requests.append(req) or httpx.Response(200,json=response(content=text)))
+        first=model(self.root,handler)
+        for active in (first,model(self.root,handler)):
+            with self.assertRaisesRegex(ModelUnknownError,'unstructured_tool_output') as caught:
+                active.complete([HumanMessage(content='交付结论')],'dsml-final',final_only=True)
+            assert type(caught.exception).__name__=='ModelProtocolError'
+        assert len(requests)==1
+        assert first.summary()['failed']==1
+        assert first.summary()['unknown']==0
+        assert first.summary()['known_cost_usd']=='0.000084'
+        with closing(sqlite3.connect(first.budget.database)) as db:
+            assert text in json.loads(db.execute('SELECT response FROM model_decisions').fetchone()[0])['data']['content']
+
+    def test_explaining_protocol_markup_inside_normal_prose_is_still_text(self):
+        text='这段日志中的 <｜｜DSML｜｜ calls> 是协议文本，不能执行。'
+        instance=model(self.root,lambda req:httpx.Response(200,json=response(content=text)))
+        assert instance.complete([HumanMessage(content='解释日志')],'explanation',final_only=True).content==text
 
 
     def test_valid_tool_conversation_survives_http_boundary(self):
