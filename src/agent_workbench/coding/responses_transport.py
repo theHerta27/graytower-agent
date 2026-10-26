@@ -29,7 +29,8 @@ class CallBudget:
         self.grant = dict(grant)
         if (type(grant['max_calls']) is not int or not 1 <= grant['max_calls'] <= 100
                 or type(grant['max_input_bytes']) is not int or not 1 <= grant['max_input_bytes'] <= 150000
-                or type(grant['max_output_tokens']) is not int or not 1 <= grant['max_output_tokens'] <= 4096):
+                or grant.get('model_profile','fast') not in ('fast','reasoned')
+                or type(grant['max_output_tokens']) is not int or not 1 <= grant['max_output_tokens'] <= (16384 if grant.get('model_profile')=='reasoned' else 4096)):
             raise ValueError('invalid bounded Coding grant')
         self.max_cost = ((Decimal(grant['max_input_bytes'] + 2048) * Decimal(grant['input_usd_per_million'])
                          + Decimal(grant['max_output_tokens']) * Decimal(grant['output_usd_per_million'])) / 1_000_000)

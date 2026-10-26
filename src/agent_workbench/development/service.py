@@ -14,6 +14,7 @@ from .model import ToolModel
 from .memory import ProjectMemory
 from .knowledge import KnowledgeBase
 from .tools import tool_specs
+from .profiles import model_settings
 from .sandbox import IMAGE, runner_hash
 from .adoption import Adoption
 
@@ -116,7 +117,9 @@ class DevelopmentTask:
                  'files':[{'path':name,'text':base64.b64decode(v['content']).decode('utf-8')}
                           for name,v in tree['files'].items() if not name.endswith('.gz')]}
         if self.knowledge_mode=='lexical':preview['knowledge']=self.knowledge_snapshot()
-        scope={'schema':'development-langgraph-v1','engine':'langgraph','created_at_ns':time.time_ns(),'endpoint':'https://api.deepseek.com/chat/completions','model':'deepseek-flash',
+        settings=model_settings(grant)
+        preview['model_settings']=settings
+        scope={'schema':'development-langgraph-v1','engine':'langgraph','created_at_ns':time.time_ns(),'endpoint':'https://api.deepseek.com/chat/completions','model':'deepseek-flash','model_settings':settings,
             'baseline_commit':self.workspace.metadata['baseline_commit'],'candidate_tree_hash':digest(tree),
             'request_hash':digest(self.request),'preview_hash':digest(preview),'capability_hash':digest(capability),'tool_profile':self.tool_profile,
             'image':IMAGE,'runner_hash':runner_hash(),'grant':grant,
@@ -143,6 +146,7 @@ class DevelopmentTask:
         if (scope.get('schema')!='development-langgraph-v1' or scope_hash!=authorized_scope_hash or digest(scope)!=scope_hash or digest(preview)!=scope['preview_hash']
             or (not resume and digest(self.workspace.snapshot())!=scope['candidate_tree_hash']) or digest(self.request)!=scope['request_hash']
             or digest(self.capability())!=scope['capability_hash']
+            or (scope.get('model_settings') is not None and scope['model_settings']!=model_settings(scope['grant']))
             or IMAGE!=scope['image'] or runner_hash()!=scope['runner_hash']):
             raise ValueError('authorization scope or current candidate changed; prepare a new batch')
         if sender is not None:raise ValueError('legacy Responses sender cannot execute a LangGraph batch')

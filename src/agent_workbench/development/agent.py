@@ -126,7 +126,8 @@ def run_agent(*, workspace, jobs, control, model, request, profile='standard', m
             final_only = remaining == 1
             instruction = agent_instructions(knowledge is not None) + f'\n剩余可用调用：{remaining}（包含本次与最终交付）。' + ('\n这是最后一次调用。不要调用工具，请据已有证据交付阶段结果，明确未完成内容。' if final_only else '')
             grant = getattr(getattr(model, 'budget', None), 'grant', {})
-            allowance = min(48000, max(4000, grant.get('max_input_bytes', 100000)-18000))
+            ceiling=80000 if grant.get('model_profile')=='reasoned' else 48000
+            allowance = min(ceiling, max(4000, grant.get('max_input_bytes', 100000)-18000))
             messages = bounded_messages(state['messages'], instructions=instruction, memories=memories, max_bytes=allowance)
             _save(frozen_path, {'messages': messages_to_dict(messages), 'final_only': final_only})
         try:

@@ -80,10 +80,10 @@ def verify_pilot(root,scope_hash):
     return scope
 
 
-def grader_payload(workspace,task_id,tree=None):
-    if task_id not in {case['id'] for case in read(PUBLIC)}:raise ValueError('unknown pilot task')
+def grader_payload(workspace,task_id,tree=None,*,oracle=None):
+    if oracle is None and task_id not in {case['id'] for case in read(PUBLIC)}:raise ValueError('unknown pilot task')
     tree=workspace.snapshot() if tree is None else tree
-    script='TASK='+repr(task_id)+'\n'+PRIVATE.read_text(encoding='utf-8')
+    script='TASK='+repr(task_id)+'\n'+(Path(oracle) if oracle is not None else PRIVATE).read_text(encoding='utf-8')
     return make_payload(tree,'diagnostic',script)
 
 
@@ -107,9 +107,9 @@ def execute_once(folder,payload):
     return result
 
 
-def grade_cell(task,cell,folder,*,tree=None):
+def grade_cell(task,cell,folder,*,tree=None,oracle=None):
     folder=Path(folder);tree=task.workspace.snapshot() if tree is None else tree
-    independent=execute_once(folder/'independent',grader_payload(task.workspace,cell['task_id'],tree))
+    independent=execute_once(folder/'independent',grader_payload(task.workspace,cell['task_id'],tree,oracle=oracle))
     try:checks=json.loads(independent['log'])['checks'] if independent.get('exit_code')==0 else []
     except (ValueError,KeyError,TypeError):checks=[]
     rule_payload=make_payload(tree,'rules')
@@ -118,7 +118,7 @@ def grade_cell(task,cell,folder,*,tree=None):
     check_ok=bool(checks) and all(c['status']=='PASS' for c in checks)
     baseline=task.workspace.baseline['files'];files=tree['files']
     changed=[name for name in set(baseline)|set(files) if baseline.get(name)!=files.get(name)]
-    no_edit_ok=cell['task_id']!='shield-toughness-review' or not changed
+    no_edit_ok=not changed if cell.get('read_only') or cell['task_id']=='shield-toughness-review' else True
     known_fail=any(c.get('status')=='FAIL' for c in checks) or any(t.get('status')=='FAIL' for t in rules.get('tests',[])) or not no_edit_ok
     verdict='FAIL' if known_fail else 'PASS' if check_ok and rule_ok else 'INCONCLUSIVE'
     return {'verdict':verdict,'independent_checks':checks,'rules_passed':sum(t['status']=='PASS' for t in rules.get('tests',[])),

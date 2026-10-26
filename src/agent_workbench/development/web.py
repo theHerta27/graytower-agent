@@ -21,7 +21,7 @@ from .workspace import encoded,editable
 from .adoption import Adoption
 from .sandbox import CHECK_SETS,IMAGE
 
-DEFAULT_GRANT={'max_calls':18,'max_input_bytes':150000,'max_output_tokens':4096,'cost_cap_usd':'0.95',
+DEFAULT_GRANT={'model_profile':'reasoned','max_calls':18,'max_input_bytes':100000,'max_output_tokens':16384,'cost_cap_usd':'0.95',
     'input_usd_per_million':'0.30','cached_input_usd_per_million':'0.006','output_usd_per_million':'1.20',
     'pricing_checked_on':'2026-10-18'}
 CHECK_LABELS={'rules':'完整规则回归','effects':'伤害、护盾与边界','scheduler':'行动顺序','session':'战斗与保存恢复','resource_inputs':'战技点参数与接口'}
@@ -38,7 +38,7 @@ class Workbench:
         self.launch=launcher or (lambda work:threading.Thread(target=work,daemon=True).start())
 
     def task(self,task_id):
-        if not isinstance(task_id,str) or not re.fullmatch('[a-f0-9]{32}',task_id):raise HTTPException(404)
+        if not isinstance(task_id,str) or not re.fullmatch('[a-z0-9][a-z0-9_-]{0,79}',task_id):raise HTTPException(404)
         if not (self.root/'tasks'/task_id/'project.json').is_file():raise HTTPException(404)
         if task_id not in self.cache:self.cache[task_id]=DevelopmentTask(self.root/'tasks'/task_id,memory=self.memory,knowledge=self.knowledge)
         return self.cache[task_id]

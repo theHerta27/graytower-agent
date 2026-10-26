@@ -16,6 +16,8 @@ from .evaluation import PUBLIC, PRIVATE, grade_cell
 from .model import ToolModel
 from .sandbox import IMAGE, runner_hash
 from .service import DevelopmentTask, run_lock
+from .memory import ProjectMemory
+from .knowledge import KnowledgeBase
 from .workspace import digest, encoded, editable, git
 from ..coding.responses_transport import CallBudget
 
@@ -47,6 +49,8 @@ def implementation_identity():
               REPO/'src/agent_workbench/coding/runtime_adapter.py',
               REPO/'src/agent_workbench/models.py', REPO/'scripts/assess_development.py',
               REPO/'pyproject.toml', REPO/'requirements-v1.lock.txt', REPO/'requirements-coding.lock.txt']
+    campaign=REPO/'scripts/run_completion_campaign.py'
+    if campaign.exists():files.append(campaign)
     return digest({p.relative_to(REPO).as_posix(): p.read_text(encoding='utf-8-sig') for p in sorted(files)})
 
 
@@ -112,15 +116,16 @@ def _scope_only(root, scope_hash):
 
 
 def _child(root, cell):
-    task = DevelopmentTask(root/'tasks'/cell['cell_id'])
+    stores={'memory':ProjectMemory(root/'project-memory.sqlite'),'knowledge':KnowledgeBase(root/'project-knowledge.sqlite')} if cell.get('shared_stores') else {}
+    task = DevelopmentTask(root/'tasks'/cell['cell_id'],**stores)
     child = _read(task._batch(cell['run_id'])/'outbound-scope.json')
     body = dict(child); body.pop('scope_sha256', None)
     if (child.get('schema') != 'development-langgraph-v1'
             or child.get('scope_sha256') != cell['scope_sha256'] or digest(body) != cell['scope_sha256']
             or child.get('grant') != cell['grant'] or child.get('endpoint') != ToolModel.endpoint
             or child.get('model') != 'deepseek-flash'
-            or child['request_hash'] != digest(task.request) or task.tool_profile != 'standard'
-            or getattr(task, 'knowledge_mode', 'off') != 'off'
+            or child['request_hash'] != digest(task.request) or task.tool_profile != cell.get('profile','standard')
+            or getattr(task, 'knowledge_mode', 'off') != cell.get('knowledge_mode','off')
             or digest(_read(task.root/'request.json')) != cell['request_file_hash']
             or digest(_read(task.root/'project.json')) != cell['project_hash']
             or digest(task.workspace.baseline) != cell['baseline_tree_hash']
@@ -206,8 +211,8 @@ def _unavailable_accounting(cell, result):
     budget = dict(result.get('budget', {}))
     if not budget or type(budget.get('reserved')) is not int or not 0 <= budget['reserved'] <= cell['grant']['max_calls']:
         count = cell['grant']['max_calls']
-        maximum = (Decimal(GRANT['max_input_bytes']+2048)*Decimal(GRANT['input_usd_per_million'])
-                   + Decimal(GRANT['max_output_tokens'])*Decimal(GRANT['output_usd_per_million']))/1_000_000
+        maximum = (Decimal(cell['grant']['max_input_bytes']+2048)*Decimal(cell['grant']['input_usd_per_million'])
+                   + Decimal(cell['grant']['max_output_tokens'])*Decimal(cell['grant']['output_usd_per_million']))/1_000_000
         budget = {'reserved': count, 'completed': 0, 'failed': 0, 'unknown': count,
                   'known_cost_usd': '0', 'unknown_cost_reserved_usd': str(maximum*count),
                   'max_calls': count, 'cost_cap_usd': cell['grant']['cost_cap_usd'],
@@ -223,7 +228,7 @@ def _run_cell(root, cell, api_key, model_factory):
     result = {'state': 'not_started', 'closed': False}
     try:
         model = model_factory(task, cell) if model_factory else ToolModel(
-            folder/'model', cell['grant'], agent_specs('standard'), api_key=api_key)
+            folder/'model', cell['grant'], agent_specs(cell.get('profile','standard'),knowledge_enabled=cell.get('knowledge_mode')=='lexical'), api_key=api_key)
         result = task.execute(cell['run_id'], cell['scope_sha256'], model=model)
         while result.get('state') == 'waiting_checks' and _poll_checks(task, result):
             result = task.execute(cell['run_id'], cell['scope_sha256'], model=model, resume=True)

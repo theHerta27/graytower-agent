@@ -24,6 +24,14 @@ class DevelopmentServiceTests(unittest.TestCase):
         self.assertEqual(view['changed_files'],[])
         self.assertEqual(view['validation'],'尚未验证')
 
+    def test_prepared_model_settings_drift_stops_before_claim_or_model_call(self):
+        from test_development_agent import ScriptModel
+        from langchain_core.messages import AIMessage
+        scope=self.task.prepare('settings',self.grant);model=ScriptModel([AIMessage(content='must not run')])
+        with patch('agent_workbench.development.service.model_settings',return_value={'profile':'changed'}):
+            with self.assertRaises(ValueError):self.task.execute('settings',scope['scope_sha256'],model=model)
+        self.assertEqual(model.saved,{})
+
     def test_partial_pass_is_not_full_rules_and_edit_invalidates_old_result(self):
         job=self.jobs.start(self.workspace,'effects')
         self.jobs.complete(job['job_id'],{'exit_code':0,'tests':[{'name':'a','status':'PASS'}]})

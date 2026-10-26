@@ -1,5 +1,19 @@
 # 工作进度
 
+## 2026-10-27连续交付：工程已实现，真实验证待统一授权
+
+标准研发profile已改为DeepSeek Flash思考high；保留fast非思考基线。窄ChatDeepSeek子类回传reasoning_content；显式reasoned预算允许16k输出、旧grant仍4k。模型设置进入冻结scope并拒绝执行时漂移。review工具profile只读；评测具名任务可在页面读取；campaign与Workbench共用显式项目记忆/资料库路径。
+
+一次独立代码审查的3项Important均已RED→GREEN：核心记录缺失/未知用量不得进入后续阶段；候选修订固定父基线并拒绝原项目HEAD漂移；私有验收任意异常不回流模型，只传固定诊断类别。另补未知协议冒烟阻止后续调用。相关61项及新增canary用例通过，前端34项和构建通过，完整Python回归418项（414通过、4既有skip），355.305秒；最终日志local-data/completion-20261027/final-python.log。
+
+本地Docker新规则验收speed/zero-win均PASS，公共规则99/99；0新模型调用、原游戏不改。已准备一次总批次：local-data/completion-20261027/campaign-v1，scope 71d85e50d049adabeffdcfd47254964ebc8049505ddabb8d464c6b9c6e159d6c，最多106次/USD5.10、峰价保守上界4.9323072。覆盖协议2次、原三题52次、可选2次修订各10次、两规则题off/on共32次。已向用户集中请求明确授权，尚未收到；不得发起费用，不沿用旧授权。源码身份已封存，开始收费前后不修改实现；新材料/未知结果不自动重跑。CLI scripts/run_completion_campaign.py按stage执行/统一close，原始失败和剩余额度保留。
+
+继续完成页面、中文说明与全部交付，不在小阶段结束会话。本轮不自动push。原先下节“连续交付进行中”的待修问题已处理，以本节为准。
+
+## 2026-10-27连续完成执行中
+
+用户要求不要停在小步骤。已实现reasoned/fast、推理字段窄适配/回放、16k显式预算和scope、标准web模式/具名结果浏览、review只读工具与连续活动runner。初步45/49项相关回归与campaign4fixture通过；当前API RED确认活动/页面知识库路径不一致，独立审查进行中。新总授权拟106调用/USD5.10，材料准备及具体授权前0新模型调用。最新接续状态在current_context.md与completion计划；旧结果/账本不覆盖。
+
 ## 2026-10-27 后续修复开始
 
 后续结果：模型/图/上下文新增失败断言→GREEN；独立审查2项Important以3个边界测试复现后修复，相关61项绿。旧DSML两题HTTP/图重放均partial，重复读取不新HTTP，费用与原文保留。真实脚本图分页session3页/effects4页无缺口，候选一行修复，Docker资源6＋完整规则99通过；2个Job/6个临时资源均清理，原游戏不变。前端34及build通过，最终完整405项（401通过/4既有skip）；新模型回归已授权完成45次/峰价估USD0.124738512，2次协议失败/0未知、余7关闭；仍1题完成2题未完成，未采用/未推送。

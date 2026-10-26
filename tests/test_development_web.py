@@ -50,6 +50,18 @@ class DevelopmentWebTests(unittest.TestCase):
             self.assertEqual(denied.status_code,422)
             sender.assert_not_called()
 
+    def test_standard_preview_uses_reasoning_and_named_real_tasks_are_browsable(self):
+        from agent_workbench.development.service import DevelopmentTask
+        control=self.app.state.workbench.root/'tasks'/'configurable-cap-standard-off'
+        DevelopmentTask.create(self.root/'source',control,'新的真实需求')
+        listed=self.client.get('/api/development/tasks')
+        self.assertEqual(listed.status_code,200,listed.text)
+        prefix='/api/development/tasks/configurable-cap-standard-off'
+        self.assertEqual(self.client.get(prefix).status_code,200)
+        prepared=self.client.post(prefix+'/prepare',json={}).json()
+        self.assertEqual(prepared['model_settings']['profile'],'reasoned')
+        self.assertEqual(prepared['grant']['max_output_tokens'],16384)
+
     def test_human_edit_real_diff_and_discard_does_not_touch_source(self):
         task=self.create();prefix='/api/development/tasks/'+task['task_id']
         file=self.client.get(prefix+'/file',params={'path':'game-core/combat_core/v2/effects.py'}).json()

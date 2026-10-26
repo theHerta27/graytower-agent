@@ -15,6 +15,23 @@ from openai import APIStatusError
 
 from ..coding.responses_transport import CallBudget, encoded
 from ..models import no_external_tracing
+from .profiles import model_settings
+
+
+class DevelopmentDeepSeek(ChatDeepSeek):
+    """Narrow compatibility adapter for this installed LangChain version.
+
+    DeepSeek tool reasoning must be echoed verbatim, including after replay.
+    Keep serialization, tools and usage in the official LangChain component.
+    """
+    def _get_request_payload(self,input_,*,stop=None,**kwargs):
+        payload=super()._get_request_payload(input_,stop=stop,**kwargs)
+        original=self._convert_input(input_).to_messages()
+        for message,wire in zip(original,payload['messages'],strict=True):
+            if isinstance(message,AIMessage):
+                reasoning=message.additional_kwargs.get('reasoning_content')
+                if isinstance(reasoning,str):wire['reasoning_content']=reasoning
+        return payload
 
 
 class ModelLimitError(RuntimeError):
@@ -51,18 +68,20 @@ class ToolModel:
 
     def __init__(self, root, grant, specs, api_key='', http_client=None):
         self.budget = CallBudget(Path(root), grant)
+        self.settings=model_settings(grant)
         self._key = api_key or os.environ.get('DEEPSEEK_API_KEY', '')
         # Keep redirects and ambient proxy routing out of the fixed authorization.
         self._http = http_client if http_client is not None else httpx.Client(
-            timeout=90, follow_redirects=False, trust_env=False)
+            timeout=self.settings['timeout_seconds'], follow_redirects=False, trust_env=False)
         if self._http.follow_redirects:
             raise ValueError('model HTTP redirects must be disabled')
-        self._chat = ChatDeepSeek(
+        options={'reasoning_effort':'high'} if self.settings['profile']=='reasoned' else {'temperature':0}
+        self._chat = DevelopmentDeepSeek(
             model='deepseek-flash', api_key=self._key or 'offline-preview-only',
             base_url='https://api.deepseek.com', max_tokens=grant['max_output_tokens'],
-            max_retries=0, timeout=90, temperature=0, cache=False,
-            http_client=self._http, extra_body={'thinking': {'type': 'disabled'}},
-            use_responses_api=False,
+            max_retries=0, timeout=self.settings['timeout_seconds'], cache=False,
+            http_client=self._http, extra_body={'thinking':self.settings['thinking']},
+            use_responses_api=False,**options,
         )
         schemas = [{'type': 'function', 'function': {
             'name': spec['name'], 'description': spec['description'],

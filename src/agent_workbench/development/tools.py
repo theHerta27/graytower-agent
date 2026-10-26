@@ -42,6 +42,7 @@ SCENARIO_TOOL=tool('run_scenario',
 
 
 def tool_specs(profile='standard'):
+    if profile=='review':return [item for item in TOOL_SPECS if item['name'] not in ('write_file','replace_text')]
     if profile not in ('standard','game'):raise ValueError('unsupported tool profile')
     return [*TOOL_SPECS,*([SCENARIO_TOOL] if profile=='game' else [])]
 

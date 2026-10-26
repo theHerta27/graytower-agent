@@ -1,5 +1,25 @@
 # 当前上下文
 
+## 2026-10-27连续交付：工程已实现，真实验证待统一授权
+
+标准研发profile已改为DeepSeek Flash思考high；保留fast非思考基线。窄ChatDeepSeek子类回传reasoning_content；显式reasoned预算允许16k输出、旧grant仍4k。模型设置进入冻结scope并拒绝执行时漂移。review工具profile只读；评测具名任务可在页面读取；campaign与Workbench共用显式项目记忆/资料库路径。
+
+一次独立代码审查的3项Important均已RED→GREEN：核心记录缺失/未知用量不得进入后续阶段；候选修订固定父基线并拒绝原项目HEAD漂移；私有验收任意异常不回流模型，只传固定诊断类别。另补未知协议冒烟阻止后续调用。相关61项及新增canary用例通过，前端34项和构建通过，完整Python回归418项（414通过、4既有skip），355.305秒；最终日志local-data/completion-20261027/final-python.log。
+
+本地Docker新规则验收speed/zero-win均PASS，公共规则99/99；0新模型调用、原游戏不改。已准备一次总批次：local-data/completion-20261027/campaign-v1，scope 71d85e50d049adabeffdcfd47254964ebc8049505ddabb8d464c6b9c6e159d6c，最多106次/USD5.10、峰价保守上界4.9323072。覆盖协议2次、原三题52次、可选2次修订各10次、两规则题off/on共32次。已向用户集中请求明确授权，尚未收到；不得发起费用，不沿用旧授权。源码身份已封存，开始收费前后不修改实现；新材料/未知结果不自动重跑。CLI scripts/run_completion_campaign.py按stage执行/统一close，原始失败和剩余额度保留。
+
+继续完成页面、中文说明与全部交付，不在小阶段结束会话。本轮不自动push。原先下节“连续交付进行中”的待修问题已处理，以本节为准。
+
+## 2026-10-27连续交付进行中（最新）
+
+用户明确“不用停下来，一直做完”。继续在2e5f65c上实现，不以小阶段结束会话。计划docs/superpowers/plans/2026-10-27-completion.md：标准研发改为DeepSeek Flash思考high，保留fast基线；SDK窄payload适配完整回传reasoning_content。官方要求带tools必须回传，本机原ChatDeepSeek接收却不发回，已本地复现并通过两轮HTTP Mock/缓存重放测试。CallBudget仅显式reasoned grant允许16k输出，旧fast仍4k/不可改grant；web标准18次/USD0.95，100k输入/16k输出，设置进入scope；具名评测任务可在页面浏览。
+
+新增completion.py和scripts/run_completion_campaign.py，复用assessment执行/关闭与grade_cell，草拟一次连续授权：协议2次、原3题52次、必要候选修订2槽各10次、两规则题off/on各8次共32次，总106/USD5.10。尚未准备真实scope、未授权，0新真实模型调用，不得沿用旧额度。RAG语料沿已审6章节，review工具profile无候选写；新增private/rule_acceptance.py仅本地验收，绝不发模型。revision只继承本批模型父候选和必要错误诊断，不做参考补丁。
+
+本地reasoning/model/service/assessment45项及web集成49项绿，campaign4个初始fixture绿。当前新增API测试复现知识库路径不一致：campaign默认root/tasks/project-knowledge而Workbench用root/project-knowledge，页面显示空库，待统一显式注入。独立completion_review正在只读整体审查（requesting-code-review允许），重点还包括原项目HEAD漂移导致修订跨基线、已知/未知中断后缺失任务的RAG准入。待审查汇总后一次RED→GREEN修复，再完整回归/prepare总授权/按阶段连续真实验证/页面和中文交付。本轮不自动push；原游戏/Herta/旧结果只读。
+
+原始日志local-data/completion-20261027，campaign-green-2.log初始4通过、shared-library-red.log为待修UI库不一致；源仍未提交。不要重复旧45/51调用批次。
+
 ## 2026-10-27后续：上下文与收尾控制修复
 
 用户要求“下一步”，沿已明确方向完成根因诊断与修复。真实失败不是HTTP/输出token耗尽：200行请求正文被裁到第79行，旧组丢失位置，之后再次裁剪破坏JSON。新read_file有实际行/列页和next_line/next_column；tool_text/压缩保持合法JSON、显式省略正文，历史索引保留源码SHA及资料chunk/版本/字符页，提示剩余调用。没有强制几步就编辑或阻止合理复读。

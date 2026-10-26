@@ -4,6 +4,8 @@
 
 ## 当前主线（2026-10-27）
 
+最新工程增量：标准研发启用DeepSeek Flash思考，LangChain窄适配完整回传工具对话所需推理字段，保留非思考基线；预算和实际模式均进入材料预览。当前工程回归418项（414通过、4既有skip），前端34项及构建通过。三题研发、必要修订与两题资料对照已合并封存，尚待新的具体费用授权，0新增调用；下文两批真实失败保留，不将工程通过写成模型提升。
+
 新研发入口采用 **LangGraph＋LangChain 的单 Agent**：动态决定调查、修改、检查和修订。Codex Runtime/SDK退出新默认路径，历史实现和实验保留；Herta不改。
 
 主要实现位于 [`development/agent.py`](src/agent_workbench/development/agent.py)（图与恢复）、[`model.py`](src/agent_workbench/development/model.py)（ChatDeepSeek工具调用与预算）、[`context.py`](src/agent_workbench/development/context.py)（有限上下文）、[`memory.py`](src/agent_workbench/development/memory.py)（有来源和版本的项目记忆）。候选、Docker检查和人工采用仍复用原领域模块。
