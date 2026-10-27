@@ -1,5 +1,13 @@
 # 当前上下文
 
+## 2026-10-27 最新：真实批次已关闭，发布已有成果
+
+2026-10-27 最新结果：用户授权的连续批次已结束，共 86 次已知调用、0 未知，峰价估算 USD 0.314869152，余 20 次关闭。资源修复通过；上限首次未实现、一次修订后通过该功能验收；护盾核查交付结论且未误改。两道资料题开放组均未使用知识库，不能声称 RAG 提升或实际使用后无效。保留失败与工程整合的评分限制，详见[本轮真实结果](research/evidence/completion-20261027.md)。
+
+当前只做文档/前端交付与 GitHub 同步，不继续收费实验。新文档 `research/evidence/completion-20261027.md` 说明首次失败、修订、整合候选及 RAG 非使用结论；`查看本轮真实成果.cmd` 在本机打开历史结果并关闭模型。新机器没有 local-data 原件时阅读摘要，不伪造历史数据。
+
+博客新文位于 D:/Desktop/personal-blog/src/content/posts/graytower-rag-retrospective.md，本轮用户授权上线。以下章节保留历史阶段，不沿用其中待授权、待修复或0次调用的状态。
+
 ## 2026-10-27连续交付：工程已实现，真实验证待统一授权
 
 标准研发profile已改为DeepSeek Flash思考high；保留fast非思考基线。窄ChatDeepSeek子类回传reasoning_content；显式reasoned预算允许16k输出、旧grant仍4k。模型设置进入冻结scope并拒绝执行时漂移。review工具profile只读；评测具名任务可在页面读取；campaign与Workbench共用显式项目记忆/资料库路径。

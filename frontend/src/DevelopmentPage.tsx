@@ -4,7 +4,7 @@ import './development.css';
 
 type Check={job_id:string;check_set:string;status:string;matches_current_candidate:boolean;matches_current_definition:boolean;note:string;error?:string;
   result:null|{verdict:string;tests:{name:string;status:string}[];log:string}};
-type Task={task_id:string;request:string;project:string;project_name:string;short_version:string;tree_hash:string;changed_files:string[];patch:string;
+type Task={task_id:string;request:string;project:string;project_name:string;short_version:string;tree_hash:string;changed_files:string[];patch:string;knowledge_mode?:'off'|'lexical';
   files:{path:string;editable:boolean}[];checks:Check[];validation:string;workflow_state:string;model_state:string;busy:boolean;
   candidate_state:string;model_error?:string;adoption:null|{operation_id:string;state:string;note:string;matches_current_candidate:boolean};model_summary:string;tool_events:{tool:string;success:boolean;sources?:{id:string;path:string;heading:string;version:string;start_line:number}[]}[];
   runs:{run_id:string;state:string;error_message?:string;budget:null|{reserved:number;known_cost_usd:string}}[];
@@ -81,11 +81,11 @@ export default function DevelopmentPage(){
     </aside><main className="dev-main">
       {error&&<div className="dev-error" role="alert">{error}</div>}{notice&&<div className="dev-notice" role="status">{notice}</div>}
       {!task?<section className="dev-empty"><p className="dev-eyebrow">你的项目，你来决定采用什么。</p><h2>先把需求交给一个独立候选。</h2><p>AI可以阅读代码、提出修改并运行检查。你能看到真实差异和执行结果，再决定是否写回开发项目。</p><div className="dev-flow"><span>提出需求</span><b>→</b><span>审阅修改</span><b>→</b><span>检查结果</span><b>→</b><span>采用或放弃</span></div><p className="dev-muted">这里没有自动播放的历史演示。首次打开为空；浏览和创建候选不会产生模型费用。</p></section>:<>
-        <section className="dev-task-heading"><div className="dev-version"><b>{task.project_name}</b><span>基于版本 {task.short_version}</span><button className="dev-link" disabled={pending} onClick={()=>perform(async()=>{await load(task.task_id);})}>刷新状态</button></div><h1>{task.request}</h1>
+        <section className="dev-task-heading"><div className="dev-version"><b>{task.project_name}</b><span>基于版本 {task.short_version}</span>{task.knowledge_mode&&<span>研发资料：{task.knowledge_mode==='lexical'?'可按需查阅':'未启用'}</span>}<button className="dev-link" disabled={pending} onClick={()=>perform(async()=>{await load(task.task_id);})}>刷新状态</button></div><h1>{task.request}</h1>
           <p className="dev-protection">{task.candidate_state||task.adoption?.note||'原项目尚未改动'}{task.workflow_state==='discarded'?' · 这份候选已放弃':''}</p>
           <div className="dev-toolbar"><button className="dev-primary" disabled={blocked||!!task.resumable_run||!settings?.key_configured||!settings?.runtime_available} onClick={()=>perform(async()=>{const value=await api<Scope>('/tasks/'+task.task_id+'/prepare',{});setScope(value);setAcceptCost(false);setAcceptData(false);})}>让 AI 处理这个需求</button><span className="dev-muted">{modelLabel(task.model_state)}</span></div>
           {(task.model_error||task.runs.at(-1)?.error_message)&&<p className="dev-error" role="status">{task.model_error||task.runs.at(-1)?.error_message}</p>}
-          {settings&&(!settings.key_configured||!settings.runtime_available)&&<p className="dev-muted">{!settings.key_configured?'请先在本机配置 DeepSeek Key，再重新启动。 ':''}{!settings.runtime_available?'尚未安装任务运行所需的框架依赖，请按启动说明安装。':''}</p>}
+          {settings&&(!settings.key_configured||!settings.runtime_available)&&<p className="dev-muted">{!settings.key_configured?'当前服务未启用模型调用。需要使用AI时，请从“打开灰塔研发助手”启动，并配置本机 DeepSeek Key。 ':''}{!settings.runtime_available?'尚未安装任务运行所需的框架依赖，请按启动说明安装。':''}</p>}
         </section>
         {task.resumable_run&&<section className="dev-resume" aria-label="继续保存的任务"><h2>{modelLabel(task.resumable_run.status)}</h2>
           {task.resumable_run.note&&<p>{task.resumable_run.note}</p>}
