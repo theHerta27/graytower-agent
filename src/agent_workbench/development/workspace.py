@@ -71,7 +71,12 @@ class ProjectWorkspace:
         self._lock = threading.RLock()
 
     @classmethod
-    def create(cls, project, control, ref='HEAD'):
+    def create(cls, project, control, ref='HEAD', *, mode='git_worktree'):
+        if mode == 'git_worktree':
+            from .git_workspace import GitWorkspace
+            return GitWorkspace.create(project, control, ref)
+        if mode != 'snapshot':
+            raise ValueError('unsupported workspace mode')
         project, control = Path(project).resolve(), Path(control).resolve()
         if control.exists() or control.is_relative_to(project) or project.is_relative_to(control):
             raise ValueError('require a fresh control directory outside the source project')
@@ -117,6 +122,10 @@ class ProjectWorkspace:
 
     @classmethod
     def open(cls, control):
+        metadata = json.loads((Path(control)/'project.json').read_text(encoding='utf-8'))
+        if metadata.get('mode') == 'git_worktree':
+            from .git_workspace import GitWorkspace
+            return GitWorkspace(control)
         return cls(control)
 
     def _path(self, name):
@@ -139,6 +148,8 @@ class ProjectWorkspace:
     def snapshot(self):
         files, total = {}, 0
         for path in sorted(self.path.rglob('*')):
+            if path == self.path / '.git' and self.metadata.get('mode') == 'git_worktree':
+                continue
             info = path.lstat()
             if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_file_attributes', 0) & 0x400:
                 raise ValueError('linked candidate entry')

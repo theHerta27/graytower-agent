@@ -24,7 +24,7 @@ class DevelopmentCheckTests(unittest.TestCase):
                            'game-core/tests/v2/test_effects.py':'def test_value():\n    assert True\n'}.items():
             p=source/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(text.encode())
         git('add','.');git('commit','-qm','initial')
-        self.workspace=ProjectWorkspace.create(source,self.root/'task')
+        self.workspace=ProjectWorkspace.create(source,self.root/'task',mode='snapshot')
         self.launched=[]
         self.jobs=CheckJobs(self.root/'checks',launcher=self.launched.append)
 

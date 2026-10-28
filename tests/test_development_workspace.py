@@ -45,7 +45,7 @@ class ProjectWorkspaceTests(unittest.TestCase):
             '-c', 'core.autocrlf=false', '-C', str(self.project), *args], stderr=subprocess.PIPE).decode()
 
     def create(self):
-        return ProjectWorkspace.create(self.project, self.control)
+        return ProjectWorkspace.create(self.project, self.control, mode='snapshot')
 
     def test_materializes_actual_commit_without_fault_injection_or_credentials(self):
         w = self.create()
