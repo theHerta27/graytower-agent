@@ -1,6 +1,6 @@
 # 灰塔 Git 工作树 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 新任务使用受限 Git 工作树，经真实检查和人工审批后合入，支持冲突处理、撤销和旧任务读取。
 
@@ -49,11 +49,11 @@ Frontend: bundled Node + `E:/Nodejs/node_modules/npm/bin/npm-cli.js`，`npm test
 **Consumes:** ProjectWorkspace 既有 snapshot/read/write 协议。
 **Produces:** 上述 GitWorkspace 接口；metadata mode、task_branch、target_branch、baseline_commit、candidate_commit、git_dir/common_dir；`mutation_lock()` 同进程重入、跨线程/进程互斥。
 
-- [ ] 写失败测试：`test_real_worktrees_keep_source_and_secret_untouched` 验证两个工作树被 Git 登记、源 HEAD/文件不变、tracked .env 不落盘；`test_git_diff_add_delete_and_no_newline` 验证 Git diff 可 apply；`test_external_head_index_and_pointer_changes_rejected`；`test_edit_replay_and_cross_process_lock`；`test_old_snapshot_still_opens`。
-- [ ] 运行 `python -m unittest test_development_git_workspace -q`，Expected: 新工作树断言失败。
-- [ ] 实现隔离分支、no-checkout/稀疏检出、身份核验、Git diff（含新增）、受限 freeze 和跨进程锁；不改其他工作树检出行为，不执行 hook/filter/textconv。读取只用固定 Git 对象；保留 SQLite 编辑记录。
-- [ ] 运行新测试和原 workspace/adoption/checks，Expected: 全通过。
-- [ ] 提交本任务代码与测试。
+- [x] 写失败测试：`test_real_worktrees_keep_source_and_secret_untouched` 验证两个工作树被 Git 登记、源 HEAD/文件不变、tracked .env 不落盘；`test_git_diff_add_delete_and_no_newline` 验证 Git diff 可 apply；`test_external_head_index_and_pointer_changes_rejected`；`test_edit_replay_and_cross_process_lock`；`test_old_snapshot_still_opens`。
+- [x] 运行 `python -m unittest test_development_git_workspace -q`，Expected: 新工作树断言失败。
+- [x] 实现隔离分支、no-checkout/稀疏检出、身份核验、Git diff（含新增）、受限 freeze 和跨进程锁；不改其他工作树检出行为，不执行 hook/filter/textconv。读取只用固定 Git 对象；保留 SQLite 编辑记录。
+- [x] 运行新测试和原 workspace/adoption/checks，Expected: 全通过。
+- [x] 提交本任务代码与测试。
 
 ### Task 2: 准备合并、人工冲突处理、检查和审批
 
@@ -61,11 +61,11 @@ Frontend: bundled Node + `E:/Nodejs/node_modules/npm/bin/npm-cli.js`，`npm test
 **Consumes:** GitWorkspace.freeze、snapshot、mutation_lock；CheckJobs.start/read/list。
 **Produces:** GitDelivery prepare/resolve/check/status/approve；准备记录 T/C/M、tree_hash、approval_hash、patch、checks、state、kind，持久操作状态。
 
-- [ ] 写失败测试：`test_merge_preserves_target_changes_and_requires_new_rules_receipt`、`test_stale_approval_and_dirty_source_rejected`、`test_conflict_resolution_requires_staged_allowed_files`、`test_merge_lost_ack_reconciles_once`；断言真实 Git parents、文件字节和原目录不提前改动。
-- [ ] 运行新测试，Expected: 新交付服务不存在或行为断言失败。
-- [ ] 实现 merge-tree / 独立交付工作树、commit-tree、来源身份与范围检查；冲突后允许人编辑和 git add，确认后固定 M。每次准备有独立 CheckJobs 目录，旧候选 PASS 不算交付 PASS。
-- [ ] 审批前保存 T/M 意图，确认后取得仓库锁再次校验，再执行 merge --ff-only。中断只按实际 HEAD 对账，不覆盖其他版本。
-- [ ] 运行 Task 1+2 测试，Expected: 全通过；提交。
+- [x] 写失败测试：`test_merge_preserves_target_changes_and_requires_new_rules_receipt`、`test_stale_approval_and_dirty_source_rejected`、`test_conflict_resolution_requires_staged_allowed_files`、`test_merge_lost_ack_reconciles_once`；断言真实 Git parents、文件字节和原目录不提前改动。
+- [x] 运行新测试，Expected: 新交付服务不存在或行为断言失败。
+- [x] 实现 merge-tree / 独立交付工作树、commit-tree、来源身份与范围检查；冲突后允许人编辑和 git add，确认后固定 M。每次准备有独立 CheckJobs 目录，旧候选 PASS 不算交付 PASS。
+- [x] 审批前保存 T/M 意图，确认后取得仓库锁再次校验，再执行 merge --ff-only。中断只按实际 HEAD 对账，不覆盖其他版本。
+- [x] 运行 Task 1+2 测试，Expected: 全通过；提交。
 
 ### Task 3: 撤销和清理
 
@@ -73,10 +73,10 @@ Frontend: bundled Node + `E:/Nodejs/node_modules/npm/bin/npm-cli.js`，`npm test
 **Consumes:** GitDelivery 持久准备/执行记录。
 **Produces:** prepare(kind='revert', operation_id=...) 与通用 approve；archive() 保存只读快照和差异后移除已登记工作树。
 
-- [ ] 写失败测试：`test_revert_adds_commit_and_rejects_later_changes`、`test_archive_preserves_evidence_and_rejects_unknown_files`、`test_pending_jobs_and_operations_block_cleanup`、`test_partial_creation_does_not_remove_unowned_path`。
-- [ ] 运行这些测试，Expected: 新行为失败。
-- [ ] 在独立交付工作树准备撤销（第一父提交差异），重新检查审批；要求原分支仍为 M 且干净。清理只移除已登记且干净的自有工作树，保留提交引用、报告、回执，不删除未知改动。
-- [ ] 运行 Task 1–3 测试，Expected: 全通过；提交。
+- [x] 写失败测试：`test_revert_adds_commit_and_rejects_later_changes`、`test_archive_preserves_evidence_and_rejects_unknown_files`、`test_pending_jobs_and_operations_block_cleanup`、`test_partial_creation_does_not_remove_unowned_path`。
+- [x] 运行这些测试，Expected: 新行为失败。
+- [x] 在独立交付工作树准备撤销（第一父提交差异），重新检查审批；要求原分支仍为 M 且干净。清理只移除已登记且干净的自有工作树，保留提交引用、报告、回执，不删除未知改动。
+- [x] 运行 Task 1–3 测试，Expected: 全通过；提交。
 
 ### Task 4: 接入任务、HTTP、CLI 和页面
 
@@ -84,11 +84,11 @@ Frontend: bundled Node + `E:/Nodejs/node_modules/npm/bin/npm-cli.js`，`npm test
 **Consumes:** Task 1–3 的精确接口和状态。
 **Produces:** HTTP actions `delivery-prepare(kind,operation_id?)`、`delivery-resolve(preparation_id)`、`delivery-check(preparation_id)`、`delivery-approve(preparation_id,approval_hash)`、`archive(tree_hash)`；CLI 同名子命令。summary 包含 delivery；旧 adoption 保持原含义。
 
-- [ ] 写失败测试：新建任务默认 git_worktree，旧 apply 拒绝；新 HTTP 准备→检查→批准→撤销；源漂移/旧 approval_hash 返回 422；模型运行时同仓任务交付被锁阻止；旧任务页面仍可打开。
-- [ ] 写前端测试：Git 模式显示合并结果与单独检查；确认用显示时冻结的 preparation_id/approval_hash；刷新变化关闭旧确认；冲突目录提示；撤销说明与归档只读；legacy 原按钮不变。
-- [ ] 运行新 API/前端测试，Expected: 失败。
-- [ ] 接入服务端同一写锁、scope 工作区身份；封装新面板，明确“用户审批的是哪份差异”。不让 Agent 获得合入/撤销工具。
-- [ ] 运行相关 Python 测试、全部前端测试和构建，Expected: 全通过；提交。
+- [x] 写失败测试：新建任务默认 git_worktree，旧 apply 拒绝；新 HTTP 准备→检查→批准→撤销；源漂移/旧 approval_hash 返回 422；模型运行时同仓任务交付被锁阻止；旧任务页面仍可打开。
+- [x] 写前端测试：Git 模式显示合并结果与单独检查；确认用显示时冻结的 preparation_id/approval_hash；刷新变化关闭旧确认；冲突目录提示；撤销说明与归档只读；legacy 原按钮不变。
+- [x] 运行新 API/前端测试，Expected: 失败。
+- [x] 接入服务端同一写锁、scope 工作区身份；封装新面板，明确“用户审批的是哪份差异”。不让 Agent 获得合入/撤销工具。
+- [x] 运行相关 Python 测试、全部前端测试和构建，Expected: 全通过；提交。
 
 ### Task 5: 真实演示、完整回归与中文交付
 
@@ -96,13 +96,15 @@ Frontend: bundled Node + `E:/Nodejs/node_modules/npm/bin/npm-cli.js`，`npm test
 **Consumes:** 已接入的真实任务、工具、检查与交付接口。
 **Produces:** 可重复临时游戏 clone 演示及真实日志，说明工作树与 Docker 不同职责，旧记录边界。
 
-- [ ] 演示使用现有脚本模型修复资源输入问题，实际工具编辑候选、真实 Docker 检查，Git 合并和撤销；打印并保存源/候选/合并/撤销提交、回执、前后文件摘要。原游戏只读，费用 0。
-- [ ] 运行 `python -m unittest discover -s tests -q`、前端全部测试/构建、git diff --check，Expected: 全通过或明确已有 skip；日志存 local-data/worktree-migration-20261028。
-- [ ] 独立代码审查全改动；Critical/Important 用失败复现后修复，再运行受影响及完整回归。
-- [ ] 更新中文材料、验证数字和已知边界；提交，不自动 push。交付实际可运行结果与简短面试表达。
+- [x] 演示使用现有脚本模型修复资源输入问题，实际工具编辑候选、真实 Docker 检查，Git 合并和撤销；打印并保存源/候选/合并/撤销提交、回执、前后文件摘要。原游戏只读，费用 0。
+- [x] 运行 `python -m unittest discover -s tests -q`、前端全部测试/构建、git diff --check，Expected: 全通过或明确已有 skip；日志存 local-data/worktree-migration-20261028。
+- [x] 独立代码审查全改动；Critical/Important 用失败复现后修复，再运行受影响及完整回归。
+- [x] 更新中文材料、验证数字和已知边界；提交，不自动 push。交付实际可运行结果与简短面试表达。
 
 ## Execution ledger
 
 Pre-flight Task 1→2→3: GitWorkspace snapshot 与 CheckJobs 保持原协议，GitDelivery 的准备与审批 ID 贯穿撤销；无接口冲突。
 Pre-flight Task 2/3→4: 所有交付都经过 GitDelivery，legacy Adoption 不可写新模式；无接口冲突。
 Pre-flight Task 4→5: HTTP/CLI 共用服务；演示复用相同接口，不另造捷径；无接口冲突。
+
+Final verification: full discovery 437 unique IDs across four module groups, 433 pass / 4 existing skips, no failures/errors. Frontend 36 pass and production build pass. Real scripted-model + Docker + Git merge/revert probe-v3 passed, 0 external model calls, original game unchanged. All five Important review findings have RED→GREEN coverage; no remaining review findings.
