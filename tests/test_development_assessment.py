@@ -293,13 +293,17 @@ class AssessmentTests(unittest.TestCase):
 
     def test_concurrent_grading_cannot_overwrite_a_running_grading_attempt(self):
         scope = self.prepare(); entered = threading.Event(); release = threading.Event(); calls = []
+        # Finish model execution first; the synchronization below tests two
+        # graders, not how quickly three Git-backed model tasks can finish.
+        with patch('agent_workbench.development.assessment.grade_assessment',return_value={}):
+            self.run_batch(scope)
         def grader(task, cell, folder, tree=None):
             calls.append(cell['cell_id'])
             if len(calls)==1:
                 entered.set(); release.wait(10)
             return {'verdict': 'FAIL'}
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(self.run_batch, scope, None, grader)
+        with patch('agent_workbench.development.assessment.grade_cell',side_effect=grader),ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(grade_assessment,self.batch)
             self.assertTrue(entered.wait(10))
             try:
                 with self.assertRaises(ValueError): grade_assessment(self.batch)

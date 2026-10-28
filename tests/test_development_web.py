@@ -113,12 +113,12 @@ class DevelopmentWebTests(unittest.TestCase):
         name='game-core/combat_core/v2/effects.py'
         task.workspace.write_file('later',name,task.workspace.read_file(name)['sha256'],'VALUE = 8\n')
         bench.runtime_python=Path(sys.executable)
-        class InlineThread:
-            def __init__(self,target,**kwargs):self.target=target
-            def start(self):self.target()
-        with patch('agent_workbench.development.web.threading.Thread',InlineThread),patch('agent_workbench.development.service.ToolModel') as sender:
+        # Inject the workbench launcher; patching threading.Thread globally
+        # also replaces subprocess pipe-reader threads on Windows.
+        bench.launch=lambda work:work()
+        with patch('agent_workbench.development.service.ToolModel') as sender:
             detail=bench.start(view['task_id'],'old-scope',scope['scope_sha256'])
-            sender.return_value.assert_not_called()
+            sender.assert_not_called()
         self.assertFalse((task._batch('old-scope')/'claimed').exists())
         self.assertEqual(detail['runs'][-1]['state'],'not_started')
         self.assertIn('重新准备',detail['runs'][-1]['error_message'])
