@@ -116,3 +116,57 @@ class GitWorkspaceTests(GitFixture, unittest.TestCase):
         self.assertEqual(old.metadata['schema'], 'development-project-v1')
         self.assertFalse((old.path/'.git').exists())
         self.assertEqual(ProjectWorkspace.open(old.control).read_file(self.file)['text'], self.original)
+
+    def test_archive_preserves_evidence_and_rejects_unknown_files(self):
+        work = self.workspace()
+        self.assertTrue(hasattr(work,'archive'))
+        self.change(work)
+        extra = work.path/'keep.txt'; extra.write_text('manual note')
+        with self.assertRaises(ValueError): work.archive()
+        self.assertTrue(extra.exists())
+        extra.unlink()
+        patch = work.inspect()['patch']
+        work.archive()
+        self.assertFalse(work.path.exists())
+        reopened = ProjectWorkspace.open(work.control)
+        self.assertEqual(reopened.inspect()['patch'],patch)
+        self.assertTrue(reopened.inspect()['archived'])
+        with self.assertRaises(ValueError): self.change(reopened)
+
+    def test_partial_creation_does_not_remove_unowned_path(self):
+        self.assertTrue(hasattr(ProjectWorkspace,'cleanup_creation'))
+        control = self.root/'failed'; control.mkdir()
+        workspace = control/'workspace'; workspace.mkdir()
+        (workspace/'keep.txt').write_text('mine')
+        with self.assertRaises(ValueError): ProjectWorkspace.cleanup_creation(control)
+        self.assertEqual((workspace/'keep.txt').read_text(),'mine')
+
+    def test_freeze_recovers_after_git_ref_moves_before_metadata(self):
+        work=self.workspace(); self.change(work)
+        from unittest.mock import patch
+        from agent_workbench.development.git_support import atomic_json
+        def crash(path,value):
+            if Path(path).name=='project.json':raise RuntimeError('metadata response lost')
+            return atomic_json(path,value)
+        with patch('agent_workbench.development.git_workspace.atomic_json',side_effect=crash):
+            with self.assertRaises(RuntimeError):work.freeze()
+        actual=self.git('rev-parse','HEAD',cwd=work.path).strip()
+        reopened=ProjectWorkspace.open(work.control)
+        self.assertEqual(reopened.metadata['candidate_commit'],actual)
+        self.assertIn('max(0, x)',reopened.read_file(self.file)['text'])
+        self.assertEqual(self.git('rev-parse','HEAD').strip(),self.base)
+
+    def test_archive_recovers_after_worktree_removed_before_metadata(self):
+        work=self.workspace(); self.change(work)
+        from unittest.mock import patch
+        from agent_workbench.development.git_support import atomic_json
+        def crash(path,value):
+            if Path(path).name=='project.json' and value.get('archived'):
+                raise RuntimeError('archive metadata response lost')
+            return atomic_json(path,value)
+        with patch('agent_workbench.development.git_workspace.atomic_json',side_effect=crash):
+            with self.assertRaises(RuntimeError):work.archive()
+        self.assertFalse(work.path.exists())
+        reopened=ProjectWorkspace.open(work.control)
+        self.assertTrue(reopened.inspect()['archived'])
+        self.assertIn('max(0, x)',reopened.read_file(self.file)['text'])

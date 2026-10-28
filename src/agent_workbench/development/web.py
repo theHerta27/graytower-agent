@@ -105,6 +105,7 @@ class Workbench:
         task=self.task(task_id)
         if task_id in self.active:raise ValueError('AI正在处理，请等待当前任务结束。')
         if (task.root/'discarded.json').exists():raise ValueError('这份候选已放弃；请创建新任务。')
+        if task.workspace.metadata.get('archived'):raise ValueError('这份任务已归档，仅可查看。')
         return task
 
     def start(self,task_id,run_id,scope_hash,*,resume=False,answer=None):
@@ -228,19 +229,37 @@ def create_app(root,**options):
         schemas={'check':(['check_set'],[]),'prepare':([],[]),'run':(['run_id','scope_sha256','accept_data','accept_cost'],[]),
                  'edit':(['operation_id','path','expected_sha256','content'],[]),'apply':(['tree_hash'],[]),
                  'restore':(['operation_id'],[]),'discard':(['tree_hash'],[]),'export':([],[]),
-                 'resume':(['run_id','scope_sha256'],['answer'])}
+                 'resume':(['run_id','scope_sha256'],['answer']),
+                 'delivery-prepare':(['kind'],['operation_id']),'delivery-resolve':(['preparation_id'],[]),
+                 'delivery-check':(['preparation_id'],[]),'delivery-approve':(['preparation_id','approval_hash'],[]),
+                 'delivery-discard':(['preparation_id','cleanup_hash'],[]),
+                 'archive':(['tree_hash'],[])}
         if action not in schemas:raise HTTPException(404)
         args=await body(request,*schemas[action])
         with workbench.lock:
             task=workbench.writable(task_id)
-            if action=='check':task.jobs.start(task.workspace,args['check_set'])
-            elif action=='edit':task.workspace.write_file(**args)
+            if action.startswith('delivery-'):
+                if task.delivery is None:raise ValueError('旧任务请使用原采用/恢复操作。')
+                if action=='delivery-prepare':task.delivery.prepare(**args)
+                elif action=='delivery-resolve':task.delivery.resolve(args['preparation_id'])
+                elif action=='delivery-check':task.delivery.check(args['preparation_id'])
+                elif action=='delivery-discard':task.delivery.discard(args['preparation_id'],args['cleanup_hash'])
+                else:task.delivery.approve(args['preparation_id'],args['approval_hash'])
+            elif action=='archive':
+                if task.delivery is None:raise ValueError('旧任务无需清理 Git 工作树。')
+                with task.workspace.mutation_lock():
+                    if args['tree_hash']!=task.workspace.inspect()['tree_hash']:raise ValueError('候选已变化，请重新查看。')
+                    task.workspace.archive()
+            elif action=='check':task.jobs.start(task.workspace,args['check_set'])
+            elif action=='edit':
+                with task.workspace.delivery_lock():task.workspace.write_file(**args)
             elif action=='apply':Adoption(task.workspace).apply(args['tree_hash'])
             elif action=='restore':Adoption(task.workspace).restore(args['operation_id'])
             elif action=='discard':
                 if args['tree_hash']!=task.workspace.inspect()['tree_hash']:raise ValueError('候选已变化，请重新查看。')
-                adopted=Adoption(task.workspace).status()
+                adopted=Adoption(task.workspace).status() if task.delivery is None else None
                 if adopted and adopted['state']!='restored':raise ValueError('请先恢复已采用的修改，再放弃候选。')
+                if task.delivery is not None:task.workspace.archive()
                 (task.root/'discarded.json').write_bytes(encoded({'tree_hash':args['tree_hash']}))
             elif action=='export':return JSONResponse(task.export())
             elif action=='prepare':

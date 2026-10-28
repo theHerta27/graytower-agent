@@ -19,6 +19,8 @@ def file_hash(raw):
 
 class Adoption:
     def __init__(self,workspace,*,jobs=None):
+        if workspace.metadata.get('mode')=='git_worktree':
+            raise ValueError('Git 工作树任务请先准备合并、检查并确认，不能直接写回文件。')
         self.workspace=workspace;self.project=Path(workspace.metadata['project']).resolve()
         self.jobs=jobs or CheckJobs(workspace.control/'checks')
         self.database=workspace.control/'adoptions.sqlite'

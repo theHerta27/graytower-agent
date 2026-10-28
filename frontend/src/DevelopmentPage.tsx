@@ -1,10 +1,12 @@
 import {useCallback,useEffect,useRef,useState} from 'react';
 import KnowledgePanel from './KnowledgePanel';
+import GitDeliveryPanel,{type Delivery} from './GitDeliveryPanel';
 import './development.css';
 
 type Check={job_id:string;check_set:string;status:string;matches_current_candidate:boolean;matches_current_definition:boolean;note:string;error?:string;
   result:null|{verdict:string;tests:{name:string;status:string}[];log:string}};
 type Task={task_id:string;request:string;project:string;project_name:string;short_version:string;tree_hash:string;changed_files:string[];patch:string;knowledge_mode?:'off'|'lexical';
+  mode?:string;archived?:boolean;task_branch?:string;target_branch?:string;delivery?:Delivery|null;
   files:{path:string;editable:boolean}[];checks:Check[];validation:string;workflow_state:string;model_state:string;busy:boolean;
   candidate_state:string;model_error?:string;adoption:null|{operation_id:string;state:string;note:string;matches_current_candidate:boolean};model_summary:string;tool_events:{tool:string;success:boolean;sources?:{id:string;path:string;heading:string;version:string;start_line:number}[]}[];
   runs:{run_id:string;state:string;error_message?:string;budget:null|{reserved:number;known_cost_usd:string}}[];
@@ -38,7 +40,7 @@ export default function DevelopmentPage(){
   const load=useCallback(async(id:string)=>{const value=await api<Task>('/tasks/'+id);if(selected.current===id)setTask(value);return value;},[]);
   useEffect(()=>{Promise.all([api<Settings>('/status'),refreshList()]).then(([s])=>{setSettings(s);setProject(s.default_project);setCheckSet(s.checks[0]?.value||'effects');}).catch(e=>setError(String(e.message)));},[refreshList]);
   useEffect(()=>{
-    if(!task||(!task.busy&&!task.checks.some(c=>c.status==='running')))return;
+    if(!task||(!task.busy&&!task.checks.some(c=>c.status==='running'||c.status==='unknown')&&!task.delivery?.checks.some(c=>c.status==='running'||c.status==='unknown')))return;
     const id=task.task_id;const timer=setInterval(()=>load(id).catch(e=>setError(e.message)),2000);return()=>clearInterval(timer);
   },[task,load]);
   const taskId=task?.task_id;
@@ -54,7 +56,7 @@ export default function DevelopmentPage(){
     return()=>{active=false;};
   },[tab,taskId]);
   async function perform(action:()=>Promise<void>){setPending(true);setError('');setNotice('');try{await action();}catch(e){setError(e instanceof Error?e.message:String(e));}finally{setPending(false);}}
-  const blocked=pending||!!task?.busy||task?.workflow_state==='discarded';
+  const blocked=pending||!!task?.busy||!!task?.archived||task?.workflow_state==='discarded';
   async function open(id:string){selected.current=id;setFile(null);setScope(null);setEditing(false);saveRequest.current=null;await load(id);}
   async function action(name:string,value:unknown){if(!task)return;const result=await api<Task>('/tasks/'+task.task_id+'/'+name,value);setTask(result);}
   async function readFile(name:string){if(!task||!name){setFile(null);return;}const result=await api<FileView>('/tasks/'+task.task_id+'/file?path='+encodeURIComponent(name));setFile(result);setDraft(result.text);setEditing(false);saveRequest.current=null;}
@@ -107,9 +109,14 @@ export default function DevelopmentPage(){
         </section>}
         {tab==='checks'&&<section className="dev-panel"><h2>用执行结果判断修改</h2><p>{task.validation}</p><div className="dev-toolbar"><select aria-label="检查范围" value={checkSet} onChange={e=>setCheckSet(e.target.value)}>{settings?.checks.map(c=><option key={c.value} value={c.value}>{c.label}</option>)}</select><button disabled={blocked} onClick={()=>perform(()=>action('check',{check_set:checkSet}))}>运行这项检查</button></div><p className="dev-muted">只运行本地检查，不调用模型。局部检查通过，只能说明这个范围；修改文件后旧结果会过时。</p>
           <div className="dev-checks">{!task.checks.length?<p className="dev-muted">还没有执行检查。</p>:task.checks.map(c=><details key={c.job_id}><summary><b>{settings?.checks.find(s=>s.value===c.check_set)?.label||c.check_set}</b><span>{!c.matches_current_candidate||!c.matches_current_definition?'旧版本结果':c.result?.verdict||({running:'检查中',unknown:'待核对',not_started:'尚未启动'} as Record<string,string>)[c.status]||c.status}</span></summary><p>{c.note}{c.error}</p>{c.result&&<><p>{c.result.tests?.filter(t=>t.status==='PASS').length||0} 项通过，共 {c.result.tests?.length||0} 项。</p><pre>{c.result.log}</pre></>}</details>)}</div>
+          {task.mode==='git_worktree'?<>
+            <GitDeliveryPanel delivery={task.delivery||null} blocked={blocked} archived={!!task.archived} onAction={(name,args)=>perform(()=>action(name,args))}/>
+            <div className="dev-toolbar"><button disabled={blocked||['applying','conflict'].includes(task.delivery?.state||'')} onClick={()=>perform(()=>action('archive',{tree_hash:task.tree_hash}))}>归档并清理工作树</button><button disabled={pending} onClick={()=>perform(async()=>{await api('/tasks/'+task.task_id+'/export',{});setNotice('补丁和检查摘要已导出到任务目录。');})}>导出补丁</button></div>
+          </>:<>
           <div className="dev-delivery"><h2>决定怎样处理这份候选</h2><p>采用会写入 <strong>{task.project}</strong> 中对应文件，并保留恢复记录；不会自动提交 Git 或更新 Unity。</p><div className="dev-toolbar"><button className="dev-primary" disabled={blocked||!canAdopt||task.adoption?.state==='applied'} onClick={()=>setAdopting(true)}>采用到开发项目</button><button disabled={blocked||!task.adoption||task.adoption.state==='restored'} onClick={()=>perform(()=>action('restore',{operation_id:task.adoption!.operation_id}))}>恢复采用前的文件</button><button disabled={blocked||task.adoption?.state==='applied'} onClick={()=>perform(()=>action('discard',{tree_hash:task.tree_hash}))}>放弃这份候选</button><button disabled={pending} onClick={()=>perform(async()=>{await api('/tasks/'+task.task_id+'/export',{});setNotice('补丁与候选摘要已导出到任务目录的 exports 文件夹。');})}>导出补丁</button></div>{!canAdopt&&<p className="dev-muted">采用前需要当前候选至少有一项可信检查通过，且没有当前检查失败；没有修改时也无需采用。</p>}
           {adopting&&<div className="dev-confirm"><p>将以下 {task.changed_files.length} 个文件写入开发项目：</p><ul>{task.changed_files.map(f=><li key={f}>{f}</li>)}</ul><p>检查不能代替你对需求的判断。请确认已审阅 Diff。</p><button className="dev-primary" disabled={pending} onClick={()=>perform(async()=>{await action('apply',{tree_hash:task.tree_hash});setAdopting(false);})}>确认采用这份修改</button><button onClick={()=>setAdopting(false)}>返回审阅</button></div>}
-          </div></section>}
+          </div></>}
+</section>}
         {tab==='activity'&&<section className="dev-panel"><h2>这次实际发生了什么</h2><p className="dev-muted">只显示本次实际收到的工具操作。没有模型调用时，不会播放虚构的思考过程。</p>{!task.tool_events.length?<p>还没有模型工具操作。</p>:<ol className="dev-events">{task.tool_events.map((event,index)=><li key={index}><span>{tools[event.tool]||event.tool}</span><b>{event.success?'已完成':'未成功，请查看结果'}</b>{!!event.sources?.length&&<details className="dev-event-sources"><summary>已读取来源（{event.sources.length} 处）</summary>{event.sources.map((source,sourceIndex)=><p className="dev-memory-meta" key={source.id+'-'+sourceIndex}>{source.path}:{source.start_line} · {source.heading} · 版本 {source.version}<br/>片段 ID：{source.id}</p>)}<p className="dev-muted">这些来源由工具实际返回，需结合修改和检查结果判断是否适用。</p></details>}</li>)}</ol>}{task.runs.map(r=><p key={r.run_id}>{modelLabel(r.state)}{r.budget?` · ${r.budget.reserved} 次请求，记录费用 $${r.budget.known_cost_usd}`:''}{r.error_message?' · '+r.error_message:''}</p>)}</section>}
         {tab==='memories'&&<section className="dev-panel"><h2>管理这个项目的记忆</h2>
           <p className="dev-muted">这里保存可供后续任务参考的项目约定和事实。每条都保留来源、适用版本与确认状态；AI 提出的内容先待确认，只有已确认且与当前版本、需求相关的记忆才会进入发送材料。任务进度另行保存，记忆不授予操作或费用权限。</p>
@@ -139,7 +146,7 @@ export default function DevelopmentPage(){
             </article>)}</div>}
           </>}
         </section>}
-        <details className="dev-technical"><summary>项目和运行详情</summary><p>开发项目：{task.project}</p><p>候选版本：{task.tree_hash}</p><p>任务框架：{settings?.framework||'LangGraph + LangChain'}。单个研发助手按实际结果调查、修改和检查；暂停后从保存位置继续。</p><p>工作范围：灰塔 Python 游戏规则与配置。NPC、多 Agent 和 A2A 不在当前默认流程中。</p></details>
+        <details className="dev-technical"><summary>项目和运行详情</summary><p>开发项目：{task.project}</p><p>候选版本：{task.tree_hash}</p>{task.mode==='git_worktree'&&<p>Git 工作树分支：{task.task_branch} · 合入目标：{task.target_branch}</p>}<p>任务框架：{settings?.framework||'LangGraph + LangChain'}。单个研发助手按实际结果调查、修改和检查；暂停后从保存位置继续。</p><p>工作范围：灰塔 Python 游戏规则与配置。NPC、多 Agent 和 A2A 不在当前默认流程中。</p></details>
       </>}
     </main></div>
   </div>;

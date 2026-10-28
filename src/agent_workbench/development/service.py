@@ -17,28 +17,15 @@ from .tools import tool_specs
 from .profiles import model_settings
 from .sandbox import IMAGE, runner_hash
 from .adoption import Adoption
+from .git_delivery import GitDelivery
 
 
 @contextmanager
 def run_lock(folder):
-    """Single local driver, including CLI/service processes; no distributed lease."""
-    with (folder/'driver.lock').open('a+b') as stream:
-        if stream.tell()==0:stream.write(b'0');stream.flush()
-        stream.seek(0)
-        try:
-            if os.name=='nt':
-                import msvcrt
-                msvcrt.locking(stream.fileno(),msvcrt.LK_NBLCK,1)
-            else:
-                import fcntl
-                fcntl.flock(stream.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
-        except OSError:
-            raise ValueError('this run already has a local driver') from None
-        try:yield
-        finally:
-            stream.seek(0)
-            if os.name=='nt':msvcrt.locking(stream.fileno(),msvcrt.LK_UNLCK,1)
-            else:fcntl.flock(stream.fileno(),fcntl.LOCK_UN)
+    """Single local driver. It does not prevent readers observing progress."""
+    from .git_support import FileLock
+    with FileLock(folder/'driver.lock'):
+        yield
 
 
 class DevelopmentTask:
@@ -53,6 +40,7 @@ class DevelopmentTask:
         if not isinstance(self.request,str) or not self.request.strip() or len(self.request)>8000:
             raise ValueError('invalid development request')
         self.jobs=CheckJobs(self.root/'checks')
+        self.delivery=GitDelivery(self.workspace) if self.workspace.metadata.get('mode')=='git_worktree' else None
         self.memory=memory if memory is not None else ProjectMemory(self.root.parent/'project-memory.sqlite')
         self.knowledge=knowledge if knowledge is not None else KnowledgeBase(self.root.parent/'project-knowledge.sqlite')
 
@@ -74,10 +62,16 @@ class DevelopmentTask:
         elif any(j['result']['verdict']=='PASS' for j in current):validation='指定检查已通过，尚未完成完整规则回归'
         elif current:validation='检查未形成确定结论'
         else:validation='尚未验证'
-        adoption=Adoption(self.workspace).status()
+        adoption=Adoption(self.workspace).status() if self.delivery is None else None
+        delivery=self.delivery.status() if self.delivery else None
         return {**view,'request':self.request,'tool_profile':self.tool_profile,'knowledge_mode':self.knowledge_mode,'adoption':adoption,
-                'candidate_state':adoption['note'] if adoption else '原项目尚未改动',
+                'delivery':delivery,'candidate_state':delivery['note'] if delivery else adoption['note'] if adoption else '原项目尚未改动',
                 'validation':validation,'checks':checks}
+
+    def workspace_identity(self):
+        meta=self.workspace.metadata
+        if meta.get('mode')!='git_worktree':return None
+        return {k:meta[k] for k in ('mode','task_branch','target_branch','baseline_commit','common_dir')}
 
     def _batch(self,run_id):
         if not isinstance(run_id,str) or not re.fullmatch('[a-zA-Z0-9_-]{1,80}',run_id):raise ValueError('invalid run id')
@@ -105,6 +99,11 @@ class DevelopmentTask:
         return result
 
     def prepare(self,run_id,grant):
+        with self.workspace.delivery_lock():
+            if self.workspace.metadata.get('archived'):raise ValueError('任务已归档。')
+            return self._prepare(run_id,grant)
+
+    def _prepare(self,run_id,grant):
         if (self.root/'discarded.json').exists():raise ValueError('这份候选已放弃，请创建新任务。')
         if self.unfinished_runs():raise ValueError('请先继续原任务；需要另一项工作时，请创建新的隔离候选。')
         # Validate before creating a preview folder; no provider request is made.
@@ -128,6 +127,7 @@ class DevelopmentTask:
         if 'knowledge' in preview:
             scope['knowledge_hash']=digest(preview['knowledge'])
             scope['material']+=' 包含本次已确认的研发资料快照，可按需检索片段，不读取未确认或其他版本资料。'
+        if self.workspace_identity() is not None:scope['workspace_identity']=self.workspace_identity()
         # Validate and seal the budget without making any request.
         CallBudget(folder/'gateway',grant)
         scope['scope_sha256']=digest(scope)
@@ -136,6 +136,12 @@ class DevelopmentTask:
         return scope
 
     def execute(self,run_id,authorized_scope_hash,runtime_python=None,tools_python=None,*,api_key='',model=None,resume=False,answer=None,sender=None):
+        with run_lock(self.root):
+            if self.workspace.metadata.get('archived'):raise ValueError('任务已归档。')
+            return self._execute(run_id,authorized_scope_hash,runtime_python,tools_python,api_key=api_key,
+                                 model=model,resume=resume,answer=answer,sender=sender)
+
+    def _execute(self,run_id,authorized_scope_hash,runtime_python=None,tools_python=None,*,api_key='',model=None,resume=False,answer=None,sender=None):
         # runtime_python/tools_python remain positional compatibility only. The
         # new entry never launches the historical SDK/Responses worker.
         if (self.root/'discarded.json').exists():raise ValueError('这份候选已放弃，请创建新任务。')
@@ -146,6 +152,7 @@ class DevelopmentTask:
         if (scope.get('schema')!='development-langgraph-v1' or scope_hash!=authorized_scope_hash or digest(scope)!=scope_hash or digest(preview)!=scope['preview_hash']
             or (not resume and digest(self.workspace.snapshot())!=scope['candidate_tree_hash']) or digest(self.request)!=scope['request_hash']
             or digest(self.capability())!=scope['capability_hash']
+            or scope.get('workspace_identity')!=self.workspace_identity()
             or (scope.get('model_settings') is not None and scope['model_settings']!=model_settings(scope['grant']))
             or IMAGE!=scope['image'] or runner_hash()!=scope['runner_hash']):
             raise ValueError('authorization scope or current candidate changed; prepare a new batch')

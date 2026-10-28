@@ -1,5 +1,5 @@
 """Git-backed candidate materialization and bounded, recoverable file edits."""
-from contextlib import closing
+from contextlib import closing, nullcontext
 import base64
 import difflib
 import hashlib
@@ -61,6 +61,12 @@ def item(raw):
 
 
 class ProjectWorkspace:
+    def mutation_lock(self):
+        return nullcontext()
+
+    def delivery_lock(self):
+        return self.mutation_lock()
+
     def __init__(self, control):
         self.control = Path(control).resolve()
         self.path = self.control / 'workspace'
@@ -127,6 +133,11 @@ class ProjectWorkspace:
             from .git_workspace import GitWorkspace
             return GitWorkspace(control)
         return cls(control)
+
+    @staticmethod
+    def cleanup_creation(control):
+        from .git_support import cleanup_creation
+        return cleanup_creation(control)
 
     def _path(self, name):
         clean_name(name)

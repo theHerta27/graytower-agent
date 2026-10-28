@@ -31,6 +31,16 @@ def main():
             sub.add_argument('--authorize-scope-sha256',required=True)
             sub.add_argument('--runtime-python',type=Path,help=argparse.SUPPRESS)
         if name=='resume':sub.add_argument('--answer')
+    for name in ('delivery-prepare','delivery-resolve','delivery-check','delivery-approve','delivery-discard','archive'):
+        sub=commands.add_parser(name,help='Git 工作树交付：'+name)
+        sub.add_argument('--task',type=Path,required=True)
+        if name=='delivery-prepare':
+            sub.add_argument('--kind',choices=['merge','revert'],default='merge')
+            sub.add_argument('--operation-id')
+        elif name=='archive':sub.add_argument('--tree-hash',required=True)
+        else:sub.add_argument('--preparation-id',required=True)
+        if name=='delivery-approve':sub.add_argument('--approval-hash',required=True)
+        if name=='delivery-discard':sub.add_argument('--cleanup-hash',required=True)
     args=parser.parse_args()
     try:
         if args.action=='serve':
@@ -57,7 +67,19 @@ def main():
         if args.action=='create':task=DevelopmentTask.create(args.project,args.task,args.request,args.ref,tool_profile=args.tool_profile,knowledge_mode=args.knowledge_mode);value=task.summary()
         else:
             task=DevelopmentTask(args.task)
-            if args.action=='status':value=task.summary()
+            if args.action.startswith('delivery-'):
+                if task.delivery is None:raise ValueError('旧任务不支持 Git 合并操作。')
+                if args.action=='delivery-prepare':value=task.delivery.prepare(args.kind,args.operation_id)
+                elif args.action=='delivery-resolve':value=task.delivery.resolve(args.preparation_id)
+                elif args.action=='delivery-check':value=task.delivery.check(args.preparation_id)
+                elif args.action=='delivery-discard':value=task.delivery.discard(args.preparation_id,args.cleanup_hash)
+                else:value=task.delivery.approve(args.preparation_id,args.approval_hash)
+            elif args.action=='archive':
+                if task.delivery is None:raise ValueError('旧任务不支持清理 Git 工作树。')
+                with task.workspace.mutation_lock():
+                    if task.workspace.inspect()['tree_hash']!=args.tree_hash:raise ValueError('候选已变化，请重新查看。')
+                    value=task.workspace.archive()
+            elif args.action=='status':value=task.summary()
             elif args.action=='check':value=task.jobs.start(task.workspace,args.set)
             elif args.action=='receipt':value=task.jobs.read(args.job,task.workspace)
             elif args.action=='prepare':value=task.prepare(args.run_id,json.loads(args.grant.read_text(encoding='utf-8-sig')))

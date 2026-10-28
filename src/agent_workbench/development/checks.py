@@ -142,4 +142,8 @@ class CheckJobs:
     def list(self, workspace=None):
         with closing(self.connect()) as db:
             rows = db.execute('SELECT id FROM jobs ORDER BY rowid').fetchall()
+        if workspace is not None and rows:
+            from types import SimpleNamespace
+            tree = workspace.snapshot()
+            workspace = SimpleNamespace(snapshot=lambda:tree)
         return [self.read(r['id'], workspace) for r in rows]

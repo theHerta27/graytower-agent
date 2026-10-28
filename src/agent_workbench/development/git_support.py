@@ -96,6 +96,14 @@ def oid(project, ref='HEAD'):
     return git(project,'rev-parse','--verify','--end-of-options',ref+'^{commit}').decode().strip()
 
 
+@lru_cache(maxsize=128)
+def commit_tree_id(project, commit):
+    # Only immutable object IDs are cached, never HEAD/branch names.
+    import re
+    if not re.fullmatch('[a-f0-9]{40}|[a-f0-9]{64}',commit):raise ValueError('require immutable commit')
+    return git(project,'rev-parse',commit+'^{tree}').decode().strip()
+
+
 def atomic_json(path, value):
     from .workspace import encoded
     path = Path(path)
@@ -219,3 +227,44 @@ def snapshot_tree(project, parent, tree):
                 mode = prior.split()[0] if prior else '100644'
                 git(project,'update-index','--add','--cacheinfo',mode,blob,name,env=env)
         return git(project,'write-tree',env=env).decode().strip()
+
+
+def cleanup_creation(control):
+    """Recover only a recorded, incomplete creation; leave its audit folder."""
+    import base64
+    import stat
+    control = Path(control).resolve()
+    journal = control/'creation.json'
+    if not journal.is_file() or (control/'project.json').exists():
+        raise ValueError('没有可清理的未完成创建记录。')
+    record = json.loads(journal.read_text(encoding='utf-8'))
+    project, path = Path(record['project']).resolve(), control/'workspace'
+    if (record.get('state')!='creating' or not re_full_branch(record.get('branch',''))
+        or control.is_relative_to(project) or project.is_relative_to(control)):
+        raise ValueError('创建记录与目录不匹配。')
+    with repository_lock(project):
+        if path.exists():
+            directory = Path(git(path,'rev-parse','--absolute-git-dir').decode().strip())
+            if (common_dir(path)!=common_dir(project) or oid(path)!=record['commit']
+                or git(path,'symbolic-ref','--short','HEAD').decode().strip()!=record['branch']
+                or Path((directory/'gitdir').read_text().strip()).resolve()!=(path/'.git').resolve()):
+                raise ValueError('该目录不是本次创建的工作树。')
+            expected = read_tree(project,record['commit'])['files']
+            for entry in path.rglob('*'):
+                info = entry.lstat()
+                if stat.S_ISLNK(info.st_mode) or getattr(info,'st_file_attributes',0)&0x400:
+                    raise ValueError('创建目录出现链接，保留现场。')
+                if entry.is_dir() or entry==path/'.git': continue
+                name = entry.relative_to(path).as_posix()
+                if name not in expected or entry.read_bytes()!=base64.b64decode(expected[name]['content']):
+                    raise ValueError('创建目录有额外修改，保留现场。')
+            # Only pristine/subset original blobs from this exact owned creation
+            # may be removed with force (an unpopulated index can look dirty).
+            git(project,'worktree','remove','--force',str(path))
+        record['state']='cleaned'; atomic_json(journal,record)
+        return record
+
+
+def re_full_branch(value):
+    import re
+    return bool(re.fullmatch(r'graytower/task-[a-f0-9]{32}',value))
