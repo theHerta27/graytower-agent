@@ -1,5 +1,7 @@
 # 灰塔 AI 游戏研发工作台
 
+仓库：[theHerta27/graytower-agent](https://github.com/theHerta27/graytower-agent) · 当前研发入口：[feature/reliable-game-agent](https://github.com/theHerta27/graytower-agent/tree/feature/reliable-game-agent)
+
 **当前新入口：** 双击 **打开灰塔研发助手.cmd**，打开 http://127.0.0.1:18790/development 。第一次使用请读[开始使用](开始使用.md)；业务定位、技术取舍与求职表述见[项目说明](项目说明.md)。
 
 ## 当前主线（2026-10-27）
