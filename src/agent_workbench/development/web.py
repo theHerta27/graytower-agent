@@ -7,10 +7,15 @@ from pathlib import Path
 import sys
 import threading
 import uuid
-from starlette.applications import Starlette
+from fastapi import Body, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from .api_models import (
+    TaskCreate, EmptyInput, CheckInput, RunInput, ResumeInput, EditInput,
+    TreeInput, RestoreInput, DeliveryPrepare, DeliveryInput, DeliveryApprove,
+    DeliveryDiscard, KnowledgeSearch, KnowledgeMutation, MemoryMutation,
+)
 from starlette.exceptions import HTTPException
 from starlette.responses import FileResponse,JSONResponse,RedirectResponse
-from starlette.routing import Route,Mount
 from starlette.staticfiles import StaticFiles
 from ..workbench import LocalOriginMiddleware
 from .service import DevelopmentTask
@@ -33,6 +38,7 @@ class Workbench:
         self.api_key=api_key;self.runtime_python=Path(runtime_python or sys.executable)
         self.dist=Path(dist) if dist else Path(__file__).resolve().parents[3]/'frontend/dist'
         self.default_project=default_project;self.active={};self.lock=threading.RLock();self.cache={}
+        self.cache_lock=threading.Lock()
         self.memory=ProjectMemory(self.root/'project-memory.sqlite')
         self.knowledge=KnowledgeBase(self.root/'project-knowledge.sqlite')
         self.launch=launcher or (lambda work:threading.Thread(target=work,daemon=True).start())
@@ -40,8 +46,11 @@ class Workbench:
     def task(self,task_id):
         if not isinstance(task_id,str) or not re.fullmatch('[a-z0-9][a-z0-9_-]{0,79}',task_id):raise HTTPException(404)
         if not (self.root/'tasks'/task_id/'project.json').is_file():raise HTTPException(404)
-        if task_id not in self.cache:self.cache[task_id]=DevelopmentTask(self.root/'tasks'/task_id,memory=self.memory,knowledge=self.knowledge)
-        return self.cache[task_id]
+        # FastAPI read endpoints may initialize the same task concurrently.
+        # Keep one live CheckJobs registry without taking the long mutation lock.
+        with self.cache_lock:
+            if task_id not in self.cache:self.cache[task_id]=DevelopmentTask(self.root/'tasks'/task_id,memory=self.memory,knowledge=self.knowledge)
+            return self.cache[task_id]
 
     def detail(self,task_id):
         task=self.task(task_id);view=task.summary();runs=[];events=[];explanation='';resumable=None
@@ -135,18 +144,62 @@ class Workbench:
         return self.detail(task_id)
 
 
-def create_app(root,**options):
-    workbench=Workbench(root,**options)
 
-    async def body(request,required=(),optional=()):
-        raw=await request.body()
-        if len(raw)>1_100_000:raise ValueError('输入内容太长。')
-        value=json.loads(raw or b'{}')
-        if not isinstance(value,dict) or set(required)-set(value) or set(value)-set(required)-set(optional):
-            raise ValueError('请求字段不完整或包含不支持的选项。')
-        return value
+class BodyLimitMiddleware:
+    """Bound the bytes before FastAPI parses JSON, including chunked bodies."""
+    def __init__(self, app):
+        self.app = app
 
-    async def status(request):
+    async def __call__(self, scope, receive, send):
+        if scope['type'] != 'http' or scope['method'] != 'POST':
+            return await self.app(scope, receive, send)
+        chunks = []
+        size = 0
+        while True:
+            message = await receive()
+            if message['type'] == 'http.disconnect':
+                return
+            chunk = message.get('body', b'')
+            size += len(chunk)
+            if size > 1_100_000:
+                return await JSONResponse({'error': '输入内容太长。'}, status_code=422)(scope, receive, send)
+            chunks.append(chunk)
+            if not message.get('more_body', False):
+                break
+        delivered = False
+        async def bounded_receive():
+            nonlocal delivered
+            if not delivered:
+                delivered = True
+                return {'type': 'http.request', 'body': b''.join(chunks), 'more_body': False}
+            return await receive()
+        await self.app(scope, bounded_receive, send)
+
+
+def create_app(root, **options):
+    workbench = Workbench(root, **options)
+
+    async def bad_input(request, exc):
+        return JSONResponse({'error': str(exc)[:700]}, status_code=422)
+
+    async def invalid_request(request, exc):
+        # Do not expose validation inputs, credentials, or model internals.
+        return JSONResponse({'error': '请求字段、类型或范围无效。'}, status_code=422)
+
+    async def http_error(request, exc):
+        return JSONResponse({'error': str(exc.detail)[:700]},
+                            status_code=exc.status_code, headers=exc.headers)
+
+    app = FastAPI(title='灰塔研发助手 API', version='0.1.0',
+                  exception_handlers={ValueError: bad_input, OSError: bad_input,
+                                      RequestValidationError: invalid_request,
+                                      HTTPException: http_error})
+    app.add_middleware(BodyLimitMiddleware)
+    app.add_middleware(LocalOriginMiddleware)
+    app.state.workbench = workbench
+
+    @app.get('/api/development/status', tags=['任务'])
+    def status():
         return JSONResponse({'model':'deepseek-flash','key_configured':bool(workbench.api_key),
             'application':'graytower-development-workbench','workbench_root':str(Path(__file__).resolve().parents[3]),
             'runtime_available':True,'engine':'langgraph','framework':'LangGraph + LangChain','default_project':workbench.default_project,
@@ -154,51 +207,82 @@ def create_app(root,**options):
             'model_note':'浏览、创建候选和检查不调用模型。只有你确认发送范围与费用后才会开始。',
             'image':IMAGE})
 
-    async def tasks(request):
-        if request.method=='GET':
-            values=[]
-            for folder in sorted((workbench.root/'tasks').iterdir(),key=lambda p:p.stat().st_mtime,reverse=True):
-                if (folder/'project.json').exists():
-                    t=workbench.task(folder.name)
-                    values.append({'task_id':folder.name,'request':t.request,'project':t.workspace.metadata['project']})
-            return JSONResponse({'tasks':values})
-        args=await body(request,['project','request'],['knowledge_mode'])
-        if not isinstance(args['project'],str):raise ValueError('请填写本机游戏Git项目目录。')
-        task_id=uuid.uuid4().hex
-        await asyncio.to_thread(DevelopmentTask.create,Path(args['project']),workbench.root/'tasks'/task_id,args['request'],memory=workbench.memory,
-                                knowledge=workbench.knowledge,knowledge_mode=args.get('knowledge_mode','lexical'))
+
+    @app.get('/api/development/tasks', tags=['任务'])
+    def tasks():
+        values = []
+        for folder in sorted(workbench.root.joinpath('tasks').iterdir(), key=lambda p: p.stat().st_mtime, reverse=True):
+            if (folder / 'project.json').is_file():
+                task = workbench.task(folder.name)
+                values.append({'task_id': folder.name, 'request': task.request,
+                               'project': task.workspace.metadata['project']})
+        return JSONResponse({'tasks': values})
+
+    @app.post('/api/development/tasks', tags=['任务'])
+    async def create_task(data: TaskCreate):
+        task_id = uuid.uuid4().hex
+        await asyncio.to_thread(DevelopmentTask.create, Path(data.project),
+                                workbench.root / 'tasks' / task_id, data.request,
+                                memory=workbench.memory, knowledge=workbench.knowledge,
+                                knowledge_mode=data.knowledge_mode)
+        return await asyncio.to_thread(lambda: JSONResponse(workbench.detail(task_id)))
+
+    @app.get('/api/development/tasks/{task_id}', tags=['任务'])
+    def task_detail(task_id: str):
         return JSONResponse(workbench.detail(task_id))
 
-    async def task_action(request):
-        task_id=request.path_params['task_id'];action=request.path_params.get('action','')
-        if request.method=='GET':
-            if action=='knowledge':
-                task=workbench.task(task_id)
-                return JSONResponse({'documents':workbench.knowledge.list(task.workspace.metadata['project']),
-                    'version':task.workspace.metadata['baseline_commit'],'mode':task.knowledge_mode})
-            if action=='knowledge-sources':
-                return JSONResponse({'sources':workbench.knowledge.sources(workbench.task(task_id).workspace)})
-            if action=='knowledge-source':
-                return JSONResponse(workbench.knowledge.preview_file(workbench.task(task_id).workspace,request.query_params.get('path','')))
-            if action=='memories':
-                task=workbench.task(task_id)
-                return JSONResponse({'memories':workbench.memory.list(task.workspace.metadata['project']),
-                                     'version':task.workspace.metadata['baseline_commit']})
-            if action=='file':
-                task=workbench.task(task_id);name=request.query_params.get('path','')
-                current=task.workspace.read_file(name);before=task.workspace.baseline['files'].get(name)
-                return JSONResponse({**current,'before':base64.b64decode(before['content']).decode('utf-8') if before else '',
-                                     'editable':editable(name)})
-            if action=='scope':
-                task=workbench.task(task_id);folder=task._batch(request.query_params.get('run_id',''))
-                return FileResponse(folder/'outbound-preview.json',filename='模型材料预览.json')
-            return JSONResponse(workbench.detail(task_id))
+    def read_action(task_id, action, *, path='', run_id=''):
+        if action=='knowledge':
+            task=workbench.task(task_id)
+            return JSONResponse({'documents':workbench.knowledge.list(task.workspace.metadata['project']),
+                'version':task.workspace.metadata['baseline_commit'],'mode':task.knowledge_mode})
+        if action=='knowledge-sources':
+            return JSONResponse({'sources':workbench.knowledge.sources(workbench.task(task_id).workspace)})
+        if action=='knowledge-source':
+            return JSONResponse(workbench.knowledge.preview_file(workbench.task(task_id).workspace,path))
+        if action=='memories':
+            task=workbench.task(task_id)
+            return JSONResponse({'memories':workbench.memory.list(task.workspace.metadata['project']),
+                                 'version':task.workspace.metadata['baseline_commit']})
+        if action=='file':
+            task=workbench.task(task_id);name=path
+            current=task.workspace.read_file(name);before=task.workspace.baseline['files'].get(name)
+            return JSONResponse({**current,'before':base64.b64decode(before['content']).decode('utf-8') if before else '',
+                                 'editable':editable(name)})
+        if action=='scope':
+            task=workbench.task(task_id);folder=task._batch(run_id)
+            return FileResponse(folder/'outbound-preview.json',filename='模型材料预览.json')
+        return JSONResponse(workbench.detail(task_id))
+
+    @app.get('/api/development/tasks/{task_id}/knowledge', tags=['查询'])
+    def get_knowledge(task_id: str):
+        return read_action(task_id, 'knowledge')
+
+    @app.get('/api/development/tasks/{task_id}/knowledge-sources', tags=['查询'])
+    def get_knowledge_sources(task_id: str):
+        return read_action(task_id, 'knowledge-sources')
+
+    @app.get('/api/development/tasks/{task_id}/knowledge-source', tags=['查询'])
+    def get_knowledge_source(task_id: str, path: str = ''):
+        return read_action(task_id, 'knowledge-source', path=path)
+
+    @app.get('/api/development/tasks/{task_id}/memories', tags=['查询'])
+    def get_memories(task_id: str):
+        return read_action(task_id, 'memories')
+
+    @app.get('/api/development/tasks/{task_id}/file', tags=['查询'])
+    def get_file(task_id: str, path: str = ''):
+        return read_action(task_id, 'file', path=path)
+
+    @app.get('/api/development/tasks/{task_id}/scope', tags=['查询'])
+    def get_scope(task_id: str, run_id: str = ''):
+        return read_action(task_id, 'scope', run_id=run_id)
+
+    def dispatch(task_id, action, args):
         if action=='knowledge-search':
-            args=await body(request,['query'])
             task=workbench.task(task_id)
             return JSONResponse({'results':search_knowledge(task.knowledge_snapshot(),args['query'])})
         if action=='knowledge':
-            args=await body(request,['action'],['path','headings','id','status'])
             with workbench.lock:
                 task=workbench.writable(task_id);project=task.workspace.metadata['project'];operation=args.pop('action')
                 if operation=='import':
@@ -213,7 +297,6 @@ def create_app(root,**options):
                 else:raise ValueError('不支持的资料操作。')
                 return JSONResponse(value)
         if action=='memories':
-            args=await body(request,['action'],['id','content','kind','version','status'])
             with workbench.lock:
                 task=workbench.writable(task_id);project=task.workspace.metadata['project'];operation=args.pop('action')
                 if operation=='add':
@@ -226,16 +309,6 @@ def create_app(root,**options):
                     value=workbench.memory.delete(project,args['id'])
                 else:raise ValueError('不支持的记忆操作。')
                 return JSONResponse(value)
-        schemas={'check':(['check_set'],[]),'prepare':([],[]),'run':(['run_id','scope_sha256','accept_data','accept_cost'],[]),
-                 'edit':(['operation_id','path','expected_sha256','content'],[]),'apply':(['tree_hash'],[]),
-                 'restore':(['operation_id'],[]),'discard':(['tree_hash'],[]),'export':([],[]),
-                 'resume':(['run_id','scope_sha256'],['answer']),
-                 'delivery-prepare':(['kind'],['operation_id']),'delivery-resolve':(['preparation_id'],[]),
-                 'delivery-check':(['preparation_id'],[]),'delivery-approve':(['preparation_id','approval_hash'],[]),
-                 'delivery-discard':(['preparation_id','cleanup_hash'],[]),
-                 'archive':(['tree_hash'],[])}
-        if action not in schemas:raise HTTPException(404)
-        args=await body(request,*schemas[action])
         with workbench.lock:
             task=workbench.writable(task_id)
             if action.startswith('delivery-'):
@@ -276,18 +349,102 @@ def create_app(root,**options):
                 return JSONResponse(workbench.start(task_id,args['run_id'],args['scope_sha256'],resume=True,answer=args.get('answer')))
             return JSONResponse(workbench.detail(task_id))
 
-    async def page(request):
-        if request.url.path=='/':return RedirectResponse('/development')
-        path=workbench.dist/'index.html'
-        if not path.is_file():return JSONResponse({'error':'前端尚未构建，请按启动窗口提示安装环境。'},status_code=503)
+
+    async def execute(task_id, action, data):
+        # Blocking Git/check setup stays off the web event loop; model runs use
+        # the original background driver and persisted operation identities.
+        return await asyncio.to_thread(dispatch, task_id, action, data.model_dump(exclude_unset=True))
+
+    @app.post('/api/development/tasks/{task_id}/knowledge-search', tags=['操作'])
+    async def post_knowledge_search(task_id: str, data: KnowledgeSearch):
+        return await execute(task_id, 'knowledge-search', data)
+
+    @app.post('/api/development/tasks/{task_id}/knowledge', tags=['操作'])
+    async def post_knowledge(task_id: str, data: KnowledgeMutation):
+        return await execute(task_id, 'knowledge', data)
+
+    @app.post('/api/development/tasks/{task_id}/memories', tags=['操作'])
+    async def post_memories(task_id: str, data: MemoryMutation):
+        return await execute(task_id, 'memories', data)
+
+    @app.post('/api/development/tasks/{task_id}/check', tags=['操作'])
+    async def post_check(task_id: str, data: CheckInput):
+        return await execute(task_id, 'check', data)
+
+    @app.post('/api/development/tasks/{task_id}/prepare', tags=['操作'])
+    async def post_prepare(task_id: str, data: EmptyInput = Body(default_factory=EmptyInput)):
+        return await execute(task_id, 'prepare', data)
+
+    @app.post('/api/development/tasks/{task_id}/run', tags=['操作'])
+    async def post_run(task_id: str, data: RunInput):
+        return await execute(task_id, 'run', data)
+
+    @app.post('/api/development/tasks/{task_id}/resume', tags=['操作'])
+    async def post_resume(task_id: str, data: ResumeInput):
+        return await execute(task_id, 'resume', data)
+
+    @app.post('/api/development/tasks/{task_id}/edit', tags=['操作'])
+    async def post_edit(task_id: str, data: EditInput):
+        return await execute(task_id, 'edit', data)
+
+    @app.post('/api/development/tasks/{task_id}/apply', tags=['操作'])
+    async def post_apply(task_id: str, data: TreeInput):
+        return await execute(task_id, 'apply', data)
+
+    @app.post('/api/development/tasks/{task_id}/restore', tags=['操作'])
+    async def post_restore(task_id: str, data: RestoreInput):
+        return await execute(task_id, 'restore', data)
+
+    @app.post('/api/development/tasks/{task_id}/discard', tags=['操作'])
+    async def post_discard(task_id: str, data: TreeInput):
+        return await execute(task_id, 'discard', data)
+
+    @app.post('/api/development/tasks/{task_id}/export', tags=['操作'])
+    async def post_export(task_id: str, data: EmptyInput = Body(default_factory=EmptyInput)):
+        return await execute(task_id, 'export', data)
+
+    @app.post('/api/development/tasks/{task_id}/delivery-prepare', tags=['操作'])
+    async def post_delivery_prepare(task_id: str, data: DeliveryPrepare):
+        return await execute(task_id, 'delivery-prepare', data)
+
+    @app.post('/api/development/tasks/{task_id}/delivery-resolve', tags=['操作'])
+    async def post_delivery_resolve(task_id: str, data: DeliveryInput):
+        return await execute(task_id, 'delivery-resolve', data)
+
+    @app.post('/api/development/tasks/{task_id}/delivery-check', tags=['操作'])
+    async def post_delivery_check(task_id: str, data: DeliveryInput):
+        return await execute(task_id, 'delivery-check', data)
+
+    @app.post('/api/development/tasks/{task_id}/delivery-approve', tags=['操作'])
+    async def post_delivery_approve(task_id: str, data: DeliveryApprove):
+        return await execute(task_id, 'delivery-approve', data)
+
+    @app.post('/api/development/tasks/{task_id}/delivery-discard', tags=['操作'])
+    async def post_delivery_discard(task_id: str, data: DeliveryDiscard):
+        return await execute(task_id, 'delivery-discard', data)
+
+    @app.post('/api/development/tasks/{task_id}/archive', tags=['操作'])
+    async def post_archive(task_id: str, data: TreeInput):
+        return await execute(task_id, 'archive', data)
+
+    @app.get('/api/development/tasks/{task_id}/{action}', include_in_schema=False)
+    def legacy_unknown_read(task_id: str, action: str):
+        return JSONResponse(workbench.detail(task_id))
+
+    @app.post('/api/development/tasks/{task_id}/{action}', include_in_schema=False)
+    def unknown_operation(task_id: str, action: str):
+        raise HTTPException(404)
+
+    @app.get('/', include_in_schema=False)
+    @app.get('/development', include_in_schema=False)
+    async def page(request: Request):
+        if request.url.path == '/':
+            return RedirectResponse('/development')
+        path = workbench.dist / 'index.html'
+        if not path.is_file():
+            return JSONResponse({'error': '前端尚未构建，请按启动窗口提示安装环境。'}, status_code=503)
         return FileResponse(path)
 
-    async def bad_input(request,exc):return JSONResponse({'error':str(exc)[:700]},status_code=422)
-    routes=[Route('/api/development/status',status),Route('/api/development/tasks',tasks,methods=['GET','POST']),
-            Route('/api/development/tasks/{task_id}',task_action),
-            Route('/api/development/tasks/{task_id}/{action}',task_action,methods=['GET','POST']),
-            Route('/',page),Route('/development',page)]
-    if (workbench.dist/'assets').is_dir():routes.append(Mount('/assets',StaticFiles(directory=workbench.dist/'assets')))
-    app=Starlette(routes=routes,exception_handlers={ValueError:bad_input,OSError:bad_input})
-    app.add_middleware(LocalOriginMiddleware);app.state.workbench=workbench
+    if (workbench.dist / 'assets').is_dir():
+        app.mount('/assets', StaticFiles(directory=workbench.dist / 'assets'), name='assets')
     return app

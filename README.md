@@ -1,8 +1,8 @@
-# 灰塔 — 面向游戏规则的代码修复 Agent
+# 灰塔 — 面向游戏战斗逻辑的代码修复 Agent
 
 开发者提出游戏规则问题，Agent 定位代码、修改独立工作区、运行测试，再根据失败结果继续修订。开发者审阅代码差异和检查结果，确认后合入；需要撤销时新增提交，保留修改历史。
 
-**技术栈：** Python · LangGraph · LangChain · Git Worktree · SQLite · Docker · Starlette · React / TypeScript
+**技术栈：** Python · LangGraph · LangChain · Git Worktree · SQLite · Docker · FastAPI · React / TypeScript
 
 [使用指南](开始使用.md) · [Git 工作树与交付](Git工作树与交付说明.md) · [项目案例](https://herta27.top/posts/graytower-agent-case-study/) · [检索评测](research/evals/knowledge-rag-v1/README.md) · [个人博客](https://herta27.top/)
 
@@ -31,6 +31,7 @@ flowchart LR
 
 | 模块 | 具体做了什么 | 源码 |
 | --- | --- | --- |
+| 后端接口 | FastAPI 与 Pydantic 定义任务、记忆和交付请求，校验参数并统一错误提示；`/docs` 提供可交互接口文档 | [web.py](src/agent_workbench/development/web.py)、[api_models.py](src/agent_workbench/development/api_models.py) |
 | Agent 工作流 | LangGraph 编排单 Agent 的模型决策、工具执行和检查等待；需求有歧义时提问，保存进度后暂停，收到回答再继续 | [agent.py](src/agent_workbench/development/agent.py) |
 | 模型与工具 | 通过 LangChain 接入 DeepSeek，校验工具参数，管理请求额度、超时和执行结果 | [model.py](src/agent_workbench/development/model.py)、[tools.py](src/agent_workbench/development/tools.py) |
 | 状态与上下文 | SQLite 保存任务状态和执行记录；按需读取源码、裁剪过长结果，保留工具调用与返回结果的对应关系 | [context.py](src/agent_workbench/development/context.py) |
@@ -46,10 +47,12 @@ Git Worktree 用来分开任务代码目录，Docker 用来限制检查运行环
 | --- | --- |
 | DeepSeek 编码任务 | 接入 DeepSeek API 修复负数战技点输入，通过 7 项专项检查与 99 项规则测试 |
 | Git 与 Docker 交付 | 在临时游戏副本中走通检查失败、修订、检查通过、合入和撤销，保留提交与检查回执 |
-| 工程回归基线 | Python 433 项通过、4 项既有跳过；前端 36 项通过，生产构建通过 |
+| 工程回归基线 | Python 441 项通过、4 项既有跳过；前端 36 项通过，生产构建通过 |
 | 资料检索 | 12 条本地查询中，11 条有相关资料，10 条首项命中；保留漏召回样例，便于继续改进 |
 
 模型任务记录见 [编码任务与独立检查](research/evidence/completion-20261027.md)，Git / Docker 的脚本决策演示见 [工作树验收](research/evidence/git-worktree-20261028.md)。两类记录分别用于检查模型表现与工程流程，不混算任务成功率。
+
+FastAPI 迁移及 8 项新增接口回归见 [接口验收记录](research/evidence/fastapi-migration-20261101.md)。
 
 ## 安装与运行
 

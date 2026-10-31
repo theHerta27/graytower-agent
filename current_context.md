@@ -1,3 +1,7 @@
+# 2026-11-01：当前研发助手已迁移 FastAPI
+
+当前 Web 主线为 FastAPI 与严格 Pydantic 请求模型；LangGraph 单 Agent、Git 工作树与 Docker 检查/交付继续复用。Python 445 项中 441 通过、4 既有跳过，前端 36 项及构建通过；实际 HTTP 与临时游戏 Git/Docker 合入撤销验证通过，0 外部模型调用。新缓存锁处理并发首次加载任务。详细记录见 research/evidence/fastapi-migration-20261101.md。以下为此前阶段记录。
+
 # 当前上下文
 
 ## 2026-10-28：Git 工作树与人工合并交付

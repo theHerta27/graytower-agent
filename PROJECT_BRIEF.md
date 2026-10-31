@@ -8,7 +8,7 @@
 - 每项新任务使用独立 Git 分支和 Worktree，修改不会直接覆盖开发项目。
 - Docker 执行规则检查；交付前检查准备合并后的结果，确认后再次核对版本再合入。
 - SQLite 保存任务状态、执行记录和已确认的项目记忆；文档检索使用 FTS5 / BM25。
-- Starlette 提供本机 API，React / TypeScript 展示需求、Diff、检查、提问回复与交付操作。
+- FastAPI 提供本机 API，React / TypeScript 展示需求、Diff、检查、提问回复与交付操作。
 
 ## 阅读入口
 
